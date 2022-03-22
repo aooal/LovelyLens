@@ -1,0 +1,42 @@
+﻿@model contact.ViewModels.CexchangeDetailRecord
+@{
+    ViewBag.Title = "Cexchange-換貨--[權限]盤商：換貨詳情管理";
+}
+<style>
+    h1 {
+        color: gainsboro;
+    }
+</style>
+<h4>[權限]盤商：換貨詳情管理</h4>
+<h1>換貨管理</h1>
+換貨單號:@Model.f對外訂單單號
+<div>
+    經銷商:@Model.f店家名稱
+    連絡電話:@Model.f店家連絡電話
+    聯絡地址:@Model.f地址
+</div>
+
+<div>
+    <hr />
+    <table>
+        <tr>
+            <th>商品編號</th>
+            <th>商品名稱</th>
+            <th>數量</th>
+        </tr>
+        <tr>
+            <td>@Model.f對外產品識別ID</td>
+            <td>@Model.f品牌名稱</td>
+            <td>@Model.f換貨數量</td>
+        </tr>
+    </table>
+</div>
+<p>
+    訂單總金額:@Model.f訂單總金額
+    換貨原因:@Model.f換貨原因
+    備註:@Model.f訂單備註
+    狀態:
+    @Html.ActionLink("前往出貨管理", "Mshipping", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("刪除申請", "Index", new { /* id = Model.PrimaryKey */ })
+</p>
+

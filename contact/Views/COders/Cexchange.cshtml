@@ -1,0 +1,53 @@
+﻿@*宣告整個頁面必須帶入model這個類型*@
+@model List<contact.ViewModels.CexchangeRecord>
+@{
+    ViewBag.Title = "Cexchange-換貨--經銷商：換貨管理一覽";
+}
+
+<style>
+    h1 {
+        color: gainsboro;
+    }
+</style>
+
+<h4>換貨管理紀錄一覽</h4>
+@Html.ActionLink("新增換貨登記", "CexchangeCreate", new { }) |
+<h1>換貨管理</h1>
+@using (Html.BeginForm())
+{
+    <p>
+        關鍵字搜尋
+        <select name="choose">
+            <option value="customer">店家名稱</option>
+            <option value="order">訂單單號</option>
+            <option value="tel">電話</option>
+        </select>
+        <input type="text" name="txtKeyword">
+        <input type="submit" value="查詢">
+    </p>
+    @ViewBag.data
+}
+<table class="table">
+    <tr>
+        <th>申請日期</th>
+        <th>換貨單號</th>
+        <th>金額</th>
+        <th>狀態</th>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.f申請日期</td>
+                <td>@item.f對外訂單單號</td>
+                <td>@item.f訂單總金額</td>
+                <td>@item.f換貨申請狀態</td>
+                <td>
+                    @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f對外訂單單號 }) |
+                </td>
+            </tr>
+        }
+    }
+
+
+</table>

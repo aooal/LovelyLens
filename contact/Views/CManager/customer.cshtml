@@ -1,0 +1,79 @@
+﻿@model IEnumerable<contact.Models.t店家>
+
+@{
+    ViewBag.Title = "customer";
+}
+
+<h2>經銷商會員管理</h2>
+
+@using (Html.BeginForm())
+{
+    <script>
+        var strr = "";
+
+        function strchange() {
+            var mypick = document.getElementById('mpick');
+            var pickValue = mypick.selectedIndex;
+            console.log(pickValue);
+        }
+    </script>
+
+    <select id="mpick" onchange="strchange()" name="mpick">
+        <option>選擇搜尋關鍵字</option>
+        <option value="店家名稱" name="店家名稱">店家名稱</option>
+        <option value="電話" name="電話">電話</option>
+        <option value="往來狀態" name="往來狀態">往來狀態</option>
+    </select>
+    <input type="text" name="txtKeyword" />
+    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            名稱
+        </th>
+        <th>
+            負責人
+        </th>
+        <th>
+            電話
+        </th>
+        <th>
+            地址
+        </th>
+        <th>
+            往來狀態
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家名稱)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家負責人)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家連絡電話)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f地址)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f往來狀態)
+            </td>
+
+            <td>
+                @Html.ActionLink("詳情", "CusEdit", new { id = item.f店家ID }) |
+                @Html.ActionLink("刪除", "CusDelete", new { id = item.f店家ID }, new { onclick = "return confirm('是否確定刪除?')" })
+            </td>
+        </tr>
+    }
+
+</table>
+

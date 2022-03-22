@@ -1,0 +1,98 @@
+﻿@model contact.Models.t店家
+
+@{
+    ViewBag.Title = "SupCreate";
+}
+
+<h2>供應商紀錄與維護</h2>
+
+<script>
+   
+    window.onload =  function sup() {
+        var sup = document.getElementById('sup');
+        sup.value = "供應商";
+        
+    }
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>新增供應商</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        供應商名稱
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        聯絡人
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        聯絡電話
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        電子信箱
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        付款資訊
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" onload="sup()" hidden>
+        身分
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f身分別, new { htmlAttributes = new { @class = "form-control", @id = "sup" } })
+            @Html.ValidationMessageFor(model => model.f身分別, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group" >
+        備註
+       
+        <div class="col-md-10" >
+            @Html.TextAreaFor(model => model.f備註, new { htmlAttributes = new { @class = "form-control", @id = "txtb" } })
+            @Html.ValidationMessageFor(model => model.f備註, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="新增" class="btn btn-default"  />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("返回供應商列表", "supplier")
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

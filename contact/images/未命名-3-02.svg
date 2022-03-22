@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="200px" height="150px" viewBox="0 0 200 150" enable-background="new 0 0 200 150" xml:space="preserve">
+<path fill="#E6E6F9" d="M190.188,136.544c0,6.603-5.351,11.951-11.951,11.951H21.763c-6.601,0-11.951-5.351-11.951-11.951V13.456
+	c0-6.601,5.351-11.951,11.951-11.951h156.475c6.601,0,11.951,5.351,11.951,11.951v123.088H190.188z"/>
+<g>
+	<text transform="matrix(1 0 0 1 36 51.9033)" fill="#606078" font-family="'MicrosoftJhengHeiBold'" font-size="32">出貨管理</text>
+</g>
+<g>
+	<g>
+		<path fill="#3E3D4D" d="M113.482,132.645l27.906-0.389l0.202,15.657l-42.229,0.582l-0.565-43.776l-88.691,1.225l-0.222-17.25
+			l103.015-1.422L113.482,132.645z"/>
+	</g>
+	<g>
+		<g>
+			<g>
+				<path fill="#666666" d="M90.08,64.816c0-5.717-3.706-10.341-8.284-10.341"/>
+				<path fill="#666666" d="M81.796,54.475c0,5.267,3.693,9.532,8.256,9.532"/>
+			</g>
+			<g>
+				<path fill="#666666" d="M90.08,64.816c0-5.717,3.704-10.341,8.282-10.341"/>
+				<path fill="#666666" d="M98.362,54.475c0,5.267-3.691,9.532-8.256,9.532"/>
+			</g>
+		</g>
+		<path fill="#FFFFFF" stroke="#666666" stroke-width="4" stroke-miterlimit="10" d="M90.08,64.842H77.471
+			c-3.687,0-6.675,4.556-6.675,10.178v4.128H90.08V64.842z"/>
+		<path fill="#FFFFFF" stroke="#666666" stroke-width="4" stroke-miterlimit="10" d="M109.361,79.148V75.02
+			c0-5.623-2.987-10.178-6.674-10.178H90.08v14.307H109.361z"/>
+		<path fill="#FFFFFF" stroke="#666666" stroke-width="4" stroke-miterlimit="10" d="M90.08,79.148v14.308h12.607
+			c3.687,0,6.674-4.558,6.674-10.181v-4.127H90.08z"/>
+		<path fill="#FFFFFF" stroke="#666666" stroke-width="4" stroke-miterlimit="10" d="M70.796,79.148v4.127
+			c0,5.623,2.988,10.181,6.675,10.181H90.08V79.148H70.796z"/>
+	</g>
+</g>
+</svg>

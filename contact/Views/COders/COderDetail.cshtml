@@ -1,0 +1,47 @@
+﻿@model contact.ViewModels.MOderDetailRecord
+@{
+    ViewBag.Title = "COderDetail-經銷商：歷史訂單詳情";
+}
+
+<style>
+    h1 {
+        color: gainsboro;
+    }
+</style>
+
+<h1>經銷商：歷史訂單詳情</h1>
+
+訂單日期:@Model.f訂購日期
+訂單單號:@Model.f對外訂單單號
+訂單狀態:@Model.f訂單狀態
+付款狀態:@Model.f付款狀態
+<table class="table">
+    <tr>
+        <th>商品編號</th>
+        <th>商品名稱</th>
+        <th>數量</th>
+        <th>小計</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Model.f對外產品識別ID
+        </td>
+        <td>
+            @Model.f產品名稱
+        </td>
+        <td>
+            @Model.f訂購數量
+        </td>
+        <td>
+            @Model.f小計
+        </td>
+        <td>
+            @Html.ActionLink("重新訂購", "", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |
+
+        </td>
+    </tr>
+</table>
+總價:@Model.f訂單總金額
+備註:@Model.f訂單備註

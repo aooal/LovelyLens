@@ -1,0 +1,146 @@
+﻿@model contact.Models.t店家
+
+@{
+    ViewBag.Title = "CusEdit";
+}
+<script>
+    var myStatusValue;
+    function statusChange() {
+        var Dstatus = document.getElementById('Dstatus');
+        myStatusValue = Dstatus.options[Dstatus.selectedIndex].value;
+        var theTxt = document.getElementById('txt');
+        theTxt.value = myStatusValue;
+
+    }
+</script>
+<h2>CusEdit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>t店家</h4>
+        <hr />
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.f店家ID)
+        </div>
+
+
+        <div class="form-group">
+            名稱
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            負責人
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            連絡電話
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            地址
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f地址, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            電子信箱
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            密碼
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f密碼, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            註冊日期
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f註冊日期, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f註冊日期, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            往來狀態
+            <select onclick="statusChange()" id="Dstatus">
+                <option>交易中</option>
+                <option>非活躍</option>
+                <option>黑名單</option>
+            </select>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f往來狀態, new { htmlAttributes = new { @class = "form-control", @id = "txt" } })
+                @Html.ValidationMessageFor(model => model.f往來狀態, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            帳款資訊
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f藥商許可證照片路徑, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f藥商許可證照片路徑, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f藥商許可證照片路徑, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f營業登記許可照片路徑, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f營業登記許可照片路徑, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f營業登記許可照片路徑, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            備註
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.f備註, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f備註, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="修改" class="btn btn-default" onclick="return (confirm('資料修改成功'))" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回經銷商管理列表", "customer")
+</div>

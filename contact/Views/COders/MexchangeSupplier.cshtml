@@ -1,0 +1,66 @@
+﻿@model IEnumerable<contact.ViewModels.CexchangeRecord>
+
+@{
+    ViewBag.Title = "MexchangeSupplier-[盤商]：供應商換貨記錄一覽";
+}
+
+@using (Html.BeginForm())
+{
+    <p>
+        關鍵字搜尋
+        <select name="choose">
+            <option value="customer">店家名稱</option>
+            <option value="order">訂單單號</option>
+            <option value="tel">電話</option>
+        </select>
+        <input type="text" name="txtKeyword">
+        <input type="submit" value="查詢">
+    </p>
+    @ViewBag.data
+}
+<style>
+    h1 {
+        color: gainsboro;
+    }
+</style>
+
+<h4>換貨管理紀錄一覽</h4>
+@Html.ActionLink("新增換貨登記", "CexchangeCreate", new { }) |
+<h1>換貨管理</h1>
+<table class="table">
+    <tr>
+        <th>
+            申請日期
+        </th>
+        <th>
+            單號
+        </th>
+        <th>
+            供應商名稱
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.f申請日期)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外訂單單號)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家名稱)
+            </td>
+
+            <td>
+                @Html.ActionLink("詳細資料", "MexchangeSupplierDetail", new { id = item.f對外訂單單號 })
+
+            </td>
+
+        </tr>
+    }
+
+</table>
+@Html.ActionLink("新增記錄", "MexchangeSupplierDetail", new { })

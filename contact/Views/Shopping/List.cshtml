@@ -1,0 +1,75 @@
+﻿@model IEnumerable<contact.Models.t產品>
+
+@{
+    ViewBag.Title = "List";
+}
+@using (Html.BeginForm())
+{
+    <script>
+        var strr = "";
+
+
+
+    </script>
+    <span>關鍵字搜尋</span>
+    <input type="text" name="txtKeyword" />
+    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+
+}
+<h2>LovelyLens</h2>
+
+<p>
+    @Html.ActionLink("結帳", "CheckOut")
+</p>
+<table class="table" style="text-align:center">
+    <tr>
+
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+            金額
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+
+                <img src="~/images/@item.f產品圖片路徑" width="180" height="180" style="object-fit:cover" />
+
+            </td>
+            <td>
+                <h4>@Html.DisplayFor(modelItem => item.f品牌名稱)</h4>
+
+            </td>
+            <td>
+                <h4>@Html.DisplayFor(modelItem => item.f產品名稱)</h4>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f售價)
+            </td>
+
+
+
+            <td>
+                @Html.ActionLink("商品詳情", "Detail", new { id = item.f產品ID }) |
+                @Html.ActionLink("加入購物車", "Cart", new { id = item.f產品ID })
+            </td>
+        </tr>
+    }
+
+</table>
+

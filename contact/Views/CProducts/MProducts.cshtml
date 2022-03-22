@@ -1,0 +1,302 @@
+﻿@*翔暐*@
+
+
+@model IEnumerable<contact.Models.t產品>
+
+@{
+    ViewBag.Title = "MProducts";
+}
+
+
+@section styles{
+    <style>
+
+
+        body {
+            /* background-color: #f79f9f13;*/
+            background-color: #fd929249;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            /* border:  solid #838383 5px; */
+            border-radius: 1rem;
+        }
+
+        .cardtomato {
+            border: 0px;
+        }
+
+        /* 讓card裡照片滿版 */
+        .tomato-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom-left-radius: 1rem !important;
+            border-top-left-radius: 1rem !important;
+        }
+
+        /* 錢 */
+        .momey::after {
+            content: ' 元';
+        }
+
+        /* 錢 */
+        .momey::before {
+            content: '價格: ';
+        }
+
+        /* 照片降明度 */
+        .card img:hover {
+            filter: brightness(.5);
+        }
+
+        /* 輪播開始 */
+        #lokiSlider img {
+            object-fit: cover;
+            filter: grayscale(50%);
+        }
+
+        #lokiSlider .carousel-caption {
+            text-shadow: #333 0.3rem 0.3rem 0.5rem;
+        }
+
+        #lokiSlider .carousel-indicators > button {
+            border-radius: 50%;
+            height: 15px;
+            width: 15px;
+            border: 10px solid transparent;
+        }
+
+        /* 輪播end */
+
+
+
+        /* 刪除按鈕 */
+        .tomatodangerbtn {
+            border-radius: 35px;
+            font-family: jf-openhuninn;
+            color: #f0b0aa;
+            font-size: 18px;
+            background: #e8546f;
+            padding: 5px 10px 5px 10px;
+            border: dotted #e6e6e6 2px;
+            text-decoration: none;
+        }
+
+            .tomatodangerbtn:hover {
+                background: #a12747;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 搜尋 方型BTN */
+        .tomatoclickbtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #ff8a8a;
+            padding: 5px 10px 5px 10px;
+            border: double #ffffff 4px;
+            text-decoration: none;
+        }
+
+            .tomatoclickbtn:hover {
+                background: #eb6767;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 詳情按鈕     */
+        .tomatobtn {
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #d6b6c3;
+            padding: 5px 10px 5px 10px;
+            border: dotted #fafafa 2px;
+            text-decoration: none;
+        }
+
+            .tomatobtn:hover {
+                background: #d6b6c3;
+                background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 新增按鈕 */
+        .tomatoaddbtn {
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #debd85;
+            padding: 5px 10px 5px 10px;
+            border: dotted #ffffff 2px;
+            text-decoration: none;
+        }
+
+            .tomatoaddbtn:hover {
+                background: #ba9458;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+
+        /* 分頁 */
+        .pagination .page-item {
+            margin: 0 3px;
+        }
+
+            /* 分頁 */
+            .pagination .page-item .page-link {
+                background-color: #fcbfc1;
+                border: 0;
+                border-radius: 20px;
+                color: rgb(255, 255, 255);
+                font-size: 10px;
+            }
+
+                /* 分頁 */
+                .pagination .page-item .page-link:hover {
+                    background-color: #ee7d7d;
+                }
+    </style>
+
+
+}
+
+
+
+@section scripts{
+    <script>
+        var strr = "";
+
+        function strchange() {
+            var mypick = document.getElementById('mpick');
+            var pickValue = mypick.selectedIndex;
+            console.log(pickValue);
+
+
+        }
+
+        //function keyWorld() {
+
+        //}
+    </script>
+
+}
+
+
+<!-- 盤商商品管理 -->
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h1>商品管理</h1>
+
+        </div>
+        <div class="col-12 col-md-6">
+            <a href="/CProducts/MProductCRUD" class="btn tomatoaddbtn float-end my-5"><i class="bi bi-file-earmark-plus"></i>新 增 商 品</a>
+        </div>
+    </div>
+
+    <div class="row my-5 justify-content-start align-items-center">
+        <div class="col-12 col-lg-2  mb-3">
+
+            <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
+                <option>選擇搜尋關鍵字</option>
+                <option value="商品名稱" name="商品名稱">商品名稱</option>
+                <option value="商品編號" name="商品編號">商品編號</option>
+                <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
+            </select>
+
+        </div>
+        <div class="col-12 col-lg-2  mb-3">
+            <input type="text" name="" class="form-control" value="" />
+        </div>
+        <div class="col-4 col-lg-1  mb-3 ">
+            <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn" />
+        </div>
+    </div>
+
+
+
+    <div class="row align-items-stretch">
+        @foreach (var item in Model)
+        {
+
+            <div class="col-12 col-md-6" id="@item.f產品ID">
+                <div class="card cardtomato mb-5 mx-2 h-80">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="~/images/@item.f產品圖片路徑" class="img-fluid   tomato-img" alt="產品圖">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    @Html.DisplayFor(modelItem => item.f品牌名稱)
+                                </h5>
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
+                                <p class="card-text">
+                                    <small class="text-muted"> @Html.DisplayFor(modelItem => item.f對外產品識別ID)</small>
+                                </p>
+                                <p class="card-text momey">(成本)@Html.DisplayFor(modelItem => item.f成本價)</p>
+                                <p class="card-text momey">(售價)@Html.DisplayFor(modelItem => item.f售價)</p>
+
+                                <div class="float-end mb-3">
+                                    <a href="/CProducts/Edit/@item.f產品ID" class="btn tomatobtn" id="@item.f產品ID">詳細資訊</a>
+                                    <a href="/CProducts/Delete/@item.f產品ID" class="btn tomatodangerbtn" onclick="return confirm('是否確定刪除?')"><i class="bi bi-trash"> </i>刪除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+        <!-- 分頁 要用foreach-->
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item">
+                <a class="page-link" href="#">上一頁</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">下一頁</a>
+            </li>
+        </ul>
+        <!-- 分頁end 要用foreach-->
+
+
+
+
+
+    </div>
+</div>

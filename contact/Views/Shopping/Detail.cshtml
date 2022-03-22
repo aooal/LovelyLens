@@ -1,0 +1,67 @@
+﻿@model IEnumerable<contact.Models.t產品>
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
+<h2></h2>
+<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" />
+<h2>NT @((int?)Model.FirstOrDefault().f售價) $</h2>
+<select id="rEye">
+    <option>請選擇右眼度數</option>
+</select>
+@foreach (var item in Model)
+{
+    <script>
+
+    var MyArray = [];
+    var myopia = (@Html.DisplayTextFor(modelItem => item.f近視老花度數)).toFixed(2);
+
+    MyArray.push((myopia));
+    console.log(MyArray);
+    MyArray.sort();
+
+
+    for (var i = 0; i < MyArray.length; i++) {
+       var rEye = document.getElementById('rEye');
+        //console.log(MyArray[i])
+        var MyItem = new Option(MyArray[i], MyArray[i]);
+        rEye.options.add(MyItem);
+
+    }
+
+    </script>
+
+    <tr>
+        <td>
+            度數 @Html.DisplayFor(modelItem => item.f近視老花度數)
+        </td>
+        <td>
+
+            散光 @Html.DisplayFor(modelItem => item.f閃光度數, new { htmlAttributes = new { @id = "ast" } })
+
+        </td>
+        <td>
+            散光角度 @Html.DisplayFor(modelItem => item.f閃光角度, new { htmlAttributes = new { @id = "ang" } })
+        </td>
+        <td>
+            庫存 @Html.DisplayFor(modelItem => item.f庫存數量)
+        </td>
+
+    </tr>
+    <br />
+}
+<script>
+    var rEye = document.getElementById('rEye').value;
+    console.log(rEye);
+</script>
+
+
+
+<p>
+
+    @Html.ActionLink("Back to List", "List")
+</p>

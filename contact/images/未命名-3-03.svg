@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="200px" height="150px" viewBox="0 0 200 150" enable-background="new 0 0 200 150" xml:space="preserve">
+<path fill="#E6E6F9" d="M190.188,136.544c0,6.603-5.351,11.951-11.951,11.951H21.763c-6.601,0-11.951-5.351-11.951-11.951V13.456
+	c0-6.601,5.351-11.951,11.951-11.951h156.475c6.601,0,11.951,5.351,11.951,11.951v123.088H190.188z"/>
+<g>
+	<text transform="matrix(1 0 0 1 36 51.9033)" fill="#606078" font-family="'MicrosoftJhengHeiBold'" font-size="32">訂單管理</text>
+</g>
+<g>
+	<g>
+		<polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-miterlimit="10" points="83.782,74.777 67.571,95.032 
+			67.571,139.896 112.583,139.896 112.583,74.777 		"/>
+		<polygon fill="#666666" points="84.664,96.279 84.664,76.023 68.452,96.279 		"/>
+	</g>
+	<g>
+		<circle fill="#FFFFFF" stroke="#3E3D4D" stroke-width="6" stroke-miterlimit="10" cx="111.165" cy="79.339" r="21.565"/>
+		
+			<line fill="none" stroke="#3E3D4D" stroke-width="5" stroke-linecap="round" stroke-miterlimit="10" x1="126.146" y1="94.854" x2="145.227" y2="114.535"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<contact.ViewModels.MOrderRecord>
+
+
+出貨管理
+<table class="table">
+    <tr>
+        <th>
+            訂購日期
+        </th>
+        <th>
+            對外訂單單號
+        </th>
+
+        <th>
+            店家名稱
+        </th>
+
+        <th>
+            訂單狀態
+        </th>
+
+        <th>
+            產品名稱
+        </th>
+        <th>
+            訂購數量
+        </th>
+
+        <th>
+            商品編號
+        </th>
+        <th>
+            店家連絡電話
+        </th>
+        <th>
+            地址
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.f訂購日期)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外訂單單號)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家名稱)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f配送狀態)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f產品名稱)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f訂購數量)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外產品識別ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家連絡電話)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f地址)
+            </td>
+            <td>
+                @Html.ActionLink("生成QR CODE", "Edit", new { /* id=item.PrimaryKey */ }) |
+                <input type="submit" value="確認出貨">
+
+            </td>
+        </tr>
+    }
+
+</table>

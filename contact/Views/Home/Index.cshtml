@@ -1,0 +1,306 @@
+﻿
+
+@*\Home\Index.cshtml  這裡是入口*@
+
+
+@{
+
+
+    Layout = null;
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>B2B隱形眼鏡交易資訊系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            referrerpolicy="no-referrer"></script>
+
+    <style>
+
+        @@font-face {
+            font-family: 'jf-openhuninn';
+            src: url("@Url.Content("~/fonts/jf-openhuninn-1.1.ttf")");
+        }
+
+
+
+        /* mvc記得引入jf-openhuninn-1.1.ttf  不然字體吃不到 */
+
+        .texttittle h2,
+        .item h4,
+        .item p,
+        .logenform input {
+            font-family: jf-openhuninn;
+        }
+        /* 卡片裡的字左右對齊 */
+        .item p {
+            text-align: justify;
+        }
+
+        /* 介紹卡片圖片img上圓角 */
+        .introimg {
+            border-radius: 25px 25px 0 0;
+        }
+
+        /* 介紹卡片底色 */
+        .pink {
+            border-radius: 25px 25px;
+            background-image: linear-gradient(to top, #fcbfc1 0%, #ee7d7d 50%);
+
+        }
+
+        /* 介紹卡片底色 */
+        .brown {
+            border-radius: 25px 25px;
+            background-image: linear-gradient(to top, #ca9c8f 0%, #e7bfa0 50%);
+
+        }
+
+
+
+
+        /* 註冊表單的input */
+        form input {
+            border-radius: 5px;
+            padding: 5px;
+            border: 0px;
+            margin-bottom: 10px;
+
+        }
+
+        /* 註冊表單的登入字樣 */
+        form>h5 {
+            font-family: jf-openhuninn;
+
+        }
+
+        /* 註冊表單一開始藏起來 */
+        .login {
+            display: none;
+        }
+
+
+        /* 註冊表單的登入按鈕 */
+        .tomatodangerbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: jf-openhuninn;
+            color: #f0b0aa;
+            font-size: 18px;
+            background: #e8546f;
+            padding: 5px 10px 5px 10px;
+            border: dotted #e6e6e6 2px;
+            text-decoration: none;
+        }
+
+        .tomatodangerbtn:hover {
+            background: #a12747;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+
+
+        /* 註冊表單的註冊按鈕 */
+        .tomatobtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: jf-openhuninn;
+            color: #ffffff;
+            font-size: 18px;
+            background: #d6b6c3;
+            padding: 5px 10px 5px 10px;
+            border: dotted #fafafa 2px;
+            text-decoration: none;
+        }
+
+        .tomatobtn:hover {
+            background: #d6b6c3;
+            background-image: -webkit-linear-gradient(top, #d6b6c3, #f0a3c6);
+            background-image: -moz-linear-gradient(top, #d6b6c3, #f0a3c6);
+            background-image: -o-linear-gradient(top, #d6b6c3, #f0a3c6);
+            background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+            text-decoration: none;
+            color: #ffffff;
+
+
+        }
+        /* 放主logo */
+        
+        .kv {
+            background-image: url("@Url.Content("~/images/lovely2.svg")");
+            width: 100%;
+            height: 25vh;
+            /* background-size: cover; */
+            background-size: 420px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* logo 下的文字及水平線置中 */
+        .texttittle {
+            text-align: center;
+        }
+
+
+
+        /* 我已了解 方形BTN */
+        .tomatoclickbtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #ff8a8a;
+            padding: 5px 10px 5px 10px;
+            border:double #ffffff 4px;
+            text-decoration: none;
+        }
+
+        .tomatoclickbtn:hover {
+            background: #eb6767;
+            text-decoration: none;
+            color: #ffffff;
+
+        }
+    </style>
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+    <div class="kv"></div>
+    <div class="container">
+        <div class="row  justify-content-center align-items-center">
+            <div class="col-8 col-md-6">
+                <div class="texttittle">
+                    <h2 class="text-dark">B2B隱形眼鏡交易資訊系統</h2>
+                    <hr>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container h-100 top">
+        <div class="row my-3 d-flex justify-content-center align-items-stretch g-5 text-align">
+
+
+            <div class="col-10 col-md-3">
+                <div class="item pink h-100">
+                    <img src="https://picsum.photos/500/400/?random=1" class="w-100 introimg">
+                    <h4 class="text-light my-1 p-3 text-light">為什麼要加入我們?</h4>
+                    <p class="p-3 text-light">
+                        本交易資訊系統與品牌公司供應商簽訂獨家優惠，如果您的身分是店家，歡迎即刻加入LovelyLens，享有不定時優惠折扣，讓您能在第一時間即能獲取最新資訊。
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-10 col-md-3">
+                <div class="item brown h-100">
+                    <img src="https://picsum.photos/500/400/?random=1" class="w-100 introimg">
+                    <h4 class="text-light my-1 p-3 text-light">如何加入我們?</h4>
+                    <p class="p-3 text-light">
+                        不需要會費!為配合衛生局藥事法的規定，請提供營利事業登記證與藥証、負責人資訊，依正常程序註冊經審核通過後，即能享有超划算的進貨流程。
+                    </p>
+                </div>
+            </div>
+
+
+
+            <div class="col-10 col-md-3">
+                <div class="item pink h-100">
+                    <img src="https://picsum.photos/500/400/?random=1" class="w-100 introimg">
+                    <h4 class="text-light my-1 p-3 text-light">本網站經銷商業者使用</h4>
+                    <p class="p-3 text-light">
+                        本網站開放予隱形型眼鏡經銷商使用，為配合衛生局藥事法的規定，請提供營利事業登記證與藥証，依正常程序註冊審核通過後，即能享有便利與划算的進貨流程。
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-8 col-md-3 my-3">
+                <div class="texttittle">
+                    <button class=" tomatoclickbtn  iknow">我已了解</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container login">
+        <div class="row mt-3 d-flex justify-content-center  text-center ">
+
+            <div class="col-10 col-md-4 " id="loginslide">
+                <div class="item pink">
+                    <form action="POST" method="" class="p-5 mt-5 loginform">
+                        <h5 class="text-light my-1 p-3 text-light">登入</h5>
+
+                        <input type="email" name="acc" id="acc" placeholder="請輸入email帳號" size="30" required
+                               class="mt-3">
+                        <input type="password" name="" id="" placeholder="請輸入密碼" size="30" required class="mt-3 ">
+                        <a href="" class="btn text-light">忘記密碼?</a>
+                        <hr class="text-light" />
+                        <input type="submit" value="登入" class="tomatodangerbtn"> <input type="submit" value="註冊"
+                                                                                        class="tomatobtn">
+                        <a href="homecontroller/register" class="tomatobtn">註冊</a>
+                        <!-- 見到鬼寫成A按鈕不一樣大 -->
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        // 按了iknow以後登入註冊選單才會跳出來
+        $(function () {
+
+            $('.iknow').click(
+                function () {
+                    $(this).hide();
+                    $('.top').fadeOut('8000'),
+                        $('.login').show('3000');
+                },
+            )
+        });
+    </script>
+
+
+
+
+
+</body>
+
+
+</html>
+    }

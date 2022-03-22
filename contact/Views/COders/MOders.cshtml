@@ -1,0 +1,168 @@
+﻿@model System.Collections.Generic.List<contact.ViewModels.MOrderRecord>
+
+@{
+    ViewBag.Title = "MOders-歷史訂單一覽[權限盤商]";
+}
+
+
+
+
+
+@section styles{
+
+    <style>
+        h1 {
+            color: gainsboro;
+        }
+
+        h3 {
+            color: red;
+        }
+    </style>
+}
+
+
+
+<h1>訂單管理一覽[盤商]</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+        關鍵字搜尋
+        <select name="choose">
+            @*<option value="all" selected="selected">全部</option>*@
+            <option value="customer">店家名稱</option>
+            <option value="order">訂單單號</option>
+            <option value="tel">電話</option>
+        </select>
+
+        <input type="text" name="txtKeyword">
+        <input type="submit" value="查詢">
+    </p>
+}
+<h3>@ViewBag.data</h3>
+<table class="table">
+    <tr>
+        <th>下單日期</th>
+        <th>訂單單號</th>
+        <th>經銷商名稱</th>
+        <th>訂單總價</th>
+        <th>狀態</th>
+        <th></th>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.f訂購日期</td>
+                <td>@item.f對外訂單單號</td>
+                <td>@item.f店家名稱</td>
+                <td>@item.f訂單總金額</td>
+                <td>@item.f配送狀態</td>
+                <td>
+                    @Html.ActionLink("詳細資訊", "MOderDetail", new { id = item.f對外訂單單號 }) |
+                </td>
+            </tr>
+        }
+    }
+
+
+</table>
+
+
+
+
+
+
+@*我的排版*@
+
+@*<div class="container-fluid mt-3 p-5">
+    <h2 class="mb-5">盤商歷史訂單一覽</h2>
+
+    <div class="row mb-5">
+        <div class="col-sm-2">
+            <select class="form-select ">
+                <option>訂單序號</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+
+        </div>
+        <div class="col-sm-2">
+            <input type="text" name="" class="form-control" value="" />
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary">搜尋</button>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>下單日期</th>
+                <th>訂單單號</th>
+                <th>客戶名稱</th>
+                <th>訂單總價</th>
+                <th>狀態</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>2022.02.25</td>
+                <td>75412369695</td>
+                <td>仁愛眼鏡 XX店</td>
+                <td>6500 元</td>
+                <td class="text-danger">未出貨</td>
+                <td>
+                    <a href="/COders/MOderDetail" class="btn btn-outline-dark">查看詳情</a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>2022.02.25</td>
+                <td>75412369695</td>
+                <td>仁愛眼鏡 XX店</td>
+                <td>6500 元</td>
+                <td class="text-danger">未出貨</td>
+                <td>
+                    <a href="/COders/MOderDetail" class="btn btn-outline-dark">查看詳情</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2022.02.25</td>
+                <td>75412369695</td>
+                <td>仁愛眼鏡 XX店</td>
+                <td>6500 元</td>
+                <td class="text-danger">未出貨</td>
+                <td>
+                    <a href="/COders/MOderDetail" class="btn btn-outline-dark">查看詳情</a>
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+
+
+
+</div>*@
+
+
+
+
+
+@section scripts{
+    <script></script>
+
+}
+
+
+

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<contact.Models.t店家>
+
+@{
+    ViewBag.Title = "supplier";
+}
+
+<h2>供應商紀錄與維護</h2>
+@using (Html.BeginForm())
+{
+    <script>
+        var strr = "";
+
+        
+
+    </script>
+    <span>經銷商名稱</span>
+    <input type="text" name="txtKeyword" />
+    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+
+}
+<p>
+    @Html.ActionLink("新增供應商", "SupCreate")
+</p>
+<table class="table">
+    <tr>
+        <th style="text-align:center">
+            供應商名稱
+            @*@Html.DisplayNameFor(model => model.f店家名稱)*@
+        </th>
+
+        <th></th>
+    </tr>
+
+    @{
+        
+        foreach (var item in Model)
+        {
+            
+            <tr>
+
+               
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.f身分別)
+                </td>
+
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.f店家名稱)
+                </td>
+                
+
+                <td>
+                    @Html.ActionLink("詳細資訊", "SupEdit", new { id = item.f店家ID }) |
+                    @Html.ActionLink("刪除", "SupDelete", "CManager", new { id = item.f店家ID }, new { onclick = "return confirm('是否確定刪除?')" }))
+                </td>
+            </tr>
+        }
+    }
+
+
+</table>

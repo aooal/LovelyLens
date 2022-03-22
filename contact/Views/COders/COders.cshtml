@@ -1,0 +1,79 @@
+﻿@model IEnumerable<contact.Models.t訂單>
+@*@model IEnumerable<contact.ViewModels.MOderDetailRecord>*@
+
+@{
+    ViewBag.Title = "COderDetail-經銷商：歷史訂單一覽";
+}
+
+<style>
+    h1 {
+        color: gainsboro;
+    }
+</style>
+
+<h1>經銷商：歷史訂單一覽</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+        關鍵字搜尋
+        <select name="choose">
+            <option value="customer">店家名稱</option>
+            <option value="order">訂單單號</option>
+            <option value="tel">電話</option>
+        </select>
+
+        <input type="text" name="txtKeyword">
+        <input type="submit" value="查詢">
+    </p>
+}
+<p>@ViewBag.data</p>
+
+<table class="table">
+    <tr>
+        <th>
+            下單日期
+        </th>
+        <th>
+            訂單單號
+        </th>
+
+        <th>
+            訂單總價
+        </th>
+
+
+        <th>
+            配送狀態
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @item.f訂購日期
+            </td>
+            <td>
+                @item.f對外訂單單號
+            </td>
+            <td>
+                @item.f訂單總金額
+            </td>
+
+
+            <td>
+                @item.f配送狀態
+            </td>
+
+            <td>
+                @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 })
+                @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }) |
+
+            </td>
+        </tr>
+    }
+
+</table>

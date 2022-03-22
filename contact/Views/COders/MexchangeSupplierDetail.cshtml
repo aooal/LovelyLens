@@ -1,0 +1,104 @@
+﻿@model IEnumerable<contact.ViewModels.CexchangeDetailRecord>
+@{
+    ViewBag.Title = "MexchangeSupplierDetail-供應商換貨記錄詳情-新增供應商換貨記錄";
+}
+
+<style>
+    h1 {
+        color: gainsboro;
+    }
+</style>
+
+<h4>換貨管理紀錄一覽</h4>
+@Html.ActionLink("新增換貨登記", "CexchangeCreate", new { }) |
+<h1>換貨管理</h1>
+<table class="table">
+    <tr>
+
+        <th>
+            產品名稱
+        </th>
+
+        <th>
+            店家名稱
+        </th>
+        <th>
+            對外產品識別ID
+        </th>
+        <th>
+            換貨數量
+        </th>
+        <th>
+            換貨單價
+        </th>
+        <th>
+            近視老花度數
+        </th>
+        <th>
+            閃光度數
+        </th>
+
+        <th>
+            換貨備註
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f產品名稱)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家名稱)
+            </td>
+
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外產品識別ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f換貨數量)
+            </td>
+            <td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f換貨單價)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f近視老花度數)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f閃光度數)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f閃光角度)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f換貨備註)
+            </td>
+
+        </tr>
+    }
+
+</table>
+成本金額
+<input type="text" value="儲存">
+<form>
+    <label>商品名稱:</label>
+    <input type="text" />
+    <label>單價:</label>
+    <input type="text" />
+    <label>數量:</label>
+    <input type="number" />
+    <input type="submit" value="確認修改" />
+</form>
+@Html.ActionLink("選擇品項", "", new { /* id=item.PrimaryKey */ }) |
+<input type="submit" value="儲存">
+
+@Html.ActionLink("確認", "", new { /* id=item.PrimaryKey */ })
