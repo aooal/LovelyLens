@@ -11,7 +11,8 @@ namespace contact.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class t店家
     {
         public int f店家ID { get; set; }
@@ -20,8 +21,17 @@ namespace contact.Models
         public string f店家連絡電話 { get; set; }
         public string f註冊日期 { get; set; }
         public string f地址 { get; set; }
+
+        [Required(ErrorMessage = "電子信箱為日後登入帳號，不可空白")]
+        [EmailAddress(ErrorMessage = "電子信箱格式有誤")]
         public string f電子信箱 { get; set; }
+
+        [Required(ErrorMessage = "請輸入密碼")]
         public string f密碼 { get; set; }
+
+        [Required(ErrorMessage = "請再次輸入密碼")]
+        [Compare("f密碼", ErrorMessage = "輸入密碼錯誤")]
+        public string 確認密碼 { get; set; }
         public string f身分別 { get; set; }
         public string f往來狀態 { get; set; }
         public string f銀行帳號 { get; set; }
