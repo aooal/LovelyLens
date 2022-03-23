@@ -1,4 +1,25 @@
-﻿/* 我已了解 方形BTN */
+﻿/* 新增按鈕 */
+.tomatoaddbtn {
+    -webkit-border-radius: 35;
+    -moz-border-radius: 35;
+    border-radius: 35px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 18px;
+    background: #debd85;
+    padding: 5px 10px 5px 10px;
+    border: dotted #ffffff 2px;
+    text-decoration: none;
+}
+
+    .tomatoaddbtn:hover {
+        background: #ba9458;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+
+/* 我已了解 方形BTN */
 .tomatoclickbtn {
     -webkit-box-shadow: 0px 1px 3px #666666;
     -moz-box-shadow: 0px 1px 3px #666666;
@@ -129,3 +150,46 @@
     transition-duration: 1s;
 }
 /*表單CSS end*/
+
+
+
+/*訂單orderteble start*/
+.ordertable {
+    font-size: 1.4rem;
+    color: #666;
+}
+
+    .ordertable tr {
+        border-bottom: 2px solid #d0b282;
+    }
+
+    .ordertable th {
+        font-size: 1.5rem;
+        color: #666666;
+        font-family: jf-openhuninn;
+        letter-spacing: 2px;
+    }
+/*td{padding: 20px;} */
+
+
+    /*ordertable表單CSS*/
+    .ordertable th, .ordertable td {
+        text-align: center;
+    }
+
+    .orderodd {
+        background-color: #e5d5bb;
+    }
+
+    .ordereven {
+        background-color: #F8F8F8;
+    }
+
+    .orderenter {
+    background-color:  #d0b282;
+    transition-property: background-color color;
+    transition-duration: 1s;
+    }
+    /*表單CSS end*/
+
+

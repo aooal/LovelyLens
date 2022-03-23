@@ -8,7 +8,6 @@
 
     <style>
         .tomatotable {
-          
             font-size: 1.4rem;
             color: #666;
         }
@@ -204,30 +203,33 @@
 
 
 
-    <div class="row my-5 justify-content-center align-items-md-center">
-      
-
-            @using (Html.BeginForm())
-            {
-
-                <span class="me-2 h4 float-lg-start">經銷商名稱</span>
-                <div class="col-12 col-lg-2  mb-3 float-lg-start me-2">
-                    <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入經銷商名稱" />
-                </div>
-
-                <div class="col-4 col-lg-1  mb-3 float-lg-start">
-
-                    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn mb-3" />
-                </div>
 
 
-            }
-       
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5 justify-content-start align-items-baseline text-center">
+
+            @*<div class="col-12 col-md-1  mb-3 bg-info">
+                <span class="family " style="font-size:1.2rem;">供應商</span>
+            </div>*@
+
+            <div class="col-12 col-md-2  mb-3 ">
+                <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入供應商名稱" />
+            </div>
+
+            <div class="col-4 col-md-1  mb-3 ">
+
+                <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="tomatoclickbtn " />
+            </div>
+
+        </div>
+
+    }
 
 
 
 
-     </div>
+
 
 
     <div class="row justify-content-center">
