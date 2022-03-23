@@ -1,0 +1,126 @@
+﻿/* 我已了解 方形BTN */
+.tomatoclickbtn {
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 18px;
+    background: #ff8a8a;
+    padding: 5px 10px 5px 10px;
+    border: double #ffffff 4px;
+    text-decoration: none;
+}
+
+    .tomatoclickbtn:hover {
+        background: #eb6767;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+
+/* 註冊表單的註冊按鈕 */
+.tomatobtn {
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    font-family: jf-openhuninn;
+    color: #ffffff;
+    font-size: 18px;
+    background: #d6b6c3;
+    padding: 5px 10px 5px 10px;
+    border: dotted #fafafa 2px;
+    text-decoration: none;
+}
+
+    .tomatobtn:hover {
+        background: #d6b6c3;
+        background-image: -webkit-linear-gradient(top, #d6b6c3, #f0a3c6);
+        background-image: -moz-linear-gradient(top, #d6b6c3, #f0a3c6);
+        background-image: -o-linear-gradient(top, #d6b6c3, #f0a3c6);
+        background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+
+/* 註冊表單的登入按鈕 */
+.tomatodangerbtn {
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    font-family: jf-openhuninn;
+    color: #f0b0aa;
+    font-size: 18px;
+    background: #e8546f;
+    padding: 5px 10px 5px 10px;
+    border: dotted #e6e6e6 2px;
+    text-decoration: none;
+}
+
+    .tomatodangerbtn:hover {
+        background: #a12747;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+/* 介紹卡片底色 */
+.pink {
+    border-radius: 25px 25px;
+    background-image: linear-gradient(to top, #fcbfc1 0%, #ee7d7d 50%);
+}
+
+/* 介紹卡片底色 */
+.brown {
+    border-radius: 25px 25px;
+    background-image: linear-gradient(to top, #ca9c8f 0%, #e7bfa0 50%);
+}
+
+
+@font-face {
+    font-family: 'jf-openhuninn';
+    src: url("/fonts/jf-openhuninn-1.1.ttf");
+}
+
+.family {
+    font-family: jf-openhuninn;
+}
+
+.tomatotable {
+    border-bottom: 2px solid rgb(166, 192, 241);
+    font-size: 1.4rem;
+    color: #666;
+}
+
+    .tomatotable tr {
+        border-bottom: 2px solid pink;
+    }
+
+    /*td{padding: 20px;} */
+    /*表單CSS*/
+    .tomatotable th, .tomatotable td {
+        text-align: center;
+    }
+
+.odd {
+    background-color: rgb(238 182 182 / 0.31);
+}
+
+.even {
+    background-color: #F8F8F8;
+}
+
+.enter {
+    background-color: #d6b6c3;
+    transition-property: background-color color;
+    transition-duration: 1s;
+}
+.tomatotable th {
+    font-size: 1.5rem;
+    color: #666666;
+    font-family: jf-openhuninn;
+    letter-spacing: 2px;
+}
+
+/*表單CSS end*/
+/*me*/
