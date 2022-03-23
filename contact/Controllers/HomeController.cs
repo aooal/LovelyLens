@@ -78,7 +78,7 @@ namespace contact.Controllers
                 註冊.f註冊日期 = DateTime.Now.ToString("yyyyMMddHHmmss");
                 db.t店家.Add(註冊);
                 db.SaveChanges();
-                return RedirectToAction("Login");
+                return RedirectToAction("index");
             }
             return View(註冊);
         }
