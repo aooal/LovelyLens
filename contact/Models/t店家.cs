@@ -29,9 +29,9 @@ namespace contact.Models
         [Required(ErrorMessage = "請輸入密碼")]
         public string f密碼 { get; set; }
 
-        [Required(ErrorMessage = "請再次輸入密碼")]
-        [Compare("f密碼", ErrorMessage = "輸入密碼錯誤")]
-        public string 確認密碼 { get; set; }
+        //[Required(ErrorMessage = "請再次輸入密碼")]
+        //[Compare("f密碼", ErrorMessage = "輸入密碼錯誤")]
+        //public string 確認密碼 { get; set; }
         public string f身分別 { get; set; }
         public string f往來狀態 { get; set; }
         public string f銀行帳號 { get; set; }
