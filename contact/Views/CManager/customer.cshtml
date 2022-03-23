@@ -159,7 +159,7 @@
             $(".tomatotable tr:odd").addClass("odd");
             $(".tomatotable tr:even").addClass("even");
 
-            // 為 id 等於 people 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            // 為 class 等於 tomatotable 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
             $(".tomatotable tr").hover(
                 function () {
                     $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
@@ -191,24 +191,51 @@
 
             <h2>經銷商會員管理</h2>
         </div>
-        <div class="col-12 col-md-6">
-            @using (Html.BeginForm())
-            {
+    </div>
+    <div class="row  my-5 justify-content-start align-items-center ">
 
+        @using (Html.BeginForm())
+        {
 
-                <select id="mpick" onchange="strchange()" name="mpick">
+            <div class="col-12 col-lg-2  mb-3 float-lg-start">
+
+                <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
                     <option>選擇搜尋關鍵字</option>
                     <option value="店家名稱" name="店家名稱">店家名稱</option>
                     <option value="電話" name="電話">電話</option>
                     <option value="往來狀態" name="往來狀態">往來狀態</option>
                 </select>
-                <input type="text" name="txtKeyword" />
-                <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+            </div>
 
-            }
-        </div>
+            <div class="col-12 col-lg-2  mb-3 float-lg-start">
+                <input type="text" name="txtKeyword" class="form-control" />
+            </div>
+           
+
+
+
+                <div class="col-4 col-lg-1  mb-3 float-lg-start">
+                    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn" />
+                </div>
+               
+          
+
+        }
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <table class="col-12 col-md-10 table tomatotable table-hover">
@@ -251,8 +278,9 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("詳情", "CusEdit", new { id = item.f店家ID }) |
-                    @Html.ActionLink("刪除", "CusDelete", new { id = item.f店家ID }, new { onclick = "return confirm('是否確定刪除?')" })
+                    @Html.ActionLink("詳情", "CusEdit", new { id = item.f店家ID }, new { @class = "btn tomatobtn" })
+                    @*@Html.ActionLink("刪除", "CusDelete", new { id = item.f店家ID }, new { onclick = "return confirm('是否確定刪除?')", @class = "btn tomatodangerbtn" })*@
+                    <a href="/CManager/CusDelete/@item.f店家ID" onclick="return confirm('是否確定刪除?')" class=" btn tomatodangerbtn"><i class="bi bi-trash"></i>刪除</a>
                 </td>
             </tr>
         }

@@ -120,6 +120,9 @@
     <Content Include="images\GEO彩拋02.jpg" />
     <Content Include="images\GEO彩拋03.jpg" />
     <Content Include="images\GEO彩拋04.jpg" />
+    <Content Include="images\iBusinessLicense\營利登記樣本.jpg" />
+    <Content Include="images\iMedicalLicense\藥商照片範例.jpg" />
+    <Content Include="images\iMedicalLicense\藥商許可證樣本.png" />
     <Content Include="images\lovely2.svg" />
     <Content Include="images\lovely白底.png" />
     <Content Include="images\lovely白底re.png" />
@@ -293,8 +296,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="images\iBusinessLicense\" />
-    <Folder Include="images\iMedicalLicense\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>

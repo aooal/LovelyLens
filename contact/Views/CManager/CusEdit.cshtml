@@ -3,25 +3,98 @@
 @{
     ViewBag.Title = "CusEdit";
 }
-<script>
-    var myStatusValue;
-    function statusChange() {
-        var Dstatus = document.getElementById('Dstatus');
-        myStatusValue = Dstatus.options[Dstatus.selectedIndex].value;
-        var theTxt = document.getElementById('txt');
-        theTxt.value = myStatusValue;
 
-    }
-</script>
+@section styles{
+
+    <style>
+
+        /* Z-index of #mask must lower than #boxes .window */
+        #mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9000;
+            background-color: #000;
+            display: none;
+        }
+
+        #boxes .window {
+            position: fixed;
+            width: 440px;
+            height: 200px;
+            display: none;
+            z-index: 9999;
+            padding: 20px;
+            background-image: url();
+        }
+
+
+        /* Customize your modal window here, you can add background image too */
+        #boxes #dialog {
+            width: 375px;
+            height: 250px;
+            background: #fff;
+        }
+    </style>
+
+}
+
+
+
+@section scripts{
+    <script>
+        var myStatusValue;
+        function statusChange() {
+            var Dstatus = document.getElementById('Dstatus');
+            myStatusValue = Dstatus.options[Dstatus.selectedIndex].value;
+            var theTxt = document.getElementById('txt');
+            theTxt.value = myStatusValue;
+
+        }
+
+        @*var url = @(Url.Content("~/images/")) 
+
+        $(function () {
+            var pic2 = $('.pic2').val;
+            alert(
+                $(".pic2").val());
+        const showpic2 = $('#showpic2');
+        console.log(typeof(pic2));
+            const s = url  + pic2 ;
+           /* showpic2.src = s;*/
+        });*@
+
+
+       
+
+
+
+    </script>
+}
 <h2>CusEdit</h2>
 
+@{
+    string iBusiness = "";
+    iBusiness += Url.Content("~/images/iBusinessLicense/");
+    iBusiness += Model.f營業登記許可照片路徑;
+
+
+    string iMedical = "";
+    iMedical += Url.Content("~/images/iMedicalLicense/");
+    iMedical += Model.f藥商許可證照片路徑;
+
+
+}
+
+<img src="@iBusiness" alt="Alternate Text" id="tt" />
+<img src="@iMedical" alt="Alternate Text" id="tt" />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>t店家</h4>
+        <h4>經銷商維護</h4>
         <hr />
         <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -30,8 +103,8 @@
 
 
         <div class="form-group">
-            名稱
-            <div class="col-md-10">
+            經銷商名稱
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
             </div>
@@ -39,7 +112,7 @@
 
         <div class="form-group">
             負責人
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
             </div>
@@ -47,7 +120,7 @@
 
         <div class="form-group">
             連絡電話
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
             </div>
@@ -55,7 +128,7 @@
 
         <div class="form-group">
             地址
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f地址, "", new { @class = "text-danger" })
             </div>
@@ -63,7 +136,7 @@
 
         <div class="form-group">
             電子信箱
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
             </div>
@@ -71,7 +144,7 @@
 
         <div class="form-group">
             密碼
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f密碼, "", new { @class = "text-danger" })
             </div>
@@ -79,7 +152,7 @@
 
         <div class="form-group">
             註冊日期
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f註冊日期, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f註冊日期, "", new { @class = "text-danger" })
             </div>
@@ -92,7 +165,7 @@
                 <option>非活躍</option>
                 <option>黑名單</option>
             </select>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f往來狀態, new { htmlAttributes = new { @class = "form-control", @id = "txt" } })
                 @Html.ValidationMessageFor(model => model.f往來狀態, "", new { @class = "text-danger" })
             </div>
@@ -100,45 +173,85 @@
 
         <div class="form-group">
             帳款資訊
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group" hidden>
             @Html.LabelFor(model => model.f藥商許可證照片路徑, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.f藥商許可證照片路徑, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.f藥商許可證照片路徑, new { htmlAttributes = new { @class = "form-control " } })
                 @Html.ValidationMessageFor(model => model.f藥商許可證照片路徑, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" hidden>
             @Html.LabelFor(model => model.f營業登記許可照片路徑, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.f營業登記許可照片路徑, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f營業登記許可照片路徑, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.f營業登記許可照片路徑, new { htmlAttributes = new { @class = "form-control pic2" } })
+
+                @*@Html.HiddenFor(model => model.f營業登記許可照片路徑, htmlAttributes: new { @class = "control-label col-md-2 pic2" })*@
             </div>
-        </div>
-        <div class="form-group">
-            備註
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.f備註, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f備註, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="修改" class="btn btn-default" onclick="return (confirm('資料修改成功'))" />
-            </div>
+            @Html.ValidationMessageFor(model => model.f營業登記許可照片路徑, "", new { @class = "text-danger" })
         </div>
     </div>
+    
+
+
+    <div class="form-group">
+        備註
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.f備註, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f備註, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="修改" class="btn btn-default" onclick="return (confirm('資料修改成功'))" />
+        </div>
+    </div>
+
+
+
+    <a href="#dialog" name="modal">Show Image</a>
+
+    <div id="boxes">
+
+
+        <!-- #customize your modal window here -->
+        <!--<div id="dialog" class="window">
+            <p><img src="" id="showpic2"></p>
+            <br /><br />-->
+        <!-- close button is defined as close class -->
+        <!--<a href="#" class="close">Close it</a>
+
+        </div>-->
+        <!-- Do not remove div#mask, because you'll need it to fill the whole screen -->
+        <div id="mask"></div>
+    </div>
+
+
+    <img id="showpic2" src="" width="100" />
+    @*<img id="showpic2" src="~/images/@model.f營業登記許可照片路徑" width="100" />*@
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 <div>

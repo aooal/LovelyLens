@@ -64,7 +64,7 @@ namespace contact.Controllers
                     var MLFileName = Path.GetRandomFileName().Replace(".", "_") + ".jpg";
                     var MLPath = Path.Combine(Server.MapPath("~/images/iMedicalLicense"), MLFileName);
                     medicalLicense.SaveAs(MLPath);
-                    註冊.f藥商許可證照片路徑 = MLPath;
+                    註冊.f藥商許可證照片路徑 = MLFileName;
                 }
                 //營許
                 if (businessLicense != null)
@@ -72,7 +72,7 @@ namespace contact.Controllers
                     var BLFileName = Path.GetRandomFileName().Replace(".", "_") + ".jpg";
                     var BLPath = Path.Combine(Server.MapPath("~/images/iBusinessLicense"), BLFileName);
                     businessLicense.SaveAs(BLPath);
-                    註冊.f營業登記許可照片路徑 = BLPath;
+                    註冊.f營業登記許可照片路徑 = BLFileName;
                 }
 
                 註冊.f身分別 = "經銷商";
@@ -80,7 +80,7 @@ namespace contact.Controllers
                 註冊.f註冊日期 = DateTime.Now.ToString("yyyyMMddHHmmss");
                 db.t店家.Add(註冊);
                 db.SaveChanges();
-                return RedirectToAction("Login");
+                return RedirectToAction("Index");
             }
             return View(註冊);
         }

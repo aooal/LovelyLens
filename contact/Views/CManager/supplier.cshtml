@@ -159,7 +159,7 @@
             $(".tomatotable tr:odd").addClass("odd");
             $(".tomatotable tr:even").addClass("even");
 
-            // 為 id 等於 people 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
             $(".tomatotable tr").hover(
                 function () {
                     $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
@@ -204,24 +204,30 @@
 
 
 
-    <div class="row my-5 justify-content-start align-items-md-center">
-        <div class="col-12 col-md-8  mb-3">
+    <div class="row my-5 justify-content-center align-items-md-center">
+      
 
             @using (Html.BeginForm())
             {
 
-                <span class="mb-3 col-md-2 me-auto my-3 h6">經銷商名稱</span>
+                <span class="me-2 h4 float-lg-start">經銷商名稱</span>
+                <div class="col-12 col-lg-2  mb-3 float-lg-start me-2">
+                    <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入經銷商名稱" />
+                </div>
 
-                <input type="text" name="txtKeyword" size="20" class="text-box col-12 col-md-3 my-3" style="border-radius:3px; border:1px solid #999; padding:5px;" placeholder="請輸入經銷商名稱" />
+                <div class="col-4 col-lg-1  mb-3 float-lg-start">
 
-                <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn my-3" />
+                    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn mb-3" />
+                </div>
+
+
             }
-        </div>
+       
 
 
 
 
-    </div>
+     </div>
 
 
     <div class="row justify-content-center">

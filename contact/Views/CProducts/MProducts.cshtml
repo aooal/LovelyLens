@@ -213,32 +213,36 @@
             <h1>商品管理</h1>
 
         </div>
+
         <div class="col-12 col-md-6">
             <a href="/CProducts/MProductCRUD" class="btn tomatoaddbtn float-end my-5"><i class="bi bi-file-earmark-plus"></i>新 增 商 品</a>
         </div>
     </div>
 
-    <div class="row my-5 justify-content-start align-items-center">
-        <div class="col-12 col-lg-2  mb-3">
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5 justify-content-start align-items-center">
+            <div class="col-12 col-lg-2  mb-3">
 
-            <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
-                <option>選擇搜尋關鍵字</option>
-                <option value="商品名稱" name="商品名稱">商品名稱</option>
-                <option value="商品編號" name="商品編號">商品編號</option>
-                <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
-            </select>
+                <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
+                    <option>選擇搜尋關鍵字</option>
+                    <option value="商品名稱" name="商品名稱">商品名稱</option>
+                    <option value="商品編號" name="商品編號">商品編號</option>
+                    <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
+                </select>
 
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword" class="form-control" value="" />
+            </div>
+            <div class="col-4 col-lg-1  mb-3 ">
+                <input type="submit" value="查詢" id="keyWorld" class="btn tomatoclickbtn" />
+            </div>
         </div>
-        <div class="col-12 col-lg-2  mb-3">
-            <input type="text" name="" class="form-control" value="" />
-        </div>
-        <div class="col-4 col-lg-1  mb-3 ">
-            <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn" />
-        </div>
-    </div>
+    }
+</div>
 
-
-
+<div class="container mt-5">
     <div class="row align-items-stretch">
         @foreach (var item in Model)
         {
