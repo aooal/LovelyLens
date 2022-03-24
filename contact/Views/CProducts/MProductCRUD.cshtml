@@ -176,7 +176,7 @@
                     <div class="form-group">
                         品牌名稱
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.f品牌名稱, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.f品牌名稱, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "20" } })
                             @Html.ValidationMessageFor(model => model.f品牌名稱, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                     <div class="form-group">
                         產品名稱
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.f產品名稱, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.f產品名稱, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "19" } })
                             @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
                         </div>
                     </div>

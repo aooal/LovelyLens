@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     Layout = null;
 }
 
@@ -29,7 +30,7 @@
 
 
 @using (Html.BeginForm("Register", "Home", FormMethod.Post,
-new { enctype = "multipart/form-data" }))
+                new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -41,26 +42,26 @@ new { enctype = "multipart/form-data" }))
             <h5 class="m-2">帳號設定</h5>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>帳號（電子信箱）</p>
-                    @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
                 </div>
             </div>
             <p id="chkAccMsg"></p>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>密碼</p>
                     @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control", type = "password", required = "required", @maxlength = "10", id = "inputpassword" } })
                     @Html.ValidationMessageFor(model => model.f密碼, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group row justify-content-center">
-                <div class="col-md-5 mb-5">
+                <div class="col-md-5 mb-5 mb-4">
                     <p>確認密碼</p>
-                    <input type="password" id="chkPwd" onblur="validate()" />
-                    <p id="alertColumn" style="color:crimson; font-size:5rem;"></p>
+                    <input type="password" id="chkPwd" onblur="validate()" class="form-control" required="required" />
+                    <p id="alertColumn" style="color:crimson; font-size:1rem;"></p>
                 </div>
             </div>
         </div>
@@ -68,54 +69,54 @@ new { enctype = "multipart/form-data" }))
             <h5 class="m-2">商店資訊</h5>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5 ">
+                <div class="col-md-5 mb-4">
                     <p>店家名稱</p>
-                    @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>負責人</p>
-                    @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>連絡電話</p>
-                    @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>通訊地址</p>
-                    @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.f地址, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>銀行帳號</p>
-                    @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                     @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row justify-content-center mt-2">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>藥商許可證上傳</p>
                     <input type="file" class="form-control-file" name="medicalLicense" id="mlfileid" accept="image/*">
                 </div>
             </div>
 
             <div class="form-group row justify-content-center mb-3 mt-2">
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <p>營業登記許可證上傳</p>
                     <input type="file" class="form-control-file" name="businessLicense" id="blfileid" accept="image/*">
                 </div>
@@ -130,11 +131,13 @@ new { enctype = "multipart/form-data" }))
         </div>
 
         <div class="form-group row justify-content-end">
-            <div class="col-md-offset-2 col-md-5">
-                <input type="submit" value="送出" id="submit" class="tomatoclickbtn mt-3" style="" />
-            </div>
+            @*justify-content-end*@
+            <div class="row col-3">
+                @*col-md-offset-2 col-md-5*@
+            <input type="submit" value="送出" id="submit" class="tomatoclickbtn mt-3 " style=" background-color:#00477D" />
         </div>
     </div>
+</div>
 
 
 }
@@ -157,3 +160,5 @@ new { enctype = "multipart/form-data" }))
         }
     }
 </script>
+
+

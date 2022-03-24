@@ -1,0 +1,56 @@
+﻿@model IEnumerable<contact.Models.t優惠活動>
+
+@{
+    ViewBag.Title = "MDiscountActivity";
+}
+
+<h2>MDiscountActivity</h2>
+
+<p>
+    @Html.ActionLink("新增活動", "ActivityCreate")
+</p>
+<div class="container mt-5">
+    <div class="row align-items-stretch">
+        @using (Html.BeginForm())
+        {
+            <span>關鍵字搜尋</span>
+            <input type="text" name="txtKeyword" />
+            <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+
+        }
+    </div>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                活動名稱
+            </th>
+
+
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    <div class="col-md-4">
+                        <img src="~/images/@item.f活動照片路徑" class="img-fluid   tomato-img">
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f活動名稱)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.f優惠活動ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.f優惠活動ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.f優惠活動ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
