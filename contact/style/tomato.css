@@ -1,7 +1,7 @@
 ﻿/* 新增按鈕 */
 .tomatoaddbtn {
-    -webkit-border-radius: 35;
-    -moz-border-radius: 35;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
     border-radius: 35px;
     font-family: Arial;
     color: #ffffff;
@@ -98,6 +98,31 @@
     background-image: linear-gradient(to top, #ca9c8f 0%, #e7bfa0 50%);
 }
 
+/* 加入購物車 */
+.tomatocartbtn {
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 18px;
+    background: #eba68d;
+    padding: 5px 10px 5px 10px;
+    border: dotted #ffffff 2px;
+    text-decoration: none;
+}
+
+.tomatocartbtn:hover {
+        background: #cc8b74;
+        text-decoration: none;
+        color: #ffffff;
+}
+
+
+
+
+
+
 
 @font-face {
     font-family: 'jf-openhuninn';
@@ -191,5 +216,11 @@
     transition-duration: 1s;
     }
     /*表單CSS end*/
-
+/*
+    水平線*/
+.tomatolower {
+    margin-bottom: 100px;
+    /* border: 2px dashed rgb(248, 163, 181); */
+    border-color: rgb(248, 163, 181);
+}
 

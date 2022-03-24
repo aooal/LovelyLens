@@ -38,11 +38,7 @@
             padding: 0;
         }
 
-        /*body {
-            background: rgb(231, 169, 169);
-
-        }*/
-
+ 
 
         .logo {
             /*flex: none;
@@ -50,7 +46,7 @@
                 width: 100px;*/
             /*background: #000;*/
             color: aliceblue;
-            border: 1px solid seashell;
+           
         }
 
         .menu {
@@ -110,23 +106,17 @@
 </head>
 <body>
 
-    @*測試改nav*@
-
     <div class="container-fluid">
 
         <div class="row align-content-center">
             @*讓圖片置中text-center*@
-            <div class="logo  col-md col-sm text-center me-auto">
-                <a href="/CManager/Index">
-                    <img src="~/images/lovely白底re.png" style="object-fit:cover;" class="rounded" alt="lovelylogo">
-                </a>
-            </div>
+            <div class="logo  col-md col-sm text-center mr-auto"><a href="/CManager/Index"><img src="~/images/lovely白底re.png" style="object-fit:cover;" class="rounded" alt="lovelylogo"></a></div>
             @*關係管理nav*@
             <div class="menu menutext1 col-md-1 col-sm text-center" onclick="toggleMenu(1);">
                 <h6 class="m-3">關 係 管 理 </h6>
                 <ul id="memu-1" class="hide">
-                    <li class="col">@Html.ActionLink("供應商維護", "supplier", "CManager")</li>
-                    <li class="col">@Html.ActionLink("經銷商維護", "customer", "CManager")</li>
+                    <li class="col">@Html.ActionLink("供應商維護", "CManager", "supplier")</li>
+                    <li class="col">@Html.ActionLink("經銷商維護", "CManager", "customer")</li>
                 </ul>
 
             </div>
@@ -169,7 +159,7 @@
                 <h6 class="m-3">活 動 管 理</h6>
 
                 <ul id="memu-6" class="hide">
-                    <li>@Html.ActionLink("所有活動", "Index", "CDiscount")</li>
+                    <li>@Html.ActionLink("所有活動", "MDiscountActivity", "CDiscount")</li>
                     <li>@Html.ActionLink("新增活動", "MDiscountSetting", "CDiscount")</li>
                 </ul>
 
@@ -180,6 +170,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     <div class="container-fluid  body-content">
