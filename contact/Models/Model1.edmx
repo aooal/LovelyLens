@@ -78,6 +78,7 @@
           <Property Name="f產品圖片路徑" Type="nvarchar" MaxLength="100" />
           <Property Name="f產品描述" Type="nvarchar" MaxLength="100" />
           <Property Name="f對外產品識別ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="f產品顏色" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="t換貨">
           <Key>
@@ -91,6 +92,7 @@
           <Property Name="f換貨原因" Type="nvarchar" MaxLength="50" />
           <Property Name="f換貨申請狀態" Type="nvarchar" MaxLength="50" />
           <Property Name="f對外訂單單號" Type="nvarchar" MaxLength="50" />
+          <Property Name="f訂單明細ID" Type="int" />
         </EntityType>
         <EntityType Name="t換貨明細">
           <Key>
@@ -101,6 +103,9 @@
           <Property Name="f產品ID" Type="int" />
           <Property Name="f換貨數量" Type="int" />
           <Property Name="f換貨單價" Type="money" />
+          <Property Name="f要換的產品ID" Type="int" />
+          <Property Name="f要換的數量" Type="int" />
+          <Property Name="f要換的產品單價" Type="money" />
         </EntityType>
         <EntityType Name="t優惠活動">
           <Key>
@@ -110,12 +115,108 @@
           <Property Name="f活動名稱" Type="nvarchar" MaxLength="100" />
           <Property Name="f活動詳情" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="f活動折扣碼" Type="nvarchar" MaxLength="50" />
-          <Property Name="f活動折扣" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="f活動折扣" Type="float" />
           <Property Name="f活動起始日" Type="nvarchar" MaxLength="50" />
           <Property Name="f活動結束日" Type="nvarchar" MaxLength="50" />
           <Property Name="f活動對象" Type="nvarchar" MaxLength="50" />
           <Property Name="f活動照片路徑" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_t訂單_t店家">
+          <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
+          <End Role="t訂單" Type="Self.t訂單" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t店家">
+              <PropertyRef Name="f店家ID" />
+            </Principal>
+            <Dependent Role="t訂單">
+              <PropertyRef Name="f店家ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t訂單明細_t訂單">
+          <End Role="t訂單" Type="Self.t訂單" Multiplicity="0..1" />
+          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t訂單">
+              <PropertyRef Name="f訂單單號ID" />
+            </Principal>
+            <Dependent Role="t訂單明細">
+              <PropertyRef Name="f訂單單號ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t訂單明細_t產品">
+          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
+          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t產品">
+              <PropertyRef Name="f產品ID" />
+            </Principal>
+            <Dependent Role="t訂單明細">
+              <PropertyRef Name="f產品ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t產品_t店家">
+          <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
+          <End Role="t產品" Type="Self.t產品" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t店家">
+              <PropertyRef Name="f店家ID" />
+            </Principal>
+            <Dependent Role="t產品">
+              <PropertyRef Name="f店家ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨_t店家">
+          <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
+          <End Role="t換貨" Type="Self.t換貨" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t店家">
+              <PropertyRef Name="f店家ID" />
+            </Principal>
+            <Dependent Role="t換貨">
+              <PropertyRef Name="f店家ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨_t訂單明細">
+          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="0..1" />
+          <End Role="t換貨" Type="Self.t換貨" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t訂單明細">
+              <PropertyRef Name="f訂單明細ID" />
+            </Principal>
+            <Dependent Role="t換貨">
+              <PropertyRef Name="f訂單明細ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨明細_t產品">
+          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
+          <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t產品">
+              <PropertyRef Name="f產品ID" />
+            </Principal>
+            <Dependent Role="t換貨明細">
+              <PropertyRef Name="f產品ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨明細_t換貨">
+          <End Role="t換貨" Type="Self.t換貨" Multiplicity="0..1" />
+          <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t換貨">
+              <PropertyRef Name="f換貨單號ID" />
+            </Principal>
+            <Dependent Role="t換貨明細">
+              <PropertyRef Name="f換貨單號ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBEyeModelStoreContainer">
           <EntitySet Name="t店家" EntityType="Self.t店家" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t訂單" EntityType="Self.t訂單" Schema="dbo" store:Type="Tables" />
@@ -124,6 +225,38 @@
           <EntitySet Name="t換貨" EntityType="Self.t換貨" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t換貨明細" EntityType="Self.t換貨明細" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t優惠活動" EntityType="Self.t優惠活動" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_t訂單_t店家" Association="Self.FK_t訂單_t店家">
+            <End Role="t店家" EntitySet="t店家" />
+            <End Role="t訂單" EntitySet="t訂單" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t訂單明細_t訂單" Association="Self.FK_t訂單明細_t訂單">
+            <End Role="t訂單" EntitySet="t訂單" />
+            <End Role="t訂單明細" EntitySet="t訂單明細" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t訂單明細_t產品" Association="Self.FK_t訂單明細_t產品">
+            <End Role="t產品" EntitySet="t產品" />
+            <End Role="t訂單明細" EntitySet="t訂單明細" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t產品_t店家" Association="Self.FK_t產品_t店家">
+            <End Role="t店家" EntitySet="t店家" />
+            <End Role="t產品" EntitySet="t產品" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨_t店家" Association="Self.FK_t換貨_t店家">
+            <End Role="t店家" EntitySet="t店家" />
+            <End Role="t換貨" EntitySet="t換貨" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨_t訂單明細" Association="Self.FK_t換貨_t訂單明細">
+            <End Role="t訂單明細" EntitySet="t訂單明細" />
+            <End Role="t換貨" EntitySet="t換貨" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨明細_t產品" Association="Self.FK_t換貨明細_t產品">
+            <End Role="t產品" EntitySet="t產品" />
+            <End Role="t換貨明細" EntitySet="t換貨明細" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨明細_t換貨" Association="Self.FK_t換貨明細_t換貨">
+            <End Role="t換貨" EntitySet="t換貨" />
+            <End Role="t換貨明細" EntitySet="t換貨明細" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -148,6 +281,9 @@
           <Property Name="f藥商許可證照片路徑" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="f營業登記許可照片路徑" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="f備註" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t訂單" Relationship="Self.FK_t訂單_t店家" FromRole="t店家" ToRole="t訂單" />
+          <NavigationProperty Name="t產品" Relationship="Self.FK_t產品_t店家" FromRole="t店家" ToRole="t產品" />
+          <NavigationProperty Name="t換貨" Relationship="Self.FK_t換貨_t店家" FromRole="t店家" ToRole="t換貨" />
         </EntityType>
         <EntityType Name="t訂單">
           <Key>
@@ -169,6 +305,8 @@
           <Property Name="f訂單狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f訂單QRCode圖片路徑" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f對外訂單單號" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t店家" Relationship="Self.FK_t訂單_t店家" FromRole="t訂單" ToRole="t店家" />
+          <NavigationProperty Name="t訂單明細" Relationship="Self.FK_t訂單明細_t訂單" FromRole="t訂單" ToRole="t訂單明細" />
         </EntityType>
         <EntityType Name="t訂單明細">
           <Key>
@@ -180,6 +318,9 @@
           <Property Name="f訂購數量" Type="Int32" />
           <Property Name="f單價" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="f折扣" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="t訂單" Relationship="Self.FK_t訂單明細_t訂單" FromRole="t訂單明細" ToRole="t訂單" />
+          <NavigationProperty Name="t產品" Relationship="Self.FK_t訂單明細_t產品" FromRole="t訂單明細" ToRole="t產品" />
+          <NavigationProperty Name="t換貨" Relationship="Self.FK_t換貨_t訂單明細" FromRole="t訂單明細" ToRole="t換貨" />
         </EntityType>
         <EntityType Name="t產品">
           <Key>
@@ -203,6 +344,10 @@
           <Property Name="f產品圖片路徑" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="f產品描述" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="f對外產品識別ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f產品顏色" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t店家" Relationship="Self.FK_t產品_t店家" FromRole="t產品" ToRole="t店家" />
+          <NavigationProperty Name="t訂單明細" Relationship="Self.FK_t訂單明細_t產品" FromRole="t產品" ToRole="t訂單明細" />
+          <NavigationProperty Name="t換貨明細" Relationship="Self.FK_t換貨明細_t產品" FromRole="t產品" ToRole="t換貨明細" />
         </EntityType>
         <EntityType Name="t換貨">
           <Key>
@@ -216,6 +361,10 @@
           <Property Name="f換貨原因" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f換貨申請狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f對外訂單單號" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f訂單明細ID" Type="Int32" />
+          <NavigationProperty Name="t店家" Relationship="Self.FK_t換貨_t店家" FromRole="t換貨" ToRole="t店家" />
+          <NavigationProperty Name="t訂單明細" Relationship="Self.FK_t換貨_t訂單明細" FromRole="t換貨" ToRole="t訂單明細" />
+          <NavigationProperty Name="t換貨明細" Relationship="Self.FK_t換貨明細_t換貨" FromRole="t換貨" ToRole="t換貨明細" />
         </EntityType>
         <EntityType Name="t換貨明細">
           <Key>
@@ -226,6 +375,11 @@
           <Property Name="f產品ID" Type="Int32" />
           <Property Name="f換貨數量" Type="Int32" />
           <Property Name="f換貨單價" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="f要換的產品ID" Type="Int32" />
+          <Property Name="f要換的數量" Type="Int32" />
+          <Property Name="f要換的產品單價" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="t產品" Relationship="Self.FK_t換貨明細_t產品" FromRole="t換貨明細" ToRole="t產品" />
+          <NavigationProperty Name="t換貨" Relationship="Self.FK_t換貨明細_t換貨" FromRole="t換貨明細" ToRole="t換貨" />
         </EntityType>
         <EntityType Name="t優惠活動">
           <Key>
@@ -235,12 +389,108 @@
           <Property Name="f活動名稱" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="f活動詳情" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="f活動折扣碼" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="f活動折扣" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="f活動折扣" Type="Double" />
           <Property Name="f活動起始日" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f活動結束日" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f活動對象" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f活動照片路徑" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_t訂單_t店家">
+          <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
+          <End Role="t訂單" Type="Self.t訂單" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t店家">
+              <PropertyRef Name="f店家ID" />
+            </Principal>
+            <Dependent Role="t訂單">
+              <PropertyRef Name="f店家ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t產品_t店家">
+          <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
+          <End Role="t產品" Type="Self.t產品" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t店家">
+              <PropertyRef Name="f店家ID" />
+            </Principal>
+            <Dependent Role="t產品">
+              <PropertyRef Name="f店家ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨_t店家">
+          <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
+          <End Role="t換貨" Type="Self.t換貨" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t店家">
+              <PropertyRef Name="f店家ID" />
+            </Principal>
+            <Dependent Role="t換貨">
+              <PropertyRef Name="f店家ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t訂單明細_t訂單">
+          <End Role="t訂單" Type="Self.t訂單" Multiplicity="0..1" />
+          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t訂單">
+              <PropertyRef Name="f訂單單號ID" />
+            </Principal>
+            <Dependent Role="t訂單明細">
+              <PropertyRef Name="f訂單單號ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t訂單明細_t產品">
+          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
+          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t產品">
+              <PropertyRef Name="f產品ID" />
+            </Principal>
+            <Dependent Role="t訂單明細">
+              <PropertyRef Name="f產品ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨_t訂單明細">
+          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="0..1" />
+          <End Role="t換貨" Type="Self.t換貨" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t訂單明細">
+              <PropertyRef Name="f訂單明細ID" />
+            </Principal>
+            <Dependent Role="t換貨">
+              <PropertyRef Name="f訂單明細ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨明細_t產品">
+          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
+          <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t產品">
+              <PropertyRef Name="f產品ID" />
+            </Principal>
+            <Dependent Role="t換貨明細">
+              <PropertyRef Name="f產品ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t換貨明細_t換貨">
+          <End Role="t換貨" Type="Self.t換貨" Multiplicity="0..1" />
+          <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t換貨">
+              <PropertyRef Name="f換貨單號ID" />
+            </Principal>
+            <Dependent Role="t換貨明細">
+              <PropertyRef Name="f換貨單號ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBEyeEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="t店家" EntityType="Self.t店家" />
           <EntitySet Name="t訂單" EntityType="Self.t訂單" />
@@ -249,6 +499,38 @@
           <EntitySet Name="t換貨" EntityType="Self.t換貨" />
           <EntitySet Name="t換貨明細" EntityType="Self.t換貨明細" />
           <EntitySet Name="t優惠活動" EntityType="Self.t優惠活動" />
+          <AssociationSet Name="FK_t訂單_t店家" Association="Self.FK_t訂單_t店家">
+            <End Role="t店家" EntitySet="t店家" />
+            <End Role="t訂單" EntitySet="t訂單" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t產品_t店家" Association="Self.FK_t產品_t店家">
+            <End Role="t店家" EntitySet="t店家" />
+            <End Role="t產品" EntitySet="t產品" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨_t店家" Association="Self.FK_t換貨_t店家">
+            <End Role="t店家" EntitySet="t店家" />
+            <End Role="t換貨" EntitySet="t換貨" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t訂單明細_t訂單" Association="Self.FK_t訂單明細_t訂單">
+            <End Role="t訂單" EntitySet="t訂單" />
+            <End Role="t訂單明細" EntitySet="t訂單明細" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t訂單明細_t產品" Association="Self.FK_t訂單明細_t產品">
+            <End Role="t產品" EntitySet="t產品" />
+            <End Role="t訂單明細" EntitySet="t訂單明細" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨_t訂單明細" Association="Self.FK_t換貨_t訂單明細">
+            <End Role="t訂單明細" EntitySet="t訂單明細" />
+            <End Role="t換貨" EntitySet="t換貨" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨明細_t產品" Association="Self.FK_t換貨明細_t產品">
+            <End Role="t產品" EntitySet="t產品" />
+            <End Role="t換貨明細" EntitySet="t換貨明細" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t換貨明細_t換貨" Association="Self.FK_t換貨明細_t換貨">
+            <End Role="t換貨" EntitySet="t換貨" />
+            <End Role="t換貨明細" EntitySet="t換貨明細" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -331,6 +613,7 @@
                 <ScalarProperty Name="f產品圖片路徑" ColumnName="f產品圖片路徑" />
                 <ScalarProperty Name="f產品描述" ColumnName="f產品描述" />
                 <ScalarProperty Name="f對外產品識別ID" ColumnName="f對外產品識別ID" />
+                <ScalarProperty Name="f產品顏色" ColumnName="f產品顏色" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -345,6 +628,7 @@
                 <ScalarProperty Name="f換貨原因" ColumnName="f換貨原因" />
                 <ScalarProperty Name="f換貨申請狀態" ColumnName="f換貨申請狀態" />
                 <ScalarProperty Name="f對外訂單單號" ColumnName="f對外訂單單號" />
+                <ScalarProperty Name="f訂單明細ID" ColumnName="f訂單明細ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -356,6 +640,9 @@
                 <ScalarProperty Name="f產品ID" ColumnName="f產品ID" />
                 <ScalarProperty Name="f換貨數量" ColumnName="f換貨數量" />
                 <ScalarProperty Name="f換貨單價" ColumnName="f換貨單價" />
+                <ScalarProperty Name="f要換的產品ID" ColumnName="f要換的產品ID" />
+                <ScalarProperty Name="f要換的數量" ColumnName="f要換的數量" />
+                <ScalarProperty Name="f要換的產品單價" ColumnName="f要換的產品單價" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

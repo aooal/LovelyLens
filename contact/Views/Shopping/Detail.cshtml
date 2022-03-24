@@ -7,57 +7,111 @@
 <h2>Detail</h2>
 
 <h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
-<h2></h2>
+
 <img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" />
-<h2>NT @((int?)Model.FirstOrDefault().f售價) $</h2>
-<select id="rEye">
-    <option>請選擇右眼度數</option>
+<h2 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h2>
+<select id="pColor">
+    <option>請選擇產品顏色</option>
 </select>
-@foreach (var item in Model)
-{
+<select id="rEye" onchange="Myselect()">
+    <option>請選擇近視度數</option>
+</select>
+<select id="ast" onchange="Myast()" style="display:none">
+    <option>請選擇散光度數</option>
+</select>
+<select id="ang" onchange="Myang()" style="display:none">
+    <option>請選擇散光角度</option>
+</select>
+<p id="inven" onload="inven()"></p>
+<input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" /></p>
+@section scripts{
     <script>
 
-    var MyArray = [];
-    var myopia = (@Html.DisplayTextFor(modelItem => item.f近視老花度數)).toFixed(2);
+        function pCount() {
+            var total = document.getElementById('total');
+            var pCount = document.getElementById('pCount');
+            if (@((int?)Model.FirstOrDefault().f售價) * pCount.value > 0) {
+                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價) * pCount.value;
+            } else {
+                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價);
+            }
 
-    MyArray.push((myopia));
-    console.log(MyArray);
-    MyArray.sort();
+        }
+
+        var ast = document.getElementById('ast');
+        var ang = document.getElementById('ang');
+        if (@Model.FirstOrDefault().f閃光度數 != 0) {
+            ast.style.display = 'block';
+            ang.style.display = 'block';
+        } else {
+            ast.style.display = 'none';
+            ang.style.display = 'none';
+        }
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        var colorArray = [];
+        var myArray = [];
+        var astArray = [];
+        var angArray = [];
+        @foreach(var item in Model)
+        {
 
 
-    for (var i = 0; i < MyArray.length; i++) {
-       var rEye = document.getElementById('rEye');
-        //console.log(MyArray[i])
-        var MyItem = new Option(MyArray[i], MyArray[i]);
-        rEye.options.add(MyItem);
+            @:colorArray.push("@item.f產品顏色");
+            @:myArray.push((@item.f近視老花度數).toFixed(2));
+            @:astArray.push((@item.f閃光度數).toFixed(2));
+            @:angArray.push("@item.f閃光角度");
 
-    }
+
+        }
+
+        console.log(colorArray);
+        colorArray = colorArray.filter(onlyUnique);
+        myArray = myArray.filter(onlyUnique);
+        astArray = astArray.filter(onlyUnique);
+        angArray = angArray.filter(onlyUnique);
+        myArray.sort();
+        astArray.sort();
+        angArray.sort();
+        var pColor = document.getElementById('pColor');
+        for (var i = 0; i < colorArray.length; i++) {
+
+            var MyColor = new Option(colorArray[i], colorArray[i]);
+            pColor.options.add(MyColor);
+        }
+        var ast = document.getElementById('ast');
+        for (var i = 0; i < astArray.length; i++) {
+
+            var Myast = new Option(astArray[i], astArray[i]);
+            ast.options.add(Myast);
+        }
+        var ang = document.getElementById('ang');
+        for (var i = 0; i < angArray.length; i++) {
+
+            var Myang = new Option(angArray[i], angArray[i]);
+            ang.options.add(Myang);
+        }
+
+        var rEye = document.getElementById('rEye');
+        for (var i = 0; i < myArray.length; i++) {
+
+            var MyItem = new Option(myArray[i], myArray[i]);
+            rEye.options.add(MyItem);
+        }
+        function Myselect() {
+            var myValue = rEye.options[rEye.selectedIndex].value;
+            console.log(myValue);
+        }
+
 
     </script>
 
-    <tr>
-        <td>
-            度數 @Html.DisplayFor(modelItem => item.f近視老花度數)
-        </td>
-        <td>
-
-            散光 @Html.DisplayFor(modelItem => item.f閃光度數, new { htmlAttributes = new { @id = "ast" } })
-
-        </td>
-        <td>
-            散光角度 @Html.DisplayFor(modelItem => item.f閃光角度, new { htmlAttributes = new { @id = "ang" } })
-        </td>
-        <td>
-            庫存 @Html.DisplayFor(modelItem => item.f庫存數量)
-        </td>
-
-    </tr>
-    <br />
 }
-<script>
-    var rEye = document.getElementById('rEye').value;
-    console.log(rEye);
-</script>
+
+
+
+
 
 
 
