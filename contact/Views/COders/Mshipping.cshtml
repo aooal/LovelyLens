@@ -1,6 +1,17 @@
 ﻿@model IEnumerable<contact.ViewModels.MOrderRecord>
 
 
+@{
+    ViewBag.Title = "出貨管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+    <style>
+    </style>
+}
+
 出貨管理
 <table class="table">
     <tr>
@@ -83,3 +94,75 @@
     }
 
 </table>
+
+
+
+我的排版
+<div class="container-fluid mt-1 p-5">
+    <h2 class="mb-5">出貨管理</h2>
+
+    <div class="row justify-content-between">
+        <div class="col-4">
+            訂單單號：123456798
+        </div>
+        <div class="col-4">
+            訂單日期：2021.02.25
+        </div>
+        <div class="row container-fluid col-10 m-3">
+
+            <div class="border border-primary rounded ">
+                <p>經銷商：</p>
+                <p>電話：</p>
+                <p>地址：</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <label>訂購品項</label>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品編號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">數量</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row">1</th>
+                <td>1234567890123456</td>
+                <td>AAAAAAAA</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>1234567890123456</td>
+                <td>AAAAAAAA</td>
+                <td>12</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+<div>
+    <p>備註：</p>
+</div>
+<button type="button" class="btn btn-primary btn-sm">生成QRcode</button>
+<button type="button" class="btn btn-primary btn-sm">確認出貨</button>
+
+
+
+@section scripts{
+    <script>
+
+    </script>
+
+}
+
+

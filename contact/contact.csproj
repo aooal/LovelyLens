@@ -289,6 +289,8 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\CDiscount\MDiscountActivity.cshtml" />
     <Content Include="Views\CDiscount\ActivityCreate.cshtml" />
+    <Content Include="Views\Home\AccUpdates.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
