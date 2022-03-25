@@ -13,10 +13,10 @@ namespace contact.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DBEyeEntities2 : DbContext
+    public partial class DBEyeEntities : DbContext
     {
-        public DBEyeEntities2()
-            : base("name=DBEyeEntities2")
+        public DBEyeEntities()
+            : base("name=DBEyeEntities")
         {
         }
     

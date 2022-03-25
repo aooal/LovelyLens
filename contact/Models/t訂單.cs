@@ -14,6 +14,12 @@ namespace contact.Models
     
     public partial class t訂單
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public t訂單()
+        {
+            this.t訂單明細 = new HashSet<t訂單明細>();
+        }
+    
         public int f訂單單號ID { get; set; }
         public Nullable<int> f店家ID { get; set; }
         public string f訂購人 { get; set; }
@@ -30,5 +36,9 @@ namespace contact.Models
         public string f訂單狀態 { get; set; }
         public string f訂單QRCode圖片路徑 { get; set; }
         public string f對外訂單單號 { get; set; }
+    
+        public virtual t店家 t店家 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<t訂單明細> t訂單明細 { get; set; }
     }
 }

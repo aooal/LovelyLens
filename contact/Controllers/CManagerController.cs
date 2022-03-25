@@ -20,7 +20,7 @@ namespace contact.Controllers
         }
         public ActionResult supplier()
         {
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             IEnumerable<t店家> datas = null;
             string keyword = Request.Form["txtKeyword"];
             datas = from p in db.t店家 select p;
@@ -42,7 +42,7 @@ namespace contact.Controllers
         [HttpPost]
         public ActionResult SupCreate(t店家 p)
         {
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
 
             db.t店家.Add(p);
             db.SaveChanges();
@@ -52,7 +52,7 @@ namespace contact.Controllers
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t店家 prod = db.t店家.FirstOrDefault(p => p.f店家ID == (int)id);
                 if (prod != null)
                 {
@@ -69,7 +69,7 @@ namespace contact.Controllers
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t店家 prod = db.t店家.FirstOrDefault(p => p.f店家ID == (int)id);
                 if (prod != null)
                     return View(prod);
@@ -81,7 +81,7 @@ namespace contact.Controllers
         public ActionResult SupEdit(t店家 editProduct)
         {
 
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             t店家 prod = db.t店家.FirstOrDefault(p => p.f店家ID == editProduct.f店家ID);
             if (prod != null)
             {
@@ -100,7 +100,7 @@ namespace contact.Controllers
         }
         public ActionResult customer()
         {
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             IEnumerable<t店家> datas = null;
             string keyword = Request.Form["txtKeyword"];
             string str = Request.Form["mpick"];
@@ -137,7 +137,7 @@ namespace contact.Controllers
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t店家 prod = db.t店家.FirstOrDefault(p => p.f店家ID == (int)id);
                 if (prod != null)
                 {
@@ -152,7 +152,7 @@ namespace contact.Controllers
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t店家 prod = db.t店家.FirstOrDefault(p => p.f店家ID == (int)id);
                 if (prod != null)
                     return View(prod);
@@ -164,7 +164,7 @@ namespace contact.Controllers
         public ActionResult CusEdit(t店家 editProduct)
         {
 
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             t店家 prod = db.t店家.FirstOrDefault(p => p.f店家ID == editProduct.f店家ID);
             if (prod != null)
             {

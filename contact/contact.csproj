@@ -143,15 +143,15 @@
     <Content Include="images\藥商許可證樣本.png" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\popper.min.js" />
-    <Content Include="Models\DBEye.Context.tt">
+    <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBEye.edmx</DependentUpon>
-      <LastGenOutput>DBEye.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DBEye.tt">
+    <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBEye.edmx</DependentUpon>
-      <LastGenOutput>DBEye.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="obj\Debug\contact.csproj.FileListAbsolute.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -170,14 +170,14 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <EntityDeploy Include="Models\DBEye.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBEye.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DBEye.edmx.diagram">
-      <DependentUpon>DBEye.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\jf-openhuninn-1.1.ttf" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -205,46 +205,48 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DBEye.Context.cs">
+    <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBEye.Context.tt</DependentUpon>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DBEye.cs">
+    <Compile Include="Models\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DBEye.Designer.cs">
+    <Compile Include="Models\Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBEye.edmx</DependentUpon>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\SessionKeys.cs" />
     <Compile Include="Models\t優惠活動.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t店家.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t換貨.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t換貨明細.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t產品.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t訂單.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t訂單明細.cs">
-      <DependentUpon>DBEye.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CexchangeDetailRecord.cs" />
     <Compile Include="ViewModels\CexchangeRecord.cs" />
+    <Compile Include="ViewModels\CLoginInfo.cs" />
     <Compile Include="ViewModels\MOderDetailRecord .cs" />
     <Compile Include="ViewModels\MOrderRecord.cs" />
   </ItemGroup>
@@ -282,6 +284,8 @@
     <Content Include="Views\CManager\CusEdit.cshtml" />
     <Content Include="Views\Shopping\List.cshtml" />
     <Content Include="Views\Shopping\Detail.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Management.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

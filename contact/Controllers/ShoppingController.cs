@@ -12,7 +12,7 @@ namespace contact.Controllers
         // GET: Shopping
         public ActionResult List()
         {
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
 
             //var Products = (from p in (new DBEyeEntities()).t產品 select p.f產品名稱).Distinct(new ProductNameComparer());
             //var Products = new DBEyeEntities().t產品.Distinct(new ProductNameComparer());
@@ -24,19 +24,20 @@ namespace contact.Controllers
                 Products = db.t產品.GroupBy(m => m.f產品名稱).Select(p => p.FirstOrDefault());
             else
                 Products = db.t產品.GroupBy(m => m.f產品名稱).Select(p => p.FirstOrDefault()).
-                    Where(p => p.f品牌名稱.Contains(keyword) || p.f產品名稱.Contains(keyword));
+                Where(p => p.f品牌名稱.Contains(keyword) || p.f產品名稱.Contains(keyword));
             return View(Products);
         }
         public ActionResult Detail(int? id)
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == id);
                 if (prod != null)
                 {
                     //return View(prod);
                     string fname = prod.f產品名稱;
+
                     var result = db.t產品.Where(m => m.f產品名稱 == fname);
                     return View(result);
                 }
@@ -48,7 +49,7 @@ namespace contact.Controllers
         public ActionResult Detail(t產品 editProduct)
         {
 
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == editProduct.f產品ID);
 
             if (prod != null)
@@ -63,6 +64,7 @@ namespace contact.Controllers
                 prod.f近視老花度數 = editProduct.f近視老花度數;
                 prod.f閃光度數 = editProduct.f閃光度數;
                 prod.f閃光角度 = editProduct.f閃光角度;
+                prod.f產品顏色 = editProduct.f產品顏色;
                 db.SaveChanges();
             }
             return RedirectToAction("Detail");

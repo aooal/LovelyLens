@@ -17,7 +17,7 @@ namespace contact.Controllers
         }
         public ActionResult MProducts()
         {
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             IEnumerable<t產品> datas = null;
             string keyword = Request.Form["txtKeyword"];
             string str = Request.Form["mpick"];
@@ -59,7 +59,7 @@ namespace contact.Controllers
         [HttpPost]
         public ActionResult MProductCRUD(t產品 p)
         {
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             
             
                 if (p.photo != null)
@@ -82,7 +82,7 @@ namespace contact.Controllers
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == (int)id);
                 if (prod != null)
                 {
@@ -98,7 +98,7 @@ namespace contact.Controllers
         {
             if (id != null)
             {
-                DBEyeEntities2 db = new DBEyeEntities2();
+                DBEyeEntities db = new DBEyeEntities();
                 t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == (int)id);
                 if (prod != null)
                     return View(prod);
@@ -109,7 +109,7 @@ namespace contact.Controllers
         public ActionResult Edit(t產品 editProduct)
         {
 
-            DBEyeEntities2 db = new DBEyeEntities2();
+            DBEyeEntities db = new DBEyeEntities();
             t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == editProduct.f產品ID);
             if (prod != null)
             {

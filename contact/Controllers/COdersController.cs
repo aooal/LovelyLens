@@ -11,7 +11,7 @@ namespace contact.Controllers
 {
     public class COdersController : Controller
     {
-        DBEyeEntities2 db = new DBEyeEntities2();
+        DBEyeEntities db = new DBEyeEntities();
         // GET: COders
         [HttpGet]
         public ActionResult MOders()

@@ -14,6 +14,14 @@ namespace contact.Models
     
     public partial class t店家
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public t店家()
+        {
+            this.t訂單 = new HashSet<t訂單>();
+            this.t產品 = new HashSet<t產品>();
+            this.t換貨 = new HashSet<t換貨>();
+        }
+    
         public int f店家ID { get; set; }
         public string f店家名稱 { get; set; }
         public string f店家負責人 { get; set; }
@@ -28,5 +36,12 @@ namespace contact.Models
         public string f藥商許可證照片路徑 { get; set; }
         public string f營業登記許可照片路徑 { get; set; }
         public string f備註 { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<t訂單> t訂單 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<t產品> t產品 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<t換貨> t換貨 { get; set; }
     }
 }
