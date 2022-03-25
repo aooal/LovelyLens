@@ -10,39 +10,143 @@
     }
 </style>
 
+
+
 <h1>經銷商：歷史訂單詳情</h1>
 
-訂單日期:@Model.f訂購日期
-訂單單號:@Model.f對外訂單單號
-訂單狀態:@Model.f訂單狀態
-付款狀態:@Model.f付款狀態
-<table class="table">
-    <tr>
-        <th>商品編號</th>
-        <th>商品名稱</th>
-        <th>數量</th>
-        <th>小計</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.f對外產品識別ID
-        </td>
-        <td>
-            @Model.f產品名稱
-        </td>
-        <td>
-            @Model.f訂購數量
-        </td>
-        <td>
-            @Model.f小計
-        </td>
-        <td>
-            @Html.ActionLink("重新訂購", "", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |
+    訂單日期:@Model.f訂購日期
+    訂單單號:@Model.f對外訂單單號
+    訂單狀態:@Model.f訂單狀態
+    付款狀態:@Model.f付款狀態
+    <table class="table">
+        <tr>
+            <th>商品編號</th>
+            <th>商品名稱</th>
+            <th>數量</th>
+            <th>小計</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                @Model.f對外產品識別ID
+            </td>
+            <td>
+                @Model.f產品名稱
+            </td>
+            <td>
+                @Model.f訂購數量
+            </td>
+            <td>
+                @Model.f小計
+            </td>
+            <td>
+                @Html.ActionLink("重新訂購", "", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |
+                <!--這是不是搞錯啊! 經銷商買東西的地方怎麼會有出貨管理 AND訂單表單應該要FOREACH 這個只有一筆-->
+            </td>
+        </tr>
+    </table>
+    總價:@Model.f訂單總金額
+    備註:@Model.f訂單備註
 
-        </td>
-    </tr>
-</table>
-總價:@Model.f訂單總金額
-備註:@Model.f訂單備註
+
+    @*我的排版1*@
+    <!--<div class="container-fluid mt-1 p-5">
+        <h2 class="mb-5">訂單詳情</h2>
+
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                訂單單號：@Model.f對外訂單單號
+            </div>
+            <div class="col-4">
+                訂單日期：:@Model.f訂購日期
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="col-4 ">
+
+                    <label>
+                        訂單狀態：@Model.f訂單狀態
+                    </label><br>
+                    <label>
+                        付款狀態：@Model.f付款狀態
+                    </label><br>
+                    <label>訂單需求：客需/補庫存</label>
+
+
+                </div>
+
+
+
+                <div class="col-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid mt-3 p-5">
+        <table class="table  table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">序號</th>
+                    <th scope="col">商品編號</th>
+                    <th scope="col">商品名稱</th>
+                    <th scope="col">數量</th>
+                    <th scope="col">小計</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>@Model.f對外產品識別ID</td>
+                    <td>@Model.f產品名稱</td>
+                    <td>@Model.f訂購數量</td>
+                    <td>@Model.f小計</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+
+                <tr>
+                    <th scope="row" colspan="3"></th>
+                    <td class="bg-info text-light text-center">訂單總額</td>
+                    <td>12345656748元</td>
+                </tr>
+            </tbody>
+
+        </table>
+        @Html.ActionLink("重新訂購", "", new { /* id=item.PrimaryKey */ })-->
+        @*<button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">再買一次</button>*@
+    <!--</div>-->
+
+    @section scripts{
+        <script></script>
+
+    }
+
+
+
+    @*@Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |*@
