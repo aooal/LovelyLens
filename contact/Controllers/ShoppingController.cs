@@ -67,5 +67,24 @@ namespace contact.Controllers
             }
             return RedirectToAction("Detail");
         }
+
+        //[ChildActionOnly]
+        //public ActionResult _activDisplay(string activPath)
+        //{
+        //    DBEyeEntities2 db = new DBEyeEntities2();
+        //    List<t優惠活動> activPhoto;
+        //    activPhoto = (from p in db.t優惠活動 orderby p.f活動照片路徑 select p).Take(5).ToList();
+        //    return PartialView("_activDisplay", activPhoto);
+        //}
+
+
+        [ChildActionOnly]
+        public ActionResult _activDisplay(int count = 0)
+        {
+            DBEyeEntities2 db = new DBEyeEntities2();
+            List<t優惠活動> activPhoto;
+            activPhoto = (from p in db.t優惠活動 orderby p.f活動照片路徑 select p).Take(count).ToList();
+            return PartialView("_activDisplay", activPhoto);
+        }
     }
 }

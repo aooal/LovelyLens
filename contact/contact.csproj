@@ -292,6 +292,7 @@
     <Content Include="Views\Home\AccUpdates.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\CCustomer\CheckOut.cshtml" />
+    <Content Include="Views\Shared\_activDisplay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
