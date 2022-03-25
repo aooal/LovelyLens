@@ -7,10 +7,10 @@
 
 
 <!-- 輪播開始  -->
-@*<div class="container-fluid ">
-    <div class="row col-lg-12">*@
+<div class="container-fluid ">
+    <div class="row ">
 @{
-    <section id="lokiSlider" class="carousel slide carousel-fade w-100" data-bs-ride="carousel">
+    <section id="lokiSlider" class="carousel slide carousel-fade vh-50 " data-bs-ride="carousel">
         <div class="carousel-indicators">
 
             @for (var i = 0; i <= 4; i++)
@@ -24,7 +24,7 @@
         <div class="carousel-inner">
             @foreach (var item in Model)
             {
-                <div class="carousel-item ">
+                <div class="carousel-item">
                     <img src="~/images/@item.f活動照片路徑" class="d-block w-100">
                     <div class="carousel-caption  d-md-block ">
                         <h5>@item.f活動名稱</h5>
@@ -42,3 +42,4 @@
         </button>
     </section>
 }
+</div></div>

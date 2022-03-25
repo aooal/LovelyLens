@@ -8,7 +8,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/style/bootstrap.min.css" rel="stylesheet" />
+    
+    <link href="@Url.Content("~/style/bootstrap.min.css")" rel="stylesheet" type="text/css" />
     <link href="~/style/tomato.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
           integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
@@ -136,7 +137,7 @@
 
 
             </div>
-            
+
 
             <div class="menu menutext3 col-md col-sm text-center" onclick="toggleMenu(3);">
                 <h6 class="m-3">售 後 服 務 登 記 </h6>
@@ -184,10 +185,10 @@
             </div>
         </div>
     </div>
+  
 
-
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
+    <script src="@Url.Content("~/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/js/popper.min.js")"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
