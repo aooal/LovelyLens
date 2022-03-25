@@ -61,13 +61,12 @@ namespace contact.Controllers
         [HttpPost]
         public ActionResult Register(t店家 註冊)
         {
-            DBEyeEntities db = new DBEyeEntities();
-
             HttpPostedFileBase medicalLicense = Request.Files["medicalLicense"];
             HttpPostedFileBase businessLicense = Request.Files["businessLicense"];
 
             if (ModelState.IsValid)
             {
+                DBEyeEntities db = new DBEyeEntities();
                 ViewBag.Occupied = false;
                 var occupied_check = db.t店家.Where(m => m.f電子信箱 == 註冊.f電子信箱).FirstOrDefault();
                 if (occupied_check != null)
@@ -99,7 +98,7 @@ namespace contact.Controllers
                 註冊.f註冊日期 = DateTime.Now.ToString("yyyyMMddHHmmss");
                 db.t店家.Add(註冊);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
             return View(註冊);
         }
