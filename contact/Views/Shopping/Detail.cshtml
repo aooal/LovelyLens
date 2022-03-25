@@ -9,100 +9,110 @@
 <h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
 
 <img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" />
-<h2 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h2>
-<select id="pColor">
-    <option>請選擇產品顏色</option>
-</select>
-<select id="rEye" onchange="Myselect()">
-    <option>請選擇近視度數</option>
-</select>
-<select id="ast" onchange="Myast()" style="display:none">
-    <option>請選擇散光度數</option>
-</select>
-<select id="ang" onchange="Myang()" style="display:none">
-    <option>請選擇散光角度</option>
-</select>
-<p id="inven" onload="inven()"></p>
-<input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" /></p>
+<div>
+    <input type="number" id="pCount" name="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="0" />
+    <h2 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h2>
+</div>
+<form action="Detail" method="POST" class="p-5 mt-5 loginform">
+    <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
+    <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+    <input type="hidden" id="Count" name="數量" />
+
+    <select id="pColor" name="f產品顏色">
+        <option>請選擇產品顏色</option>
+    </select>
+    <select id="rEye" name="f近視老花度數" onchange="Myselect()">
+        <option>請選擇近視度數</option>
+    </select>
+    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none">
+        <option>請選擇散光度數</option>
+    </select>
+    <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none">
+        <option>請選擇散光角度</option>
+    </select>
+    <p id="inven" onload="inven()"></p>
+    <input type="submit" value="加入購物車" />
+</form>
+
+
 @section scripts{
     <script>
 
-function pCount() {
-var total = document.getElementById('total');
-var pCount = document.getElementById('pCount');
-if (@((int?)Model.FirstOrDefault().f售價) * pCount.value > 0) {
-total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價) * pCount.value;
-} else {
-total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價);
-}
+        function pCount() {
+            var total = document.getElementById('total');
+            var pCount = document.getElementById('pCount');
+            if (@((int?)Model.FirstOrDefault().f售價) * pCount.value > 0) {
+                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價) * pCount.value;
+            } else {
+                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價);
+            }
+            document.getElementById('Count').value = pCount.value;
+        }
 
-}
+        var ast = document.getElementById('ast');
+        var ang = document.getElementById('ang');
+        if (@Model.FirstOrDefault().f閃光度數 != 0) {
+            ast.style.display = 'block';
+            ang.style.display = 'block';
+        } else {
+            ast.style.display = 'none';
+            ang.style.display = 'none';
+        }
 
-var ast = document.getElementById('ast');
-var ang = document.getElementById('ang');
-if (@Model.FirstOrDefault().f閃光度數 != 0) {
-ast.style.display = 'block';
-ang.style.display = 'block';
-} else {
-ast.style.display = 'none';
-ang.style.display = 'none';
-}
-function onlyUnique(value, index, self) {
-return self.indexOf(value) === index;
-}
-var colorArray = [];
-var myArray = [];
-var astArray = [];
-var angArray = [];
-@foreach(var item in Model)
-{
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        var colorArray = [];
+        var myArray = [];
+        var astArray = [];
+        var angArray = [];
 
-
-@:colorArray.push("@item.f產品顏色");
-@:myArray.push((@item.f近視老花度數).toFixed(2));
-@:astArray.push((@item.f閃光度數).toFixed(2));
-@:angArray.push("@item.f閃光角度");
+        @foreach(var item in Model)
+            {
+                @:colorArray.push("@item.f產品顏色");
+                @:myArray.push((@item.f近視老花度數).toFixed(2));
+                @:astArray.push((@item.f閃光度數).toFixed(2));
+                @:angArray.push("@item.f閃光角度");
 
 
-}
+            }
 
-console.log(colorArray);
-colorArray = colorArray.filter(onlyUnique);
-myArray = myArray.filter(onlyUnique);
-astArray = astArray.filter(onlyUnique);
-angArray = angArray.filter(onlyUnique);
-myArray.sort();
-astArray.sort();
-angArray.sort();
-var pColor = document.getElementById('pColor');
-for (var i = 0; i < colorArray.length; i++) {
+        console.log(colorArray);
+        colorArray = colorArray.filter(onlyUnique);
+        myArray = myArray.filter(onlyUnique);
+        astArray = astArray.filter(onlyUnique);
+        angArray = angArray.filter(onlyUnique);
+        myArray.sort();
+        astArray.sort();
+        angArray.sort();
 
-var MyColor = new Option(colorArray[i], colorArray[i]);
-pColor.options.add(MyColor);
-}
-var ast = document.getElementById('ast');
-for (var i = 0; i < astArray.length; i++) {
+        var pColor = document.getElementById('pColor');
+        for (var i = 0; i < colorArray.length; i++) {
+            var MyColor = new Option(colorArray[i], colorArray[i]);
+            pColor.options.add(MyColor);
+        }
+        var ast = document.getElementById('ast');
+        for (var i = 0; i < astArray.length; i++) {
+            var Myast = new Option(astArray[i], astArray[i]);
+            ast.options.add(Myast);
+        }
 
-var Myast = new Option(astArray[i], astArray[i]);
-ast.options.add(Myast);
-}
-var ang = document.getElementById('ang');
-for (var i = 0; i < angArray.length; i++) {
+        var ang = document.getElementById('ang');
+        for (var i = 0; i < angArray.length; i++) {
+            var Myang = new Option(angArray[i], angArray[i]);
+            ang.options.add(Myang);
+        }
 
-var Myang = new Option(angArray[i], angArray[i]);
-ang.options.add(Myang);
-}
+        var rEye = document.getElementById('rEye');
+        for (var i = 0; i < myArray.length; i++) {
+            var MyItem = new Option(myArray[i], myArray[i]);
+            rEye.options.add(MyItem);
+        }
 
-var rEye = document.getElementById('rEye');
-for (var i = 0; i < myArray.length; i++) {
-
-var MyItem = new Option(myArray[i], myArray[i]);
-rEye.options.add(MyItem);
-}
-function Myselect() {
-var myValue = rEye.options[rEye.selectedIndex].value;
-console.log(myValue);
-}
+        function Myselect() {
+            var myValue = rEye.options[rEye.selectedIndex].value;
+            console.log(myValue);
+        }
 
 
     </script>

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<contact.Models.CShoppingCartItem>
+
+@{
+    ViewBag.Title = "CartView";
+}
+
+<h2>CartView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.品牌名稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.產品名稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.產品顏色)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.近視度數)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.散光度數)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.散光角度)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.數量)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.單價)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.小計)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.品牌名稱)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.產品名稱)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.產品顏色)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.近視度數)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.散光度數)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.散光角度)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.數量)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.單價)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.小計)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
