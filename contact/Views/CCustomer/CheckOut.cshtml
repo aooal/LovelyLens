@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+@section styles{
+
+    <style>
+    </style>
+}
+
+<div class="container-fluid mt-3">
+    <h2 class="row justify-content-center">結帳</h2>
+</div>
+<hr />
+<div class="container-fluid">
+    <label>訂購人資訊</label>
+</div>
+<div class="row container-fluid col-8 m-3">
+
+    <div class="border border-primary rounded ">
+
+        <p class="pt-2">經銷商：</p>
+        <p>連絡電話：</p>
+        <p>店家地址：</p>
+        <p>電子郵件：</p>
+    </div>
+</div>
+<div>
+    <label>付款資訊</label>
+</div>
+<div class="row container-fluid col-8 m-3">
+    <div class="border border-primary rounded">
+        <label class="my-3">付款方式：</label>
+        <select>
+            <option>現金</option>
+            <option>信用卡</option>
+        </select>
+        <button type="button" class="btn btn-primary btn-sm">確認</button>
+    </div>
+</div>
+
+<div>
+    <label>訂購品項</label>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">度數</th>
+                <th scope="col">數量</th>
+                <th scope="col">小計</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>1234567890123456</td>
+                <td>幾度</td>
+                <td>12</td>
+                <td>1234</td>
+
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>1234567890123456</td>
+                <td>幾度</td>
+                <td>12</td>
+                <td>1234</td>
+
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>1234567890123456</td>
+                <td>幾度</td>
+                <td>12</td>
+                <td>1234</td>
+
+            </tr>
+            <tr>
+                <th scope="row" colspan="3"></th>
+                <td class="bg-info text-light text-center">訂單總額</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <p>備註：</p><textarea class="col-8"></textarea>
+</div>
+@section scripts{
+    <script>
+
+    </script>
+
+}
