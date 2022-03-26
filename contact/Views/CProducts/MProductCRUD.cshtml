@@ -10,23 +10,19 @@
 
 
 @section styles{
-   <style>
-      
+    <style>
 
-       .tomatoborder {
-           border-radius: 10px;
-           background-color: #f8f8f8;
-           border-bottom: 2px solid #ca9c8f;
-           border-top: 2px solid #ca9c8f;
-          
-           padding: 16px;
-           margin: 0 32px 32px 32px;
-       }
 
-     
-
+        .tomatoborder {
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            border-bottom: 2px solid #ca9c8f;
+            border-top: 2px solid #ca9c8f;
+            padding: 16px;
+            margin: 0 32px 32px 32px;
+        }
     </style>
-   
+
 
 }
 
@@ -183,7 +179,7 @@
                         <div class="form-group">
                             品牌名稱
                             <div class="col-md-6">
-                                @Html.EditorFor(model => model.f品牌名稱, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "20" } })
+                                @Html.EditorFor(model => model.f品牌名稱, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "19" } })
                                 @Html.ValidationMessageFor(model => model.f品牌名稱, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -324,15 +320,15 @@
                             閃光度數
                             <div>
                                 @*<form name="form1" id="form1">
-                        <input type="checkbox" name="chkAst" id="checkbox1" value="-0.75">-0.75
-                        <input type="checkbox" name="chkAst" id="checkbox2" value="-1.25">-1.25
-                        <input type="checkbox" name="chkAst" id="checkbox3" value="-1.75">-1.75
-                        <input type="checkbox" name="chkAst" id="checkbox4" value="-2.25">-2.25
-                        <button onclick="javascript:return doOutput()">確認</button>
-                        <input type="button" onclick="selAll()" value="全選" />
-                        <input type="button" onclick="dselAll()" value="取消選取" />
-                    </form>*@
-                                <select name="ast" onchange="astChange()" id="ast" class="form-control col-md-6">
+                                        <input type="checkbox" name="chkAst" id="checkbox1" value="-0.75">-0.75
+                                        <input type="checkbox" name="chkAst" id="checkbox2" value="-1.25">-1.25
+                                        <input type="checkbox" name="chkAst" id="checkbox3" value="-1.75">-1.75
+                                        <input type="checkbox" name="chkAst" id="checkbox4" value="-2.25">-2.25
+                                        <button onclick="javascript:return doOutput()">確認</button>
+                                        <input type="button" onclick="selAll()" value="全選" />
+                                        <input type="button" onclick="dselAll()" value="取消選取" />
+                                    </form>*@
+                                <select name="ast" onchange="astChange()" id="ast" class="form-control">
                                     <option>請選擇散光度數</option>
                                     <option>-0.75</option>
                                     <option>-1.25</option>
@@ -343,8 +339,8 @@
                                 </select>
                                 <p>
                                     新增規格:
-                                    <input id=theText2 value="" class="form-control col-md-6">
-                                    <input id=theValue2 value="" hidden class="form-control col-md-6">
+                                    <input id=theText2 value="" class="form-control">
+                                    <input id=theValue2 value="" hidden class="form-control">
                                     <input type="button" value="新增" onclick="addOption2(ast, theText2.value, theValue2.value)" class="btn btn-block">
                                 </p>
                             </div>
@@ -358,7 +354,7 @@
                         <div class="form-group">
                             閃光角度
                             <div>
-                                <select name="ang" onchange="angChange()" id="ang" class="form-control col-md-6">
+                                <select name="ang" onchange="angChange()" id="ang" class="form-control">
                                     <option>請選擇散光角度</option>
                                     <option>10°</option>
                                     <option>20°</option>
@@ -372,7 +368,7 @@
                                 </select>
                                 <p>
                                     新增規格:
-                                    <input id=theText3 value="0°" class="form-control col-md-6">
+                                    <input id=theText3 value="0°" class="form-control">
                                     <input id=theValue3 value="" hidden>
                                     <input type="button" value="新增" onclick="addOption3(ang, theText3.value, theValue3.value)" class="btn btn-block">
                                 </p>
@@ -386,29 +382,29 @@
 
 
                     <div class="col-md-12">
-                    <div class="form-group">
-                        產品描述
-                        <textarea class="form-control" id="txtb" name="f產品描述" rows="5" cols="40" placeholder="請輸入產品敘述,字數最多100字" maxlength="100"></textarea>
-                        @*@Html.TextAreaFor(model => model.f產品描述, new { htmlAttributes = new { @class = "text-area", @id = "txtb", @cols = "400" } })*@
-                        @Html.ValidationMessageFor(model => model.f產品描述, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            產品描述
+                            <textarea class="form-control" id="txtb" name="f產品描述" rows="5" cols="40" placeholder="請輸入產品敘述,字數最多100字" maxlength="100"></textarea>
+                            @*@Html.TextAreaFor(model => model.f產品描述, new { htmlAttributes = new { @class = "text-area", @id = "txtb", @cols = "400" } })*@
+                            @Html.ValidationMessageFor(model => model.f產品描述, "", new { @class = "text-danger" })
 
-                    </div>
-
-
+                        </div>
 
 
-                    <div class="form-group">
-                        <div class="col-12 col-md-4 mt-5 float-end">
-                            <input type="submit" value="新增" class="btn btn-lg w-100 bg-secondary text-light" />
+
+
+                        <div class="form-group">
+                            <div class="col-12 col-md-4 mt-5 float-end">
+                                <input type="submit" value="新增" class="btn btn-lg w-100 bg-secondary text-light" />
+                            </div>
                         </div>
                     </div>
-                     </div>
 
                 </fieldset>
 
 
 
-              
+
 
             }
 
@@ -425,16 +421,16 @@
 
         @*<div class="col-12 col-md-4">
 
-            <form method="post" action="CProducts/MProductCRUD" enctype="multipart/form-data">
+                <form method="post" action="CProducts/MProductCRUD" enctype="multipart/form-data">
 
-                <div class="form-group">
-                    <label for="inputFile" class="mb-5 h4">選擇產品照片</label>
+                    <div class="form-group">
+                        <label for="inputFile" class="mb-5 h4">選擇產品照片</label>
 
-                    <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
-                    <img src="" class="img-thumbnail w-100 " id="img1" />
-                </div>
-            </form>
-        </div>*@
+                        <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
+                        <img src="" class="img-thumbnail w-100 " id="img1" />
+                    </div>
+                </form>
+            </div>*@
     </div>
 </div>
 
