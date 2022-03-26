@@ -133,8 +133,6 @@
     font-family: jf-openhuninn;
 }
 
-
-
 .tomatotable {
     font-size: 1.4rem;
     color: #666;
@@ -216,11 +214,22 @@
     transition-duration: 1s;
     }
     /*表單CSS end*/
-/*
-    水平線*/
+
+
+/*上面有magin100的水平線*/
 .tomatolower {
     margin-bottom: 100px;
     /* border: 2px dashed rgb(248, 163, 181); */
     border-color: rgb(248, 163, 181);
+}
+
+
+.tomatoborder {
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    border-bottom: 2px solid #ca9c8f;
+    border-top: 2px solid #ca9c8f;
+    padding: 16px;
+    margin: 0 32px 32px 32px;
 }
 
