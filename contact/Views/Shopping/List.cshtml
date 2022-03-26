@@ -148,7 +148,7 @@
 
         /* 輪播開始 */
         #lokiSlider img {
-           /* object-fit: cover;*/
+            /* object-fit: cover;*/
             /*filter: grayscale(50%);*/
             height: 50vh;
             display: block;
@@ -166,10 +166,8 @@
             border: 10px solid transparent;
         }
 
-        .vh-50
-        {
-            height:50vh;
-           
+        .vh-50 {
+            height: 50vh;
         }
 
         /* 輪播end */
@@ -187,108 +185,104 @@
         });
 
     </script>
-
-}
-
-
-<div>
-    <p>
-        @Html.Action("_activDisplay", "Shopping", new { count = 5 })
-    </p>
-</div>
-
-
-
-<div class="container-fluid mt-5">
-    <!-- 這裡是搜尋BAR -->
-
-
-    @using (Html.BeginForm())
-    {
-        <div class="row my-5 justify-content-start align-items-baseline text-center">
-
-            <div class="col-12 col-md-2  mb-3 ">
-                <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入關鍵字搜尋" />
-            </div>
-            <div class="col-4 col-md-1  mb-3 ">
-                <input type="submit" value="查詢" class="tomatoclickbtn " />
-            </div>
-
-        </div>
     }
 
-
-</div>
-
-
-
-
-<!-- 這裡是搜尋BARend -->
-<!-- 水平線 -->
-<hr class="tomatolower mx-auto col-12 col-xl-10 ">
+   @*輪播*@
+@Html.Action("_activDisplay", "Shopping", new { count = 5 })
 
 
 
-<div class="gotoCheck">
-    @*@Html.ActionLink("去結帳", "../CCustomer/CheckOut", new { }, new { @class = "btn btn-dark" })*@
-    @Html.ActionLink("去結帳", "", new { }, new { @class = "btn btn-dark" })
-</div>
+
+    <div class="container-fluid mt-5">
+        <!-- 這裡是搜尋BAR -->
 
 
-<div class="container mt-3">
-
-    <div class="row  row-cols-lg-2 align-items-stretch">
-
-        @foreach (var item in Model)
+        @using (Html.BeginForm())
         {
-            <div class="col-12 col-md-6 ">
-                <div class="card cardtomato mb-5 mx-2">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/images/@item.f產品圖片路徑" class="img-fluid  tomato-img " alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.f品牌名稱)</h5>
-                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
-                                <p class="card-text momey">@Html.DisplayFor(modelItem => item.f售價)</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
+            <div class="row my-5 justify-content-start align-items-baseline text-center">
 
-                                <div class="float-end mb-2">
+                <div class="col-12 col-md-2  mb-3 ">
+                    <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入關鍵字搜尋" />
+                </div>
+                <div class="col-4 col-md-1  mb-3 ">
+                    <input type="submit" value="查詢" class="tomatoclickbtn " />
+                </div>
+
+            </div>
+        }
 
 
-                                    <a href="/Shopping/Detail/@item.f產品ID" class="tomatobtn" id="@item.f產品ID">商品詳情</a>
+    </div>
 
-                                    <a href="/Shopping/Cart/@item.f產品ID" class="tomatocartbtn">加入購物車 <i class="bi bi-basket2-fill"></i></a>
+
+
+
+    <!-- 這裡是搜尋BARend -->
+    <!-- 水平線 -->
+    <hr class="tomatolower mx-auto col-12 col-xl-10 ">
+
+
+
+    <div class="gotoCheck">
+        @*@Html.ActionLink("去結帳", "../CCustomer/CheckOut", new { }, new { @class = "btn btn-dark" })*@
+        @Html.ActionLink("去結帳", "", new { }, new { @class = "btn btn-dark" })
+    </div>
+
+
+    <div class="container mt-3">
+
+        <div class="row  row-cols-lg-2 align-items-stretch">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 ">
+                    <div class="card cardtomato mb-5 mx-2">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/images/@item.f產品圖片路徑" class="img-fluid  tomato-img " alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.f品牌名稱)</h5>
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
+                                    <p class="card-text momey">@Html.DisplayFor(modelItem => item.f售價)</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+
+                                    <div class="float-end mb-2">
+
+
+                                        <a href="/Shopping/Detail/@item.f產品ID" class="tomatobtn" id="@item.f產品ID">商品詳情</a>
+
+                                        <a href="/Shopping/Cart/@item.f產品ID" class="tomatocartbtn">加入購物車 <i class="bi bi-basket2-fill"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 
 
 
 
-        }
+            }
 
+        </div>
     </div>
-</div>
 
-@*<img src="~/images/@item.f產品圖片路徑" width="180" height="180" style="object-fit:cover" />
+    @*<img src="~/images/@item.f產品圖片路徑" width="180" height="180" style="object-fit:cover" />
 
-    <h4>@Html.DisplayFor(modelItem => item.f品牌名稱)</h4>
+        <h4>@Html.DisplayFor(modelItem => item.f品牌名稱)</h4>
 
-    <h4>@Html.DisplayFor(modelItem => item.f產品名稱)</h4>
+        <h4>@Html.DisplayFor(modelItem => item.f產品名稱)</h4>
 
-    @Html.DisplayFor(modelItem => item.f售價)
-
+        @Html.DisplayFor(modelItem => item.f售價)
 
 
 
-    @Html.ActionLink("商品詳情", "Detail", new { id = item.f產品ID })
-    @Html.ActionLink("加入購物車", "Cart", new { id = item.f產品ID })*@
+
+        @Html.ActionLink("商品詳情", "Detail", new { id = item.f產品ID })
+        @Html.ActionLink("加入購物車", "Cart", new { id = item.f產品ID })*@
