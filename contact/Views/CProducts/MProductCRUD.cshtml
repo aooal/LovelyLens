@@ -21,6 +21,10 @@
             padding: 16px;
             margin: 0 32px 32px 32px;
         }
+
+        .tomatotittle {
+            font-size: calc(1.275rem + .3vw);
+        }
     </style>
 
 
@@ -151,7 +155,7 @@
             {
                 @Html.AntiForgeryToken()
 
-                <fieldset class=" float-end col-md-6  tomatoborder">
+                <fieldset class=" float-lg-end col-md-6  tomatoborder">
                     <legend class="family">照片上傳</legend>
 
                     <label for="inputFile" class="">選擇產品照片</label>
@@ -383,7 +387,7 @@
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            產品描述
+                            <p class="family tomatotittle">產品描述</p>
                             <textarea class="form-control" id="txtb" name="f產品描述" rows="5" cols="40" placeholder="請輸入產品敘述,字數最多100字" maxlength="100"></textarea>
                             @*@Html.TextAreaFor(model => model.f產品描述, new { htmlAttributes = new { @class = "text-area", @id = "txtb", @cols = "400" } })*@
                             @Html.ValidationMessageFor(model => model.f產品描述, "", new { @class = "text-danger" })

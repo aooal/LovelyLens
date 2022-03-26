@@ -16,6 +16,27 @@
             padding: 16px;
             margin: 0 32px 32px 32px;
         }
+
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .tomatotittle {
+            font-size: calc(1.275rem + .3vw);
+        }
     </style>
 
 
@@ -121,13 +142,13 @@
                 @Html.AntiForgeryToken()
 
 
-                <fieldset class=" float-end col-md-6  tomatoborder">
+                <fieldset class=" float-lg-end col-md-6  tomatoborder">
                     <legend class="family">照片上傳</legend>
 
                     @*<form method="post" action="CProducts/Edit" enctype="multipart/form-data">*@
-                        <label for="inputFile" class="">選擇產品照片</label>
-                        <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
-                        <img src="" class="img-thumbnail w-50 " id="img1" />
+                    <label for="inputFile" class="">選擇產品照片</label>
+                    <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
+                    <img src="" class="img-thumbnail w-50 " id="img1"/>
                     @*</form>*@
 
                 </fieldset>
@@ -227,7 +248,7 @@
 
                 <fieldset class="tomatoborder d-flex flex-md-row justify-content-around flex-wrap">
                     <legend class="family">修改規格</legend>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
 
                         <div class="form-group">
                             近視度數
@@ -284,7 +305,7 @@
                             @Html.ValidationMessageFor(model => model.f近視老花度數, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <hr />
+
                     <div class="form-group">
                         散光度數
                         <select name="ast" onchange="astChange()" id="ast" class="form-control">
@@ -336,28 +357,35 @@
                         </div>
                     </div>
 
- <div class="col-md-12">
-     <div class="form-group">
-         修改產品描述<br/>
-         @*<textarea class="form-control" id="txtb"  name="f產品描述" rows="5" cols="40"></textarea>*@
-         @Html.TextAreaFor(model => model.f產品描述, new { htmlAttributes = new { @class = "form-control", @id = "txtb", cols = "40" } })
-         @Html.ValidationMessageFor(model => model.f產品描述, "", new { @class = "text-danger" })
-     </div>
-                    <div class="form-group">
-                        <div class="col-12 col-md-4 mt-5 float-end">
-                            <input type="submit" value="儲存修改" class="btn btn-lg w-100 bg-secondary text-light" onclick="return (confirm('資料已更新'))" />
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p class="family tomatotittle">修改產品描述</p>
+                           
+                            @*<textarea class="form-control" id="txtb"  name="f產品描述" rows="5" cols="40"></textarea>*@
+                            @Html.TextAreaFor(model => model.f產品描述, new { htmlAttributes = new { @class = "form-control", @id = "txtb", cols = "40" } })
+                            @Html.ValidationMessageFor(model => model.f產品描述, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 col-md-4 mt-5 float-end">
+                                <input type="submit" value="儲存修改" class="btn btn-lg w-100 bg-secondary text-light" onclick="return (confirm('資料已更新'))" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 </fieldset>
 
 
-               
+
             }
 
-            <div>
+            @*<div>
                 @Html.ActionLink("返回商品管理列表", "MProducts")
+            </div>*@
+
+
+            <div class="mt-5">
+             
+                <a href="/CProducts/MProducts" class="btn-link"><i class="bi bi-arrow-return-left"></i>返回商品管理列表</a>
             </div>
         </div>
 

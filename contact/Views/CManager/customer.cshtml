@@ -22,12 +22,6 @@
             font-size: 1.5rem;
             color: #666666;
         }
-        /*td{padding: 20px;} */
-
-        /*   #people {
-            width: 98%;
-            border-collapse: collapse;
-        }*/
 
         /*表單CSS*/
         .tomatotable th, .tomatotable td {
@@ -143,6 +137,7 @@
             border-color: #28a745;
             box-shadow: 0 0 0 0.2rem rgb(255 87 87 / 0.5);
         }*/
+
     </style>
 
 }
@@ -151,7 +146,15 @@
 
 
     <script>
+        //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+        $('.tomatotable tbody').find("tr").each(function () {
+            let bb = $(this).children('td:eq(4)').text();
+            console.log(bb);
+            if (bb == '黑名單') {
+                $(this).children('td:eq(4)').css("color", "red");
+            }
 
+        });
 
         /*這裡是表單HOVER*/
         $(function () {
@@ -240,42 +243,22 @@
 
     <table class="col-12 col-md-10 table tomatotable table-hover">
         <tr>
-            <th>
-                名稱
-            </th>
-            <th>
-                負責人
-            </th>
-            <th>
-                電話
-            </th>
-            <th>
-                地址
-            </th>
-            <th>
-                往來狀態
-            </th>
+            <th>名稱</th>
+            <th>負責人</th>
+            <th>電話</th>
+            <th>地址</th>
+            <th>往來狀態</th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f店家名稱)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f店家負責人)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f店家連絡電話)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f地址)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f往來狀態)
-                </td>
+                <td>@Html.DisplayFor(modelItem => item.f店家名稱)</td>
+                <td>@Html.DisplayFor(modelItem => item.f店家負責人)</td>
+                <td>@Html.DisplayFor(modelItem => item.f店家連絡電話)</td>
+                <td>@Html.DisplayFor(modelItem => item.f地址)</td>
+                <td>@Html.DisplayFor(modelItem => item.f往來狀態)</td>
 
                 <td>
                     @Html.ActionLink("詳情", "CusEdit", new { id = item.f店家ID }, new { @class = "btn tomatobtn" })
