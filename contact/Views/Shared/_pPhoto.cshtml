@@ -1,0 +1,43 @@
+﻿
+@*@model contact.Models.t產品*@
+@model IEnumerable<contact.Models.t產品>
+
+@foreach (var item in Model)
+{
+    if (item.f產品圖片路徑 != null)
+    {
+        <img src="~/images/@item.f產品圖片路徑 " width="600" height="800" style="object-fit:cover">
+    }
+
+}
+
+@*@{
+        <section id="lokiSlider" class="carousel slide carousel-fade w-100" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+
+                @for (var i = 0; i <= 4; i++)
+                {
+
+
+                    <button type="button" data-bs-target="#lokiSlider" data-bs-slide-to="@i" class="active"></button>
+
+                }
+            </div>
+            <div class="carousel-inner">
+                @foreach (var item in Model)
+                {
+                    <div class="carousel-item ">
+                        <a href="~/Shopping/_pPhoto/@item.f產品圖片路徑"><img src="~/images/@item.f產品圖片路徑" class="d-block w-100"></a>
+
+                    </div>
+                }
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#lokiSlider" data-bs-slide="prev">
+                <i class="fas fa-angle-double-left fa-2x"></i>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#lokiSlider" data-bs-slide="next">
+                <i class="fas fa-angle-double-right fa-2x"></i>
+            </button>
+        </section>
+    }*@

@@ -22,7 +22,7 @@ namespace contact.Controllers
             string keyword = Request.Form["txtKeyword"];
             string str = Request.Form["mpick"];
 
-            
+
             if (string.IsNullOrEmpty(keyword))
             {
                 datas = from p in db.t產品 select p;
@@ -45,7 +45,7 @@ namespace contact.Controllers
                 {
                     datas = from p in db.t產品 select p;
                 }
-               
+
 
 
             }
@@ -60,24 +60,35 @@ namespace contact.Controllers
         public ActionResult MProductCRUD(t產品 p)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
-            
-            
-                if (p.photo != null)
-                {
-                   
-                    string name = Path.GetFileName(p.photo.FileName);
-                    var path = Path.Combine(Server.MapPath("~/images") , name);
-                    p.photo.SaveAs(path);
-                    p.f產品圖片路徑 = name;
-                    
-                }
-            
+
+
+            if (p.photo != null)
+            {
+
+                string name = Path.GetFileName(p.photo.FileName);
+                var path = Path.Combine(Server.MapPath("~/images"), name);
+                p.photo.SaveAs(path);
+                p.f產品圖片路徑 = name;
+
+            }
+            else
+            {
+                p.f產品圖片路徑 = "no-picture.jpg";
+            }
+            if (p.f閃光度數 != null)
+            {
+                db.t產品.Add(p);
+            }
+            else
+            {
+                p.f閃光度數 = "0";
+            }
             db.t產品.Add(p);
             db.SaveChanges();
-            return RedirectToAction("MProductCRUD");
+            return RedirectToAction("MProducts");
         }
-       
-        
+
+
         public ActionResult Delete(int? id)
         {
             if (id != null)
@@ -117,14 +128,10 @@ namespace contact.Controllers
                 {
                     string name = Guid.NewGuid().ToString() + ".jpg";
                     editProduct.photo.SaveAs(Server.MapPath("../../images/") + name);
-                    
-                    //string name = Path.GetFileName(editProduct.photo.FileName);
-                    //var path = Path.Combine(Server.MapPath("../../images") , name);
-                    //editProduct.photo.SaveAs(path);
 
                     prod.f產品圖片路徑 = name;
                 }
-              
+
                 prod.f成本價 = editProduct.f成本價;
                 prod.f產品名稱 = editProduct.f產品名稱;
                 prod.f售價 = editProduct.f售價;
@@ -139,9 +146,42 @@ namespace contact.Controllers
                 prod.f閃光度數 = editProduct.f閃光度數;
                 prod.f閃光角度 = editProduct.f閃光角度;
                 prod.f對外產品識別ID = editProduct.f對外產品識別ID;
+                prod.f產品顏色 = editProduct.f產品顏色;
 
                 db.SaveChanges();
             }
+            return RedirectToAction("MProducts");
+        }
+        public ActionResult CopyCreate(int? id)
+        {
+            if (id != null)
+            {
+                DBEyeEntities2 db = new DBEyeEntities2();
+                t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == (int)id);
+                if (prod != null)
+                    return View(prod);
+            }
+            return RedirectToAction("MProducts");
+        }
+        [HttpPost]
+        public ActionResult CopyCreate(t產品 theCopyCreate)
+        {
+
+            DBEyeEntities2 db = new DBEyeEntities2();
+
+
+            if (theCopyCreate.photo != null)
+            {
+
+                string name = Path.GetFileName(theCopyCreate.photo.FileName);
+                var path = Path.Combine(Server.MapPath("~/images"), name);
+                theCopyCreate.photo.SaveAs(path);
+                theCopyCreate.f產品圖片路徑 = name;
+
+            }
+
+            db.t產品.Add(theCopyCreate);
+            db.SaveChanges();
             return RedirectToAction("MProducts");
         }
 

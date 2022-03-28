@@ -1,0 +1,32 @@
+﻿@model contact.Models.t優惠活動
+@{
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
+@section scripts{
+    <div>
+        <h4>活動</h4>
+        <hr />
+
+        <img src="~/images/@Model.f活動照片路徑" class="img-fluid   tomato-img">
+
+
+
+        <h1>
+            活動名稱
+        </h1>
+
+        <h2>
+            @Html.DisplayFor(model => model.f活動名稱)
+        </h2>
+
+        <h1>
+            活動詳情
+        </h1>
+
+        <h3>
+            @Html.DisplayFor(model => model.f活動詳情)
+        </h3>
+
+
+    </div>
+}

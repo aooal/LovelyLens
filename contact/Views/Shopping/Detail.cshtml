@@ -1,31 +1,182 @@
 ﻿@model IEnumerable<contact.Models.t產品>
-
 @{
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail</h2>
+@{
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
 
-<h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
+@section styles{
 
-<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" />
-<h2 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h2>
-<select id="pColor">
-    <option>請選擇產品顏色</option>
-</select>
-<select id="rEye" onchange="Myselect()">
-    <option>請選擇近視度數</option>
-</select>
-<select id="ast" onchange="Myast()" style="display:none">
-    <option>請選擇散光度數</option>
-</select>
-<select id="ang" onchange="Myang()" style="display:none">
-    <option>請選擇散光角度</option>
-</select>
-<p id="inven" onload="inven()"></p>
-<input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" />
+    <style>
+        body {
+            background-color: #fd929249;
+        }
+
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            /* border:  solid #838383 5px; */
+            border-radius: 1rem;
+        }
+
+        .cardtomato {
+            border: 0px;
+        }
+
+        /* 讓card裡照片滿版 */
+        .tomato-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom-left-radius: 1rem !important;
+            border-top-left-radius: 1rem !important;
+        }
+
+        /* 錢 */
+        .momey::after {
+            content: ' 元';
+        }
+
+        /* 錢 */
+        .momey::before {
+            content: '價格: ';
+        }
+
+        /* 照片降明度 */
+        .card img:hover {
+            filter: brightness(.5);
+        }
+
+
+
+        /* 刪除按鈕 */
+        .tomatodangerbtn {
+            border-radius: 35px;
+            font-family: jf-openhuninn;
+            color: #f0b0aa;
+            font-size: 18px;
+            background: #e8546f;
+            padding: 5px 10px 5px 10px;
+            border: dotted #e6e6e6 2px;
+            text-decoration: none;
+        }
+
+            .tomatodangerbtn:hover {
+                background: #a12747;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 搜尋 方型BTN */
+        .tomatoclickbtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #ff8a8a;
+            padding: 5px 10px 5px 10px;
+            border: double #ffffff 4px;
+            text-decoration: none;
+        }
+
+            .tomatoclickbtn:hover {
+                background: #eb6767;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 詳情按鈕     */
+        .tomatobtn {
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #d6b6c3;
+            padding: 5px 10px 5px 10px;
+            border: dotted #fafafa 2px;
+            text-decoration: none;
+        }
+
+            .tomatobtn:hover {
+                background: #d6b6c3;
+                background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        /* 加入購物車 */
+        .tomatocartbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #eba68d;
+            padding: 5px 10px 5px 10px;
+            border: dotted #ffffff 2px;
+            text-decoration: none;
+        }
+
+            .tomatocartbtn:hover {
+                background: #cc8b74;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        .gotoCheck {
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            z-index: 9999;
+        }
+
+
+        /* 輪播開始 */
+        #lokiSlider img {
+            object-fit: cover;
+            /*filter: grayscale(50%);*/
+        }
+
+        #lokiSlider .carousel-caption {
+            text-shadow: #333 0.3rem 0.3rem 0.5rem;
+        }
+
+        #lokiSlider .carousel-indicators > button {
+            border-radius: 50%;
+            height: 15px;
+            width: 15px;
+            border: 10px solid transparent;
+        }
+
+        /* 輪播end */
+        .wordwrap {
+            white-space: pre-line;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+    </style>
+
+}
+
+
 @section scripts{
     <script>
+
+//const { get } = require("jquery");
+
 
         function pCount() {
             var total = document.getElementById('total');
@@ -33,20 +184,14 @@
             if (@((int?)Model.FirstOrDefault().f售價) * pCount.value > 0) {
                 total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價) * pCount.value;
             } else {
-                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價);
+                total.innerHTML = "NT $ " + @Model.FirstOrDefault().f售價;
             }
 
         }
 
         var ast = document.getElementById('ast');
         var ang = document.getElementById('ang');
-        if (@Model.FirstOrDefault().f閃光度數 != 0) {
-            ast.style.display = 'block';
-            ang.style.display = 'block';
-        } else {
-            ast.style.display = 'none';
-            ang.style.display = 'none';
-        }
+
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -54,19 +199,28 @@
         var myArray = [];
         var astArray = [];
         var angArray = [];
+        var discripArray = [];
         @foreach(var item in Model)
         {
 
 
             @:colorArray.push("@item.f產品顏色");
             @:myArray.push((@item.f近視老花度數).toFixed(2));
-            @:astArray.push((@item.f閃光度數).toFixed(2));
+            @:astArray.push("@item.f閃光度數");
             @:angArray.push("@item.f閃光角度");
+            @:discripArray.push("@item.f產品描述");
 
 
         }
+        if (@Model.FirstOrDefault().f閃光度數 != "0"){
+            ast.style.display = 'block';
+            ang.style.display = 'block';
+        } else {
+            ast.style.display = 'none';
+            ang.style.display = 'none';
+        }
 
-        console.log(colorArray);
+        discripArray = discripArray.filter(onlyUnique);
         colorArray = colorArray.filter(onlyUnique);
         myArray = myArray.filter(onlyUnique);
         astArray = astArray.filter(onlyUnique);
@@ -74,6 +228,16 @@
         myArray.sort();
         astArray.sort();
         angArray.sort();
+
+
+        var PDiscrip = document.getElementById('PDiscrip');
+        var num = 1;
+        discripArray.forEach((item, index, discripArray) => {
+            discripArray[index] = `${num++}. ` + item + "<br/>";
+        });
+
+        PDiscrip.innerHTML = discripArray.join('');
+
         var pColor = document.getElementById('pColor');
         for (var i = 0; i < colorArray.length; i++) {
 
@@ -108,9 +272,43 @@
     </script>
 
 }
+<h2>商品詳情</h2>
+
+<h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
+
+@*<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" id="myImage"/>*@
+@*<input type="button" onclick="changeSrc()" value="Change image">*@
+<div>
+    <p>
+        @Html.Action("_pPhoto", "Shopping")
+    </p>
+</div>
+<h5 id="PDiscrip" class="wordwrap"> </h5>
+<h2 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h2>
+<select id="pColor">
+    <option>請選擇產品顏色</option>
+</select>
+<select id="rEye" onchange="Myselect()">
+    <option>請選擇近視度數</option>
+</select>
+<select id="ast" onchange="Myast()" style="display:none">
+    <option>請選擇散光度數</option>
+</select>
+<select id="ang" onchange="Myang()" style="display:none">
+    <option>請選擇散光角度</option>
+</select>
+<p id="inven" onload="inven()"></p>
+<p>數量<input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" /></p>
 
 
 
+@foreach (var item in Model)
+{
+
+    <tr>
+    </tr>
+    <br />
+}
 
 
 
