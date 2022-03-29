@@ -116,6 +116,7 @@ namespace contact.Controllers
             }
             return RedirectToAction("MProducts");
         }
+
         [HttpPost]
         public ActionResult Edit(t產品 editProduct)
         {
@@ -130,6 +131,10 @@ namespace contact.Controllers
                     editProduct.photo.SaveAs(Server.MapPath("../../images/") + name);
 
                     prod.f產品圖片路徑 = name;
+                }
+                else
+                {
+                    prod.f產品圖片路徑 = "no-picture.jpg";
                 }
 
                 prod.f成本價 = editProduct.f成本價;
@@ -152,6 +157,7 @@ namespace contact.Controllers
             }
             return RedirectToAction("MProducts");
         }
+
         public ActionResult CopyCreate(int? id)
         {
             if (id != null)
@@ -178,6 +184,10 @@ namespace contact.Controllers
                 theCopyCreate.photo.SaveAs(path);
                 theCopyCreate.f產品圖片路徑 = name;
 
+            }
+            else
+            {
+                theCopyCreate.f產品圖片路徑 = "no-picture.jpg";
             }
 
             db.t產品.Add(theCopyCreate);

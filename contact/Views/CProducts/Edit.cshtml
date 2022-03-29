@@ -100,7 +100,9 @@
         var myopiaValue;
         function myopiaChange() {
             var myopia = document.getElementById('myopia');
+            var opia = document.getElementById('opia')
             myopiaValue = myopia.options[myopia.selectedIndex].value;
+            opia.innerHTML = "近視度數 : " + myopiaValue;
             var theDiv = document.getElementById('txt');
             theDiv.value = myopiaValue;
 
@@ -108,7 +110,9 @@
         var myastValue;
         function astChange() {
             var ast = document.getElementById('ast');
+            var astDis = document.getElementById('astDis')
             myastValue = ast.options[ast.selectedIndex].value;
+            astDis.innerHTML = "散光度數 : " + myastValue;
             var theDiv2 = document.getElementById('txt2');
             theDiv2.value = myastValue;
 
@@ -116,11 +120,25 @@
         var myangValue;
         function angChange() {
             var ang = document.getElementById('ang');
+            var angDis = document.getElementById('angDis')
             myangValue = ang.options[ang.selectedIndex].value;
+            angDis.innerHTML = "散光角度 : " + myangValue;
             var theDiv3 = document.getElementById('txt3');
             theDiv3.value = myangValue;
         }
-
+        
+        window.onload = function () {
+            var opia = document.getElementById('opia');
+            var txt = document.getElementById('txt');
+            var astDis = document.getElementById('astDis');
+            var txt2 = document.getElementById('txt2');
+            var angDis = document.getElementById('angDis');
+            var txt3 = document.getElementById('txt3');
+            opia.innerHTML = "近視度數 : " + txt.value;
+            astDis.innerHTML = "閃光度數 : " + txt2.value;
+            angDis.innerHTML = "閃光角度 : " + txt3.value;
+        }
+        
     </script>
 }
 
@@ -185,6 +203,19 @@
                                 @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            產品顏色
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f產品顏色, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "25" } })
+                                @Html.ValidationMessageFor(model => model.f產品顏色, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
                         <div class="form-group">
                             製造批號
                             <div class="col-md-10">
@@ -293,15 +324,15 @@
                                 </select>
                                 <p>
                                     新增規格:
-                                    <input id=theText value="" class="form-control">
+                                    <input id=theText value="" class="form-control" >
                                     <input id=theValue value="" hidden class="form-control">
                                     <input type="button" value="新增" onclick="addOption(myopia, theText.value, theValue.value)" class="btn btn-block">
                                 </p>
                             </div>
                         </div>
-
+                        <p id="opia">近視度數 : </p>
                         <div class="col-md-10" hidden>
-                            @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control", @id = "txt" } })
+                            @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control", @id = "txt"  } })
                             @Html.ValidationMessageFor(model => model.f近視老花度數, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -323,6 +354,7 @@
                             <input id=theValue2 value="" hidden class="form-control">
                             <input type="button" value="新增" onclick="addOption2(ast, theText2.value, theValue2.value)" class="btn btn-block">
                         </p>
+                        <p id="astDis">散光度數 : </p>
                         <div class="col-md-10" hidden>
                             @Html.EditorFor(model => model.f閃光度數, new { htmlAttributes = new { @class = "form-control", @id = "txt2" } })
                             @Html.ValidationMessageFor(model => model.f閃光度數, "", new { @class = "text-danger" })
@@ -334,23 +366,24 @@
                         <div>
                             <select name="ang" onchange="angChange()" id="ang" class="form-control">
                                 <option>請選擇散光角度</option>
-                                <option>10°</option>
-                                <option>20°</option>
-                                <option>60°</option>
-                                <option>90°</option>
-                                <option>120°</option>
-                                <option>160°</option>
-                                <option>170°</option>
-                                <option>180°</option>
+                                <option>10度</option>
+                                <option>20度</option>
+                                <option>60度</option>
+                                <option>90度</option>
+                                <option>120度</option>
+                                <option>160度</option>
+                                <option>170度</option>
+                                <option>180度</option>
                                 <option>其它</option>
                             </select>
                             <p>
                                 新增規格:
-                                <input id=theText3 value="0°" class="form-control">
+                                <input id=theText3 value="0度" class="form-control">
                                 <input id=theValue3 value="" hidden class="form-control">
                                 <input type="button" value="新增" onclick="addOption3(ang, theText3.value, theValue3.value)" class="btn btn-block">
                             </p>
                         </div>
+                        <p id="angDis">散光角度 : </p>
                         <div class="col-md-10" hidden>
                             @Html.EditorFor(model => model.f閃光角度, new { htmlAttributes = new { @class = "form-control", @Id = "txt3" } })
                             @Html.ValidationMessageFor(model => model.f閃光角度, "", new { @class = "text-danger" })

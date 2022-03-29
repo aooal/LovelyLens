@@ -19,6 +19,25 @@
             padding: 16px;
             margin: 0 32px 32px 32px;
         }
+
+
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
     </style>
 
 
@@ -104,36 +123,14 @@
                             活動名稱
                             @*@Html.LabelFor(model => model.f活動名稱, htmlAttributes: new { @class = "control-label col-md-2" })*@
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.f活動名稱, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.f活動名稱, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })
                                 @Html.ValidationMessageFor(model => model.f活動名稱, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            活動詳情
-                            @*@Html.LabelFor(model => model.f活動詳情, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.f活動詳情, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.f活動詳情, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group" hidden>
-                            @*@Html.LabelFor(model => model.f活動折扣碼, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.f活動折扣碼, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.f活動折扣碼, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            活動折扣
-                            @*@Html.LabelFor(model => model.f活動折扣, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.f活動折扣, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.f活動折扣, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+
 
                         <div class="form-group">
                             活動起始日
@@ -154,11 +151,12 @@
                         </div>
 
                         <div class="form-group">
-                            活動對象
-                            @*@Html.LabelFor(model => model.f活動對象, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            活動詳情
+                            @*@Html.LabelFor(model => model.f活動詳情, htmlAttributes: new { @class = "control-label col-md-2" })*@
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.f活動對象, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.f活動對象, "", new { @class = "text-danger" })
+                                @Html.TextAreaFor(model => model.f活動詳情, new { htmlAttributes = new { @class = "form-control", @id = "txtb", cols = "40", @maxlength = "80" } })
+                                @*@Html.EditorFor(model => model.f活動詳情, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })*@
+                                @Html.ValidationMessageFor(model => model.f活動詳情, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -178,7 +176,7 @@
 
                             <div class="col-12 col-md-4 mt-5">
                                 <input type="submit" value="確認修改" class="btn btn-lg w-100 bg-secondary text-light" />
-                             
+
                                 <input type="button" name="btn2" value="快速新增" onclick="addDiscount();" class="btn btn-lg w-100 bg-info text-light" />
 
                             </div>

@@ -1,15 +1,19 @@
-﻿
-@*@model contact.Models.t產品*@
+﻿@*@model contact.Models.t產品*@
 @model IEnumerable<contact.Models.t產品>
+
+
 
 @foreach (var item in Model)
 {
-    if (item.f產品圖片路徑 != null)
+    if (item.f產品圖片路徑 != "no-picture.jpg")
     {
         <img src="~/images/@item.f產品圖片路徑 " width="600" height="800" style="object-fit:cover">
     }
 
 }
+
+
+
 
 @*@{
         <section id="lokiSlider" class="carousel slide carousel-fade w-100" data-bs-ride="carousel">

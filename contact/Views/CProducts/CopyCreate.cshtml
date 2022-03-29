@@ -117,7 +117,9 @@
         var myopiaValue;
         function myopiaChange() {
             var myopia = document.getElementById('myopia');
+            var opia = document.getElementById('opia')
             myopiaValue = myopia.options[myopia.selectedIndex].value;
+            opia.innerHTML = "近視度數 : " + myopiaValue;
             var theDiv = document.getElementById('txt');
             theDiv.value = myopiaValue;
 
@@ -125,7 +127,9 @@
         var myastValue;
         function astChange() {
             var ast = document.getElementById('ast');
+            var astDis = document.getElementById('astDis')
             myastValue = ast.options[ast.selectedIndex].value;
+            astDis.innerHTML = "散光度數 : " + myastValue;
             var theDiv2 = document.getElementById('txt2');
             theDiv2.value = myastValue;
 
@@ -133,9 +137,22 @@
         var myangValue;
         function angChange() {
             var ang = document.getElementById('ang');
+            var angDis = document.getElementById('angDis')
             myangValue = ang.options[ang.selectedIndex].value;
+            angDis.innerHTML = "散光角度 : " + myangValue;
             var theDiv3 = document.getElementById('txt3');
             theDiv3.value = myangValue;
+        }
+        window.onload = function () {
+            var opia = document.getElementById('opia');
+            var txt = document.getElementById('txt');
+            var astDis = document.getElementById('astDis');
+            var txt2 = document.getElementById('txt2');
+            var angDis = document.getElementById('angDis');
+            var txt3 = document.getElementById('txt3');
+            opia.innerHTML = "近視度數 : " + txt.value;
+            astDis.innerHTML = "閃光度數 : " + txt2.value;
+            angDis.innerHTML = "閃光角度 : " + txt3.value;
         }
 
     </script>
@@ -197,6 +214,16 @@
                                 @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            產品顏色
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f產品顏色, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "25" } })
+                                @Html.ValidationMessageFor(model => model.f產品顏色, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
 
 
                         <div class="form-group">
@@ -311,7 +338,7 @@
                             </div>
 
                         </div>
-
+                        <p id="opia">近視度數 : </p>
                         <div class="col-md-4" id="div1" hidden>
                             @*<input type="text" id="txt" />*@
                             @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control", @id = "txt" } })
@@ -325,14 +352,14 @@
                             閃光度數
                             <div>
                                 @*<form name="form1" id="form1">
-                                        <input type="checkbox" name="chkAst" id="checkbox1" value="-0.75">-0.75
-                                        <input type="checkbox" name="chkAst" id="checkbox2" value="-1.25">-1.25
-                                        <input type="checkbox" name="chkAst" id="checkbox3" value="-1.75">-1.75
-                                        <input type="checkbox" name="chkAst" id="checkbox4" value="-2.25">-2.25
-                                        <button onclick="javascript:return doOutput()">確認</button>
-                                        <input type="button" onclick="selAll()" value="全選" />
-                                        <input type="button" onclick="dselAll()" value="取消選取" />
-                                    </form>*@
+                <input type="checkbox" name="chkAst" id="checkbox1" value="-0.75">-0.75
+                <input type="checkbox" name="chkAst" id="checkbox2" value="-1.25">-1.25
+                <input type="checkbox" name="chkAst" id="checkbox3" value="-1.75">-1.75
+                <input type="checkbox" name="chkAst" id="checkbox4" value="-2.25">-2.25
+                <button onclick="javascript:return doOutput()">確認</button>
+                <input type="button" onclick="selAll()" value="全選" />
+                <input type="button" onclick="dselAll()" value="取消選取" />
+            </form>*@
                                 <select name="ast" onchange="astChange()" id="ast" class="form-control">
                                     <option>請選擇散光度數</option>
                                     <option>-0.75</option>
@@ -349,6 +376,7 @@
                                     <input type="button" value="新增" onclick="addOption2(ast, theText2.value, theValue2.value)" class="btn btn-block">
                                 </p>
                             </div>
+                            <p id="astDis">散光度數 : </p>
                             <div class="col-md-6" hidden>
                                 @Html.EditorFor(model => model.f閃光度數, new { htmlAttributes = new { @class = "form-control", @id = "txt2" } })
                             </div>
@@ -378,6 +406,7 @@
                                     <input type="button" value="新增" onclick="addOption3(ang, theText3.value, theValue3.value)" class="btn btn-block">
                                 </p>
                             </div>
+                            <p id="angDis">散光角度 : </p>
                             <div class="col-md-3" hidden>
                                 @Html.EditorFor(model => model.f閃光角度, new { htmlAttributes = new { @class = "form-control", @id = "txt3" } })
                             </div>

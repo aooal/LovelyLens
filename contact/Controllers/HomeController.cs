@@ -1,4 +1,5 @@
 ﻿using contact.Models;
+using contact.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,11 +11,29 @@ namespace contact.Controllers
 {
     public class HomeController : Controller
     {
-
-        DBEyeEntities2 db = new DBEyeEntities2();
         public ActionResult Index()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Index(CLoginInfo vModel)
+        {
+            DBEyeEntities2 db = new DBEyeEntities2();
+            t店家 selectAccount = db.t店家.FirstOrDefault(m => m.f電子信箱 == vModel.loginAccount);
+
+            if (selectAccount != null && selectAccount.f密碼 == vModel.loginPassword)
+            {
+                if (selectAccount.f身分別 == "管理者")
+                {
+                    return RedirectToAction("../CManager/Index"); //重新修改至管理者首頁
+                }
+                Session[SessionKeys.SESSION_KEY_USER] = selectAccount;
+                return RedirectToAction("../Shopping/list");
+            }
+            else
+            {
+                return View(); //修改："登入錯誤訊息"
+            }
         }
 
         public ActionResult About()
@@ -31,16 +50,14 @@ namespace contact.Controllers
             return View();
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
-
+        //public ActionResult Login()
+        //{
+        // return View();
+        //}
         public ActionResult Register()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult Register(t店家 註冊)
         {
@@ -49,6 +66,7 @@ namespace contact.Controllers
 
             if (ModelState.IsValid)
             {
+                DBEyeEntities2 db = new DBEyeEntities2();
                 ViewBag.Occupied = false;
                 var occupied_check = db.t店家.Where(m => m.f電子信箱 == 註冊.f電子信箱).FirstOrDefault();
                 if (occupied_check != null)
@@ -80,7 +98,7 @@ namespace contact.Controllers
                 註冊.f註冊日期 = DateTime.Now.ToString("yyyyMMddHHmmss");
                 db.t店家.Add(註冊);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
             return View(註冊);
         }
@@ -89,6 +107,10 @@ namespace contact.Controllers
             return View();
         }
         public ActionResult FAQ()
+        {
+            return View();
+        }
+        public ActionResult Management()
         {
             return View();
         }

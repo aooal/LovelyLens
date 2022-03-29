@@ -7,7 +7,7 @@ namespace contact.ViewModels
 {
     public class MOrderRecord
     {
-        //  p.f訂購日期, p.f訂單單號ID, o.f店家名稱, p.f訂單總金額, p.f訂單狀態 
+       
         public string f訂購日期 { get; set; }
         public string f對外訂單單號 { get; set; }
         public int f訂單單號ID { get; set; }
@@ -31,6 +31,6 @@ namespace contact.ViewModels
         public string f店家連絡電話 { get; set; }
         public string f地址 { get; set; }
 
-
+        public string f訂單備註 { get; set; }
     }
 }

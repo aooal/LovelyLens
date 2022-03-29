@@ -64,13 +64,14 @@ namespace contact.Controllers
             activPhoto = (from p in db.t優惠活動 orderby p.f活動照片路徑 select p).Take(count).ToList();
             return PartialView("_activDisplay", activPhoto);
         }
+
         [ChildActionOnly]
         public ActionResult _pPhoto(int? id)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
             t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == id);
             //List<t產品> thePhoto;
-            if (prod != null & prod.f產品圖片路徑 != null)
+            if (prod != null )
             {
                 //return View(prod);
                 string fname = prod.f產品名稱;
@@ -84,6 +85,7 @@ namespace contact.Controllers
             //thePhoto = (db.t產品.GroupBy(m => m.f產品名稱).Select(p => p.FirstOrDefault()).OrderBy(p => p.f產品圖片路徑)).Take(3).ToList();
             //return PartialView("_pPhoto", thePhoto);
         }
+
         public ActionResult Detail(int? id)
         {
             if (id != null)

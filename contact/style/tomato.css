@@ -18,6 +18,29 @@
         color: #ffffff;
     }
 
+/* 新增按鈕 *//*活動一覽的修改*/
+.tomatocartbtn {
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 18px;
+    background: #eba68d;
+    padding: 5px 10px 5px 10px;
+    border: dotted #ffffff 2px;
+    text-decoration: none;
+}
+
+    .tomatocartbtn:hover {
+        background: #cc8b74;
+        text-decoration: none;
+    }
+
+
+
+
+
 
 /* 我已了解 方形BTN */
 .tomatoclickbtn {
@@ -66,7 +89,7 @@
     }
 
 
-/* 註冊表單的登入按鈕 */
+/* 註冊表單的登入按鈕  還有刪除*/
 .tomatodangerbtn {
     -webkit-border-radius: 35px;
     -moz-border-radius: 35px;

@@ -36,7 +36,7 @@
                     <div class="form-group">
                         活動名稱
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.f活動名稱, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.f活動名稱, new { htmlAttributes = new { @class = "form-control", @maxlength = "80" } })
                             @Html.ValidationMessageFor(model => model.f活動名稱, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         活動起始日
                         @*@Html.LabelFor(model => model.f活動起始日, htmlAttributes: new { @class = "control-label col-md-2" })*@
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.f活動起始日, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.f活動起始日, new { htmlAttributes = new { @class = "form-control"} })
                             @Html.ValidationMessageFor(model => model.f活動起始日, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="form-group">
                         活動詳情
                         <div class="col-md-10">
-                            <textarea cols="20" class = "form-control"  htmlattributes="{ class = form-control }" id="f____" name="f活動詳情" rows="2"></textarea>
+                            <textarea cols="20" class = "form-control"  htmlattributes="{ class = form-control }" id="f____" name="f活動詳情" rows="2" maxlength = "80" ></textarea>
                             @*@Html.TextAreaFor(model => model.f活動詳情, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.f活動詳情, "", new { @class = "text-danger" })
                         </div>

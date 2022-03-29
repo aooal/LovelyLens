@@ -181,7 +181,10 @@
             var pickValue = mypick.selectedIndex;
             console.log(pickValue);
         }
-
+        function backto() {
+            var txt = document.getElementById('txtKeyword');
+            txt.value = "";
+        }
     </script>
 
 
@@ -213,32 +216,24 @@
             <div class="col-12 col-lg-2  mb-3 float-lg-start">
                 <input type="text" name="txtKeyword" class="form-control" />
             </div>
-           
 
 
 
-                <div class="col-4 col-lg-1  mb-3 float-lg-start">
-                    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn" />
-                </div>
-               
-          
+
+            <div class="col-4 col-lg-1 ms-3 mb-3 float-lg-start">
+                <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn" />
+
+            </div>
+            <div class="col-4 col-lg-1 ms-3  mb-3 float-lg-start">
+
+                <input type="submit" value="返回" class="tomatoclickbtn " onclick="backto()" />
+            </div>
+
+
 
         }
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <table class="col-12 col-md-10 table tomatotable table-hover">

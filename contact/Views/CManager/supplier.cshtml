@@ -166,7 +166,10 @@
 
         });
         /*這裡是表單HOVER end*/
-
+        function backto() {
+            var txt = document.getElementById('txtKeyword');
+            txt.value = "";
+        }
     </script>
 }
 
@@ -220,7 +223,9 @@
 
                 <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="tomatoclickbtn " />
             </div>
-
+            <div class="col-4 col-md-1  mb-3 ">
+                <input type="submit" value="返回" class="tomatoclickbtn " onclick="backto()" />
+            </div>
         </div>
 
     }
@@ -277,5 +282,3 @@
 
     </div>
 </div>
-
-

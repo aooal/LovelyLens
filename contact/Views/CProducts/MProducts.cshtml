@@ -27,12 +27,10 @@
             background-clip: border-box;
             /* border:  solid #838383 5px; */
             border-radius: 1rem;
-           
         }
 
         .cardtomato {
             border: 0px;
-           
         }
 
         /* 讓card裡照片滿版 */
@@ -177,7 +175,10 @@
 
 
         }
-
+        function backto() {
+            var txt = document.getElementById('txtKeyword');
+            txt.value = "";
+        }
         //function keyWorld() {
 
         //}
@@ -221,6 +222,9 @@
             <div class="col-4 col-lg-1  mb-3 ">
                 <input type="submit" value="查詢" id="keyWorld" class="tomatoclickbtn" />
             </div>
+            <div class="col-4 col-md-1  mb-3 ">
+                <input type="submit" value="回產品一覽" class="tomatoclickbtn " onclick="backto()" />
+            </div>
         </div>
     }
 </div>
@@ -246,6 +250,11 @@
                                 <p class="card-text">
                                     <small class="text-muted"> @Html.DisplayFor(modelItem => item.f對外產品識別ID)</small>
                                 </p>
+                                <p>
+                                    度數 : @Html.DisplayFor(modelItem => item.f近視老花度數) |
+                                    散光度數 : @Html.DisplayFor(modelItem => item.f閃光度數) |
+                                    散光角度 : @Html.DisplayFor(modelItem => item.f閃光角度)
+                                </p>
                                 <p class="card-text momey">(成本)@Html.DisplayFor(modelItem => item.f成本價)</p>
                                 <p class="card-text momey">(售價)@Html.DisplayFor(modelItem => item.f售價)</p>
 
@@ -260,32 +269,32 @@
                 </div>
             </div>
 
-            }
+        }
 
 
-            <!-- 分頁 要用foreach-->
-            <ul class="pagination justify-content-center mt-3">
-                <li class="page-item">
-                    <a class="page-link" href="#">上一頁</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">下一頁</a>
-                </li>
-            </ul>
-            <!-- 分頁end 要用foreach-->
+        <!-- 分頁 要用foreach-->
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item">
+                <a class="page-link" href="#">上一頁</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">下一頁</a>
+            </li>
+        </ul>
+        <!-- 分頁end 要用foreach-->
 
 
 
 
 
-        </div>
+    </div>
 </div>
