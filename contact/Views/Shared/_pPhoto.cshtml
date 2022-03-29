@@ -24,28 +24,56 @@
 
 
 }
-<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑 " width="600" height="800" style="object-fit:cover">
 
-@foreach (var item in Model)
+
+
+@section scripts
+
 {
-    if (item.f產品圖片路徑 != "no-picture.jpg")
+    <script>
+
+    var picArray = [];
+    @foreach (var item in Model)
     {
-       
-
-
-        <div class="ms-5">
-            <img src="~/images/@item.f產品圖片路徑 " style="width: 50px; height: 50px;">
-
-        </div>
-        <a href="/Shopping/Cart/@item.f產品ID" class="tomatocartbtn"><i class="bi bi-basket2-fill"></i></a>
-
-
-
+        @:picArray.push("@item.f產品圖片路徑");
     }
+
+    /*console.log(picArray);*/
+
+
+    //var showPic = document.getElementById('showPic');
+    //for (var i = 0; i < picArray.length; i++) {
+
+
+
+    //}
+    </script>
 
 }
 
 
+
+
+<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑 " width="250" height="250" style="object-fit:cover" class="img-circle"id="bigPic">
+
+
+<ul class="d-flex mt-3" >
+
+    @foreach (var item in Model)
+    {
+        if (item.f產品圖片路徑 != "no-picture.jpg")
+        {
+
+            <li class="smallPic ms-3">
+                <img src="~/images/@item.f產品圖片路徑 " style="width: 50px; height: 50px;">
+                @*<a href="/Shopping/Cart/@item.f產品ID" class="tomatocartbtn"><i class="bi bi-basket2-fill"></i></a>*@
+
+            </li>
+        }
+
+    }
+
+</ul>
 
 
 @*@{

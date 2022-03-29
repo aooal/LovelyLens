@@ -32,7 +32,6 @@
         .cardtomato {
             border: 0px;
         }
-
         /* 讓card裡照片滿版 */
         .tomato-img {
             width: 100%;
@@ -49,7 +48,7 @@
 
         /* 錢 */
         .momey::before {
-            content: '價格: ';
+            content: '優惠價: ';
         }
 
         /* 照片降明度 */
@@ -165,17 +164,59 @@
 
         /* 輪播end */
 
+
+
+        /* 分頁 */
+        .pagination .page-item {
+            margin: 0 3px;
+        }
+
+            /* 分頁 */
+            .pagination .page-item .page-link {
+                background-color: #fcbfc1;
+                border: 0;
+                border-radius: 20px;
+                color: rgb(255, 255, 255);
+                font-size: 10px;
+            }
+
+                /* 分頁 */
+                .pagination .page-item .page-link:hover {
+                    background-color: #ee7d7d;
+                }
     </style>
 
 }
 
 @section scripts{
     <script>
+        //輪播用 慧芬
         $(function () {
             $('.carousel-indicators:first-child').addClass('active');
             $('.carousel-item:first-child').addClass('active');
 
         });
+
+        //資料庫的價格去小數 慧芬
+        var money = [];
+          @foreach (var item in Model)
+        {
+            @:money.push("@Convert.ToInt32(@item.f售價)");
+        }
+
+        console.log(money);
+        var newmoney = document.querySelectorAll('h6.momey');
+       
+        for (let index in money)
+        {
+            console.log(money[index]);
+
+            newmoney[index].innerHTML = money[index];
+
+        }
+  
+        //翔暐的
+
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -211,7 +252,7 @@
 }
 
 
-        @Html.Action("_activDisplay", "Shopping", new { count = 5 })
+@Html.Action("_activDisplay", "Shopping", new { count = 5 })
 
 
 
@@ -222,20 +263,20 @@
 
     @using (Html.BeginForm())
     {
-        <p>品牌分類</p>
-        <div class="col-12 col-md-2  mb-3 ">
-
-            <select id="brandSer" onchange="mybrand()" name="txtBrand" class="form-select" aria-label="Default select example">
-                <option value="">請選擇搜尋品牌</option>
-            </select>
-
-        </div>
-
-
-        <div class="col-12 col-md-2  mb-3 ">
-            <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入關鍵字搜尋" id="txtKeyword" hidden />
-        </div>
         <div class="row my-5 justify-content-start align-items-baseline text-center">
+
+            <div class="col-12 col-md-2  mb-3 d-none ">
+                <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入關鍵字搜尋" id="txtKeyword" hidden />
+            </div>
+
+            <div class="col-3  col-md-1  mb-3 ">依品牌查詢</div>
+            <div class="col-12 col-md-2  mb-3 ">
+                <select id="brandSer" onchange="mybrand()" name="txtBrand" class="form-select" aria-label="Default select example">
+                    <option value=""></option>
+                </select>
+
+            </div>
+
 
 
             <div class="col-4 col-md-1  mb-3 ">
@@ -268,34 +309,35 @@
 </div>
 
 
-<div class="container mt-3">
+<div class="container mt-5">
 
-    <div class="row  row-cols-lg-2 align-items-stretch">
+    <div class="row justify-content-center align-items-stretch">
 
         @foreach (var item in Model)
         {
 
-            <div class="col-12 col-md-6 ">
-                <div class="card cardtomato mb-5 mx-2">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/images/@item.f產品圖片路徑" class="img-fluid  tomato-img " alt="...">
+            <div class="col-12 col-md-6">
+                <div class="card cardtomato mb-5 ">
+                    <div class="row g-0 justify-content-center align-items-stretch">
+                        <div class="col-md-4 ">
+                            <img src="~/images/@item.f產品圖片路徑" class="w-100 tomato-img" alt="產品圖">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.f品牌名稱)</h5>
+
                                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
-                                <p class="card-text momey">@Html.DisplayFor(modelItem => item.f售價)</p>
-                                <p class="card-text">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                </p>
+                                <br />
+                                <p class="card-text"><small class="text-muted">最新上架</small></p>
+                                <br />
+                                <br />
+                                <h6 class="card-text momey">@Html.DisplayFor(modelItem => item.f售價)</h6>
+
+
 
                                 <div class="float-end mb-2">
-
-
-                                    <a href="/Shopping/Detail/@item.f產品ID" class="tomatobtn" id="@item.f產品ID">商品詳情</a>
-
-                                    <a href="/Shopping/Cart/@item.f產品ID" class="tomatocartbtn">加入購物車 <i class="bi bi-basket2-fill"></i></a>
+                                    <a href="/Shopping/Detail/@item.f產品ID" class="btn tomatobtn" id="@item.f產品ID">商品詳情</a>
+                                    <a href="/Shopping/Cart/@item.f產品ID" class="btn tomatocartbtn">加入購物車 <i class="bi bi-basket2-fill"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -303,15 +345,35 @@
                 </div>
             </div>
 
-
-
-
-
-
         }
+
+
+        <!-- 分頁 要用foreach-->
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item">
+                <a class="page-link" href="#">上一頁</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">下一頁</a>
+            </li>
+        </ul>
+        <!-- 分頁end 要用foreach-->
+
+
 
     </div>
 </div>
+
+
 
 @*<img src="~/images/@item.f產品圖片路徑" width="180" height="180" style="object-fit:cover" />
 

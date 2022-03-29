@@ -49,8 +49,23 @@
 
         /* 錢 */
         .momey::before {
-            content: '價格: ';
+            content: '售價: ';
         }
+
+
+        /* 成本錢 */
+        .costMoney::after {
+            content: ' 元';
+        }
+
+        /* 成本錢 */
+        .costMoney::before {
+            content: '成本: ';
+        }
+
+
+
+
 
         /* 照片降明度 */
         .card img:hover {
@@ -179,9 +194,53 @@
             var txt = document.getElementById('txtKeyword');
             txt.value = "";
         }
-        //function keyWorld() {
 
-        //}
+
+          //資料庫的售價去小數 慧芬
+        var money = [];
+          @foreach (var item in Model)
+        {
+            @:money.push("@Convert.ToInt32(@item.f售價)");
+        }
+
+        console.log(money);
+        var newmoney = document.querySelectorAll('p.momey');
+
+        for (let index in money)
+        {
+
+            newmoney[index].innerHTML = money[index];
+
+        }
+
+
+         //資料庫的成本價 有可能成本不是整數慧芬
+              var costmoney = [];
+          @foreach (var item in Model)
+        {
+            @:costmoney.push("@Convert.ToDouble(@item.f成本價)");
+        }
+
+        console.log(costmoney);
+        var newmoney = document.querySelectorAll('p.costMoney');
+
+        for (let index in costmoney)
+        {
+            console.log(costmoney[index]);
+
+            newmoney[index].innerHTML = costmoney[index];
+
+        }
+
+
+
+
+
+
+
+
+
+
     </script>
 
 }
@@ -255,7 +314,7 @@
                                     散光度數 : @Html.DisplayFor(modelItem => item.f閃光度數) |
                                     散光角度 : @Html.DisplayFor(modelItem => item.f閃光角度)
                                 </p>
-                                <p class="card-text momey">(成本)@Html.DisplayFor(modelItem => item.f成本價)</p>
+                                <p class="card-text costMoney">(成本)@Html.DisplayFor(modelItem => item.f成本價)</p>
                                 <p class="card-text momey">(售價)@Html.DisplayFor(modelItem => item.f售價)</p>
 
                                 <div class="float-end mb-3">

@@ -167,6 +167,9 @@
             word-break: break-all;
             word-wrap: break-word;
         }
+        li.smallPic {
+            list-style: none;
+        }
     </style>
 
 }
@@ -269,43 +272,84 @@
         }
 
 
+
+            //tomato 圖片切換
+
+            let smallPic = document.querySelectorAll('.smallPic>img');
+            smallPic.forEach(function (item, index) {
+                item.addEventListener('click', change)
+                // console.log(item.src)
+
+                function change(e) {
+                  
+                    //const bigPic = document.getElementById('bigPic');
+                    //const base = bigPic.src;
+                    //bigPic.src= e.target.src;
+                    // e.target.src = base;
+                    //好像不需要替換(預備功能)
+
+                    const bigPic = document.getElementById('bigPic');
+                   
+                    bigPic.src = e.target.src;
+                   
+                }
+              
+            })
+
+
+       
+
+
+
+
     </script>
 
 }
-<h2>商品詳情</h2>
+<div class="container">
 
-<h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
-
-@*<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" id="myImage"/>*@
-@*<input type="button" onclick="changeSrc()" value="Change image">*@
-<div>
-    <p>
-        @Html.Action("_pPhoto", "Shopping")
-    </p>
-</div>
-<h5 id="PDiscrip" class="wordwrap"> </h5>
-<h2 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h2>
-<select id="pColor">
-    <option>請選擇產品顏色</option>
-</select>
-<select id="rEye" onchange="Myselect()">
-    <option>請選擇近視度數</option>
-</select>
-<select id="ast" onchange="Myast()" style="display:none">
-    <option>請選擇散光度數</option>
-</select>
-<select id="ang" onchange="Myang()" style="display:none">
-    <option>請選擇散光角度</option>
-</select>
-<p id="inven" onload="inven()"></p>
-<p>數量<input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" /></p>
+    <h2>商品詳情</h2>
+    <div class="row">
 
 
+        @*<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" id="myImage"/>*@
+        @*<input type="button" onclick="changeSrc()" value="Change image">*@
+
+
+        <div class="col-12 col-md-4 float-start">
+
+            @Html.Action("_pPhoto", "Shopping")
+
+        </div>
+
+        <div class="col-12 col-md-4">
+            <h2>@Model.FirstOrDefault().f品牌名稱</h2>
+
+            <h4>@Model.FirstOrDefault().f產品名稱</h4>
+
+            <h5 id="PDiscrip" class="wordwrap"> </h5>
+            <h5 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h5>
+            <select id="pColor" class="form-control">
+                <option>請選擇產品顏色</option>
+            </select>
+            <select id="rEye" onchange="Myselect()" class="form-control">
+                <option>請選擇近視度數</option>
+            </select>
+            <select id="ast" onchange="Myast()" style="display:none" class="form-control">
+                <option>請選擇散光度數</option>
+            </select>
+            <select id="ang" onchange="Myang()" style="display:none" class="form-control">
+                <option>請選擇散光角度</option>
+            </select>
+            <p id="inven" onload="inven()"></p>
+            <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
+
+        </div>
+
+
+    </div>
 
 
 
+        @Html.ActionLink("回商品列表", "List")
 
-<p>
-
-    @Html.ActionLink("Back to List", "List")
-</p>
+    </div>
