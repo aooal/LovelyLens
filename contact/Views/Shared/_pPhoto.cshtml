@@ -54,7 +54,7 @@
 
 
 
-<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑 " width="250" height="250" style="object-fit:cover" class="img-circle"id="bigPic">
+<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑 " width="250" height="250" style="object-fit:cover" id="bigPic">
 
 
 <ul class="d-flex mt-3" >
@@ -65,7 +65,7 @@
         {
 
             <li class="smallPic ms-3">
-                <img src="~/images/@item.f產品圖片路徑 " style="width: 50px; height: 50px;">
+                <img src="~/images/@item.f產品圖片路徑 " style="width: 50px; height: 50px;" >
                 @*<a href="/Shopping/Cart/@item.f產品ID" class="tomatocartbtn"><i class="bi bi-basket2-fill"></i></a>*@
 
             </li>
@@ -74,35 +74,3 @@
     }
 
 </ul>
-
-
-@*@{
-        <section id="lokiSlider" class="carousel slide carousel-fade w-100" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-
-                @for (var i = 0; i <= 4; i++)
-                {
-
-
-                    <button type="button" data-bs-target="#lokiSlider" data-bs-slide-to="@i" class="active"></button>
-
-                }
-            </div>
-            <div class="carousel-inner">
-                @foreach (var item in Model)
-                {
-                    <div class="carousel-item ">
-                        <a href="~/Shopping/_pPhoto/@item.f產品圖片路徑"><img src="~/images/@item.f產品圖片路徑" class="d-block w-100"></a>
-
-                    </div>
-                }
-
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#lokiSlider" data-bs-slide="prev">
-                <i class="fas fa-angle-double-left fa-2x"></i>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#lokiSlider" data-bs-slide="next">
-                <i class="fas fa-angle-double-right fa-2x"></i>
-            </button>
-        </section>
-    }*@

@@ -68,11 +68,59 @@ new { enctype = "multipart/form-data" }))
             <div class="form-group row justify-content-center">
                 <div class="col-md-5 mb-4">
                     <p>帳號（電子信箱）</p>
-                    @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control", required = "required", id = "txtEmail" } })
                     @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
+
+                    @*電子信箱驗證區塊塊塊塊*@
+                    <form method="post">
+                        <input type="button" value="信箱驗證" onclick="sendemail()" />
+                    </form>
+
+                    <script src="https://smtpjs.com/v3/smtp.js"></script>
+                    <script>
+                        var random;
+                        var txtEmail;
+                        function sendemail() {
+                            random = Math.floor(Math.random() * 9999) + 1000;
+                            txtEmail = document.getElementById('txtEmail');
+                            Email.send({
+                                //SecureToken: "0ca6bc57-0633-4dfa-ab23-7b437ffe395b",
+                                Host: "smtp.gmail.com",
+                                Username: "lovelylens03@gmail.com",
+                                Password: "tgdcvikctzoaualq",
+                                To: txtEmail.value,
+                                From: "lovelylens03@gmail.com",
+                                Subject: "Lovelylens註冊會員驗證信",
+                                Body: "您的認證碼為：" + random,
+                            }).then(
+                                message => alert(message)
+                            );
+                        }
+
+                    </script>
+                    <span>輸入驗證碼：</span><input type="text" id="txtCheck" />
+                    <form method="post">
+                        <input type="button" value="驗證" onclick="check()" id="btnckeck" />
+                    </form>
+                    <script>
+                        var txtCheck;
+                        function check() {
+                            txtCheck = document.getElementById("txtCheck");
+                            var btnckeck = document.getElementById('btnckeck');
+                            if (txtCheck.value == random) {
+                                alert('驗證成功');
+                                btnckeck.value = '驗證成功';
+                            }
+                            else {
+                                alert('驗證失敗');
+                            }
+                        }
+                    </script>
+                    @*電子信箱驗證區塊塊塊塊*@
+
                 </div>
+
             </div>
-            <p id="chkAccMsg"></p>
 
             <div class="form-group row justify-content-center">
                 <div class="col-md-5 mb-4">

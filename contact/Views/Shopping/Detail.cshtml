@@ -170,6 +170,20 @@
         li.smallPic {
             list-style: none;
         }
+
+
+        .mytext {
+           
+           
+            background-color: rgb(255 255 255 / 0.5);
+         
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            position: relative;
+           padding:10px ;
+         
+            z-index: 1;
+        }
     </style>
 
 }
@@ -195,6 +209,9 @@
         var ast = document.getElementById('ast');
         var ang = document.getElementById('ang');
 
+        var asttext = document.getElementById('astText');
+        var angtext = document.getElementById('angText');
+
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -218,9 +235,15 @@
         if (@Model.FirstOrDefault().f閃光度數 != "0"){
             ast.style.display = 'block';
             ang.style.display = 'block';
+            astText.style.display = 'block';
+            angText.style.display = 'block';
+
         } else {
             ast.style.display = 'none';
             ang.style.display = 'none';
+            astText.style.display = 'none';
+            angText.style.display = 'none';
+
         }
 
         discripArray = discripArray.filter(onlyUnique);
@@ -321,28 +344,38 @@
 
         </div>
 
-        <div class="col-12 col-md-4">
-            <h2>@Model.FirstOrDefault().f品牌名稱</h2>
+        <div class="col-12 col-md-4 mytext">
+            <h2  class="">@Model.FirstOrDefault().f品牌名稱</h2>
 
             <h4>@Model.FirstOrDefault().f產品名稱</h4>
 
             <h5 id="PDiscrip" class="wordwrap"> </h5>
-            <h5 id="total">NT $ @((int?)Model.FirstOrDefault().f售價)</h5>
-            <select id="pColor" class="form-control">
-                <option>請選擇產品顏色</option>
-            </select>
-            <select id="rEye" onchange="Myselect()" class="form-control">
-                <option>請選擇近視度數</option>
-            </select>
-            <select id="ast" onchange="Myast()" style="display:none" class="form-control">
-                <option>請選擇散光度數</option>
-            </select>
-            <select id="ang" onchange="Myang()" style="display:none" class="form-control">
-                <option>請選擇散光角度</option>
-            </select>
+            <h6 id="total">NT $ @((int?)Model.FirstOrDefault().f售價) 元</h6>
+
+            <div class="col-12 col-md-3">
+                <select id="pColor" class="form-control">
+                    <option>顏色</option>
+                </select>
+                <small class="text-muted">近視度數</small>
+                <select id="rEye" onchange="Myselect()" class="form-control ">
+                    <option>近視度數</option>
+                </select>
+
+                <small class="text-muted" id="astText" style="display:none">散光度數</small>
+                <select id="ast" onchange="Myast()" style="display:none" class="form-control">
+                    <option>散光度數</option>
+                </select>
+                <div>
+
+                    <small class="text-muted" id="angText" style="display:none">散光角度</small>
+                    <select id="ang" onchange="Myang()" style="display:none" class="form-control">
+                        <option>散光角度</option>
+                    </select>
+                </div>
+            </div>
             <p id="inven" onload="inven()"></p>
             <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
-
+        
         </div>
 
 
@@ -353,3 +386,24 @@
         @Html.ActionLink("回商品列表", "List")
 
     </div>
+
+<form action="Detail" method="POST" class="p-5 mt-5 loginform">
+    <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
+    <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+    <input type="hidden" id="Count" name="數量" />
+
+    <select id="pColor" name="f產品顏色">
+        <option>請選擇產品顏色</option>
+    </select>
+    <select id="rEye" name="f近視老花度數" onchange="Myselect()">
+        <option>請選擇近視度數</option>
+    </select>
+    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none">
+        <option>請選擇散光度數</option>
+    </select>
+    <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none">
+        <option>請選擇散光角度</option>
+    </select>
+    <p id="inven" onload="inven()"></p>
+    <input type="submit" value="加入購物車" />
+</form>

@@ -23,12 +23,28 @@ namespace contact.Controllers
 
             if (selectAccount != null && selectAccount.f密碼 == vModel.loginPassword)
             {
+                HttpCookie cookie = Request.Cookies["USERid"];
+                Session["USERid"] = selectAccount.f店家ID;
+                cookie = new HttpCookie("USERid");
+                cookie.Value = selectAccount.f店家ID.ToString();
+                cookie.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Add(cookie);
+
+                ViewBag.Account = selectAccount.f店家ID;
+                ViewBag.AccountName = selectAccount.f店家名稱;
+
                 if (selectAccount.f身分別 == "管理者")
                 {
                     return RedirectToAction("../CManager/Index"); //重新修改至管理者首頁
                 }
-                Session[SessionKeys.SESSION_KEY_USER] = selectAccount;
-                return RedirectToAction("../Shopping/list");
+                else if (selectAccount.f往來狀態 == "黑名單")
+                {
+                    return Content("帳號目前無法使用，請洽詢業務負責人：\n周沛妤\n0988-888-888");
+                }
+                else
+                {
+                    return RedirectToAction("../Shopping/list");
+                }
             }
             else
             {
@@ -50,10 +66,13 @@ namespace contact.Controllers
             return View();
         }
 
-        //public ActionResult Login()
-        //{
-        // return View();
-        //}
+        public ActionResult Login()
+        {
+            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
+            DBEyeEntities2 db = new DBEyeEntities2();
+            var accountName = db.t店家.FirstOrDefault(m => m.f店家ID == accountLogin).f店家名稱;
+            return Content(accountName);
+        }
         public ActionResult Register()
         {
             return View();

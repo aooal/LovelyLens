@@ -1,4 +1,5 @@
 ﻿using contact.Models;
+using contact.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,6 +105,53 @@ namespace contact.Controllers
             return RedirectToAction("Detail");
         }
 
+        [HttpPost]
+        public ActionResult Detail(CAddToCartViewModel viewModel)
+        {
+            DBEyeEntities2 db = new DBEyeEntities2();
+            if (viewModel.f閃光度數 == "請選擇散光度數")
+            {
+                viewModel.f閃光度數 = "0";
+            }
+            if (viewModel.f閃光角度 == "請選擇散光角度")
+            {
+                viewModel.f閃光角度 = "0";
+            }
+            var prod = from p in db.t產品
+                       where (
+                        p.f品牌名稱 == viewModel.f品牌名稱 &
+                        p.f產品名稱 == viewModel.f產品名稱 &
+                        p.f產品顏色 == viewModel.f產品顏色 &
+                        p.f近視老花度數 == viewModel.f近視老花度數 &
+                        p.f閃光度數 == viewModel.f閃光度數 &
+                        p.f閃光角度 == viewModel.f閃光角度)
+                       select p;
+            if (prod != null)
+            {
+                List<CShoppingCartItem> cartItems = Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] as List<CShoppingCartItem>;
+                if (cartItems == null)
+                {
+                    cartItems = new List<CShoppingCartItem>();
+                    Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] = cartItems;
+                }
+                foreach (var selitem in prod)
+                {
+                    cartItems.Add(new CShoppingCartItem()
+                    {
+                        品牌名稱 = selitem.f品牌名稱,
+                        產品名稱 = selitem.f產品名稱,
+                        產品顏色 = selitem.f產品顏色,
+                        近視度數 = selitem.f近視老花度數,
+                        散光度數 = selitem.f閃光度數,
+                        散光角度 = selitem.f閃光角度,
+                        單價 = Convert.ToDecimal(selitem.f售價),
+                        數量 = viewModel.數量,
+                        Product = selitem
+                    });
+                }
+            }
+            return RedirectToAction("List");
+        }
 
         public ActionResult _theActivity(int? id)
         {
@@ -118,6 +166,21 @@ namespace contact.Controllers
                 }
             }
             return RedirectToAction("List");
+        }
+
+        public ActionResult CartView()
+        {
+            var accountID = Convert.ToInt32(Request.Cookies["USERid"].Value);
+            DBEyeEntities2 db = new DBEyeEntities2();
+            var accountLogin = db.t店家.FirstOrDefault(m => m.f店家ID == accountID);
+            List<CShoppingCartItem> cart = Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] as List<CShoppingCartItem>;
+            if (cart == null)
+                return RedirectToAction("List");
+            ViewBag.AccountName = accountLogin.f店家名稱;
+            ViewBag.AccountMobile = accountLogin.f店家連絡電話;
+            ViewBag.AccountAddress = accountLogin.f地址;
+            ViewBag.AccountEmail = accountLogin.f電子信箱;
+            return View(cart);
         }
 
     }

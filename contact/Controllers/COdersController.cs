@@ -302,7 +302,8 @@ namespace contact.Controllers
                                  f付款狀態 = p.f付款狀態,
                                  f訂購日期 = p.f訂購日期,
                                  f產品顏色 = q.f產品顏色,
-                                 f品牌名稱 = q.f品牌名稱
+                                 f品牌名稱 = q.f品牌名稱,
+                                 f訂單備註 = p.f訂單備註
                              }).ToList();
                 return View(query);
             }
