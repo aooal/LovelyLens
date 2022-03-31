@@ -40,3 +40,98 @@
     @Html.ActionLink("刪除申請", "Index", new { /* id = Model.PrimaryKey */ })
 </p>
 
+
+
+
+
+@section styles{
+
+    <style>
+    </style>
+}
+
+<div class="container-fluid mt-1 p-5">
+    <h2 class="mb-5">換貨詳情管理</h2>
+
+    <div class="row justify-content-between">
+        <div class="col-4">
+            訂單單號：123456798
+        </div>
+        <div class="col-4">
+            訂單日期：2021.02.25
+        </div>
+        <!-- 下面如果不包在<div class="row"></div> 就會變成滿版色塊 -->
+        <div class="row container-fluid col-10 m-3">
+
+            <div class="border border-primary rounded ">
+                <p>經銷商：</p>
+                <p>電話：</p>
+                <p>地址：</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="container-fluid px-5">
+    <table class="table  table-hover">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品編號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">數量</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+            </tr>
+
+            <tr>
+                <th scope="row" colspan="3"></th>
+                <td class="bg-info text-light text-center">訂單總額</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">前往出貨管理</button>
+</div>
+<div>
+    <label>總金額：</label><p class="d-inline">12321</p></br>
+    <label>換貨原因：</label><p class="d-inline">asdferafafarf</p></br>
+    <label>備註：</label><p class="d-inline">asdferafafarf</p></br>
+    <label>狀態：</label><p class="d-inline">未出貨</p>
+</div>
+
+<button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">刪除申請</button>
+
+
+@section scripts{
+    <script></script>
+
+}

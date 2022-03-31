@@ -1,122 +1,205 @@
 ﻿@model contact.ViewModels.CexchangeDetailRecord
+@{
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
 
+
+
+@section styles{
+
+    <style>
+    </style>
+}
 
 <h1>換貨管理-新增經銷商換貨紀錄</h1>
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
+
+    <div class="form-horizontal">
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.f店家名稱, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.f產品名稱, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f產品名稱, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-
-    規格:
-    <div class="form-group">
-        @Html.LabelFor(model => model.f近視老花度數, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f近視老花度數, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.f閃光度數, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f閃光度數, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f閃光度數, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.f閃光角度, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f閃光角度, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f閃光角度, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.f換貨數量, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f換貨數量, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f換貨數量, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.f小計, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f小計, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f小計, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.f換貨總金額, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f換貨總金額, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f換貨總金額, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.f換貨原因, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f換貨原因, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f換貨原因, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    備註:
-    <textArea name="ChangeRemark"></textArea>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="送出" class="btn btn-default" />
-        </div>
-    </div>
-    新增:@Html.ActionLink("新增", "", new { });
-    <label>廠商</label>
-    @*<select>
-        <option>@Model.f店家名稱</option>
-    </select>
-    <label>選擇品項</label>
-    <select>
-        <option>@Model.f產品名稱</option>
-    </select>
-    <label>規格</label>
-    <select>
-        <option>@Model.f近視老花度數</option>
-    </select>
-    <select>
-        <option>@Model.f閃光度數</option>
-    </select>*@
-    
-       
-            @Html.LabelFor(model => model.f換貨單價, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.f店家名稱, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.f換貨單價, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f換貨單價, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
             </div>
-       
-    
-</div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f產品名稱, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f產品名稱, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        規格:
+        <div class="form-group">
+            @Html.LabelFor(model => model.f近視老花度數, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f近視老花度數, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f閃光度數, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f閃光度數, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f閃光度數, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f閃光角度, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f閃光角度, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f閃光角度, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f換貨數量, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f換貨數量, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f換貨數量, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.f小計, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f小計, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f小計, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f換貨總金額, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f換貨總金額, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f換貨總金額, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.f換貨原因, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f換貨原因, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f換貨原因, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        備註:
+        <textArea name="ChangeRemark"></textArea>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="送出" class="btn btn-default" />
+            </div>
+        </div>
+        新增:@Html.ActionLink("新增", "", new { });
+        <label>廠商</label>
+        @*<select>
+                <option>@Model.f店家名稱</option>
+            </select>
+            <label>選擇品項</label>
+            <select>
+                <option>@Model.f產品名稱</option>
+            </select>
+            <label>規格</label>
+            <select>
+                <option>@Model.f近視老花度數</option>
+            </select>
+            <select>
+                <option>@Model.f閃光度數</option>
+            </select>*@
+
+
+        @Html.LabelFor(model => model.f換貨單價, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.f換貨單價, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.f換貨單價, "", new { @class = "text-danger" })
+        </div>
+
+
+    </div>
 
 }
+
+@section scripts{
+    <script></script>
+
+}
+
+
+
+我的排版新增換貨登記
+
+<div class="container-fluid mt-1 p-5">
+    <h2 class="mb-5">新增換貨登記</h2>
+</div>
+
+<div class="container-fluid mt-3 p-5">
+    <table class="table  table-hover">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品編號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">數量</th>
+                <th scope="col">小計</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345</td>
+
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345</td>
+            </tr>
+            <tr>
+                <th scope="row" colspan="3"></th>
+                <td class="bg-info text-light text-center">訂單總額：</td>
+            </tr>
+        </tbody>
+
+    </table><button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">新增</button>
+</div>
+<div>
+    <label>換貨原因：</label><textarea></textarea><br />
+    <label>備註：</label><textarea></textarea><br />
+</div>
+
+<button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">刪除申請</button>
+
+
+
+
 

@@ -1,47 +1,201 @@
-﻿@model contact.ViewModels.MOderDetailRecord
+﻿@model IEnumerable<contact.ViewModels.MOderDetailRecord>
 @{
     ViewBag.Title = "COderDetail-經銷商：歷史訂單詳情";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
 }
 
 <style>
     h1 {
         color: gainsboro;
     }
+
+    .bigtext {
+        font-family: jf-openhuninn;
+        font-size: 2.0rem;
+    }
 </style>
+<div class="container-fluid mt-1 p-5">
+    <h2 class="mb-5">經銷商：歷史訂單詳情</h2>
+    @{ var aItem = Model.FirstOrDefault(); }
+    <div class="row justify-content-between">
+        <div class="col-4 bigtext">
+            訂單單號:@aItem.f對外訂單單號<br>
+        </div>
+        <div class="col-4 bigtext">
+            訂單日期:@aItem.f訂購日期<br>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-4 family">
+                訂單狀態:@aItem.f訂單狀態<br>
+                付款狀態:@aItem.f付款狀態
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1>經銷商：歷史訂單詳情</h1>
 
-訂單日期:@Model.f訂購日期
-訂單單號:@Model.f對外訂單單號
-訂單狀態:@Model.f訂單狀態
-付款狀態:@Model.f付款狀態
-<table class="table">
-    <tr>
-        <th>商品編號</th>
-        <th>商品名稱</th>
-        <th>數量</th>
-        <th>小計</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.f對外產品識別ID
-        </td>
-        <td>
-            @Model.f產品名稱
-        </td>
-        <td>
-            @Model.f訂購數量
-        </td>
-        <td>
-            @Model.f小計
-        </td>
-        <td>
-            @Html.ActionLink("重新訂購", "", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |
+<div class="container-fluid">
+    <table class="table ordertable col-12 col-md-10">
+        <tr>
+            <th>商品編號</th>
+            <th>商品名稱</th>
+            <th>數量</th>
+            <th>顏色</th>
+            <th>小計</th>
+            <th></th>
+        </tr>
+        @{
 
-        </td>
-    </tr>
-</table>
-總價:@Model.f訂單總金額
-備註:@Model.f訂單備註
+            foreach (var item in Model)
+            {
+                <input type="hidden" name="f品牌名稱" value="@item.f品牌名稱" />
+                <input type="hidden" name="f近視老花度數" value="@item.f近視老花度數" />
+                <input type="hidden" name="f閃光度數" value="@item.f閃光度數" />
+                <input type="hidden" name="f閃光角度" value="@item.f閃光角度" />
+                <input type="hidden" name="f售價" value="@item.f售價" />
+                <tr>
+                    <td>
+                        @item.f對外產品識別ID
+                    </td>
+                    <td>
+                        @item.f產品名稱
+                    </td>
+                    <td>
+                        @item.f訂購數量
+                    </td>
+                    <td>
+                        @item.f產品顏色
+                    </td>
+                    <td>
+                        @item.f小計 元
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("重新訂購", "", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+                        @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = item.f對外訂單單號, pid = item.f對外產品識別ID }, new { @class = "tomatocartbtn" })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <div class="row justify-content-end family" style="font-size:1.5rem">
+        總價：@aItem.f訂單總金額 元
+    </div>
+    <div class="mb-5"style="font-family:jf-openhuninn; font-size:1.3rem">
+        備註：@aItem.f訂單備註
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    @*-----備份*@
+    @*<h1>經銷商：歷史訂單詳情</h1>
+        @{ var aItem = Model.FirstOrDefault(); }
+        訂單日期:@aItem.f訂購日期
+        訂單單號:@aItem.f對外訂單單號
+        訂單狀態:@aItem.f訂單狀態
+        付款狀態:@aItem.f付款狀態
+
+
+        <table class="table">
+            <tr>
+                <th>商品編號</th>
+                <th>商品名稱</th>
+                <th>數量</th>
+                <th>顏色</th>
+                <th>小計</th>
+                <th></th>
+            </tr>
+            @{
+
+                foreach (var item in Model)
+                {
+                    <input type="hidden" name="f品牌名稱" value="@item.f品牌名稱" />
+                    <input type="hidden" name="f近視老花度數" value="@item.f近視老花度數" />
+                    <input type="hidden" name="f閃光度數" value="@item.f閃光度數" />
+                    <input type="hidden" name="f閃光角度" value="@item.f閃光角度" />
+                    <input type="hidden" name="f售價" value="@item.f售價" />
+                    <tr>
+                        <td>
+                            @item.f對外產品識別ID
+                        </td>
+                        <td>
+                            @item.f產品名稱
+                        </td>
+                        <td>
+                            @item.f訂購數量
+                        </td>
+                        <td>
+                            @item.f產品顏色
+                        </td>
+                        <td>
+                            @item.f小計
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("重新訂購", "", new { id = item.f對外訂單單號 }) |
+                            @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = item.f對外訂單單號, pid = item.f對外產品識別ID }) |
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+            總價:@aItem.f訂單總金額
+            備註:@aItem.f訂單備註*@
+
+
+
+
+
+
+
+
+
+    @section scripts{
+        <script>
+
+            /*這裡是表單HOVER*/
+            $(function () {
+
+                $(".ordertable tr:odd").addClass("orderodd");
+                $(".ordertable tr:even").addClass("ordereven");
+
+                // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+                $(".ordertable tr").hover(
+                    function () {
+                        $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                    },
+                    function () {
+                        $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                    }
+                );
+
+                //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+                $('.ordertable tbody').find("tr").each(function () {
+                    let bb = $(this).children('td:eq(3)').text();
+                    console.log(bb);
+                    if (bb == '未出貨') {
+                        $(this).children('td:eq(3)').css("color", "red");
+                    }
+
+                });
+
+
+               
+
+            });
+        </script>
+
+    }
+
+
+
+    @*@Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |*@

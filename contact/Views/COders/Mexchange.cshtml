@@ -4,11 +4,50 @@
     ViewBag.Title = "Cexchange-換貨--經銷商換貨申請";
 }
 
-<style>
-    h1 {
-        color: gainsboro;
-    }
-</style>
+
+@section styles{
+
+    <style>
+    </style>
+}
+
+@section scripts{
+    <script>
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+            $('.ordertable tbody').find("tr").each(function () {
+                let bb = $(this).children('td:eq(4)').text();
+                console.log(bb);
+                if (bb == '未出貨') {
+                    $(this).children('td:eq(4)').css("color", "red");
+                }
+
+            });
+
+
+
+        });
+
+
+
+    </script>
+
+}
 
 
 <h1>換貨管理</h1>
@@ -28,7 +67,7 @@
     </p>
     @ViewBag.data
 }
-<table class="table">
+<table class="table ordertable">
     <tr>
         <th>申請日期</th>
         <th>換貨單號</th>
@@ -52,3 +91,72 @@
 
 
 </table>
+
+
+
+
+我的排版
+<div class="container-fluid mt-3 p-5">
+    <h2 class="mb-5">經銷商換貨申請一覽</h2>
+
+    <div class="row mb-5 justify-content-start align-items-center">
+        <div class="col-12 col-lg-2  mb-3">
+            <select class="form-select ">
+                <option>訂單序號</option>
+                <option>1</option>
+                <option>1</option>
+                <option>1</option>
+            </select>
+
+        </div>
+        <div class="col-12 col-lg-3  mb-3">
+            <input type="text" name="" class="form-control" value="" />
+        </div>
+        <div class="col-4 col-lg-1  mb-3 ">
+            <button type="button" class="btn btn-primary ">搜尋</button>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>申請日期</th>
+                <th>換貨單號</th>
+                <th>經銷商名稱</th>
+                <th>狀態</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>2022.02.25</td>
+                <td>75412369695</td>
+                <td>仁愛眼鏡 XX店</td>
+                <td class="text-danger">未出貨</td>
+                <td>
+                    <a href="" class="btn btn-outline-dark">查看詳情</a>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>2022.02.25</td>
+                <td>75412369695</td>
+                <td>小林眼鏡 XX店</td>
+                <td class="text-danger">未出貨</td>
+                <td>
+                    <a href="" class="btn btn-outline-dark">查看詳情</a>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+
+</div>
+
+

@@ -11,17 +11,19 @@ namespace contact.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web;
+
     public partial class t優惠活動
     {
         public int f優惠活動ID { get; set; }
         public string f活動名稱 { get; set; }
         public string f活動詳情 { get; set; }
         public string f活動折扣碼 { get; set; }
-        public Nullable<decimal> f活動折扣 { get; set; }
+        public Nullable<double> f活動折扣 { get; set; }
         public string f活動起始日 { get; set; }
         public string f活動結束日 { get; set; }
         public string f活動對象 { get; set; }
         public string f活動照片路徑 { get; set; }
+        public HttpPostedFileBase photo { get; set; }
     }
 }

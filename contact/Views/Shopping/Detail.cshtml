@@ -1,67 +1,450 @@
 ﻿@model IEnumerable<contact.Models.t產品>
-
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "pDetail";
 }
 
-<h2>Detail</h2>
+@{
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
 
-<h2>@Model.FirstOrDefault().f品牌名稱 @Model.FirstOrDefault().f產品名稱</h2>
-<h2></h2>
-<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" />
-<h2>NT @((int?)Model.FirstOrDefault().f售價) $</h2>
-<select id="rEye">
-    <option>請選擇右眼度數</option>
-</select>
-@foreach (var item in Model)
-{
+@section styles{
+
+    <style>
+        body {
+            background-color: #fd929249;
+          
+        }
+
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            /* border:  solid #838383 5px; */
+            border-radius: 1rem;
+        }
+
+        .cardtomato {
+            border: 0px;
+        }
+
+        /* 讓card裡照片滿版 */
+        .tomato-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom-left-radius: 1rem !important;
+            border-top-left-radius: 1rem !important;
+        }
+
+        /* 錢 */
+        .momey::after {
+            content: ' 元';
+        }
+
+        /* 錢 */
+        .momey::before {
+            content: '價格: ';
+        }
+
+        /* 照片降明度 */
+        .card img:hover {
+            filter: brightness(.5);
+        }
+
+
+
+        /* 刪除按鈕 */
+        .tomatodangerbtn {
+            border-radius: 35px;
+            font-family: jf-openhuninn;
+            color: #f0b0aa;
+            font-size: 18px;
+            background: #e8546f;
+            padding: 5px 10px 5px 10px;
+            border: dotted #e6e6e6 2px;
+            text-decoration: none;
+        }
+
+            .tomatodangerbtn:hover {
+                background: #a12747;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 搜尋 方型BTN */
+        .tomatoclickbtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #ff8a8a;
+            padding: 5px 10px 5px 10px;
+            border: double #ffffff 4px;
+            text-decoration: none;
+        }
+
+            .tomatoclickbtn:hover {
+                background: #eb6767;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 詳情按鈕     */
+        .tomatobtn {
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #d6b6c3;
+            padding: 5px 10px 5px 10px;
+            border: dotted #fafafa 2px;
+            text-decoration: none;
+        }
+
+            .tomatobtn:hover {
+                background: #d6b6c3;
+                background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        /* 加入購物車 */
+        .tomatocartbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #eba68d;
+            padding: 5px 10px 5px 10px;
+            border: dotted #ffffff 2px;
+            text-decoration: none;
+        }
+
+            .tomatocartbtn:hover {
+                background: #cc8b74;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        .gotoCheck {
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            z-index: 9999;
+        }
+
+
+        /* 輪播開始 */
+        #lokiSlider img {
+            object-fit: cover;
+            /*filter: grayscale(50%);*/
+        }
+
+        #lokiSlider .carousel-caption {
+            text-shadow: #333 0.3rem 0.3rem 0.5rem;
+        }
+
+        #lokiSlider .carousel-indicators > button {
+            border-radius: 50%;
+            height: 15px;
+            width: 15px;
+            border: 10px solid transparent;
+        }
+
+        /* 輪播end */
+        .wordwrap {
+            white-space: pre-line;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+        li.smallPic {
+            list-style: none;
+        }
+
+
+        .mytext1 {
+            background-color: rgb(255 255 255 / 0.5);
+         
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+          
+           padding:10px ;
+
+        }
+    </style>
+
+}
+
+
+@section scripts{
     <script>
 
-    var MyArray = [];
-    var myopia = (@Html.DisplayTextFor(modelItem => item.f近視老花度數)).toFixed(2);
-
-    MyArray.push((myopia));
-    console.log(MyArray);
-    MyArray.sort();
+//const { get } = require("jquery");
 
 
-    for (var i = 0; i < MyArray.length; i++) {
-       var rEye = document.getElementById('rEye');
-        //console.log(MyArray[i])
-        var MyItem = new Option(MyArray[i], MyArray[i]);
-        rEye.options.add(MyItem);
+        function pCount() {
+            var total = document.getElementById('total');
+            var pCount = document.getElementById('pCount');
+            if (@((int?)Model.FirstOrDefault().f售價) * pCount.value > 0) {
+                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價) * pCount.value;
+            } else {
+                total.innerHTML = "NT $ " + @Model.FirstOrDefault().f售價;
+            }
 
-    }
+        }
+
+        var ast = document.getElementById('ast');
+        var ang = document.getElementById('ang');
+
+        var asttext = document.getElementById('astText');
+        var angtext = document.getElementById('angText');
+
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        var colorArray = [];
+        var myArray = [];
+        var astArray = [];
+        var angArray = [];
+        var discripArray = [];
+        @foreach(var item in Model)
+        {
+
+
+            @:colorArray.push("@item.f產品顏色");
+            @:myArray.push((@item.f近視老花度數).toFixed(2));
+            @:astArray.push("@item.f閃光度數");
+            @:angArray.push("@item.f閃光角度");
+            @:discripArray.push("@item.f產品描述");
+
+
+        }
+        if (@Model.FirstOrDefault().f閃光度數 != "0"){
+            ast.style.display = 'block';
+            ang.style.display = 'block';
+            astText.style.display = 'block';
+            angText.style.display = 'block';
+
+        } else {
+            ast.style.display = 'none';
+            ang.style.display = 'none';
+            astText.style.display = 'none';
+            angText.style.display = 'none';
+
+        }
+
+        discripArray = discripArray.filter(onlyUnique);
+        colorArray = colorArray.filter(onlyUnique);
+        myArray = myArray.filter(onlyUnique);
+        astArray = astArray.filter(onlyUnique);
+        angArray = angArray.filter(onlyUnique);
+        myArray.sort();
+        astArray.sort();
+        angArray.sort();
+
+
+        var PDiscrip = document.getElementById('PDiscrip');
+        var num = 1;
+        discripArray.forEach((item, index, discripArray) => {
+            discripArray[index] = `${num++}. ` + item + "<br/>";
+        });
+
+        PDiscrip.innerHTML = discripArray.join('');
+
+        var pColor = document.getElementById('pColor');
+        for (var i = 0; i < colorArray.length; i++) {
+
+            var MyColor = new Option(colorArray[i], colorArray[i]);
+            pColor.options.add(MyColor);
+        }
+        var ast = document.getElementById('ast');
+        for (var i = 0; i < astArray.length; i++) {
+
+            var Myast = new Option(astArray[i], astArray[i]);
+            ast.options.add(Myast);
+        }
+        var ang = document.getElementById('ang');
+        for (var i = 0; i < angArray.length; i++) {
+
+            var Myang = new Option(angArray[i], angArray[i]);
+            ang.options.add(Myang);
+        }
+
+        var rEye = document.getElementById('rEye');
+        for (var i = 0; i < myArray.length; i++) {
+
+            var MyItem = new Option(myArray[i], myArray[i]);
+            rEye.options.add(MyItem);
+        }
+        function Myselect() {
+            var myValue = rEye.options[rEye.selectedIndex].value;
+            console.log(myValue);
+        }
+
+
+
+        //tomato 圖片切換
+        window.onload = function () {
+            const bigPic = document.getElementById('bigPic');
+           /* bigPic.src ="no-picture.jpg"*/
+            let smallPic = document.querySelectorAll('.smallPic>img');
+
+            if (smallPic.length > 0) {
+                console.log(smallPic.length)
+                const myPicUlul = document.getElementById('myPicUl');
+                myPicUlul.classList.add("mytext");
+                smallPic.forEach(function (item, index) {
+                    item.addEventListener('click', change)
+                   
+
+                    function change(e) {
+
+                        //const bigPic = document.getElementById('bigPic');
+                        //const base = bigPic.src;
+                        //bigPic.src= e.target.src;
+                        // e.target.src = base;
+                        //好像不需要替換(預備功能)
+
+                        const bigPic = document.getElementById('bigPic');
+
+                        bigPic.src = e.target.src;
+
+                    }
+
+
+
+
+                })
+            }
+        //else {
+        //    document.getElementById('myPicUlul').hidden = true;
+        //}
+
+
+        }
+
+
+
+
+
+
+          
+
+
+        const submitEvent = document.getElementById('submit');
+        submitEvent.addEventListener('click', function () {
+            document.getElementById('Count').value = document.getElementById('pCount').value;
+        })
+       
+
+
+
 
     </script>
 
-    <tr>
-        <td>
-            度數 @Html.DisplayFor(modelItem => item.f近視老花度數)
-        </td>
-        <td>
-
-            散光 @Html.DisplayFor(modelItem => item.f閃光度數, new { htmlAttributes = new { @id = "ast" } })
-
-        </td>
-        <td>
-            散光角度 @Html.DisplayFor(modelItem => item.f閃光角度, new { htmlAttributes = new { @id = "ang" } })
-        </td>
-        <td>
-            庫存 @Html.DisplayFor(modelItem => item.f庫存數量)
-        </td>
-
-    </tr>
-    <br />
 }
-<script>
-    var rEye = document.getElementById('rEye').value;
-    console.log(rEye);
-</script>
+<div class="container">
+
+   
+    <div class="row justify-content-center mt-5">
 
 
+        @*<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" id="myImage"/>*@
+        @*<input type="button" onclick="changeSrc()" value="Change image">*@
 
-<p>
 
-    @Html.ActionLink("Back to List", "List")
-</p>
+        <div class="col-12 col-md-4 text-center mt-5">
+
+            @Html.Action("_pPhoto", "Shopping")
+
+        </div>
+
+        <div class="col-12 col-md-4 mytext1">
+            <h2 class="">@Model.FirstOrDefault().f品牌名稱</h2>
+
+            <h4>@Model.FirstOrDefault().f產品名稱</h4>
+
+            <small id="PDiscrip" class="wordwrap"> </small>
+            <h6 id="total">NT $ @((int?)Model.FirstOrDefault().f售價) 元</h6>
+            <div class="col-12 col-md-3">
+                <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
+                @*<small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />*@
+            </div>
+
+            <form action="Detail" method="POST" class="">
+                <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
+                <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+                <input type="hidden" id="Count" name="數量" />
+                <div class="col-12 col-md-3">
+                    <small class="text-muted">顏色</small>
+                    <select id="pColor" name="f產品顏色" class="form-control">
+                        <option>顏色</option>
+                    </select>
+                    <small class="text-muted">近視度數</small>
+                    <select id="rEye" name="f近視老花度數" onchange="Myselect()" class="form-control ">
+                        <option>近視度數</option>
+                    </select>
+
+                    <small class="text-muted" id="astText" style="display:none">散光度數</small>
+                    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none" class="form-control">
+                        <option>散光度數</option>
+                    </select>
+                    <div>
+
+                        <small class="text-muted" id="angText" style="display:none">散光角度</small>
+                        <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none" class="form-control">
+                            <option>散光角度</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <p id="inven" onload="inven()"></p>
+                <div class="float-end">
+                    <input type="submit" value="加入購物車" id="submit" class="btn tomatocartbtn" />
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="offset-md-10 col-md-2 col-12 mt-5 float-end">
+            @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
+        </div>
+    </div>
+</div>
+
+@*<form action="Detail" method="POST" class="p-5 mt-5 loginform">
+    <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
+    <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+    <input type="hidden" id="Count" name="數量" />
+
+    <select id="pColor" name="f產品顏色">
+        <option>請選擇產品顏色</option>
+    </select>
+    <select id="rEye" name="f近視老花度數" onchange="Myselect()">
+        <option>請選擇近視度數</option>
+    </select>
+    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none">
+        <option>請選擇散光度數</option>
+    </select>
+    <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none">
+        <option>請選擇散光角度</option>
+    </select>
+    <p id="inven" onload="inven()"></p>
+    <input type="submit" value="加入購物車" />
+</form>*@

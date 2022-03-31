@@ -1,6 +1,7 @@
 ﻿@model contact.ViewModels.CexchangeDetailRecord
 @{
     ViewBag.Title = "CexchangeDetail-換貨--經銷商:換貨詳情管理";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
 }
 <style>
     h1 {
@@ -12,7 +13,7 @@
 換貨單號:@Model.f對外訂單單號
 日期:@Model.f申請日期
 <div>
-  
+
     <hr />
     <table>
         <tr>
@@ -38,3 +39,89 @@
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+
+
+
+我的詳情
+<div class="container-fluid mt-1 p-5">
+    <h2 class="mb-5">換貨詳情管理</h2>
+
+    <div class="row justify-content-between">
+        <div class="col-4">
+            訂單單號：123456798
+        </div>
+        <div class="col-4">
+            訂單日期：2021.02.25
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid mt-3 p-5">
+    <table class="table  table-hover">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品編號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">數量</th>
+                <th scope="col">小計</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345656748元</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345656748元</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345656748元</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>1234567890123456</td>
+                <td>我是商品我的顏色我幾度</td>
+                <td>12345</td>
+                <td>12345656748元</td>
+            </tr>
+
+            <tr>
+                <th scope="row" colspan="3"></th>
+                <td class="bg-info text-light text-center">訂單總額</td>
+                <td>12345656748元</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <div class="">
+        <label class="text-">
+            訂單狀態：未出貨
+        </label><br>
+        <label>
+            備註：
+        </label>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script></script>
+
+}
+
+

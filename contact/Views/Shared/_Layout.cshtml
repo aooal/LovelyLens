@@ -1,13 +1,14 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Btob</title>
+    <title>隱形眼鏡B2B交易系統平台</title>
 
+    <link href="~/style/tomato.css" rel="stylesheet" />
     <link href="~/style/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     @*<link rel="stylesheet" media="screen and (max-width : 800px)" href="~/style/indexrwd.css" />*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <script>
@@ -37,10 +38,6 @@
             padding: 0;
         }
 
-        /*body {
-            background: rgb(231, 169, 169);
-
-        }*/
 
 
         .logo {
@@ -49,7 +46,6 @@
                 width: 100px;*/
             /*background: #000;*/
             color: aliceblue;
-            border: 1px solid seashell;
         }
 
         .menu {
@@ -79,28 +75,32 @@
             text-align: center;
         }
 
-            .menu ul li {
+        .menu ul li {
                 padding: 10px;
                 list-style-type: none;
                 background: brown;
                 color: #fff;
-            }
+        }
 
-                .menu ul li a:link {
+         .menu ul li a:link {
                     text-decoration: none;
                     color: #ffffff;
-                }
+        }
 
-                .menu ul li a:visited {
+         .menu ul li a:visited {
                     text-decoration: none;
                     color: #ffffff;
-                }
+         }
 
-        a:link {
+          .menu ul li a:link {
+                    text-decoration: none;
+                    color: #ffffff;
+          }
+
+        .menu a:link {
             text-decoration: none;
             color: #ffffff;
         }
-
         /*選單改變顏色*/
         .changeColor {
             background: #000;
@@ -108,24 +108,18 @@
     </style>
 </head>
 <body>
-   
-    @*測試改nav*@
 
     <div class="container-fluid">
 
         <div class="row align-content-center">
             @*讓圖片置中text-center*@
-            <div class="logo  col-md col-sm text-center me-auto">
-                <a href="/CManager/Index">
-                    <img src="~/images/lovely白底re.png" style="object-fit:cover;" class="rounded" alt="lovelylogo">
-                </a>
-            </div>
+            <div class="logo  col-md col-sm text-center me-auto"><a href="/CManager/Index"><img src="~/images/lovely白底re.png" style="object-fit:cover;" class="rounded" alt="lovelylogo"></a></div>
             @*關係管理nav*@
             <div class="menu menutext1 col-md-1 col-sm text-center" onclick="toggleMenu(1);">
-                <h6 class="m-3">關 係 管 理 </h6>
+                <h6 class="m-3">關係管理 </h6>
                 <ul id="memu-1" class="hide">
-                    <li class="col">@Html.ActionLink("供應商維護", "CManager", "supplier")</li>
-                    <li class="col">@Html.ActionLink("經銷商維護", "CManager", "customer")</li>
+                    <li class="col">@Html.ActionLink("供應商維護", "supplier", "CManager")</li>
+                    <li class="col">@Html.ActionLink("經銷商維護", "customer", "CManager")</li>
                 </ul>
 
             </div>
@@ -133,29 +127,32 @@
             <div class="menu menutext2 col-md-1 col-sm text-center" onclick="toggleMenu(2);">
 
                 <h6 class="m-3">
-                    <a href="/COders/MOders" style="color:#fff">訂 單 管 理</a>
+                    <a href="/COders/MOders" style="color:#fff">訂單管理</a>
                 </h6>
             </div>
 
 
             <div class="menu menutext3 col-md-1 col-sm text-center" onclick="toggleMenu(3);">
-                <h6 class="m-3">換 貨 管 理</h6>
-                <ul id="memu-3" class="hide">
-                    <li>@Html.ActionLink("所有換貨單", "Cexchange", "COders")</li>
+                <h6 class="m-3"><a href="/COders/Mexchange" style="color:#fff">售後服務</a></h6>
+                @*<ul id="memu-3" class="hide">
+                    <li>@Html.ActionLink("所有換貨單", "Mexchange", "COders")</li>
                     <li>@Html.ActionLink("....", "About", "COders")</li>
-                </ul>
+                </ul>*@
             </div>
 
             <div class="menu menutext4 col-md-1 col-sm text-center" onclick="toggleMenu(4);">
-                <h6 class="m-3">出 貨 管 理</h6>
-                <ul id="memu-4" class="hide">
-                    <li>@Html.ActionLink("所有訂單", "Mshipping", " COders")</li>
-                    <li>@Html.ActionLink("....", "Mshipping", " COders")</li>
-                </ul>
+                <h6 class="m-3"><a href="/COders/Mshipping" style="color:#fff">出貨管理</a></h6>
+
+                @*<ul id="memu-4" class="hide">
+
+                 
+                    <li>@Html.ActionLink("所有訂單", "Mshipping", "COders")</li>
+
+                @*</ul>*@
 
             </div>
             <div class="menu menutext5 col-md-1 col-sm text-center" onclick="toggleMenu(5);">
-                <h6 class="m-3">商 品 管 理</h6>
+                <h6 class="m-3">商品管理</h6>
                 <ul id="memu-5" class="hide">
                     <li>@Html.ActionLink("所有商品", "MProducts", "CProducts")</li>
                     <li>@Html.ActionLink("新增商品", "MProductCRUD", "CProducts")</li>
@@ -165,13 +162,13 @@
             </div>
 
             <div class="menu menutext6 col-md-1 col-sm text-center" onclick="toggleMenu(6);">
-                <h6 class="m-3">活 動 管 理</h6>
+                <h6 class="m-3">活動管理</h6>
 
                 <ul id="memu-6" class="hide">
-                    <li>@Html.ActionLink("所有活動", "Index", "CDiscount")</li>
-                    <li>@Html.ActionLink("新增活動", "MDiscountSetting", "CDiscount")</li>
+                    <li>@Html.ActionLink("所有活動", "MDiscountActivity", "CDiscount")</li>
+                    <li>@Html.ActionLink("新增活動", "ActivityCreate", "CDiscount")</li>
                 </ul>
-
+              
             </div>
 
             <div class="user col col-sm text-center">
@@ -179,6 +176,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     <div class="container-fluid  body-content">

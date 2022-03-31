@@ -1,15 +1,18 @@
 ﻿
-
-
-@*你現在開的是翔暐的專案*@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <title>隱形眼鏡B2B交易系統平台</title>
+    
+    <link href="@Url.Content("~/style/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="~/style/tomato.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+          integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link href="~/style/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     @*<link rel="stylesheet" media="screen and (max-width : 800px)" href="~/style/indexrwd.css" />*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <script>
@@ -40,19 +43,15 @@
             padding: 0;
         }
 
-        /*body {
-            background: rgb(231, 169, 169);
-
-        }*/
 
 
         .logo {
             /*flex: none;
                 padding: 10px;
                 width: 100px;*/
-            background: #000;
+
             color: aliceblue;
-           
+            background-color: #fff;
         }
 
         .menu {
@@ -89,7 +88,7 @@
                 color: #fff;
             }
 
-                svg, a, .menu ul li a:link {
+                .user a, svg, .menu a, .menu ul li a:link {
                     text-decoration: none;
                     color: #ffffff;
                 }
@@ -99,7 +98,7 @@
                         color: #808080;
                     }
 
-                a, .menu ul li a:visited {
+                .user a, .menu a, .menu ul li a:visited {
                     text-decoration: none;
                     color: #ffffff;
                 }
@@ -116,35 +115,36 @@
 
         <div class="row ">
             @*讓圖片置中text-center*@
-            <div class="logo  col-sm-2 text-center">
-                <img src="http://fakeimg.pl/100x50" class="rounded" alt="...">
+            <div class="logo  col-md col-sm text-center mr-auto">
+                <img src="~/images/lovely白底re.png" style="object-fit:cover;" class="rounded " alt="lovelylogo">
             </div>
             @*關係管理nav*@
-            <div class="menu menutext1 col-sm text-center" onclick="toggleMenu(1);">
+            <div class="menu menutext1 col-md col-sm text-center" onclick="toggleMenu(1);">
 
-                <a href="/CProducts/Index" style="color:#fff">
+                <a href="/Shopping/List" style="color:#fff">
                     <h6 class="m-3">首 頁</h6>
                 </a>
 
             </div>
             @*訂單管理nav*@
-            <div class="menu menutext2 col-sm text-center" onclick="toggleMenu(2);">
-                <a href="/COders/COder" style="color:#fff">
+            <div class="menu menutext2 col-md col-sm text-center" onclick="toggleMenu(2);">
+                <a href="/COders/COders" style="color:#fff">
                     <h6 class="m-3">歷 史 訂 單</h6>
                 </a>
 
 
             </div>
 
-            <div class="menu menutext3 col-sm text-center" onclick="toggleMenu(3);">
-                <h6 class="m-3">換 貨 登 記 </h6>
+
+            <div class="menu menutext3 col-md col-sm text-center" onclick="toggleMenu(3);">
+                <h6 class="m-3">售 後 服 務 登 記 </h6>
                 <ul id="memu-3" class="hide">
-                    <li>@Html.ActionLink("所有換貨單", "Cexchange", "COder")</li>
-                    <li>@Html.ActionLink("新增換貨單", "CexchangeCreate", "COder")</li>
+                    <li>@Html.ActionLink("所有換貨單", "Cexchange", "COders")</li>
+                    <li>@Html.ActionLink("新增換貨單", "CexchangeCreate", "COders")</li>
                 </ul>
             </div>
 
-            <div class="menu menutext4  col-sm text-center" onclick="toggleMenu(4);">
+            <div class="menu menutext4 col-md col-sm text-center" onclick="toggleMenu(4);">
                 <h6 class="m-3 ">
                     <a href="/Home/FAQ" style="color:#fff">常見問題</a>
                 </h6>
@@ -152,21 +152,23 @@
 
 
             @*會員*@
-            <div class="user col-sm-2 text-center ">
+            <div class="user  col-md col-sm-2 text-center ">
                 <div class="m-3">
-                    @*icon會員/購物車 user*@
-                    <a href="#" class="mx-3">
+                    @*icon會員*@
+                    <a href="/Home/AccUpdates" class="mx-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
                         </svg>
                     </a>
-                    <a href="#" class="mx-3">
+
+                    @*購物車*@
+                    <a href="/Shopping/CartView" class="mx-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                         </svg>
                     </a>
-                    <span>user 你 好</span>
+                    <span>@Html.Action("Login", "Home") 你 好</span>
                 </div>
             </div>
 
@@ -175,8 +177,6 @@
             <div class="container-fluid  body-content ">
                 @RenderBody()
                 <hr />
-
-
                 <footer>
                     <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
                 </footer>
@@ -184,10 +184,10 @@
             </div>
         </div>
     </div>
+  
 
-
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
+    <script src="@Url.Content("~/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/js/popper.min.js")"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

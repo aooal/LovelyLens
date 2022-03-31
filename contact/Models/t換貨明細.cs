@@ -19,5 +19,11 @@ namespace contact.Models
         public Nullable<int> f產品ID { get; set; }
         public Nullable<int> f換貨數量 { get; set; }
         public Nullable<decimal> f換貨單價 { get; set; }
+        public Nullable<int> f要換的產品ID { get; set; }
+        public Nullable<int> f要換的數量 { get; set; }
+        public Nullable<decimal> f要換的產品單價 { get; set; }
+    
+        public virtual t產品 t產品 { get; set; }
+        public virtual t換貨 t換貨 { get; set; }
     }
 }
