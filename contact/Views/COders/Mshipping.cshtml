@@ -89,7 +89,7 @@
                     <td>
                         @Html.ActionLink("生成QR CODE", "Edit", new { id = item.f對外訂單單號 }, new { @class = "tomatocartbtn" }) |
                         @Html.ActionLink("出貨", "MOderDetailShipping", new { id = item.f對外訂單單號 }, new { @class = "tomatocartbtn" }) |
-                        @Html.ActionLink("回一覽頁面", "MOders", new { }, new { @class = "tomatoaddbtn" })
+                        @Html.ActionLink("訂單詳情", "MOderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
                     </td>
                 </tr>
             }

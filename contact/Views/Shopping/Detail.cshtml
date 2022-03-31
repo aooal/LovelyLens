@@ -173,7 +173,7 @@
         }
 
 
-        .mytext {
+        .mytext1 {
             background-color: rgb(255 255 255 / 0.5);
          
             backdrop-filter: blur(10px);
@@ -356,26 +356,26 @@
 }
 <div class="container">
 
-    <h2>商品詳情</h2>
-    <div class="row justify-content-center">
+   
+    <div class="row justify-content-center mt-5">
 
 
         @*<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" id="myImage"/>*@
         @*<input type="button" onclick="changeSrc()" value="Change image">*@
 
 
-        <div class="col-12 col-md-4 text-center">
+        <div class="col-12 col-md-4 text-center mt-5">
 
             @Html.Action("_pPhoto", "Shopping")
 
         </div>
 
-        <div class="col-12 col-md-4 mytext">
+        <div class="col-12 col-md-4 mytext1">
             <h2 class="">@Model.FirstOrDefault().f品牌名稱</h2>
 
             <h4>@Model.FirstOrDefault().f產品名稱</h4>
 
-            <h5 id="PDiscrip" class="wordwrap"> </h5>
+            <small id="PDiscrip" class="wordwrap"> </small>
             <h6 id="total">NT $ @((int?)Model.FirstOrDefault().f售價) 元</h6>
             <div class="col-12 col-md-3">
                 <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
@@ -387,6 +387,7 @@
                 <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
                 <input type="hidden" id="Count" name="數量" />
                 <div class="col-12 col-md-3">
+                    <small class="text-muted">顏色</small>
                     <select id="pColor" name="f產品顏色" class="form-control">
                         <option>顏色</option>
                     </select>
@@ -410,19 +411,22 @@
 
                 </div>
                 <p id="inven" onload="inven()"></p>
-                <input type="submit" value="加入購物車" id="submit" />
+                <div class="float-end">
+                    <input type="submit" value="加入購物車" id="submit" class="btn tomatocartbtn" />
+                </div>
             </form>
 
         </div>
 
 
-        </div>
-
-
-
-        @Html.ActionLink("回商品列表", "List")
-
     </div>
+
+    <div class="row">
+        <div class="offset-md-10 col-md-2 col-12 mt-5 float-end">
+            @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
+        </div>
+    </div>
+</div>
 
 @*<form action="Detail" method="POST" class="p-5 mt-5 loginform">
     <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />

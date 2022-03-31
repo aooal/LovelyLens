@@ -295,7 +295,7 @@
     <Content Include="Views\CManager\customer.cshtml" />
     <Content Include="Views\CManager\CusEdit.cshtml" />
     <Content Include="Views\Shopping\List.cshtml" />
-    <Content Include="Views\Shopping\pDetail.cshtml" />
+    <Content Include="Views\Shopping\Detail.cshtml" />
     <Content Include="Views\CDiscount\MDiscountActivity.cshtml" />
     <Content Include="Views\CDiscount\ActivityCreate.cshtml" />
     <Content Include="Views\Home\AccUpdates.cshtml" />

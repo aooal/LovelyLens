@@ -226,17 +226,18 @@ namespace contact.Controllers
 
 
         }
-
         [HttpGet]
         public ActionResult COders()
         {
+            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
             var query = (from o in db.t訂單
+                         where o.f店家ID == accountLogin
                          select o).ToList();
             return View(query);
         }
-        [HttpPost]
         public ActionResult COders(string txtKeyword, string choose)
         {
+            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
             if (string.IsNullOrEmpty(Request.Form["txtKeyword"]))
             {
                 ViewBag.data = "請輸入關鍵字";
@@ -247,28 +248,23 @@ namespace contact.Controllers
             {
                 switch (choose)
                 {
-                    case "all":
-                        var queryall = (from o in db.t訂單
-                                        select o).ToList();
-                        return View(queryall);
+
                     case "customer":
-                        var query = (from o in db.t店家
-                                     where o.f店家名稱 == txtKeyword
-                                     select o.f店家ID).FirstOrDefault();
-                        var qu = from p in db.t訂單
-                                 where query == p.f店家ID
-                                 select p;
-                        return View(qu);
+                        var query = (from o in db.t訂單
+                                     where o.f訂購日期.Contains(txtKeyword) && o.f店家ID == accountLogin
+                                     select o).FirstOrDefault();
+
+                        return View(query);
 
                     case "order":
                         var query2 = (from o in db.t訂單
-                                      where o.f對外訂單單號 == txtKeyword
+                                      where o.f對外訂單單號.Contains(txtKeyword) && o.f店家ID == accountLogin
                                       select o).ToList();
                         return View(query2);
 
                     default:
                         var query3 = (from o in db.t訂單
-                                      where o.f連絡電話 == txtKeyword
+                                      where o.f連絡電話.Contains(txtKeyword) && o.f店家ID == accountLogin
                                       select o).ToList();
                         return View(query3);
                 }
@@ -276,6 +272,8 @@ namespace contact.Controllers
         }
         public ActionResult COderDetail(string id)
         {
+            //var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
+
             if (string.IsNullOrEmpty(id))
             {
                 return RedirectToAction("COders");
@@ -308,20 +306,109 @@ namespace contact.Controllers
                 return View(query);
             }
         }
-        //public ActionResult COderUpdate(string id)
-        //{
-        //    foreach (var item in db.t產品.Where(m => m.f對外產品識別ID == id))
-        //    {
-        //        item.f產品名稱 = "已出貨";
-        //        item.f近視老花度數 = "";
-        //        item.f閃光度數 = "";
-        //        item.f閃光角度 = "";
-        //        item.f庫存數量 = 10;
-        //    }
-        //    db.SaveChanges();
-        //    return RedirectToAction("MOderDetail");
+        public ActionResult COderDetailDelete(string id)
+        {
 
+            var cancelId = from o in db.t訂單
+                           where id == o.f對外訂單單號
+                           select o;
+
+            foreach (var item in cancelId)
+            {
+                if (item.f配送狀態 == "未出貨" && item.f訂單狀態 != "取消")
+                {
+                    item.f訂單狀態 = "取消";
+                }
+
+            }
+            db.SaveChanges();
+            return RedirectToAction("COders");
+
+
+        }
+
+        //[HttpGet]
+        //public ActionResult COders()
+        //{
+        //    var query = (from o in db.t訂單
+        //                 select o).ToList();
+        //    return View(query);
         //}
+        //[HttpPost]
+        //public ActionResult COders(string txtKeyword, string choose)
+        //{
+        //    if (string.IsNullOrEmpty(Request.Form["txtKeyword"]))
+        //    {
+        //        ViewBag.data = "請輸入關鍵字";
+        //        List<contact.Models.t訂單> empty = new List<t訂單>();
+        //        return View(empty);
+        //    }
+        //    else
+        //    {
+        //        switch (choose)
+        //        {
+        //            case "all":
+        //                var queryall = (from o in db.t訂單
+        //                                select o).ToList();
+        //                return View(queryall);
+        //            case "customer":
+        //                var query = (from o in db.t店家
+        //                             where o.f店家名稱 == txtKeyword
+        //                             select o.f店家ID).FirstOrDefault();
+        //                var qu = from p in db.t訂單
+        //                         where query == p.f店家ID
+        //                         select p;
+        //                return View(qu);
+
+        //            case "order":
+        //                var query2 = (from o in db.t訂單
+        //                              where o.f對外訂單單號 == txtKeyword
+        //                              select o).ToList();
+        //                return View(query2);
+
+        //            default:
+        //                var query3 = (from o in db.t訂單
+        //                              where o.f連絡電話 == txtKeyword
+        //                              select o).ToList();
+        //                return View(query3);
+        //        }
+        //    }
+        //}
+        //public ActionResult COderDetail(string id)
+        //{
+        //    if (string.IsNullOrEmpty(id))
+        //    {
+        //        return RedirectToAction("COders");
+        //    }
+        //    else
+        //    {
+        //        var query = (from o in db.t訂單明細
+        //                     join p in db.t訂單
+        //                     on o.f訂單單號ID equals p.f訂單單號ID
+        //                     join q in db.t產品
+        //                     on o.f產品ID equals q.f產品ID
+        //                     where p.f對外訂單單號 == id
+        //                     select new MOderDetailRecord
+        //                     {
+        //                         f對外訂單單號 = p.f對外訂單單號,
+        //                         f訂單狀態 = p.f訂單狀態,
+        //                         f訂單需求 = p.f訂單需求,
+        //                         f小計 = q.f售價 * o.f訂購數量,
+        //                         f對外產品識別ID = q.f對外產品識別ID,
+        //                         f產品名稱 = q.f產品名稱,
+        //                         f訂單總金額 = p.f訂單總金額,
+        //                         f訂購數量 = o.f訂購數量,
+        //                         f售價 = q.f售價,
+        //                         f付款狀態 = p.f付款狀態,
+        //                         f訂購日期 = p.f訂購日期,
+        //                         f產品顏色 = q.f產品顏色,
+        //                         f品牌名稱 = q.f品牌名稱,
+        //                         f訂單備註 = p.f訂單備註
+        //                     }).ToList();
+        //        return View(query);
+        //    }
+        //}
+
 
 
 
