@@ -12,119 +12,125 @@
         color: gainsboro;
     }
 </style>
+
+
+
 <div class="container-fluid mt-3 p-5">
-    <h1>經銷商：歷史訂單一覽</h1>
+    <h2>經銷商：歷史訂單一覽</h2>
 
     @using (Html.BeginForm())
     {
-<div class="row my-5 justify-content-start align-items-center">
-    <div class="col-12 col-lg-2  mb-3">
-    
-        <select name="choose" class="form-select ">
-            <option>選擇搜尋關鍵字</option>
-            <option value="customer">店家名稱</option>
-            <option value="order">訂單單號</option>
-            <option value="tel">電話</option>
-        </select>
-    </div>
-    <div class="col-12 col-lg-2  mb-3">
-        <input type="text" name="txtKeyword" class="form-control">
-    </div>
-    <div class="col-12 col-lg-1  mb-3">
-        <input type="submit" value="查詢" class=" tomatoclickbtn ">
-    </div>
-      
-    </div>
+        <div class="row my-5">
+            <div class="col-12 col-lg-2 mb-3">
 
-                }
-                <p>@ViewBag.data</p>
+                <select name="choose" class="form-select ">
 
-                <table class="table ordertable">
-                    <tr>
-                        <th>
-                            下單日期
-                        </th>
-                        <th>
-                            訂單單號
-                        </th>
+                    <option value="all" selected="selected">全部</option>
+                    @*<option value="customer" name="customer">店家名稱</option>*@
+                    <option value="order" name="order">訂單單號</option>
+                    @*<option value="tel" name="tel">電話</option>*@
 
-                        <th>
-                            訂單總價
-                        </th>
-
-
-                        <th>
-                            配送狀態
-                        </th>
-                        <th></th>
-                    </tr>
-                    <tbody>
-
-                        @foreach (var item in Model)
-                        {
-
-                            <tr>
-                                <td>
-                                    @item.f訂購日期
-                                </td>
-                                <td>
-                                    @item.f對外訂單單號
-                                </td>
-                                <td>
-                                    @item.f訂單總金額
-                                </td>
-
-
-                                <td>@item.f配送狀態</td>
-
-                                <td>
-                                    @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = " tomatoaddbtn" })
-                                    @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }) |
-
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-
-                </table>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword" class="form-control">
+            </div>
+            <div class="col-12 col-lg-1  mb-3">
+                <input type="submit" value="查詢" class=" tomatoclickbtn ">
             </div>
 
+        </div>
 
-            @section scripts{
-                <script>
-                    /*這裡是表單HOVER*/
-                    $(function () {
+    }
+    <p>@ViewBag.data</p>
 
-                        $(".ordertable tr:odd").addClass("orderodd");
-                        $(".ordertable tr:even").addClass("ordereven");
+    <table class="table ordertable col-12 col-md-10 ">
+        <tr>
+            @*<th>
+                    下單日期
+                </th>
+                <th>
+                    訂單單號
+                </th>
 
-                        // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
-                        $(".ordertable tr").hover(
-                            function () {
-                                $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
-                            },
-                            function () {
-                                $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
-                            }
-                        );
+                <th>
+                    訂單總價
+                </th>
 
-                        //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
-                        $('.ordertable tbody').find("tr").each(function () {
-                            let bb = $(this).children('td:eq(3)').text();
-                            console.log(bb);
-                            if (bb == '未出貨') {
-                                $(this).children('td:eq(3)').css("color", "red");
-                            }
+                <th>
+                    配送狀態
+                </th>
+                <th></th>*@
+            <th>下單日期</th>
+            <th>訂單單號</th>
+            <th>訂單總價</th>
+            <th>配送狀態</th>
+            <th>訂單狀態</th>
+            <th></th>
+        </tr>
+        <tbody>
 
-                        });
+            @foreach (var item in Model)
+            {
 
+                <tr>
+                    <td>@item.f訂購日期</td>
+                    <td>@item.f對外訂單單號</td>
+                    <td>@item.f訂單總金額 元</td>
 
+                    <td>@item.f配送狀態</td>
 
-                    });
+                    <td>@item.f訂單狀態</td>
 
-
-                </script>
-
-
-
+                    <td>@Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+                        @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "tomatocartbtn" })
+                    </td>
+                </tr>
             }
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+
+@section scripts{
+    <script>
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+            $('.ordertable tbody').find("tr").each(function () {
+                let bb = $(this).children('td:eq(3)').text();
+                console.log(bb);
+                if (bb == '未出貨') {
+                    $(this).children('td:eq(3)').css("color", "red");
+                }
+
+            });
+
+
+
+        });
+
+
+    </script>
+
+
+
+}

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<contact.Models.t產品>
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "pDetail";
 }
 
 @{
@@ -12,6 +12,7 @@
     <style>
         body {
             background-color: #fd929249;
+          
         }
 
 
@@ -173,16 +174,13 @@
 
 
         .mytext {
-           
-           
             background-color: rgb(255 255 255 / 0.5);
          
             backdrop-filter: blur(10px);
             border-radius: 5px;
-            position: relative;
+          
            padding:10px ;
-         
-            z-index: 1;
+
         }
     </style>
 
@@ -296,30 +294,58 @@
 
 
 
-            //tomato 圖片切換
-
+        //tomato 圖片切換
+        window.onload = function () {
+            const bigPic = document.getElementById('bigPic');
+           /* bigPic.src ="no-picture.jpg"*/
             let smallPic = document.querySelectorAll('.smallPic>img');
-            smallPic.forEach(function (item, index) {
-                item.addEventListener('click', change)
-                // console.log(item.src)
 
-                function change(e) {
-                  
-                    //const bigPic = document.getElementById('bigPic');
-                    //const base = bigPic.src;
-                    //bigPic.src= e.target.src;
-                    // e.target.src = base;
-                    //好像不需要替換(預備功能)
-
-                    const bigPic = document.getElementById('bigPic');
+            if (smallPic.length > 0) {
+                console.log(smallPic.length)
+                const myPicUlul = document.getElementById('myPicUl');
+                myPicUlul.classList.add("mytext");
+                smallPic.forEach(function (item, index) {
+                    item.addEventListener('click', change)
                    
-                    bigPic.src = e.target.src;
-                   
-                }
-              
-            })
+
+                    function change(e) {
+
+                        //const bigPic = document.getElementById('bigPic');
+                        //const base = bigPic.src;
+                        //bigPic.src= e.target.src;
+                        // e.target.src = base;
+                        //好像不需要替換(預備功能)
+
+                        const bigPic = document.getElementById('bigPic');
+
+                        bigPic.src = e.target.src;
+
+                    }
 
 
+
+
+                })
+            }
+        //else {
+        //    document.getElementById('myPicUlul').hidden = true;
+        //}
+
+
+        }
+
+
+
+
+
+
+          
+
+
+        const submitEvent = document.getElementById('submit');
+        submitEvent.addEventListener('click', function () {
+            document.getElementById('Count').value = document.getElementById('pCount').value;
+        })
        
 
 
@@ -331,55 +357,66 @@
 <div class="container">
 
     <h2>商品詳情</h2>
-    <div class="row">
+    <div class="row justify-content-center">
 
 
         @*<img src="~/images/@Model.FirstOrDefault().f產品圖片路徑" width="300" height="400" style="object-fit:cover" id="myImage"/>*@
         @*<input type="button" onclick="changeSrc()" value="Change image">*@
 
 
-        <div class="col-12 col-md-4 float-start">
+        <div class="col-12 col-md-4 text-center">
 
             @Html.Action("_pPhoto", "Shopping")
 
         </div>
 
         <div class="col-12 col-md-4 mytext">
-            <h2  class="">@Model.FirstOrDefault().f品牌名稱</h2>
+            <h2 class="">@Model.FirstOrDefault().f品牌名稱</h2>
 
             <h4>@Model.FirstOrDefault().f產品名稱</h4>
 
             <h5 id="PDiscrip" class="wordwrap"> </h5>
             <h6 id="total">NT $ @((int?)Model.FirstOrDefault().f售價) 元</h6>
-
             <div class="col-12 col-md-3">
-                <select id="pColor" class="form-control">
-                    <option>顏色</option>
-                </select>
-                <small class="text-muted">近視度數</small>
-                <select id="rEye" onchange="Myselect()" class="form-control ">
-                    <option>近視度數</option>
-                </select>
-
-                <small class="text-muted" id="astText" style="display:none">散光度數</small>
-                <select id="ast" onchange="Myast()" style="display:none" class="form-control">
-                    <option>散光度數</option>
-                </select>
-                <div>
-
-                    <small class="text-muted" id="angText" style="display:none">散光角度</small>
-                    <select id="ang" onchange="Myang()" style="display:none" class="form-control">
-                        <option>散光角度</option>
-                    </select>
-                </div>
+                <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
+                @*<small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />*@
             </div>
-            <p id="inven" onload="inven()"></p>
-            <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
-        
+
+            <form action="Detail" method="POST" class="">
+                <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
+                <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+                <input type="hidden" id="Count" name="數量" />
+                <div class="col-12 col-md-3">
+                    <select id="pColor" name="f產品顏色" class="form-control">
+                        <option>顏色</option>
+                    </select>
+                    <small class="text-muted">近視度數</small>
+                    <select id="rEye" name="f近視老花度數" onchange="Myselect()" class="form-control ">
+                        <option>近視度數</option>
+                    </select>
+
+                    <small class="text-muted" id="astText" style="display:none">散光度數</small>
+                    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none" class="form-control">
+                        <option>散光度數</option>
+                    </select>
+                    <div>
+
+                        <small class="text-muted" id="angText" style="display:none">散光角度</small>
+                        <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none" class="form-control">
+                            <option>散光角度</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <p id="inven" onload="inven()"></p>
+                <input type="submit" value="加入購物車" id="submit" />
+            </form>
+
         </div>
 
 
-    </div>
+        </div>
 
 
 
@@ -387,7 +424,7 @@
 
     </div>
 
-<form action="Detail" method="POST" class="p-5 mt-5 loginform">
+@*<form action="Detail" method="POST" class="p-5 mt-5 loginform">
     <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
     <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
     <input type="hidden" id="Count" name="數量" />
@@ -406,4 +443,4 @@
     </select>
     <p id="inven" onload="inven()"></p>
     <input type="submit" value="加入購物車" />
-</form>
+</form>*@

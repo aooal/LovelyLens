@@ -288,20 +288,14 @@
     <Content Include="Views\COders\Cexchange.cshtml" />
     <Content Include="Views\COders\CexchangeCreate.cshtml" />
     <Content Include="Views\COders\CexchangeDetail.cshtml" />
-    <Content Include="Views\COders\COderDetail.cshtml" />
-    <Content Include="Views\COders\COders.cshtml" />
     <Content Include="Views\COders\Mexchange.cshtml" />
     <Content Include="Views\COders\MexchangeDetail.cshtml" />
     <Content Include="Views\COders\MexchangeSupplier.cshtml" />
     <Content Include="Views\COders\MexchangeSupplierDetail.cshtml" />
-    <Content Include="Views\COders\MOderDetail.cshtml" />
-    <Content Include="Views\COders\MOders.cshtml" />
-    <Content Include="Views\COders\Mshipping.cshtml" />
     <Content Include="Views\CManager\customer.cshtml" />
     <Content Include="Views\CManager\CusEdit.cshtml" />
     <Content Include="Views\Shopping\List.cshtml" />
-    <Content Include="Views\Shopping\Detail.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Shopping\pDetail.cshtml" />
     <Content Include="Views\CDiscount\MDiscountActivity.cshtml" />
     <Content Include="Views\CDiscount\ActivityCreate.cshtml" />
     <Content Include="Views\Home\AccUpdates.cshtml" />
@@ -314,6 +308,12 @@
     <Content Include="Views\Shared\_theActivity.cshtml" />
     <Content Include="Views\CDiscount\ActivityDetail.cshtml" />
     <Content Include="Views\Shopping\CartView.cshtml" />
+    <Content Include="Views\COders\COderDetail.cshtml" />
+    <Content Include="Views\COders\COders.cshtml" />
+    <Content Include="Views\COders\MOderDetail.cshtml" />
+    <Content Include="Views\COders\MOders.cshtml" />
+    <Content Include="Views\COders\Mshipping.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

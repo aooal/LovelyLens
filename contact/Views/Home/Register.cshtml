@@ -10,7 +10,7 @@
 @model contact.Models.t店家
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台-註冊";
 }
 
 
@@ -73,7 +73,7 @@ new { enctype = "multipart/form-data" }))
 
                     @*電子信箱驗證區塊塊塊塊*@
                     <form method="post">
-                        <input type="button" value="信箱驗證" onclick="sendemail()" />
+                        <input type="button" value="信箱驗證" onclick="sendemail()" class="btn btn-outline-dark btn-sm my-3"/>
                     </form>
 
                     <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -98,9 +98,9 @@ new { enctype = "multipart/form-data" }))
                         }
 
                     </script>
-                    <span>輸入驗證碼：</span><input type="text" id="txtCheck" />
+                    <div>輸入驗證碼：</div><input type="text" id="txtCheck" class = "form-control"/>
                     <form method="post">
-                        <input type="button" value="驗證" onclick="check()" id="btnckeck" />
+                        <input type="button" value="驗證" onclick="check()" id="btnckeck" class="btn btn-outline-dark btn-sm my-3"/>
                     </form>
                     <script>
                         var txtCheck;

@@ -87,7 +87,7 @@ namespace contact.Controllers
             //return PartialView("_pPhoto", thePhoto);
         }
 
-        public ActionResult Detail(int? id)
+        public ActionResult pDetail(int? id)
         {
             if (id != null)
             {
@@ -106,7 +106,7 @@ namespace contact.Controllers
         }
 
         [HttpPost]
-        public ActionResult Detail(CAddToCartViewModel viewModel)
+        public ActionResult pDetail(CAddToCartViewModel viewModel)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
             if (viewModel.f閃光度數 == "請選擇散光度數")

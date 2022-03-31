@@ -259,3 +259,9 @@
 .tomatotittle {
     font-size: calc(1.275rem + .3vw);
 }
+
+/*yu*/
+.bigtext {
+    font-family: jf-openhuninn;
+    font-size: 2.0rem;
+}
