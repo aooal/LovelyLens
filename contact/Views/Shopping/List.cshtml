@@ -215,7 +215,7 @@
 
         console.log(money);
         var newmoney = document.querySelectorAll('h6.momey');
-       
+
         for (let index in money)
         {
             console.log(money[index]);
@@ -223,7 +223,7 @@
             newmoney[index].innerHTML = money[index];
 
         }
-  
+
         //翔暐的
 
         function onlyUnique(value, index, self) {
@@ -254,6 +254,7 @@
             var txt = document.getElementById('txtKeyword');
             txt.value = "";
         }
+
 
 
     </script>
@@ -329,7 +330,7 @@
                 <div class="card cardtomato mb-5 ">
                     <div class="row g-0 justify-content-center align-items-stretch">
                         <div class="col-md-4 ">
-                            <img src="~/images/@item.f產品圖片路徑" class="w-100 tomato-img" alt="產品圖">
+                            <a href="/Shopping/Detail/@item.f產品ID"><img src="~/images/@item.f產品圖片路徑" class="w-100 tomato-img" alt="產品圖"></a>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -362,7 +363,7 @@
             <li class="page-item">
                 <a class="page-link" href="#">上一頁</a>
             </li>
-            <li class="page-item">
+            @*<li class="page-item">
                 <a class="page-link" href="#">1</a>
             </li>
             <li class="page-item">
@@ -370,7 +371,7 @@
             </li>
             <li class="page-item">
                 <a class="page-link" href="#">3</a>
-            </li>
+            </li>*@
             <li class="page-item">
                 <a class="page-link" href="#">下一頁</a>
             </li>

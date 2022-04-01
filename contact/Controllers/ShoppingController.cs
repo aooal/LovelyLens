@@ -109,15 +109,15 @@ namespace contact.Controllers
         public ActionResult Detail(CAddToCartViewModel viewModel)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
-            if (viewModel.f閃光度數 == "請選擇散光度數")
+            if (viewModel.f閃光度數 == "散光度數")
             {
                 viewModel.f閃光度數 = "0";
             }
-            if (viewModel.f閃光角度 == "請選擇散光角度")
+            if (viewModel.f閃光角度 == "散光角度")
             {
                 viewModel.f閃光角度 = "0";
             }
-            var prod = from p in db.t產品
+            var product = from p in db.t產品
                        where (
                         p.f品牌名稱 == viewModel.f品牌名稱 &
                         p.f產品名稱 == viewModel.f產品名稱 &
@@ -126,6 +126,7 @@ namespace contact.Controllers
                         p.f閃光度數 == viewModel.f閃光度數 &
                         p.f閃光角度 == viewModel.f閃光角度)
                        select p;
+            var prod = product.FirstOrDefault();
             if (prod != null)
             {
                 List<CShoppingCartItem> cartItems = Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] as List<CShoppingCartItem>;
@@ -134,22 +135,20 @@ namespace contact.Controllers
                     cartItems = new List<CShoppingCartItem>();
                     Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] = cartItems;
                 }
-                foreach (var selitem in prod)
-                {
                     cartItems.Add(new CShoppingCartItem()
                     {
-                        品牌名稱 = selitem.f品牌名稱,
-                        產品名稱 = selitem.f產品名稱,
-                        產品顏色 = selitem.f產品顏色,
-                        近視度數 = selitem.f近視老花度數,
-                        散光度數 = selitem.f閃光度數,
-                        散光角度 = selitem.f閃光角度,
-                        單價 = Convert.ToDecimal(selitem.f售價),
+                        品牌名稱 = prod.f品牌名稱,
+                        產品名稱 = prod.f產品名稱,
+                        產品顏色 = prod.f產品顏色,
+                        近視度數 = prod.f近視老花度數,
+                        散光度數 = prod.f閃光度數,
+                        散光角度 = prod.f閃光角度,
+                        單價 = Convert.ToDecimal(prod.f售價),
                         數量 = viewModel.數量,
-                        Product = selitem
+                        Product = prod
                     });
-                }
             }
+            
             return RedirectToAction("List");
         }
 

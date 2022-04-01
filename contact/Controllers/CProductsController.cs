@@ -45,10 +45,10 @@ namespace contact.Controllers
                 {
                     datas = from p in db.t產品 select p;
                 }
-
-
-
             }
+
+            ViewBag.page = datas.ToList().Count() / 10;
+           
 
             return View(datas);
         }

@@ -9,22 +9,7 @@
 
 <h2>CartView</h2>
 @section scripts{
-    <script>
-        function autoFillIn() {
-            var cboxChecked = document.getElementById("sameWithAccount");
-            if (cboxChecked.checked == true) {
-                document.getElementById("f訂購人").value = @ViewBag.AccountName;
-                document.getElementById("f連絡電話").value = @ViewBag.AccountMobile;
-                document.getElementById("f寄送地址").value = @ViewBag.AccountAddress;
-                document.getElementById("f訂購人信箱").value = @ViewBag.AccountEmail;
-            } else {
-                document.getElementById("f訂購人").value = '';
-                document.getElementById("f連絡電話").value = '';
-                document.getElementById("f寄送地址").value = '';
-                document.getElementById("f訂購人信箱").value = '';
-            }
-        }
-    </script>
+
 }
 <table class="table">
     <tr>
@@ -113,63 +98,68 @@
 
 </table>
 
-@using (Html.BeginForm())
-{
-    <p>訂購資訊</p>
-    <p>
-        <input type="checkbox" id="sameWithAccount" value="與會員資料相同" onclick="autoFillIn()" />
-        <label for="cbox1">與會員資料相同</label>
-    </p>
 
-    <div>
+@*@using (Html.BeginForm())
+    {
+        <p>訂購資訊</p>
         <p>
-            訂購人：
-            <input type="text" name="f訂購人" class="" placeholder="請輸入訂購人姓名" id="f訂購人" />
-        </p>
-        <p>
-            連絡電話：
-            <input type="text" name="f連絡電話" class="" placeholder="請輸入連絡電話" id="f連絡電話" />
-        </p>
-        <p>
-            寄送地址：
-            <input type="text" name="f寄送地址" class="" placeholder="請輸入寄送地址" id="f寄送地址" />
-        </p>
-        <p>
-            電子信箱：
-            <input type="text" name="f訂購人信箱" class="" placeholder="請輸入電子信箱" id="f訂購人信箱" />
+            <input type="checkbox" id="sameWithAccount" value="與會員資料相同" onclick="autoFillIn()" />
+            <label for="cbox1">與會員資料相同</label>
         </p>
 
-    </div>
-    <div>
-        <p>
-            訂單需求：
-            <select id="orderDemand" name="f訂單需求">
-                <option selected disabled>請選擇訂單需求</option>
-                <option>客需</option>
-                <option>庫存</option>
-                <option>其他</option>
-            </select>
-        </p>
-        <p>
-            訂單備註：
-            <textarea name="f訂單備註"></textarea>
-        </p>
-        <p>
-            訂單總金額：
-        <p name="f訂單總金額"></p>
-        </p>
-        <p>
-            付款方式：
-            <select id="payment" name="f付款方式">
-                <option selected disabled>請選擇付款方式</option>
-                <option>銀行轉帳</option>
-                <option>線上刷卡</option>
-                <option>現金支付</option>
-            </select>
-        </p>
-    </div>
+        <div>
+            <p>
+                訂購人：
+                <input type="text" name="f訂購人" class="" placeholder="請輸入訂購人姓名" id="f訂購人" />
+            </p>
+            <p>
+                連絡電話：
+                <input type="text" name="f連絡電話" class="" placeholder="請輸入連絡電話" id="f連絡電話" />
+            </p>
+            <p>
+                寄送地址：
+                <input type="text" name="f寄送地址" class="" placeholder="請輸入寄送地址" id="f寄送地址" />
+            </p>
+            <p>
+                電子信箱：
+                <input type="text" name="f訂購人信箱" class="" placeholder="請輸入電子信箱" id="f訂購人信箱" />
+            </p>
 
-}
+        </div>
+        <div>
+            <p>
+                訂單需求：
+                <select id="orderDemand" name="f訂單需求">
+                    <option selected disabled>請選擇訂單需求</option>
+                    <option>客需</option>
+                    <option>庫存</option>
+                    <option>其他</option>
+                </select>
+            </p>
+            <p>
+                訂單備註：
+                <textarea name="f訂單備註"></textarea>
+            </p>
+            <p>
+                訂單總金額：
+            <p name="f訂單總金額"></p>
+            </p>
+            <p>
+                付款方式：
+                <select id="payment" name="f付款方式">
+                    <option selected disabled>請選擇付款方式</option>
+                    <option>銀行轉帳</option>
+                    <option>線上刷卡</option>
+                    <option>現金支付</option>
+                </select>
+            </p>
+        </div>
 
-@Html.ActionLink("結帳", "CheckOut", "CCustomer", new { /* id=item.PrimaryKey */ })
+    }*@
+
+@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })
+
+<div class="offset-md-10 col-md-2 col-12 mt-5 float-end">
+    @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
+</div>
 

@@ -233,7 +233,11 @@
         }
 
 
-
+        var page = '@ViewBag.page';
+        console.log('page count')
+        console.log(page);
+        var t = '@ViewBag.tttt';
+        console.log(t)
 
 
 
@@ -330,30 +334,31 @@
 
         }
 
-
-        <!-- 分頁 要用foreach-->
-        <ul class="pagination justify-content-center mt-3">
-            <li class="page-item">
-                <a class="page-link" href="#">上一頁</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">下一頁</a>
-            </li>
-        </ul>
-        <!-- 分頁end 要用foreach-->
-
-
-
+        @foreach (var item in Model)
+        {
+            <!-- 分頁 要用foreach-->
+            <ul class="pagination justify-content-center mt-3">
+                <li class="page-item">
+                    <a class="page-link" href="#">上一頁</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">下一頁</a>
+                </li>
+            </ul>
+            <!-- 分頁end 要用foreach-->
 
 
-    </div>
+        }
+
+
+        </div>
 </div>
