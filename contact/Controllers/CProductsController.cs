@@ -5,20 +5,25 @@ using System.Web;
 using System.Web.Mvc;
 using contact.Models;
 using System.IO;
+using PagedList.Mvc;
+using PagedList;
 
 namespace contact.Controllers
 {
     public class CProductsController : Controller
     {
+        //int pageSize = 10;
         // GET: CProducts
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult MProducts()
+        public ActionResult MProducts(string search,int? page)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
             IEnumerable<t產品> datas = null;
+            
+          
             string keyword = Request.Form["txtKeyword"];
             string str = Request.Form["mpick"];
 
@@ -26,6 +31,8 @@ namespace contact.Controllers
             if (string.IsNullOrEmpty(keyword))
             {
                 datas = from p in db.t產品 select p;
+                
+
             }
             else
             {
@@ -46,12 +53,54 @@ namespace contact.Controllers
                     datas = from p in db.t產品 select p;
                 }
             }
+            //int currentPage = page < 1 ? 1 : page;
+            //var prodoucts = db.t產品.OrderBy(m => m.f產品ID).ToList();
+           // var result = prodoucts.ToPagedList(currentPage, pageSize);
 
-            ViewBag.page = datas.ToList().Count() / 10;
-           
+     
 
-            return View(datas);
+            //var tatalPro = datas.ToList().Count();
+            //if (tatalPro % pageSize == 0)
+            //{
+
+            //    ViewBag.page = tatalPro / pageSize;
+            //}
+            //else
+            //{
+            //    ViewBag.page = (tatalPro / pageSize) + 1;
+            //}
+
+
+
+            return View(datas.ToList().ToPagedList(page??1,10));
+
         }
+
+        //public ActionResult MProducts(int page = 1)
+        //{
+        //    DBEyeEntities2 db = new DBEyeEntities2();
+          
+        //    int currentPage = page < 1 ? 1 : page;
+        //    var prodoucts = db.t產品.OrderBy(m => m.f產品ID).ToList();
+        //    var result = prodoucts.ToPagedList(currentPage, pageSize);
+        //    return View(result);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult MProductCRUD()
         {
             return View();

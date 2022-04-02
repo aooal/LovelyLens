@@ -1,13 +1,16 @@
 ﻿@*翔暐*@
 
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<contact.Models.t產品>
 
-@model IEnumerable<contact.Models.t產品>
+@*@model IEnumerable<contact.Models.t產品>*@
 
 @{
     ViewBag.Title = "隱形眼鏡B2B交易系統平台";
 }
 
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 @section styles{
     <style>
 
@@ -171,7 +174,29 @@
                 /* 分頁 */
                 .pagination .page-item .page-link:hover {
                     background-color: #ee7d7d;
+
                 }
+
+
+
+        /* 分頁 */
+        /*.pagination li {
+            margin: 0 3px;
+        }*/
+
+            /* 分頁 */
+            /*.pagination li a {
+                background-color: #fcbfc1;
+                border: 0;
+                border-radius: 20px;
+                color: rgb(255, 255, 255);
+                font-size: 10px;
+            }*/
+
+                /* 分頁 */
+                /*.pagination li a:hover {
+                    background-color: #ee7d7d;
+                }*/
     </style>
 
 
@@ -221,23 +246,21 @@
             @:costmoney.push("@Convert.ToDouble(@item.f成本價)");
         }
 
-        console.log(costmoney);
+        /*console.log(costmoney);*/
         var newmoney = document.querySelectorAll('p.costMoney');
 
         for (let index in costmoney)
         {
-            console.log(costmoney[index]);
+           /* console.log(costmoney[index]);*/
 
             newmoney[index].innerHTML = costmoney[index];
 
         }
 
 
-        var page = '@ViewBag.page';
+        @*var page = '@ViewBag.page';
         console.log('page count')
-        console.log(page);
-        var t = '@ViewBag.tttt';
-        console.log(t)
+        console.log(page);*@
 
 
 
@@ -334,31 +357,76 @@
 
         }
 
-        @foreach (var item in Model)
-        {
-            <!-- 分頁 要用foreach-->
-            <ul class="pagination justify-content-center mt-3">
-                <li class="page-item">
-                    <a class="page-link" href="#">上一頁</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">下一頁</a>
-                </li>
-            </ul>
-            <!-- 分頁end 要用foreach-->
 
 
-        }
+
+        <script>
+        var page = '@ViewBag.page';
+        console.log('page count')
+        console.log(page);
 
 
-        </div>
+
+        </script>
+
+
+
+
+        @*@Html.PagedListPager(Model,page =>Url.Action("MProduct",new { page}))*@
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts","CProducts", new { page=page }))
+
+        @*<ul class="pagination justify-content-center mt-3">
+
+
+
+
+                <li class="page-item">
+                    <a class="page-link" href="#">第一頁</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">n-1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">當前頁</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">n+1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">最後一頁</a>
+                </li>
+
+
+        </ul>*@
+
+
+
+
+
+
+
+
+        <!-- 分頁 要用foreach-->
+        @*<ul class="pagination justify-content-center mt-3">
+            <li class="page-item">
+                <a class="page-link" href="#">上一頁</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">下一頁</a>
+            </li>
+        </ul>*@
+        <!-- 分頁end 要用foreach-->
+
+
+
+    </div>
 </div>
