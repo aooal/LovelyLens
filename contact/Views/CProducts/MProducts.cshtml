@@ -157,46 +157,14 @@
 
 
 
-        /* 分頁 */
-        .pagination .page-item {
-            margin: 0 3px;
-        }
-
-            /* 分頁 */
-            .pagination .page-item .page-link {
-                background-color: #fcbfc1;
-                border: 0;
-                border-radius: 20px;
-                color: rgb(255, 255, 255);
-                font-size: 10px;
-            }
-
-                /* 分頁 */
-                .pagination .page-item .page-link:hover {
-                    background-color: #ee7d7d;
-
-                }
+        
 
 
 
-        /* 分頁 */
-        /*.pagination li {
-            margin: 0 3px;
-        }*/
 
-            /* 分頁 */
-            /*.pagination li a {
-                background-color: #fcbfc1;
-                border: 0;
-                border-radius: 20px;
-                color: rgb(255, 255, 255);
-                font-size: 10px;
-            }*/
 
-                /* 分頁 */
-                /*.pagination li a:hover {
-                    background-color: #ee7d7d;
-                }*/
+        
+       
     </style>
 
 
@@ -262,12 +230,13 @@
         console.log('page count')
         console.log(page);*@
 
+        var skipToNext = document.querySelector('.PagedList-skipToPrevious a');
+        skipToNext.textContent = "上一頁";
+        var skipToNext = document.querySelector('.PagedList-skipToNext a');
+        skipToNext.textContent = "下一頁";
 
-
-
-
-
-
+        var first = document.querySelector('pagination.active a');
+        first.textContent = "第一頁";
     </script>
 
 }
@@ -375,29 +344,7 @@
         @*@Html.PagedListPager(Model,page =>Url.Action("MProduct",new { page}))*@
         @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts","CProducts", new { page=page }))
 
-        @*<ul class="pagination justify-content-center mt-3">
-
-
-
-
-                <li class="page-item">
-                    <a class="page-link" href="#">第一頁</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">n-1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">當前頁</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">n+1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">最後一頁</a>
-                </li>
-
-
-        </ul>*@
+    
 
 
 

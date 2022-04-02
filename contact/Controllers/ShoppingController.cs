@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
 
 namespace contact.Controllers
 {
@@ -15,7 +17,7 @@ namespace contact.Controllers
         {
             return View();
         }
-        public ActionResult List()
+        public ActionResult List(int? page)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
 
@@ -54,7 +56,7 @@ namespace contact.Controllers
             }
 
 
-            return View(Products);
+            return View(Products.ToList().ToPagedList(page ?? 1, 10));
         }
 
         [ChildActionOnly]

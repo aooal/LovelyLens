@@ -1,5 +1,7 @@
-﻿@model IEnumerable<contact.Models.t產品>
-
+﻿@*@model IEnumerable<contact.Models.t產品>*@
+@model IPagedList<contact.Models.t產品>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "List";
@@ -8,13 +10,12 @@
 @{
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
 }
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 @section styles{
 
     <style>
         body {
             background-color: #fd929249;
-
         }
 
 
@@ -150,8 +151,8 @@
         #lokiSlider img {
             object-fit: cover;
             height: 50vh;
-            display:block;
-            width:100%;
+            display: block;
+            width: 100%;
             /*filter: grayscale(50%);*/
         }
 
@@ -166,9 +167,8 @@
             border: 10px solid transparent;
         }
 
-        .vh-50{
-
-            height:50vh;
+        .vh-50 {
+            height: 50vh;
         }
 
         /* 輪播end */
@@ -322,7 +322,7 @@
 <div class="container mt-5">
 
     <div class="row justify-content-center align-items-stretch">
-     
+
         @foreach (var item in Model)
         {
 
@@ -358,25 +358,9 @@
         }
 
 
-        <!-- 分頁 要用foreach-->
-        <ul class="pagination justify-content-center mt-3">
-            <li class="page-item">
-                <a class="page-link" href="#">上一頁</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">n-1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">n+1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">下一頁</a>
-            </li>
-        </ul>
-        <!-- 分頁end 要用foreach-->
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page = page }))
+
+
 
 
 

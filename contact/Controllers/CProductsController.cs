@@ -18,7 +18,7 @@ namespace contact.Controllers
         {
             return View();
         }
-        public ActionResult MProducts(string search,int? page)
+        public ActionResult MProducts(int? page)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
             IEnumerable<t產品> datas = null;
