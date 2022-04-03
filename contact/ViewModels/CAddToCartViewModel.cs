@@ -14,5 +14,11 @@ namespace contact.ViewModels
         public string f閃光度數 { get; set; }
         public string f閃光角度 { get; set; }
         public int 數量 { get; set; }
+        public int 庫存數量 { get; set; }
     }
 }
+
+
+
+
+
