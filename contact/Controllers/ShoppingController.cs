@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
 
+
 namespace contact.Controllers
 {
     public class ShoppingController : Controller
@@ -74,7 +75,7 @@ namespace contact.Controllers
             DBEyeEntities2 db = new DBEyeEntities2();
             t產品 prod = db.t產品.FirstOrDefault(p => p.f產品ID == id);
             //List<t產品> thePhoto;
-            if (prod != null )
+            if (prod != null)
             {
                 //return View(prod);
                 string fname = prod.f產品名稱;
@@ -119,15 +120,16 @@ namespace contact.Controllers
             {
                 viewModel.f閃光角度 = "0";
             }
+
             var product = from p in db.t產品
-                       where (
-                        p.f品牌名稱 == viewModel.f品牌名稱 &
-                        p.f產品名稱 == viewModel.f產品名稱 &
-                        p.f產品顏色 == viewModel.f產品顏色 &
-                        p.f近視老花度數 == viewModel.f近視老花度數 &
-                        p.f閃光度數 == viewModel.f閃光度數 &
-                        p.f閃光角度 == viewModel.f閃光角度)
-                       select p;
+                          where (
+                           p.f品牌名稱 == viewModel.f品牌名稱 &
+                           p.f產品名稱 == viewModel.f產品名稱 &
+                           p.f產品顏色 == viewModel.f產品顏色 &
+                           p.f近視老花度數 == viewModel.f近視老花度數 &
+                           p.f閃光度數 == viewModel.f閃光度數 &
+                           p.f閃光角度 == viewModel.f閃光角度)
+                          select p;
             var prod = product.FirstOrDefault();
             if (prod != null)
             {
@@ -137,21 +139,35 @@ namespace contact.Controllers
                     cartItems = new List<CShoppingCartItem>();
                     Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] = cartItems;
                 }
-                    cartItems.Add(new CShoppingCartItem()
+                string dis = "";
+                if (viewModel.數量 < prod.f庫存數量 * 0.8)
+                {
+                    dis = "足夠";
+
+                }
+                else
+                {
+                    dis = ((int)(prod.f庫存數量 * 0.8)).ToString();
+                    if (Convert.ToInt32(dis) < 1)
                     {
-                        品牌名稱 = prod.f品牌名稱,
-                        產品名稱 = prod.f產品名稱,
-                        產品顏色 = prod.f產品顏色,
-                        近視度數 = prod.f近視老花度數,
-                        散光度數 = prod.f閃光度數,
-                        散光角度 = prod.f閃光角度,
-                        單價 = Convert.ToDecimal(prod.f售價),
-                        數量 = viewModel.數量,
-                        庫存數量 = Convert.ToInt32(prod.f庫存數量),
-                        Product = prod
-                    });
+                        dis = "0";
+                    }
+                }
+                cartItems.Add(new CShoppingCartItem()
+                {
+                    品牌名稱 = prod.f品牌名稱,
+                    產品名稱 = prod.f產品名稱,
+                    產品顏色 = prod.f產品顏色,
+                    近視度數 = prod.f近視老花度數,
+                    散光度數 = prod.f閃光度數,
+                    散光角度 = prod.f閃光角度,
+                    單價 = Convert.ToDecimal(prod.f售價),
+                    數量 = viewModel.數量,
+                    可訂購數量 = dis,
+                    Product = prod
+                });
             }
-            
+
             return RedirectToAction("List");
         }
 

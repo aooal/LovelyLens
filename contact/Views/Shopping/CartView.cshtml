@@ -43,10 +43,15 @@
         <th>
             @Html.DisplayNameFor(model => model.小計)
         </th>
+        <th>
+            可購買數量
+
+        </th>
         <th></th>
     </tr>
+    @using (Html.BeginForm())
+    {
 
-    @{
         decimal tempTotal = 0;
         foreach (var item in Model)
         {
@@ -54,6 +59,7 @@
             <tr>
                 <td>
                     <input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" />
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.品牌名稱)
@@ -83,6 +89,10 @@
                     @Html.DisplayFor(modelItem => item.小計)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.可訂購數量)
+
+                </td>
+                <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
@@ -94,7 +104,9 @@
                 <p>@tempTotal.ToString()</p><p>元</p>
             </td>
         </tr>
+
     }
+
 
 </table>
 
@@ -162,4 +174,3 @@
 <div class="offset-md-10 col-md-2 col-12 mt-5 float-end">
     @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
 </div>
-
