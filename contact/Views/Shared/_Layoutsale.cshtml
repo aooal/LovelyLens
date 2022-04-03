@@ -13,7 +13,6 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    @*<link rel="stylesheet" media="screen and (max-width : 800px)" href="~/style/indexrwd.css" />*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <script>
         //menutext1只是為了讓東西可以選的而加的class 並沒有實際的CSS
@@ -184,10 +183,12 @@
             </div>
         </div>
     </div>
-  
 
-    <script src="@Url.Content("~/js/bootstrap.bundle.min.js")"></script>
-    <script src="@Url.Content("~/js/popper.min.js")"></script>
+
+    @*<script src="@Url.Content("~/js/bootstrap.bundle.min.js")"></script>
+        <script src="@Url.Content("~/js/popper.min.js")"></script>*@
+<script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

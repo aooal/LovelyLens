@@ -304,9 +304,10 @@
                                 <p class="card-text momey">(售價)@Html.DisplayFor(modelItem => item.f售價)</p>
 
                                 <div class="float-end mb-3">
-                                    <a href="/CProducts/CopyCreate/@item.f產品ID" class="btn tomatobtn" id="@item.f產品ID">快速新增商品</a>
+                                    <a href="/CProducts/CopyCreate/@item.f產品ID" class="btn tomatoaddbtn" id="@item.f產品ID">快速新增商品</a>
                                     <a href="/CProducts/Edit/@item.f產品ID" class="btn tomatobtn">詳細資訊</a>
                                     <a href="/CProducts/Delete/@item.f產品ID" class="btn tomatodangerbtn" onclick="return confirm('是否確定刪除?')"><i class="bi bi-trash"> </i>刪除</a>
+                                    @*<a href="/CProducts/Delete/@item.f產品ID" class="btn tomatodangerbtn" confirm="是否確定刪除??"><i class="bi bi-trash"> </i>刪除</a>*@
                                 </div>
                             </div>
                         </div>
