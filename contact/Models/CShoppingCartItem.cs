@@ -16,8 +16,7 @@ namespace contact.Models
         public int 數量 { get; set; }
         public decimal 單價 { get; set; }
         public decimal 小計 { get { return this.數量 * this.單價; } }
+        public string 可訂購數量 { get; set; }
         public t產品 Product { get; set; }
-
-        public int 庫存數量 { get; set; }
     }
 }
