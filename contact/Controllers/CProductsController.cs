@@ -124,12 +124,13 @@ namespace contact.Controllers
             {
                 p.f產品圖片路徑 = "no-picture.jpg";
             }
-            if (p.f閃光度數 != null)
+            if (p.f閃光度數 != null && p.f閃光角度 != null)
             {
                 db.t產品.Add(p);
             }
             else
             {
+                p.f閃光角度 = "0";
                 p.f閃光度數 = "0";
             }
             db.t產品.Add(p);
@@ -201,7 +202,15 @@ namespace contact.Controllers
                 prod.f閃光角度 = editProduct.f閃光角度;
                 prod.f對外產品識別ID = editProduct.f對外產品識別ID;
                 prod.f產品顏色 = editProduct.f產品顏色;
-
+                if (editProduct.f閃光度數 != null && editProduct.f閃光角度 != null)
+                {
+                    db.SaveChanges();
+                }
+                else
+                {
+                    editProduct.f閃光角度 = "0";
+                    editProduct.f閃光度數 = "0";
+                }
                 db.SaveChanges();
             }
             return RedirectToAction("MProducts");
@@ -238,7 +247,15 @@ namespace contact.Controllers
             {
                 theCopyCreate.f產品圖片路徑 = "no-picture.jpg";
             }
-
+            if (theCopyCreate.f閃光度數 != null && theCopyCreate.f閃光角度 != null)
+            {
+                db.t產品.Add(theCopyCreate);
+            }
+            else
+            {
+                theCopyCreate.f閃光角度 = "0";
+                theCopyCreate.f閃光度數 = "0";
+            }
             db.t產品.Add(theCopyCreate);
             db.SaveChanges();
             return RedirectToAction("MProducts");
