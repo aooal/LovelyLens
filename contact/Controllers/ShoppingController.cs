@@ -147,6 +147,7 @@ namespace contact.Controllers
                         散光角度 = prod.f閃光角度,
                         單價 = Convert.ToDecimal(prod.f售價),
                         數量 = viewModel.數量,
+                        庫存數量 = Convert.ToInt32(prod.f庫存數量),
                         Product = prod
                     });
             }

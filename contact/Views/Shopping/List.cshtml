@@ -174,31 +174,21 @@
         /* 輪播end */
 
 
-
-        /* 分頁 */
-        .pagination .page-item {
-            margin: 0 3px;
-        }
-
-            /* 分頁 */
-            .pagination .page-item .page-link {
-                background-color: #fcbfc1;
-                border: 0;
-                border-radius: 20px;
-                color: rgb(255, 255, 255);
-                font-size: 10px;
-            }
-
-                /* 分頁 */
-                .pagination .page-item .page-link:hover {
-                    background-color: #ee7d7d;
-                }
+     
     </style>
 
 }
 
 @section scripts{
     <script>
+        //分頁 慧芬
+        var skipToNext = document.querySelector('.PagedList-skipToPrevious a');
+        skipToNext.textContent = "上一頁";
+        var skipToNext = document.querySelector('.PagedList-skipToNext a');
+        skipToNext.textContent = "下一頁";
+
+
+
         //輪播用 慧芬
         $(function () {
             $('.carousel-indicators:first-child').addClass('active');
