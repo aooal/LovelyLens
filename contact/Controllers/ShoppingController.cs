@@ -18,7 +18,7 @@ namespace contact.Controllers
         {
             return View();
         }
-        public ActionResult List(int? page)
+        public ActionResult List(string keyword, int? page)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
 
@@ -43,6 +43,7 @@ namespace contact.Controllers
             string keyword = Request.Form["txtKeyword"];
 
             string theBrand = Request.Form["txtBrand"];
+            int a = 10;
             Console.WriteLine(theBrand);
 
             if (string.IsNullOrEmpty(keyword))
@@ -53,11 +54,12 @@ namespace contact.Controllers
             {
                 Products = db.t產品.GroupBy(m => m.f產品名稱).Select(p => p.FirstOrDefault()).
                    Where(p => p.f產品名稱.Contains(keyword) || p.f品牌名稱.Contains(keyword));
+                a = Products.Count();
 
             }
 
 
-            return View(Products.ToList().ToPagedList(page ?? 1, 10));
+            return View(Products.ToList().ToPagedList(page ?? 1, a));
         }
 
         [ChildActionOnly]

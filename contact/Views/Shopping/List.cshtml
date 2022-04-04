@@ -348,9 +348,9 @@
         }
 
 
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page = page }))
-
-
+        @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page = page }))*@
+      
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page, keyword = Request.QueryString["txtKeyword"] }))
 
 
 

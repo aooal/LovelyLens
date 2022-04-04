@@ -172,6 +172,8 @@
             console.log(pickValue);
             if (pickValue == "庫存不足商品") {
                 txt.value = "庫存不足商品";
+            } else {
+                txt.value = "";
             }
 
 
@@ -270,7 +272,7 @@
             <div class="col-12 col-lg-2  mb-3">
 
                 <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
-                    <option>選擇搜尋關鍵字</option>
+                    <option>選擇搜關鍵字分類</option>
                     <option value="商品名稱" name="商品名稱">商品名稱</option>
                     <option value="商品編號" name="商品編號">商品編號</option>
                     <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
@@ -279,7 +281,7 @@
 
             </div>
             <div class="col-12 col-lg-2  mb-3">
-                <input type="text" name="txtKeyword" class="form-control" value="" id="txt" />
+                <input type="text" name="txtKeyword" class="form-control" value="" id="txt" placeholder="請輸入關鍵字" />
             </div>
             <div class="col-4 col-lg-1  mb-3 ">
                 <input type="submit" value="查詢" id="keyWorld" class="tomatoclickbtn" />
@@ -336,22 +338,18 @@
         }
 
 
-
-
         <script>
         var page = '@ViewBag.page';
         console.log('page count')
         console.log(page);
-
-
-
         </script>
 
 
 
 
         @*@Html.PagedListPager(Model,page =>Url.Action("MProduct",new { page}))*@
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts", "CProducts", new { page, keyword = Request.QueryString["keyword"] }))
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts", "CProducts", new { page, keyword = Request.QueryString["txtKeyword"] }))
 
 
-        </
+    </div>
+</div>
