@@ -40,8 +40,8 @@ namespace contact.Controllers
             //        ID = a.f產品ID
             //    }).OrderBy(ab => ab.ID).GroupBy(ab => ab.產品名稱).Select(p => p.FirstOrDefault());
 
-            string keyword = Request.Form["txtKeyword"];
-
+            //string keyword = Request.Form["txtKeyword"];
+            keyword = Request.Form["txtKeyword"];
             string theBrand = Request.Form["txtBrand"];
             int a = 10;
             Console.WriteLine(theBrand);
