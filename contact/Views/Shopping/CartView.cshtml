@@ -9,7 +9,35 @@
 
 <h2>CartView</h2>
 @section scripts{
+    <script>
 
+        var num = 1;
+
+         @foreach(var item in Model)
+        {
+
+            if (item.可訂購數量 != "足夠")
+            {
+                 @:num = 0;
+                  break;
+            }
+
+         }
+
+
+
+        function che(e) {
+            if (num == 0) {
+
+                alert("商品數量已超過可訂購數量");
+                e.href = "/Shopping/CartView";
+            } else {
+                href
+            }
+            return true;
+        }
+
+    </script>
 }
 <table class="table">
     <tr>
@@ -169,8 +197,9 @@
 
     }*@
 
-@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })
+@*@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })*@
 
+<a href="/CCustomer/CheckOut" class="btn tomatobtn" onclick="che(this)">結帳</a>
 <div class="offset-md-10 col-md-2 col-12 mt-5 float-end">
     @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
 </div>

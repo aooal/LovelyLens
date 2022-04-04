@@ -18,20 +18,19 @@ namespace contact.Controllers
         {
             return View();
         }
-        public ActionResult MProducts(int? page)
+        public ActionResult MProducts(string keyword, int? page)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
             IEnumerable<t產品> datas = null;
-            
-          
-            string keyword = Request.Form["txtKeyword"];
-            string str = Request.Form["mpick"];
 
+
+            keyword = Request.Form["txtKeyword"];
+            string str = Request.Form["mpick"];
+            int a = 10;
 
             if (string.IsNullOrEmpty(keyword))
             {
                 datas = from p in db.t產品 select p;
-                
 
             }
             else
@@ -39,47 +38,40 @@ namespace contact.Controllers
                 if (str == "商品名稱")
                 {
                     datas = db.t產品.Where(p => p.f產品名稱.Contains(keyword));
+                    a = datas.Count();
+
                 }
                 else if (str == "商品編號")
                 {
                     datas = db.t產品.Where(p => (p.f對外產品識別ID).ToString().Contains(keyword));
+                    a = datas.Count();
                 }
                 else if (str == "品牌名稱")
                 {
                     datas = db.t產品.Where(p => p.f品牌名稱.Contains(keyword));
+                    a = datas.Count();
+                }
+                else if (str == "庫存不足商品")
+                {
+                    datas = db.t產品.Where(p => p.f庫存數量 * 0.8 < 1);
+                    a = datas.Count();
                 }
                 else
                 {
                     datas = from p in db.t產品 select p;
+
                 }
             }
-            //int currentPage = page < 1 ? 1 : page;
-            //var prodoucts = db.t產品.OrderBy(m => m.f產品ID).ToList();
-           // var result = prodoucts.ToPagedList(currentPage, pageSize);
+            return View(datas.ToList().ToPagedList(page ?? 1, a));
 
-     
-
-            //var tatalPro = datas.ToList().Count();
-            //if (tatalPro % pageSize == 0)
-            //{
-
-            //    ViewBag.page = tatalPro / pageSize;
-            //}
-            //else
-            //{
-            //    ViewBag.page = (tatalPro / pageSize) + 1;
-            //}
-
-
-
-            return View(datas.ToList().ToPagedList(page??1,10));
 
         }
+
 
         //public ActionResult MProducts(int page = 1)
         //{
         //    DBEyeEntities2 db = new DBEyeEntities2();
-          
+
         //    int currentPage = page < 1 ? 1 : page;
         //    var prodoucts = db.t產品.OrderBy(m => m.f產品ID).ToList();
         //    var result = prodoucts.ToPagedList(currentPage, pageSize);
@@ -126,6 +118,14 @@ namespace contact.Controllers
             }
             if (p.f閃光度數 != null && p.f閃光角度 != null)
             {
+                if (p.f庫存數量 != null)
+                {
+                    db.t產品.Add(p);
+                }
+                else
+                {
+                    p.f庫存數量 = 0;
+                }
                 db.t產品.Add(p);
             }
             else
@@ -204,6 +204,14 @@ namespace contact.Controllers
                 prod.f產品顏色 = editProduct.f產品顏色;
                 if (editProduct.f閃光度數 != null && editProduct.f閃光角度 != null)
                 {
+                    if (editProduct.f庫存數量 != null)
+                    {
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        editProduct.f庫存數量 = 0;
+                    }
                     db.SaveChanges();
                 }
                 else
@@ -249,6 +257,14 @@ namespace contact.Controllers
             }
             if (theCopyCreate.f閃光度數 != null && theCopyCreate.f閃光角度 != null)
             {
+                if (theCopyCreate.f庫存數量 != null)
+                {
+                    db.t產品.Add(theCopyCreate);
+                }
+                else
+                {
+                    theCopyCreate.f庫存數量 = 0;
+                }
                 db.t產品.Add(theCopyCreate);
             }
             else

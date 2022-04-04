@@ -154,8 +154,6 @@
                 text-decoration: none;
                 color: #ffffff;
             }
- 
-       
     </style>
 
 
@@ -169,8 +167,13 @@
 
         function strchange() {
             var mypick = document.getElementById('mpick');
-            var pickValue = mypick.selectedIndex;
+            var pickValue = mypick[mypick.selectedIndex].value;
+            var txt = document.getElementById('txt');
             console.log(pickValue);
+            if (pickValue == "庫存不足商品") {
+                txt.value = "庫存不足商品";
+            }
+
 
 
         }
@@ -216,6 +219,18 @@
 
         }
 
+        //找到0 庫存不足慧芬
+        $('.card-body').find(".card-text").each(function () {
+            let bb = $(this).children('#inven').text();
+            console.log(bb);
+            if (bb*0.8 < 1) {
+                $(this).children('#inven').text("庫存不足").css("color", "red");
+            }
+
+        });
+
+
+
 
         @*var page = '@ViewBag.page';
         console.log('page count')
@@ -225,6 +240,7 @@
         skipToNext.textContent = "上一頁";
         var skipToNext = document.querySelector('.PagedList-skipToNext a');
         skipToNext.textContent = "下一頁";
+
 
 
     </script>
@@ -258,11 +274,12 @@
                     <option value="商品名稱" name="商品名稱">商品名稱</option>
                     <option value="商品編號" name="商品編號">商品編號</option>
                     <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
+                    <option value="庫存不足商品" name="庫存不足商品">庫存不足商品</option>
                 </select>
 
             </div>
             <div class="col-12 col-lg-2  mb-3">
-                <input type="text" name="txtKeyword" class="form-control" value="" />
+                <input type="text" name="txtKeyword" class="form-control" value="" id="txt" />
             </div>
             <div class="col-4 col-lg-1  mb-3 ">
                 <input type="submit" value="查詢" id="keyWorld" class="tomatoclickbtn" />
@@ -294,6 +311,8 @@
                                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
                                 <p class="card-text">
                                     <small class="text-muted"> @Html.DisplayFor(modelItem => item.f對外產品識別ID)</small>
+                                    <small class="text-muted">庫存數量 :</small><small id="inven" onload="inven()"> @Html.DisplayFor(modelItem => item.f庫存數量)</small>
+
                                 </p>
                                 <p>
                                     度數 : @Html.DisplayFor(modelItem => item.f近視老花度數) |
@@ -307,7 +326,6 @@
                                     <a href="/CProducts/CopyCreate/@item.f產品ID" class="btn tomatoaddbtn" id="@item.f產品ID">快速新增商品</a>
                                     <a href="/CProducts/Edit/@item.f產品ID" class="btn tomatobtn">詳細資訊</a>
                                     <a href="/CProducts/Delete/@item.f產品ID" class="btn tomatodangerbtn" onclick="return confirm('是否確定刪除?')"><i class="bi bi-trash"> </i>刪除</a>
-                                    @*<a href="/CProducts/Delete/@item.f產品ID" class="btn tomatodangerbtn" confirm="是否確定刪除??"><i class="bi bi-trash"> </i>刪除</a>*@
                                 </div>
                             </div>
                         </div>
@@ -333,38 +351,7 @@
 
 
         @*@Html.PagedListPager(Model,page =>Url.Action("MProduct",new { page}))*@
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts","CProducts", new { page=page }))
-
-    
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts", "CProducts", new { page, keyword = Request.QueryString["keyword"] }))
 
 
-
-
-
-
-
-
-        <!-- 分頁 要用foreach-->
-        @*<ul class="pagination justify-content-center mt-3">
-            <li class="page-item">
-                <a class="page-link" href="#">上一頁</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">下一頁</a>
-            </li>
-        </ul>*@
-        <!-- 分頁end 要用foreach-->
-
-
-
-    </div>
-</div>
+        </
