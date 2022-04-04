@@ -17,5 +17,13 @@ namespace contact.ViewModels
         public Nullable<decimal> f訂單總金額 { get; set; }
         public string f地址 { get; set; }
         public string f店家連絡電話 { get; set; }
+        public string f售後服務申請對外Id { get; set; }
+        public string f產品名稱 { get; set; }
+        public string f近視老花度數 { get; set; }
+        public string f閃光度數 { get; set; }
+        public string f閃光角度 { get; set; }
+        public Nullable<int> f數量 { get; set; }
+        public string f對外產品識別ID { get; set; }
+
     }
 }
