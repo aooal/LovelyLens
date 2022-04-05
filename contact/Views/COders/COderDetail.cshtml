@@ -67,9 +67,8 @@
                     <td>
                         @item.f產品顏色
                     </td>
-                    <td>
-                        @item.f小計 元
-                    </td>
+                    <td>@Convert.ToDouble(item.f小計) 元</td>
+
 
                     <td>
                         @Html.ActionLink("重新訂購", "", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
@@ -81,7 +80,7 @@
     </table>
 
     <div class="row justify-content-end family" style="font-size:1.5rem">
-        總價：@aItem.f訂單總金額 元
+        總價：@Convert.ToDouble(aItem.f訂單總金額) 元
     </div>
     <div class="mb-5"style="font-family:jf-openhuninn; font-size:1.3rem">
         備註：@aItem.f訂單備註
@@ -187,6 +186,9 @@
                     }
 
                 });
+
+
+
 
 
                

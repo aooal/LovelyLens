@@ -44,7 +44,7 @@
     }
     <p>@ViewBag.data</p>
 
-    <table class="table ordertable col-12 col-md-10 ">
+    <table class="table ordertable col-12 col-md-10 " style="table-layout:fixed;word-break:break-all">
         <tr>
             @*<th>
                     下單日期
@@ -76,13 +76,14 @@
                 <tr>
                     <td>@item.f訂購日期</td>
                     <td>@item.f對外訂單單號</td>
-                    <td>@item.f訂單總金額 元</td>
+                    <td>@Convert.ToDouble(item.f訂單總金額) 元</td>
 
                     <td>@item.f配送狀態</td>
 
                     <td>@item.f訂單狀態</td>
 
-                    <td>@Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+                    <td >
+                        @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
                         @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "tomatocartbtn" })
                     </td>
                 </tr>
@@ -123,8 +124,6 @@
                 }
 
             });
-
-
 
         });
 
