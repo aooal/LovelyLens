@@ -11,6 +11,69 @@
     </style>
 }
 
+
+
+<div class="container-fluid mt-3 p-5">
+    <h1>換貨管理</h1>
+    <h4>[權限]盤商：盤商換貨申請一覽</h4>
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5">
+            <div class="col-12 col-lg-2 mb-3">
+                <select name="choose" class="form-select ">
+                    <option value="customer">店家名稱</option>
+                    <option value="order">售後服務申請對外單號</option>
+                    <option value="date">訂單日期</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword">
+            </div>
+            <div class="col-12 col-lg-1  mb-3">
+                <input type="submit" value="查詢">
+            </div>
+        </div>
+    }
+
+    <p>@ViewBag.data</p>
+    <table class="table ordertable col-12 col-md-10">
+        <tr>
+            <th>申請日期</th>
+            <th>售後服務申請單號</th>
+            <th>經銷商名稱</th>
+            <th>售後服務申請狀態</th>
+            @*<th>產品對外產品識別ID</th>
+                <th>產品名稱</th>
+                <th>換貨數量</th>
+                <th>經銷商聯絡電話</th>
+                <th>經銷商地址</th>*@
+        </tr>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.f申請日期</td>
+                    <td>@item.f售後服務申請對外Id</td>
+                    <td>@item.f店家名稱</td>
+                    <td>@item.f換貨申請狀態</td>
+                    @*<td>@item.f對外產品識別ID</td>
+                        <td>@item.f產品名稱</td>
+                        <td>@item.f換貨數量</td>
+                        <td>@item.f店家連絡電話</td>
+                        <td>@item.f地址</td>*@
+
+                    <td>
+                        @Html.ActionLink("查看詳情", "MexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" }) |
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+
 @section scripts{
     <script>
         /*這裡是表單HOVER*/
@@ -49,114 +112,57 @@
 
 }
 
+@*我的排版
+    <div class="container-fluid mt-3 p-5">
+        <h2 class="mb-5">經銷商換貨申請一覽</h2>
 
-<h1>換貨管理</h1>
-<h4>[權限]盤商：經銷商換貨申請</h4>
-@using (Html.BeginForm())
-{
-    <p>
-        關鍵字搜尋
-        <select name="choose">
-            <option value="customer">店家名稱</option>
-            <option value="order">訂單單號</option>
-            @*<option>訂單日期</option>*@
-            <option value="tel">電話</option>
-        </select>
-        <input type="text" name="txtKeyword">
-        <input type="submit" value="查詢">
-    </p>
-    @ViewBag.data
-}
-<table class="table ordertable">
-    <tr>
-        <th>申請日期</th>
-        <th>換貨單號</th>
-        <th>經銷商名稱</th>
-        <th>狀態</th>
-    </tr>
-    @{
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.f申請日期</td>
-                <td>@item.f對外訂單單號</td>
-                <td>@item.f店家名稱</td>
-                <td>@item.f換貨申請狀態</td>
-                <td>
-                    @Html.ActionLink("查看詳情", "MexchangeDetail", new { id = item.f對外訂單單號 }) |
-                </td>
-            </tr>
-        }
-    }
+        <div class="row mb-5 justify-content-start align-items-center">
+            <div class="col-12 col-lg-2  mb-3">
+                <select class="form-select ">
+                    <option>訂單序號</option>
+                    <option>1</option>
+                    <option>1</option>
+                    <option>1</option>
+                </select>
 
-
-</table>
-
-
-
-
-我的排版
-<div class="container-fluid mt-3 p-5">
-    <h2 class="mb-5">經銷商換貨申請一覽</h2>
-
-    <div class="row mb-5 justify-content-start align-items-center">
-        <div class="col-12 col-lg-2  mb-3">
-            <select class="form-select ">
-                <option>訂單序號</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-
+            </div>
+            <div class="col-12 col-lg-3  mb-3">
+                <input type="text" name="" class="form-control" value="" />
+            </div>
+            <div class="col-4 col-lg-1  mb-3 ">
+                <button type="button" class="btn btn-primary ">搜尋</button>
+            </div>
         </div>
-        <div class="col-12 col-lg-3  mb-3">
-            <input type="text" name="" class="form-control" value="" />
-        </div>
-        <div class="col-4 col-lg-1  mb-3 ">
-            <button type="button" class="btn btn-primary ">搜尋</button>
-        </div>
-    </div>
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>申請日期</th>
-                <th>換貨單號</th>
-                <th>經銷商名稱</th>
-                <th>狀態</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>申請日期</th>
+                    <th>換貨單號</th>
+                    <th>經銷商名稱</th>
+                    <th>狀態</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <tr>
-                <td>2022.02.25</td>
-                <td>75412369695</td>
-                <td>仁愛眼鏡 XX店</td>
-                <td class="text-danger">未出貨</td>
-                <td>
-                    <a href="" class="btn btn-outline-dark">查看詳情</a>
-                </td>
+                <tr>
+                    <td>2022.02.25</td>
+                    <td>75412369695</td>
+                    <td>仁愛眼鏡 XX店</td>
+                    <td class="text-danger">未出貨</td>
+                    <td>
+                        <a href="" class="btn btn-outline-dark">查看詳情</a>
+                    </td>
 
-            </tr>
+                </tr>
 
-            <tr>
-                <td>2022.02.25</td>
-                <td>75412369695</td>
-                <td>小林眼鏡 XX店</td>
-                <td class="text-danger">未出貨</td>
-                <td>
-                    <a href="" class="btn btn-outline-dark">查看詳情</a>
-                </td>
-
-            </tr>
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
 
 
 
-</div>
+    </div>*@
 
 

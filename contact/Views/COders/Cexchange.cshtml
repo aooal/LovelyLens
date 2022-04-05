@@ -1,5 +1,4 @@
-﻿@*宣告整個頁面必須帶入model這個類型*@
-@model List<contact.ViewModels.CexchangeRecord>
+﻿@model List<contact.ViewModels.CexchangeRecord>
 @{
     ViewBag.Title = "隱形眼鏡B2B交易系統平台";
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
@@ -11,116 +10,121 @@
     }
 </style>
 
-<h4>換貨管理紀錄一覽</h4>
-@Html.ActionLink("新增換貨登記", "CexchangeCreate", new { }) |
-<h1>換貨管理</h1>
-@using (Html.BeginForm())
-{
-    <p>
-        關鍵字搜尋
-        <select name="choose">
-            <option value="customer">店家名稱</option>
-            <option value="order">訂單單號</option>
-            <option value="tel">電話</option>
-        </select>
-        <input type="text" name="txtKeyword">
-        <input type="submit" value="查詢">
-    </p>
-    @ViewBag.data
-}
-<table class="table ordertable ">
-    <tr>
-        <th>申請日期</th>
-        <th>換貨單號</th>
-        <th>金額</th>
-        <th>狀態</th>
-        <th> </th>
-    </tr>
-    @{
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.f申請日期</td>
-                <td>@item.f對外訂單單號</td>
-                <td>@item.f訂單總金額</td>
-                <td>@item.f換貨申請狀態</td>
-                <td>
-                    @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f對外訂單單號 }) |
-                </td>
-            </tr>
-        }
-    }
-
-
-
-
-</table>
-
-
-
-我的換貨排版
 
 <div class="container-fluid mt-3 p-5">
-    <h2 class="mb-5">換貨紀錄一覽</h2>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2>經銷商:售後服務一覽</h2>
 
-    <div class="row mb-5 justify-content-start align-items-center">
-        <div class="col-12 col-lg-2  mb-3">
-            <select class="form-select ">
-                <option>訂單序號</option>
-                <option>1</option>
-                <option>1</option>
-                <option>1</option>
-            </select>
-
-        </div>
-        <div class="col-12 col-lg-3  mb-3">
-            <input type="text" name="" class="form-control" value="" />
-        </div>
-        <div class="col-4 col-lg-1  mb-3 ">
-            <button type="button" class="btn btn-primary ">搜尋</button>
+            <h4>售後服務申請</h4>
         </div>
     </div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5 justify-content-start align-items-center">
+            <div class="col-12 col-lg-2 mb-3">
+
+                <select name="choose" class="form-select ">
+                    <option value="order">售後服務申請單號</option>
+                    <option value="date">申請日期</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword" class="form-control">
+            </div>
+            <div class="col-12 col-lg-1  mb-3">
+                <input type="submit" value="查詢" class=" tomatoclickbtn ">
+            </div>
+        </div>
+
+    }
+    <p>@ViewBag.data</p>
+
+    <table class="table ordertable col-12 col-md-10">
+        <tr>
+            <th>申請日期</th>
+            <th>售後服務申請單號</th>
+            <th>售後服務申請狀態</th>
+        </tr>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.f申請日期</td>
+                    <td>@item.f售後服務申請對外Id</td>
+
+                    <td>@item.f換貨申請狀態</td>
+                    <td>
+                        @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" }) |
+                    </td>
+                </tr>
+            }
+        }
+
+
+    </table>
 </div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>日期</th>
-            <th>換貨單號</th>
-            <th>金額</th>
-            <th>狀態</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
 
-        <tr>
-            <td>2022.02.25</td>
-            <td>75412369695</td>
-            <td>3200元</td>
-            <td class="text-danger">未出貨</td>
-            <td>
-                <a href="" class="btn btn-outline-dark">查看詳情</a>
-            </td>
 
-        </tr>
 
-        <tr>
-            <td>2022.02.25</td>
-            <td>75412369695</td>
-            <td>3500元</td>
-            <td class="text-danger">未出貨</td>
-            <td>
-                <a href="" class="btn btn-outline-dark">查看詳情</a>
-            </td>
 
-        </tr>
 
-    </tbody>
-</table>
-<div class="col-sm-2">
-    <button type="button" class="btn btn-primary">新增紀錄</button>
-</div>
+@*我的換貨排版
+
+    <div class="container-fluid mt-3 p-5">
+        <h2 class="mb-5">換貨紀錄一覽</h2>
+
+        <div class="row mb-5 justify-content-start align-items-center">
+            <div class="col-12 col-lg-2  mb-3">
+                <select class="form-select ">
+                    <option>訂單序號</option>
+                    <option>1</option>
+                    <option>1</option>
+                    <option>1</option>
+                </select>
+
+            </div>
+            <div class="col-12 col-lg-3  mb-3">
+                <input type="text" name="" class="form-control" value="" />
+            </div>
+            <div class="col-4 col-lg-1  mb-3 ">
+                <button type="button" class="btn btn-primary ">搜尋</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>換貨單號</th>
+                <th>金額</th>
+                <th>狀態</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>2022.02.25</td>
+                <td>75412369695</td>
+                <td>3200元</td>
+                <td class="text-danger">未出貨</td>
+                <td>
+                    <a href="" class="btn btn-outline-dark">查看詳情</a>
+                </td>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+    <div class="col-sm-2">
+        <button type="button" class="btn btn-primary">新增紀錄</button>
+    </div>*@
 
 
 
@@ -165,5 +169,62 @@
 }
 
 
+
+@*----避免改壞程式碼的備份-----*@
+
+@*@model List<contact.ViewModels.CexchangeRecord>
+    @{
+        ViewBag.Title = "隱形眼鏡B2B交易系統平台";
+        Layout = "~/Views/Shared/_Layoutsale.cshtml";
+    }
+
+    <style>
+        h1 {
+            color: gainsboro;
+        }
+    </style>
+
+    <h4>經銷商:售後服務一覽</h4>
+
+    <h1>售後服務申請</h1>
+    @using (Html.BeginForm())
+    {
+        <p>
+            關鍵字搜尋
+            <select name="choose">
+                <option value="order">售後服務申請單號</option>
+                <option value="date">申請日期</option>
+
+            </select>
+            <input type="text" name="txtKeyword">
+            <input type="submit" value="查詢">
+        </p>
+        @ViewBag.data
+    }
+    <table class="table ordertable ">
+        <tr>
+
+            <th>申請日期</th>
+            <th>售後服務申請單號</th>
+            <th>售後服務申請狀態</th>
+        </tr>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.f申請日期</td>
+                    <td>@item.f售後服務申請對外Id</td>
+
+                    <td>@item.f換貨申請狀態</td>
+                    <td>
+                        @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }) |
+                    </td>
+                </tr>
+            }
+        }
+
+
+    </table>*@
 
 

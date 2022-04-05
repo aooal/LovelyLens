@@ -1,205 +1,218 @@
-﻿@model contact.ViewModels.CexchangeDetailRecord
+﻿@model contact.ViewModels.ExchangeProduct
+
 @{
-    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+    ViewBag.Title = "Cexchangecreate-售後服務申請";
+    <script>
+        window.onload = function exchangeOutId() {
+            var txtId = document.getElementById('exchangeOutId');
+            var pid = new Date();
+            var pid2 = pid.getTime();
+            txtId.value = "c" + pid2.toString();
+        }
+    </script>
 }
-
-
 
 @section styles{
 
     <style>
+        h1 {
+            color: gainsboro;
+        }
+
+        h3 {
+            color: red;
+        }
     </style>
 }
 
-<h1>換貨管理-新增經銷商換貨紀錄</h1>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f店家名稱, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f產品名稱, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f產品名稱, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        規格:
-        <div class="form-group">
-            @Html.LabelFor(model => model.f近視老花度數, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f近視老花度數, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f閃光度數, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f閃光度數, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f閃光度數, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f閃光角度, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f閃光角度, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f閃光角度, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f換貨數量, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f換貨數量, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f換貨數量, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.f小計, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f小計, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f小計, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f換貨總金額, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f換貨總金額, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f換貨總金額, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.f換貨原因, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f換貨原因, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f換貨原因, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        備註:
-        <textArea name="ChangeRemark"></textArea>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="送出" class="btn btn-default" />
-            </div>
-        </div>
-        新增:@Html.ActionLink("新增", "", new { });
-        <label>廠商</label>
-        @*<select>
-                <option>@Model.f店家名稱</option>
-            </select>
-            <label>選擇品項</label>
-            <select>
-                <option>@Model.f產品名稱</option>
-            </select>
-            <label>規格</label>
-            <select>
-                <option>@Model.f近視老花度數</option>
-            </select>
-            <select>
-                <option>@Model.f閃光度數</option>
-            </select>*@
-
-
-        @Html.LabelFor(model => model.f換貨單價, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.f換貨單價, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.f換貨單價, "", new { @class = "text-danger" })
-        </div>
-
-
-    </div>
-
-}
-
-@section scripts{
-    <script></script>
-
-}
-
-
-
-我的排版新增換貨登記
-
-<div class="container-fluid mt-1 p-5">
-    <h2 class="mb-5">新增換貨登記</h2>
-</div>
 
 <div class="container-fluid mt-3 p-5">
-    <table class="table  table-hover">
-        <thead>
-            <tr>
-                <th scope="col">序號</th>
-                <th scope="col">商品編號</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">數量</th>
-                <th scope="col">小計</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345</td>
 
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345</td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345</td>
-            </tr>
-            <tr>
-                <th scope="row" colspan="3"></th>
-                <td class="bg-info text-light text-center">訂單總額：</td>
-            </tr>
-        </tbody>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h1>售後服務申請</h1>
+        </div>
+    </div>
 
-    </table><button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">新增</button>
+
+    <table class="table ordertable col-12 col-md-10">
+        <tr>
+            <th>
+                產品編號
+            </th>
+            <th>
+                產品名稱
+            </th>
+            <th>
+                訂購數量
+            </th>
+            <th>
+                售價
+            </th>
+            <th>
+                規格:
+            </th>
+            <th>
+                近視老花度數
+            </th>
+            <th>
+                閃光度數
+            </th>
+            <th>
+                閃光角度
+
+            <th>顏色</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @{
+            var first = Model.AfterSalesService.FirstOrDefault();
+        }
+
+        @foreach (var item in Model.AfterSalesService)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f對外產品識別ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f產品名稱)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f訂購數量)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.f售價)
+                </td>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f近視老花度數)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f閃光度數)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f閃光角度)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f產品顏色)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.f品牌名稱)
+                </td>
+            </tr>
+        }
+
+        @using (Html.BeginForm())
+        {
+            <div class="form-group" onload="exchangeOutId()">
+                <input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" />
+                <input type="hidden" name="price" value="@first.f售價" />
+                <input type="hidden" name="f產品名稱" value="@first.f產品名稱" />
+                <input type="hidden" name="f申請日期" value="@first.f申請日期" />
+                <input type="hidden" name="f店家ID" value="@first.f店家ID" />
+                <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
+                @*<input type="hidden" name="f售後服務申請對外Id" value="@first.f售後服務申請對外Id" />*@
+
+
+                數量
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+
+                @if (Model.isPositive == true)
+                {
+                    <span>閃光度數:</span>
+                    <select name="f閃光度數" value="">
+                        @foreach (var flash in Model.allflash)
+                        {
+
+                            <option>@flash</option>
+                        }
+                    </select>
+                    <span>閃光角度:</span>
+                    <select name="f閃光角度" value="">
+                        @foreach (var flashAstigmatism in Model.allflashAstigmatism)
+                        {
+
+                            <option>@flashAstigmatism</option>
+                        }
+                    </select>
+                }
+
+                <span>顏色:</span>
+                <select name="f產品顏色" value="">
+                    @foreach (var color in Model.allColors)
+                    {
+                        <option>@color</option>
+                    }
+                </select>
+
+                <span>近視老花度數:</span>
+                <select name="f近視老花度數">
+                    @foreach (var Shortsighted in Model.allShortsighted)
+                    {
+
+                        <option>@Shortsighted</option>
+                    }
+
+
+                </select>
+
+                換貨原因:<input type="text" name="f換貨原因" />
+                備註:<input type="text" name="f換貨備註" />
+                <input type="submit" value="送出申請">
+            </div>
+
+        }
+
+
+    </table>
 </div>
-<div>
-    <label>換貨原因：</label><textarea></textarea><br />
-    <label>備註：</label><textarea></textarea><br />
-</div>
 
-<button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">刪除申請</button>
+@section scripts{
+    <script>
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+            $('.ordertable tbody').find("tr").each(function () {
+                let bb = $(this).children('td:eq(4)').text();
+                console.log(bb);
+                if (bb == '未出貨') {
+                    $(this).children('td:eq(4)').css("color", "red");
+                }
+
+            });
 
 
 
+        });
 
 
+    </script>
+
+
+
+}

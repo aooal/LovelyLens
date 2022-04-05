@@ -1,4 +1,4 @@
-﻿@model contact.ViewModels.CexchangeDetailRecord
+﻿@model contact.ViewModels.CexchangeRecord
 @{
     ViewBag.Title = "CexchangeDetail-換貨--經銷商:換貨詳情管理";
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
@@ -7,121 +7,180 @@
     h1 {
         color: gainsboro;
     }
+
+    .bigtext {
+        font-family: jf-openhuninn;
+        font-size: 2.0rem;
+    }
 </style>
-<h4>[權限]經銷商：換貨詳情管理</h4>
-<h1>換貨管理</h1>
-換貨單號:@Model.f對外訂單單號
-日期:@Model.f申請日期
-<div>
 
-    <hr />
-    <table>
-        <tr>
-            <th>商品編號</th>
-            <th>商品名稱</th>
-            <th>數量</th>
-            <th>小計</th>
-        </tr>
-        <tr>
-            <td>@Model.f對外產品識別ID</td>
-            <td>@Model.f品牌名稱</td>
-            <td>@Model.f換貨數量</td>
-            <td>@Model.f小計</td>
-        </tr>
-
-
-    </table>
-</div>
-<p>
-    訂單總金額:@Model.f訂單總金額
-    換貨狀態:@Model.f換貨申請狀態
-    備註:@Model.f訂單備註
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
-
-
-
-
-我的詳情
 <div class="container-fluid mt-1 p-5">
-    <h2 class="mb-5">換貨詳情管理</h2>
+    <h1>我是詳情</h1>@*(這是什麼? BY沛)*@
+    <h2>經銷商：換貨申請詳情</h2>
 
-    <div class="row justify-content-between">
-        <div class="col-4">
-            訂單單號：123456798
-        </div>
-        <div class="col-4">
-            訂單日期：2021.02.25
-        </div>
+    <div>
 
-    </div>
-</div>
-<div class="container-fluid mt-3 p-5">
-    <table class="table  table-hover">
-        <thead>
+        <hr />
+
+        <table class="table ordertable col-12 col-md-10">
             <tr>
-                <th scope="col">序號</th>
-                <th scope="col">商品編號</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">數量</th>
-                <th scope="col">小計</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
+                <th>申請日期</th>
+                <th>售後服務申請單號</th>
+                <th>售後服務申請狀態</th>
+                <th>產品名稱</th>
+                <th>近視老花度數</th>
+                <th>散光度數</th>
+                <th>散光角度</th>
+                <th>換貨數量</th>
+                <th>換貨原因</th>
+                <th>換貨備註</th>
+                <th></th>
             </tr>
 
-            <tr>
-                <th scope="row" colspan="3"></th>
-                <td class="bg-info text-light text-center">訂單總額</td>
-                <td>12345656748元</td>
-            </tr>
-        </tbody>
 
-    </table>
-    <div class="">
-        <label class="text-">
-            訂單狀態：未出貨
-        </label><br>
-        <label>
-            備註：
-        </label>
+
+            @{
+
+                <tr>
+                    <td>
+                        @Model.f申請日期
+                    </td>
+                    <td>
+                        @Model.f售後服務申請對外Id
+                    </td>
+                    <td>
+                        @Model.f換貨申請狀態
+                    </td>
+                    <td>
+                        @Model.f產品名稱
+                    </td>
+                    <td>
+                        @Model.f近視老花度數
+                    </td>
+                    <td>
+                        @Model.f閃光度數
+                    </td>
+                    <td>
+                        @Model.f閃光角度
+                    </td>
+                    <td>
+                        @Model.f數量
+                    </td>
+                    <td>
+                        @Model.f換貨原因
+                    </td>
+                    <td>
+                        @Model.f換貨備註
+                    </td>
+                    <td>
+                        @Html.ActionLink("取消", "CexchangeDelete", new { id = Model.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" }) |
+                    </td>
+                </tr>
+
+
+            }
+
+
+        </table>
     </div>
 
 </div>
 
 
 @section scripts{
-    <script></script>
+    <script>
+
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+            $('.ordertable tbody').find("tr").each(function () {
+                let bb = $(this).children('td:eq(3)').text();
+                console.log(bb);
+                if (bb == '未出貨') {
+                    $(this).children('td:eq(3)').css("color", "red");
+                }
+
+            });
+
+
+
+
+        });
+    </script>
 
 }
+
+@*我的詳情
+    <div class="container-fluid mt-1 p-5">
+        <h2 class="mb-5">換貨詳情管理</h2>
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                訂單單號：123456798
+            </div>
+            <div class="col-4">
+                訂單日期：2021.02.25
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid mt-3 p-5">
+        <table class="table  table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">序號</th>
+                    <th scope="col">商品編號</th>
+                    <th scope="col">商品名稱</th>
+                    <th scope="col">數量</th>
+                    <th scope="col">小計</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+
+                <tr>
+                    <th scope="row" colspan="3"></th>
+                    <td class="bg-info text-light text-center">訂單總額</td>
+                    <td>12345656748元</td>
+                </tr>
+            </tbody>
+
+        </table>
+        <div class="">
+            <label class="text-">
+                訂單狀態：未出貨
+            </label><br>
+            <label>
+                備註：
+            </label>
+        </div>
+
+    </div>
+
+
+    @section scripts{
+        <script></script>
+
+    }*@
 
 
