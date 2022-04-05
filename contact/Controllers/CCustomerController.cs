@@ -26,7 +26,7 @@ namespace contact.Controllers
             //先寫入t訂單
             viewModel.f店家ID = Convert.ToInt32(Request.Cookies["USERid"].Value);
             var random = new Random();
-            string outerOrderNum = "C" + viewModel.f店家ID.ToString() + DateTime.Now.ToString("yyyymmddhhmm");
+            string outerOrderNum = "C" + viewModel.f店家ID.ToString() + DateTime.Now.ToString("yyyyMMddhhmm");
             viewModel.f對外訂單單號 = outerOrderNum;
 
             db.t訂單.Add(viewModel);

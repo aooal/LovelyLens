@@ -11,39 +11,41 @@
 
     .bigtext {
         font-family: jf-openhuninn;
-        font-size: 2.0rem;
+        font-size: 2rem;
     }
 </style>
 <div class="container-fluid mt-1 p-5">
     <h2 class="mb-5">經銷商：歷史訂單詳情</h2>
     @{ var aItem = Model.FirstOrDefault(); }
-    <div class="row justify-content-between">
-        <div class="col-4 bigtext">
+    <div class="col-12 col-md-12 d-flex flex-wrap justify-content-between " style="word-break:break-all">
+        <div class="col-7 col-md-7 bigtext">
             訂單單號:@aItem.f對外訂單單號<br>
         </div>
-        <div class="col-4 bigtext">
+        <div class="col-4 col-md-4  bigtext">
             訂單日期:@aItem.f訂購日期<br>
         </div>
         <hr />
-        <div class="row">
-            <div class="col-4 family">
-                訂單狀態:@aItem.f訂單狀態<br>
-                付款狀態:@aItem.f付款狀態
-            </div>
+
+    </div>  
+
+    <div class="row">
+        <div class="col-6  col-md-6 family">
+            訂單狀態:@aItem.f訂單狀態<br>
+            付款狀態:@aItem.f付款狀態
         </div>
     </div>
 </div>
 
 
 <div class="container-fluid">
-    <table class="table ordertable col-12 col-md-10">
+    <table class="table ordertable col-12 col-md-12"  style="table-layout:fixed;word-break:break-all">
         <tr>
-            <th>商品編號</th>
-            <th>商品名稱</th>
-            <th>數量</th>
-            <th>顏色</th>
-            <th>小計</th>
-            <th></th>
+            <th class="col-md-2 col-2">商品編號</th>
+            <th class="col-md-2 col-2">商品名稱</th>
+            <th class="col-md-2 col">數量</th>
+            <th class="col-md-2 col">顏色</th>
+            <th class="col-md-2 col">小計</th>
+            <th class="col-md-2 col-3"> </th>
         </tr>
         @{
 
@@ -55,24 +57,19 @@
                 <input type="hidden" name="f閃光角度" value="@item.f閃光角度" />
                 <input type="hidden" name="f售價" value="@item.f售價" />
                 <tr>
-                    <td>
-                        @item.f對外產品識別ID
-                    </td>
-                    <td>
-                        @item.f產品名稱
-                    </td>
-                    <td>
-                        @item.f訂購數量
-                    </td>
-                    <td>
-                        @item.f產品顏色
-                    </td>
+                    <td>@item.f對外產品識別ID</td>
+                    
+                    <td>@item.f產品名稱</td>
+                    
+                    <td>@item.f訂購數量</td>
+                    
+                    <td>@item.f產品顏色</td>
+                   
                     <td>@Convert.ToDouble(item.f小計) 元</td>
-
-
+                    
                     <td>
-                        @Html.ActionLink("重新訂購", "", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
-                        @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = item.f對外訂單單號, pid = item.f對外產品識別ID }, new { @class = "tomatocartbtn" })
+                        @Html.ActionLink("重購", "", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+                        @Html.ActionLink("換貨", "Cexchangecreate", new { id = item.f對外訂單單號, pid = item.f對外產品識別ID }, new { @class = "tomatocartbtn" })
                     </td>
                 </tr>
             }
