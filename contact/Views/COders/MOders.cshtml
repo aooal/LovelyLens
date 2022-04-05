@@ -57,16 +57,16 @@
 
     <h3>@ViewBag.data</h3>
 
-    <table class="table ordertable col-12 col-md-10">
+    <table class="table ordertable col-12 col-md-12" style="table-layout:fixed;word-break:break-all" >
         <tr>
-            <th>下單日期</th>
-            <th>訂單單號</th>
-            <th>經銷商名稱</th>
-            <th>訂單總價</th>
-            <th>配送狀態</th>
-            <th>訂單狀態</th>
+            <th class="col-md-2 col">下單日期</th>
+            <th class="col-md-2 col-2">訂單單號</th>
+            <th class="col-md-2 col">經銷商名稱</th>
+            <th class="col-md-2 col-3">訂單總價</th>
+            <th class="col-md-2 col">配送狀態</th>
+            <th class="col-md-2 col">訂單狀態</th>
             @*<th>訂單備註</th>*@
-            <th></th>
+            <th class="col-md-2 col-3"></th>
         </tr>
         @{
             foreach (var item in Model)
@@ -75,14 +75,14 @@
                     <td>@item.f訂購日期</td>
                     <td>@item.f對外訂單單號</td>
                     <td>@item.f店家名稱</td>
-                    <td>@item.f訂單總金額 元</td>
+                    <td>@Convert.ToDouble(@item.f訂單總金額) 元</td>
                     <td>@item.f配送狀態</td>
                     <td>@item.f訂單狀態</td>
                     @*<td>
                         @item.f訂單備註
                     </td>*@
                     <td>
-                        @Html.ActionLink("詳細資訊", "MOderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+                        @Html.ActionLink("詳情", "MOderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
                     </td>
                 </tr>
             }
