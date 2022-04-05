@@ -14,16 +14,16 @@
 }
 
 <div class="container-fluid mt-3">
-    <h2 class="row justify-content-center">結帳</h2>
+    <h2 class="row justify-content-center family">結帳</h2>
 </div>
 <hr />
-<div>
+@*<div>
     <label>訂購品項</label>
-</div>
+</div>*@
 
 <div class="container-fluid">
     <table class="table">
-        <tr>
+        <tr class="table-danger">
             <th>
 
             </th>
@@ -95,12 +95,23 @@
                     </td>
                 </tr>
             }
-            <tr>
-                <td>總價</td>
-                <td>
-                    <p>@tempTotal.ToString()</p><p>元</p>
-                </td>
-            </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>總價</td>
+        <td>
+            <p>@tempTotal.ToString()</p>
+            
+        </td>
+        <td><p>元</p></td>
+    </tr>
+
+
         }
 
     </table>
@@ -108,72 +119,82 @@
 
 <form action="/CCustomer/CheckOut" method="POST">
     <div class="container-fluid">
-        <label>訂購人資訊</label>
+        <label class="family">訂購人資訊</label>
     </div>
     <div class="row container-fluid col-8 m-3">
+
         <div class="border border-primary rounded ">
-            <div>
-                <p>
-                    <input type="checkbox" id="sameWithAccount" value="與會員資料相同" />
-                    <label for="cbox1">與會員資料相同</label>
-                </p>
-                <p>
-                    訂購人：
-                    <input type="text" name="f訂購人" class="" placeholder="請輸入訂購人姓名" id="f訂購人" />
-                </p>
-                <p>
-                    連絡電話：
-                    <input type="text" name="f連絡電話" class="" placeholder="請輸入連絡電話" id="f連絡電話" />
-                </p>
-                <p>
-                    寄送地址：
-                    <input type="text" name="f寄送地址" class="" placeholder="請輸入寄送地址" id="f寄送地址" />
-                </p>
-                <p>
-                    電子信箱：
-                    <input type="text" name="f訂購人信箱" class="" placeholder="請輸入電子信箱" id="f訂購人信箱" />
-                </p>
-            </div>
+            <fieldset class="col-6 p-3">
+                <div>
+                    <p>
+                        <input type="checkbox" id="sameWithAccount" value="與會員資料相同" />
+                        <label for="cbox1">與會員資料相同</label>
+                    </p>
+                    <p>
+                        訂購人：
+                        <input type="text" name="f訂購人" class="form-control col-6" placeholder="請輸入訂購人姓名" id="f訂購人" />
+                    </p>
+                    <p>
+                        連絡電話：
+                        <input type="text" name="f連絡電話" class="form-control col-6" placeholder="請輸入連絡電話" id="f連絡電話" />
+                    </p>
+                    <p>
+                        寄送地址：
+                        <input type="text" name="f寄送地址" class="form-control col-6" placeholder="請輸入寄送地址" id="f寄送地址" />
+                    </p>
+                    <p>
+                        電子信箱：
+                        <input type="text" name="f訂購人信箱" class="form-control col-6" placeholder="請輸入電子信箱" id="f訂購人信箱" />
+                    </p>
+                </div>
+            </fieldset>
         </div>
+
     </div>
 
     <div class="container-fluid">
-        <label>付款資訊</label>
+        <label class="family">付款資訊</label>
     </div>
     <div class="row container-fluid col-8 m-3">
         <div class="border border-primary rounded">
-            <p>
-                <label class="my-3">訂單需求</label>
-                <select id="orderDemand" name="f訂單需求">
-                    <option selected disabled>請選擇訂單需求</option>
-                    <option>客需</option>
-                    <option>庫存</option>
-                    <option>其他</option>
+            <fieldset class="col-6 p-3">
+                <p>
+                    <label class="my-3">訂單需求</label>
+                    <select id="orderDemand" name="f訂單需求" class="form-control col-6">
+                        <option selected disabled>請選擇訂單需求</option>
+                        <option>客需</option>
+                        <option>庫存</option>
+                        <option>其他</option>
+                    </select>
+                </p>
+                <label class="my-3">付款方式：</label>
+                <select id="payment" name="f付款方式" class="form-control col-6">
+                    <option selected disabled>請選擇付款方式</option>
+                    <option>銀行轉帳</option>
+                    <option>線上刷卡</option>
+                    <option>現金支付</option>
                 </select>
-            </p>
-            <label class="my-3">付款方式：</label>
-            <select id="payment" name="f付款方式">
-                <option selected disabled>請選擇付款方式</option>
-                <option>銀行轉帳</option>
-                <option>線上刷卡</option>
-                <option>現金支付</option>
-            </select>
-            <input type="hidden" name="f訂單總金額" value=@tempTotal.ToString() />
-            <input type="hidden" name="f付款狀態" value="未付款" />
-            <input type="hidden" name="f配送狀態" value="未出貨" />
-            <input type="hidden" name="f訂單狀態" value="未完成" />
-            <input type="hidden" name="f訂購日期" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <input type="hidden" name="f訂單總金額" value=@tempTotal.ToString() />
+                <input type="hidden" name="f付款狀態" value="未付款" />
+                <input type="hidden" name="f配送狀態" value="未出貨" />
+                <input type="hidden" name="f訂單狀態" value="未完成" />
+                <input type="hidden" name="f訂購日期" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </fieldset>
         </div>
     </div>
     <div class="container-fluid">
-        <label>備註</label>
+        <label class="family">備註</label>
     </div>
     <div class="row container-fluid col-8 m-3">
-        <div class="border border-primary rounded">
-            <textarea name="f訂單備註" class="col-8"></textarea>
+        <div class="border border-primary rounded ">
+            <textarea name="f訂單備註" class="col-8 form-control border border-primary rounded p-3"></textarea>
         </div>
     </div>
-    <input type="submit" value="確認結帳" id="checkoutSubmit" />
+    
+    <fieldset class="offset-md-10 col-md-2">
+        <input type="submit" value="確認結帳" id="checkoutSubmit" class="tomatodangerbtn" />
+    </fieldset>
+ 
 </form>
 
 
