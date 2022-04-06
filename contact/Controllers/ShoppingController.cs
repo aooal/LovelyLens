@@ -203,5 +203,13 @@ namespace contact.Controllers
             return View(cart);
         }
 
+        public ActionResult Delete(int id)
+        {
+            int itemOrder = id - 1;
+            List<CShoppingCartItem> cart = Session[SessionKeys.SK_SHOPPINGCART_ITEMLIST] as List<CShoppingCartItem>;
+            cart.RemoveAt(itemOrder);
+            return RedirectToAction("CartView");
+        }
+
     }
 }

@@ -42,8 +42,8 @@
     </script>
 }
 <div class="container">
-    <table class="table mt-5">
-        <tr>
+    <table class="table mt-5 ">
+        <tr class="table-dark">
             <th>
 
             </th>
@@ -84,9 +84,11 @@
         {
 
             decimal tempTotal = 0;
+            int countDel = 0;
             foreach (var item in Model)
             {
                 tempTotal += item.小計;
+                countDel++;
                 <tr>
                     <td>
                         <input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" />
@@ -125,7 +127,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("修改", "Edit", new { /* id=item.PrimaryKey */ })
-                        @Html.ActionLink("刪除", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("刪除", "Delete", new { id= countDel})
                     </td>
                 </tr>
             }
