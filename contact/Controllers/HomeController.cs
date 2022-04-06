@@ -6,11 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace contact.Controllers
 {
     public class HomeController : Controller
     {
+        DBEyeEntities2 db = new DBEyeEntities2();
         public ActionResult Index()
         {
             return View();
@@ -29,9 +31,8 @@ namespace contact.Controllers
                 cookie.Value = selectAccount.f店家ID.ToString();
                 cookie.Expires = DateTime.Now.AddDays(30);
                 Response.Cookies.Add(cookie);
-
-                ViewBag.Account = selectAccount.f店家ID;
-                ViewBag.AccountName = selectAccount.f店家名稱;
+                //表單驗證授權
+                FormsAuthentication.RedirectFromLoginPage(selectAccount.f店家ID.ToString(), true);
 
                 if (selectAccount.f身分別 == "管理者")
                 {
@@ -68,10 +69,11 @@ namespace contact.Controllers
 
         public ActionResult Login()
         {
-            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
-            DBEyeEntities2 db = new DBEyeEntities2();
+            var accountLogin = Convert.ToInt32(User.Identity.Name);
             var accountName = db.t店家.FirstOrDefault(m => m.f店家ID == accountLogin).f店家名稱;
-            return Content(accountName);
+            if (User.Identity != null)
+                return Content(accountName);
+            return Content("使用者");
         }
         public ActionResult Register()
         {
@@ -121,17 +123,15 @@ namespace contact.Controllers
             }
             return View(註冊);
         }
-        public ActionResult AccUpdates()
-        {
-            return View();
-        }
+       
         public ActionResult FAQ()
         {
             return View();
         }
-        public ActionResult Management()
+        public ActionResult Signout()
         {
-            return View();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
         }
     }
 }

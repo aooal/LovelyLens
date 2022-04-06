@@ -8,6 +8,7 @@ using System.IO;
 
 namespace contact.Controllers
 {
+    [Authorize(Users = "1")]
     public class CDiscountController : Controller
     {
         // GET: CDiscount

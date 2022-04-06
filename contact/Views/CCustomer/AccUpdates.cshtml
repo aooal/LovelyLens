@@ -1,0 +1,108 @@
+﻿@model contact.Models.t店家
+
+@{
+    ViewBag.Title = "AccUpdates";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
+
+<h2>AccUpdates</h2>
+
+@using (Html.BeginForm("AccUpdates", "CCustomer", FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>t店家</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.f店家ID)
+
+        <div class="form-group">
+            <p>帳號（電子信箱）</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>密碼</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f密碼, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <p>店家名稱</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>負責人</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>連絡電話</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>通訊地址</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f地址, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>銀行帳號</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>藥商許可證上傳</p>
+            <input type="file" class="form-control-file" name="medicalLicenseUpdate" id="mlfileid" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <p>營業登記許可證上傳</p>
+            <input type="file" class="form-control-file" name="businessLicenseUpdate" id="blfileid" accept="image/*">
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.f備註, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.f備註, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存修改" class="btn btn-default" />
+                @Html.ActionLink("取消修改", "AccUpdates", new { /* id=item.PrimaryKey */ })
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

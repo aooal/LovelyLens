@@ -11,6 +11,7 @@ using PagedList;
 
 namespace contact.Controllers
 {
+    [Authorize]
     public class ShoppingController : Controller
     {
         // GET: Shopping

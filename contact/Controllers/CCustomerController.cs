@@ -2,6 +2,7 @@
 using contact.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -66,6 +67,47 @@ namespace contact.Controllers
         datas.f訂購人信箱 = accountData.f電子信箱;
         return Json(datas, JsonRequestBehavior.AllowGet);
     }
+
+        public ActionResult AccUpdates()
+        {
+            var accountLogin = Convert.ToInt32(User.Identity.Name);
+            var account = db.t店家.FirstOrDefault(m => m.f店家ID == accountLogin);
+            return View(account);
+        }
+
+        [HttpPost]
+        public ActionResult AccUpdates(t店家 修改)
+        {
+            t店家 會員資料 = db.t店家.FirstOrDefault(m => m.f店家ID == 修改.f店家ID);
+            HttpPostedFileBase medicalLicenseUpdate = Request.Files["medicalLicenseUpdate"];
+            HttpPostedFileBase businessLicenseUpdate = Request.Files["businessLicenseUpdate"];
+            if (medicalLicenseUpdate != null)
+            {
+                var MLFileName = Path.GetRandomFileName().Replace(".", "_") + ".jpg";
+                var MLPath = Path.Combine(Server.MapPath("~/images/iMedicalLicense"), MLFileName);
+                medicalLicenseUpdate.SaveAs(MLPath);
+                修改.f藥商許可證照片路徑 = MLFileName;
+            }
+            if (businessLicenseUpdate != null)
+            {
+                var BLFileName = Path.GetRandomFileName().Replace(".", "_") + ".jpg";
+                var BLPath = Path.Combine(Server.MapPath("~/images/iBusinessLicense"), BLFileName);
+                businessLicenseUpdate.SaveAs(BLPath);
+                修改.f營業登記許可照片路徑 = BLFileName;
+            }
+            會員資料.f密碼 = 修改.f密碼;
+            會員資料.f店家名稱 = 修改.f店家名稱;
+            會員資料.f店家負責人 = 修改.f店家負責人;
+            會員資料.f店家連絡電話 = 修改.f店家連絡電話;
+            會員資料.f地址 = 修改.f地址;
+            會員資料.f銀行帳號 = 修改.f銀行帳號;
+            會員資料.f營業登記許可照片路徑 = 修改.f營業登記許可照片路徑;
+            會員資料.f藥商許可證照片路徑 = 修改.f藥商許可證照片路徑;
+            會員資料.f備註 = 修改.f備註;
+
+            db.SaveChanges();
+            return RedirectToAction("AccUpdates");
+        }
     }
 
 

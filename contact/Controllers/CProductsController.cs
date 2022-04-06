@@ -10,6 +10,7 @@ using PagedList;
 
 namespace contact.Controllers
 {
+    [Authorize(Users = "1")]
     public class CProductsController : Controller
     {
         //int pageSize = 10;
