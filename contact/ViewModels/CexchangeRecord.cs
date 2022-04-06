@@ -24,6 +24,7 @@ namespace contact.ViewModels
         public string f閃光角度 { get; set; }
         public Nullable<int> f數量 { get; set; }
         public string f對外產品識別ID { get; set; }
-
+        public bool f可換貨 { get; set; }
+        public string f換貨申請人 { get; set; }
     }
 }

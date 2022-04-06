@@ -336,6 +336,7 @@
     <Compile Include="ViewModels\ExchangeProduct.cs" />
     <Compile Include="ViewModels\MOderDetailRecord .cs" />
     <Compile Include="ViewModels\MOrderRecord.cs" />
+    <Compile Include="ViewModels\ShippingViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -367,7 +368,6 @@
     <Content Include="Views\Shopping\Detail.cshtml" />
     <Content Include="Views\CDiscount\MDiscountActivity.cshtml" />
     <Content Include="Views\CDiscount\ActivityCreate.cshtml" />
-    <Content Include="Views\Home\AccUpdates.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\CCustomer\CheckOut.cshtml" />
     <Content Include="Views\Shared\_activDisplay.cshtml" />

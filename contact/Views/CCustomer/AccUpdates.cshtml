@@ -5,104 +5,235 @@
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
 }
 
-<h2>AccUpdates</h2>
 
-@using (Html.BeginForm("AccUpdates", "CCustomer", FormMethod.Post,
-                new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>t店家</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.f店家ID)
-
-        <div class="form-group">
-            <p>帳號（電子信箱）</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p>密碼</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f密碼, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <hr />
-
-        <div class="form-group">
-            <p>店家名稱</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p>負責人</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p>連絡電話</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p>通訊地址</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f地址, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p>銀行帳號</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p>藥商許可證上傳</p>
-            <input type="file" class="form-control-file" name="medicalLicenseUpdate" id="mlfileid" accept="image/*">
-        </div>
-
-        <div class="form-group">
-            <p>營業登記許可證上傳</p>
-            <input type="file" class="form-control-file" name="businessLicenseUpdate" id="blfileid" accept="image/*">
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.f備註, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.f備註, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="儲存修改" class="btn btn-default" />
-                @Html.ActionLink("取消修改", "AccUpdates", new { /* id=item.PrimaryKey */ })
-            </div>
-        </div>
+<div class="container-fluid mt-3 p-5">
+    <div>
+        <h2 class="row justify-content-center mb-5">會員資料修改</h2>
     </div>
+
+    @using (Html.BeginForm("AccUpdates", "CCustomer", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="row justify-content-center">
+                <fieldset class="col-12 col-md-5 tomatoborder">
+                    <h4>帳號資訊</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.f店家ID)
+
+                    <div class="form-group">
+                        <label class="form-label">帳號（電子信箱）</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.f電子信箱, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.f電子信箱, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group ">
+                        <div class="col-md-10">
+                            <label class="form-label">請輸入舊密碼</label>
+                            <input type="password" id="reCheckText" onblur="reCheck()" class="form-control" required />
+                            <p id="reCheckAlert" style="color:lightgray; font-size:1rem; background-color:black;"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="allowChange">
+                        <label class="form-label">新密碼</label>
+                        <div class="col-md-10">
+                            @* @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control", type = "password", required = "required", @maxlength = "10", id = "inputpassword" } })*@
+                            @Html.EditorFor(model => model.f密碼, new { htmlAttributes = new { @class = "form-control", type = "password", required = "required", @maxlength = "10", id = "inputpassword" } })
+                            @Html.ValidationMessageFor(model => model.f密碼, "", new { @class = "text-danger" })
+                        <label class="form-label">確認密碼</label>
+                            <input type="password" id="chkPwd" onblur="validate()" class="form-control" required="required" />
+                            <p id="alertColumn" style="color:lightgray; font-size:1rem; background-color:black;"></p>
+                        </div>
+                    </div>
+
+
+
+
+                </fieldset>
+
+                <fieldset class="col-12 col-md-5 tomatoborder">
+                    <h4>商店資訊</h4>
+                    <hr />
+                    <div class="form-group">
+                        <label class="form-label">店家名稱</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.f店家名稱, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f店家名稱, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">負責人姓名</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.f店家負責人, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f店家負責人, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">連絡電話</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.f店家連絡電話, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f店家連絡電話, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">通訊地址</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.f地址, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f地址, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">銀行帳號</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.f銀行帳號, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f銀行帳號, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                </fieldset>
+
+            </div>
+
+            @*照片*@
+
+            <div class="row justify-content-center">
+                <fieldset class="col-12 col-md-10 tomatoborder">
+                    <h4>藥商許可證及營業登記證更新</h4>
+                    <hr />
+                    <div class="col-md-6">
+                        <label for="mlfileid" class="form-label">藥商許可證：</label>
+                        <input type="file" class="form-control btn-outline-secondary" name="medicalLicenseUpdate" id="mlfileid" accept="image/*">
+                        <img src="" class="w-75 m-3 " id="img1" />
+                    </div>
+
+
+                    <div class="col-md-6 ">
+                        <label for="blfileid" class="form-label">營業登記證：</label>
+                        <input type="file" class="form-control btn-outline-secondary" name="businessLicenseUpdate" id="blfileid" accept="image/*">
+                        <img src="" class="w-75 m-3" id="img2" />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="儲存修改" class="btn btn-outline-dark btn-sm  m-3" />
+                            @Html.ActionLink("取消修改", "AccUpdates", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-outline-danger btn-sm  m-3" })
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section scripts{
+    <script>
+
+        const theFile = document.querySelector('#mlfileid');
+        const theFile2 = document.querySelector('#blfileid');
+
+        const theImg = document.querySelector('#img1');
+        const theImg2 = document.querySelector('#img2');
+
+        //預覽圖片1 慧芬
+        theFile.addEventListener("change", function () {
+
+            const file = theFile.files[0]
+            const reader = new FileReader();
+            reader.addEventListener("load", function () {
+                theImg.src = this.result;
+            })
+            reader.readAsDataURL(file);
+        })
+
+        //預覽圖片2
+        theFile2.addEventListener("change", function () {
+
+
+            const file2 = theFile2.files[0]
+
+
+            const reader2 = new FileReader();
+            reader2.addEventListener("load", function () {
+
+                theImg2.src = this.result;
+            })
+            reader2.readAsDataURL(file2);
+        })
+
+
+        function validate() {
+            var word1 = document.getElementById("inputpassword").value;
+            var word2 = document.getElementById("chkPwd").value;
+            if (word1 != word2) {
+                document.getElementById("alertColumn").innerHTML = "兩次輸入的密碼不符！";
+                document.getElementById("chkPwd").value = "";
+                document.getElementById("inputpassword").value = "";
+                document.getElementById("submit").disabled = true;
+                document.querySelector('.borderLilac').style.backgroundColor = "crimson";
+            } else {
+                document.getElementById("alertColumn").innerHTML = "";
+                document.getElementById("submit").disabled = false;
+                document.querySelector('.borderLilac').style.backgroundColor = "";
+            }
+        }
+
+@{
+
+    string oldPassWord= Model.f密碼;
+
 }
 
+        //password
+        function reCheck() {
+            var reCheckText = document.getElementById("reCheckText").value;
+            var oldPassWord ="@oldPassWord";
+            console.log(oldPassWord);
+
+            if (oldPassWord != reCheckText) {
+                document.getElementById("reCheckAlert").innerHTML = "您輸入的密碼不符合舊密碼！";
+                document.getElementById("reCheckText").value = "";
+                document.getElementById("submit").disabled = true;
+                document.querySelector('.borderLilac').style.backgroundColor = "crimson";
+            } else {
+                document.getElementById("reCheckAlert").innerHTML = "";
+                document.getElementById("submit").disabled = false;
+                document.querySelector('.borderLilac').style.backgroundColor = "";
+
+                //var allowChange = document.getElementById("allowChange");
+                //allowChange.removeAttribute("hidden");
+
+            }
+        }
+
+        window.onload = function () {
+
+            var word1 = document.getElementById("inputpassword");
+            word1.value = "";
+
+        }
 
 
 
+
+    </script>
+
+}

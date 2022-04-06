@@ -196,7 +196,7 @@
                                     <option>黑名單</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" hidden>
                                 @Html.EditorFor(model => model.f往來狀態, new { htmlAttributes = new { @class = "form-control", @id = "txt" } })
                                 @Html.ValidationMessageFor(model => model.f往來狀態, "", new { @class = "text-danger" })
                             </div>
