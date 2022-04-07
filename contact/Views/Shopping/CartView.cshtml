@@ -241,11 +241,9 @@
 
     @*@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })*@
     <div class="offset-md-10 col-md-2 col-12 mt-5 ">
-        <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)" id="goCheck">結帳</a>
+        <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)" id="goCheck">前往結帳</a><a class="btn tomatobtn noshow" href="/Shopping/List">繼續購物</a>
     </div>
-    <div class="offset-md-10 col-md-2 col-12 mt-5 ">
-        @Html.ActionLink("繼續購物", "List", new { }, new { @class = " tomatobtn noshow" })
-    </div>
+  
 
 
 </div>

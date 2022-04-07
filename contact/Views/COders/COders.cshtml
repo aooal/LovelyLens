@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<contact.Models.t訂單>
-@*@model IEnumerable<contact.ViewModels.MOderDetailRecord>*@
 
 @{
     ViewBag.Title = "COderDetail-經銷商：歷史訂單一覽";
@@ -10,12 +9,6 @@
 <style>
     h1 {
         color: gainsboro;
-    }
-    .table > :not(caption) > * > * {
-        padding: 0.5rem 0.5rem;
-        background-color: var(--bs-table-bg);
-        border-bottom-width: 0px;
-        box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
     }
 </style>
 
@@ -38,7 +31,7 @@
                 <input type="text" name="txtKeyword" class="form-control">
             </div>
             <div class="col-12 col-lg-1  mb-3">
-                <input type="submit" value="查詢" class=" tomatoclickbtn">
+                <input type="submit" value="查詢" class=" tomatoclickbtn ">
             </div>
 
         </div>
@@ -46,47 +39,40 @@
     }
     <p>@ViewBag.data</p>
 
-    <table class="table ordertable col-12 col-md-10 " style="table-layout:fixed;word-break:break-all">
+    <table class="table ordertable col-12 col-md-10 ">
         <tr>
 
-            @*<th class="col-md-2 col">下單日期</th>
-            <th class="col-md-3 col-2">訂單單號</th>
-            <th class="col-md-2 col">訂單總價</th>
-            <th class="col-md-2 col">配送狀態</th>
-            <th class="col-md-2 col">訂單狀態</th>
-            <th class="col-md-3 col-5">訂單備註<th>
-            <th></th>*@
             <th>下單日期</th>
             <th>訂單單號</th>
             <th>訂單總價</th>
             <th>配送狀態</th>
             <th>訂單狀態</th>
+
             <th>
                 訂單備註
             <th>
+            <th></th>
         </tr>
         <tbody>
 
             @foreach (var item in Model)
             {
 
-                <tr>
-                    <td>@item.f訂購日期</td>
-                    <td>@item.f對外訂單單號</td>
-                    <td>@Convert.ToDouble(@item.f訂單總金額) 元</td>
+            <tr>
+                <td>@item.f訂購日期</td>
+                <td>@item.f對外訂單單號</td>
+                <td>@item.f訂單總金額 元</td>
 
-                    <td>@item.f配送狀態</td>
+                <td>@item.f配送狀態</td>
 
-                    <td>@item.f訂單狀態</td>
-                    <td>@item.f訂單備註</td>
+                <td>@item.f訂單狀態</td>
+                <td>@item.f訂單備註</td>
 
-                    <td class="d-flex flex-wrap">
-                        <div class="col-7 col-md-6 my-3">
-                            @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
-                            @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "tomatocartbtn" })
-                        </div>
-                    </td>
-                </tr>
+                <td>
+                    @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+                @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "tomatocartbtn" })
+            </td>
+            </tr>
             }
         </tbody>
 

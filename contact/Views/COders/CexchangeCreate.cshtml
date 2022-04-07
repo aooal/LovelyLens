@@ -2,150 +2,175 @@
 
 @{
     ViewBag.Title = "Cexchangecreate-售後服務申請";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
     <script>
+
         window.onload = function exchangeOutId() {
             var txtId = document.getElementById('exchangeOutId');
             var pid = new Date();
             var pid2 = pid.getTime();
             txtId.value = "c" + pid2.toString();
         }
+
+
     </script>
 }
 
-@section styles{
+@{
+    var first = Model.AfterSalesService.FirstOrDefault();
 
-    <style>
-        h1 {
-            color: gainsboro;
-        }
 
-        h3 {
-            color: red;
-        }
 
-        p {
-            font-family: 'jf-openhuninn';
-            font-size: 1.2rem;
-            margin-top: 16px;
-        }
-    </style>
 }
-<div class="container-fluid mt-3 p-5">
 
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <h1>售後服務申請</h1>
-        </div>
+<div class="row">
+    <div class="col-12 col-md-6">
+        <h1>售後服務申請</h1>
     </div>
-
-
-    @{
-        var first = Model.AfterSalesService.FirstOrDefault();
-    }
-
-
-
-
-
-    @using (Html.BeginForm())
-    {
-        <div class="form-group" onload="exchangeOutId()">
-
-            <input type="hidden" name="price" value="@first.f售價" />
-            <input type="hidden" name="f產品名稱" value="@first.f產品名稱" />
-            <input type="hidden" name="f申請日期" value="@first.f申請日期" />
-            <input type="hidden" name="f店家ID" value="@first.f店家ID" />
-            <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
-            @*<input type="hidden" name="f售後服務申請對外Id" value="@first.f售後服務申請對外Id" />*@
-
-
-
-        </div>
-
-        <div class="form-group col-md-6  tomatoborder">
-            <p>換貨單號:</p><input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" /><br />
-            <p>數量:</p>
-            <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" /><br />
-            <p>顏色:</p>
-            <select name="f產品顏色" value="">
-                @foreach (var color in Model.allColors)
-                {
-                    <option>@color</option>
-                }
-            </select><br />
-            <p>近視老花度數:</p>
-            <select name="f近視老花度數">
-                @foreach (var Shortsighted in Model.allShortsighted)
-                {
-
-                    <option>@Shortsighted</option>
-                }
-
-            </select><br />
-            @if (Model.isPositive == true)
-            {
-                <p>閃光度數:</p>
-                <select name="f閃光度數" value="">
-                    @foreach (var flash in Model.allflash)
-                    {
-
-                        <option>@flash</option>
-                    }
-                </select><br />
-                <p>閃光角度:</p>
-                <select name="f閃光角度" value="">
-                    @foreach (var flashAstigmatism in Model.allflashAstigmatism)
-                    {
-
-                        <option>@flashAstigmatism</option>
-                    }
-                </select><br />
-            }
-            <p>換貨原因:</p><input type="text" name="f換貨原因" /><br />
-            <p>備註:</p><input type="text" name="f換貨備註" /><br />
-            <input type="submit" value="送出申請" class="tomatoclickbtn mt-2">
-        </div>
-
-
-    }
-
-
 </div>
-@section scripts{
+@using (Html.BeginForm())
+{
+<div class="form-group col-md-6  tomatoborder" onload="exchangeOutId()">
+    <p>換貨單號:</p><br />
+
+    <input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" />
+    <input type="hidden" name="price" value="@first.f售價" />
+    <input type="hidden" name="f產品名稱" value="@ViewBag.pName" />
+    <input type="hidden" name="f申請日期" value="@first.f申請日期" />
+    <input type="hidden" name="f店家ID" value="@first.f店家ID" />
+    <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
+    <input type="hidden" name="f售後服務申請對外Id" value="@first.f售後服務申請對外Id" />
+
+
+    <div class="col-md-offset-2 col-md-10">
+        <p>數量</p>
+        <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" />
+    </div>
+</div>
+<div class="form-group col-md-6  tomatoborder">
+
+    <span>顏色:</span>
+    <select id="pColors" name="f產品顏色" value="">
+        <option>顏色</option>
+        @foreach (var color in Model.allColors)
+        {
+            <option>@color</option>
+        }
+    </select>
+    <span>近視老花度數:</span>
+    <select id="pShort" name="f近視老花度數">
+        <option>近視老花度數</option>
+        @foreach (var Shortsighted in Model.allShortsighted)
+        {
+
+            <option>@Shortsighted</option>
+        }
+    </select>
+    @if (Model.isPositive == true)
+    {
+        <span>閃光度數:</span>
+        <select id="pFlash" name="f閃光度數" value="">
+            <option>閃光度數</option>
+            @foreach (var flash in Model.allflash)
+            {
+
+                <option>@flash</option>
+            }
+        </select>
+        <span>閃光角度:</span>
+        <select id="pFlashA" name="f閃光角度" value="">
+            <option>閃光角度</option>
+            @foreach (var flashAstigmatism in Model.allflashAstigmatism)
+            {
+
+                <option>@flashAstigmatism</option>
+            }
+        </select>
+    }
+    <p>換貨原因:</p>
+    <input type="text" name="f換貨原因" />
+    <p> 備註:</p>
+   <input type="text" name="f換貨備註" />
+    <input type="submit" value="送出申請" class="tomatoclickbtn mt-2">
+</div>
+
+}
+
+
+
+@{
     <script>
-        /*這裡是表單HOVER*/
-        $(function () {
 
-            $(".ordertable tr:odd").addClass("orderodd");
-            $(".ordertable tr:even").addClass("ordereven");
 
-            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
-            $(".ordertable tr").hover(
-                function () {
-                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
-                },
-                function () {
-                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
-                }
-            );
+    const pColors = document.getElementById('pColors');
+    const pShort = document.getElementById('pShort');
+    const pFlash = document.getElementById('pFlash');
+    const pFlashA = document.getElementById('pFlashA');
 
-            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
-            $('.ordertable tbody').find("tr").each(function () {
-                let bb = $(this).children('td:eq(4)').text();
-                console.log(bb);
-                if (bb == '未出貨') {
-                    $(this).children('td:eq(4)').css("color", "red");
-                }
+    pColors.addEventListener("change", function () {
+        let pName = '@ViewBag.pName';
+        let para = `?colors=${this.value}&pName=${pName}`;
+        fetch('@Url.Content("~/COders/shortP")' + para, { method: 'get' })
+            .then(response => response.json())
+            .then(response => changeShort(response));
+    });
+    function changeShort(datas) {
+        pShort.innerHTML = '<option>近視老花度數</option>';
+        pFlash.innerHTML = '<option>閃光度數</option>';
+        pFlashA.innerHTML = '<option>閃光角度</option>';
+        let docFrag = document.createDocumentFragment();
+        for (let i = 0; i < datas.length; i++) {
+            let opt = document.createElement('option');
+            opt.textContent = datas[i].f近視老花度數;
+            opt.value = datas[i].f近視老花度數;
+            docFrag.appendChild(opt);
 
+        }
+        pShort.appendChild(docFrag);
+        pShort.addEventListener("change", function () {
+            let pName = '@ViewBag.pName';
+            let para = `?colors=${pColors.value}&pName=${pName}&pShort=${this.value}`;
+            fetch('@Url.Content("~/COders/flashP")' + para, { method: 'get' })
+                .then(response => response.json())
+                .then(response => changeFlash(response));
+            });
+        }
+
+        function changeFlash(datas) {
+
+            pFlash.innerHTML = '<option>閃光度數</option>';
+            pFlashA.innerHTML = '<option>閃光角度</option>';
+            let docFrag = document.createDocumentFragment();
+            for (let i = 0; i < datas.length; i++) {
+                let opt = document.createElement('option');
+                opt.textContent = datas[i].f閃光度數;
+                opt.value = datas[i].f閃光度數;
+                docFrag.appendChild(opt);
+
+            }
+            pFlash.appendChild(docFrag);
+            pFlash.addEventListener("change", function () {
+                let pName = '@ViewBag.pName';
+                let para = `?colors=${pColors.value}&pName=${pName}&pShort=${pShort.value}&pFlash=${this.value}`;
+                fetch('@Url.Content("~/COders/flashA")' + para, { method: 'get' })
+                    .then(response => response.json())
+                    .then(response => changeFlashA(response));
             });
 
+        }
+        function changeFlashA(datas) {
+        pFlashA.innerHTML = '<option>閃光角度</option>';
+        let docFrag = document.createDocumentFragment();
+        for (let i = 0; i < datas.length; i++) {
+            let opt = document.createElement('option');
+            opt.textContent = datas[i].f閃光角度;
+            opt.value = datas[i].f閃光角度;
+            docFrag.appendChild(opt);
+        }
+            pFlashA.appendChild(docFrag);
 
 
-        });
-
+        }
 
     </script>
-
-
-
 }
