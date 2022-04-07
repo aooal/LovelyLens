@@ -22,10 +22,14 @@
         h3 {
             color: red;
         }
+
+        p {
+            font-family: 'jf-openhuninn';
+            font-size: 1.2rem;
+            margin-top: 16px;
+        }
     </style>
 }
-
-
 <div class="container-fluid mt-3 p-5">
 
     <div class="row">
@@ -35,149 +39,78 @@
     </div>
 
 
-    <table class="table ordertable col-12 col-md-10">
-        <tr>
-            <th>
-                產品編號
-            </th>
-            <th>
-                產品名稱
-            </th>
-            <th>
-                訂購數量
-            </th>
-            <th>
-                售價
-            </th>
-            <th>
-                規格:
-            </th>
-            <th>
-                近視老花度數
-            </th>
-            <th>
-                閃光度數
-            </th>
-            <th>
-                閃光角度
-
-            <th>顏色</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @{
-            var first = Model.AfterSalesService.FirstOrDefault();
-        }
-
-        @foreach (var item in Model.AfterSalesService)
-        {
-
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f對外產品識別ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f產品名稱)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f訂購數量)
-                </td>
+    @{
+        var first = Model.AfterSalesService.FirstOrDefault();
+    }
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.f售價)
-                </td>
-                <td></td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f近視老花度數)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f閃光度數)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f閃光角度)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f產品顏色)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f品牌名稱)
-                </td>
-            </tr>
-        }
-
-        @using (Html.BeginForm())
-        {
-            <div class="form-group" onload="exchangeOutId()">
-                <input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" />
-                <input type="hidden" name="price" value="@first.f售價" />
-                <input type="hidden" name="f產品名稱" value="@first.f產品名稱" />
-                <input type="hidden" name="f申請日期" value="@first.f申請日期" />
-                <input type="hidden" name="f店家ID" value="@first.f店家ID" />
-                <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
-                @*<input type="hidden" name="f售後服務申請對外Id" value="@first.f售後服務申請對外Id" />*@
 
 
-                數量
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" />
-                </div>
 
-            </div>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group" onload="exchangeOutId()">
 
-            <div class="form-group">
+            <input type="hidden" name="price" value="@first.f售價" />
+            <input type="hidden" name="f產品名稱" value="@first.f產品名稱" />
+            <input type="hidden" name="f申請日期" value="@first.f申請日期" />
+            <input type="hidden" name="f店家ID" value="@first.f店家ID" />
+            <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
+            @*<input type="hidden" name="f售後服務申請對外Id" value="@first.f售後服務申請對外Id" />*@
 
 
-                @if (Model.isPositive == true)
+
+        </div>
+
+        <div class="form-group col-md-6  tomatoborder">
+            <p>換貨單號:</p><input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" /><br />
+            <p>數量:</p>
+            <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" /><br />
+            <p>顏色:</p>
+            <select name="f產品顏色" value="">
+                @foreach (var color in Model.allColors)
                 {
-                    <span>閃光度數:</span>
-                    <select name="f閃光度數" value="">
-                        @foreach (var flash in Model.allflash)
-                        {
+                    <option>@color</option>
+                }
+            </select><br />
+            <p>近視老花度數:</p>
+            <select name="f近視老花度數">
+                @foreach (var Shortsighted in Model.allShortsighted)
+                {
 
-                            <option>@flash</option>
-                        }
-                    </select>
-                    <span>閃光角度:</span>
-                    <select name="f閃光角度" value="">
-                        @foreach (var flashAstigmatism in Model.allflashAstigmatism)
-                        {
-
-                            <option>@flashAstigmatism</option>
-                        }
-                    </select>
+                    <option>@Shortsighted</option>
                 }
 
-                <span>顏色:</span>
-                <select name="f產品顏色" value="">
-                    @foreach (var color in Model.allColors)
-                    {
-                        <option>@color</option>
-                    }
-                </select>
-
-                <span>近視老花度數:</span>
-                <select name="f近視老花度數">
-                    @foreach (var Shortsighted in Model.allShortsighted)
+            </select><br />
+            @if (Model.isPositive == true)
+            {
+                <p>閃光度數:</p>
+                <select name="f閃光度數" value="">
+                    @foreach (var flash in Model.allflash)
                     {
 
-                        <option>@Shortsighted</option>
+                        <option>@flash</option>
                     }
+                </select><br />
+                <p>閃光角度:</p>
+                <select name="f閃光角度" value="">
+                    @foreach (var flashAstigmatism in Model.allflashAstigmatism)
+                    {
+
+                        <option>@flashAstigmatism</option>
+                    }
+                </select><br />
+            }
+            <p>換貨原因:</p><input type="text" name="f換貨原因" /><br />
+            <p>備註:</p><input type="text" name="f換貨備註" /><br />
+            <input type="submit" value="送出申請" class="tomatoclickbtn mt-2">
+        </div>
 
 
-                </select>
-
-                換貨原因:<input type="text" name="f換貨原因" />
-                備註:<input type="text" name="f換貨備註" />
-                <input type="submit" value="送出申請">
-            </div>
-
-        }
+    }
 
 
-    </table>
 </div>
-
 @section scripts{
     <script>
         /*這裡是表單HOVER*/

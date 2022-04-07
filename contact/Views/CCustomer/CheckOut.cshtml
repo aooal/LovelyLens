@@ -16,115 +16,76 @@
 <div class="container-fluid mt-3">
     <h2 class="row justify-content-center family">結帳</h2>
 </div>
-<hr />
+<hr class="tomatolower" />
 @*<div>
     <label>訂購品項</label>
 </div>*@
 
-<div class="container-fluid">
-    <table class="table">
-        <tr class="table-danger">
-            <th>
+<div class="container">
+    <div class="row justify-content-center table-responsive-md">
+        <table class="table col-12 col-md-12">
+            <tr class="table-dark">
+                
+                <th class="col-1" style="display:none"></th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.品牌名稱)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.產品名稱)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.產品顏色)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.近視度數)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.散光度數)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.散光角度)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.數量)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.單價)</th>
+                <th class="col-1">@Html.DisplayNameFor(model => model.小計)</th>
+                
+            </tr>
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.品牌名稱)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.產品名稱)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.產品顏色)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.近視度數)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.散光度數)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.散光角度)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.數量)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.單價)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.小計)
-            </th>
-            <th></th>
-        </tr>
-
-        @{
-            decimal tempTotal = 0;
-            foreach (var item in Model)
-            {
-                tempTotal += item.小計;
+            @{
+                decimal tempTotal = 0;
+                foreach (var item in Model)
+                {
+                    tempTotal += item.小計;
+                        <tr>
+                            <td style="display:none" ><input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.品牌名稱)</td>
+                            <td>@Html.DisplayFor(modelItem => item.產品名稱)</td>
+                            <td>@Html.DisplayFor(modelItem => item.產品顏色)</td>
+                            <td>@Html.DisplayFor(modelItem => item.近視度數)</td>
+                            <td>@Html.DisplayFor(modelItem => item.散光度數)</td>
+                            <td>@Html.DisplayFor(modelItem => item.散光角度)</td>
+                            <td>@Html.DisplayFor(modelItem => item.數量)</td>
+                            <td class="moneyPer">@Html.DisplayFor(modelItem => item.單價)</td>
+                            <td class="moneyAdd">@Html.DisplayFor(modelItem => item.小計)</td>
+                            
+                        </tr>
+                }
                 <tr>
-                    <td>
-                        <input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.品牌名稱)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.產品名稱)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.產品顏色)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.近視度數)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.散光度數)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.散光角度)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.數量)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.單價)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.小計)
-                    </td>
+                    <td style="display:none" ></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>總價</td>
+                    <td>@Convert.ToDouble(@tempTotal).ToString()</td>
+                    <td>元</td>
                 </tr>
+
+
             }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>總價</td>
-        <td>
-            <p>@tempTotal.ToString()</p>
-            
-        </td>
-        <td><p>元</p></td>
-    </tr>
 
-
-        }
-
-    </table>
+        </table>
+    </div>
 </div>
 
 <form action="/CCustomer/CheckOut" method="POST">
     <div class="container-fluid">
         <label class="family">訂購人資訊</label>
     </div>
-    <div class="row container-fluid col-8 m-3">
+    <div class="row container-fluid col-12  col-md-8 m-3">
 
-        <div class="border border-primary rounded ">
-            <fieldset class="col-6 p-3">
+        <div class="border border-primary  border-2 rounded ">
+            <fieldset class="col-12 col-md-6 p-3">
                 <div>
                     <p>
                         <input type="checkbox" id="sameWithAccount" value="與會員資料相同" />
@@ -155,12 +116,12 @@
     <div class="container-fluid">
         <label class="family">付款資訊</label>
     </div>
-    <div class="row container-fluid col-8 m-3">
-        <div class="border border-primary rounded">
-            <fieldset class="col-6 p-3">
+    <div class="row container-fluid  col-12  col-md-8 m-3">
+        <div class="border border-primary  border-2 rounded">
+            <fieldset class="col-12 col-md-6 p-3">
                 <p>
                     <label class="my-3">訂單需求</label>
-                    <select id="orderDemand" name="f訂單需求" class="form-control col-6">
+                    <select id="orderDemand" name="f訂單需求" class="form-control col-10 col-md-6">
                         <option selected disabled>請選擇訂單需求</option>
                         <option>客需</option>
                         <option>庫存</option>
@@ -168,7 +129,7 @@
                     </select>
                 </p>
                 <label class="my-3">付款方式：</label>
-                <select id="payment" name="f付款方式" class="form-control col-6">
+                <select id="payment" name="f付款方式" class="form-control col-10 col-md-6">
                     <option selected disabled>請選擇付款方式</option>
                     <option>銀行轉帳</option>
                     <option>線上刷卡</option>
@@ -185,13 +146,13 @@
     <div class="container-fluid">
         <label class="family">備註</label>
     </div>
-    <div class="row container-fluid col-8 m-3">
-        <div class="border border-primary rounded ">
-            <textarea name="f訂單備註" class="col-8 form-control border border-primary rounded p-3"></textarea>
+    <div class="row container-fluid  col-12  col-md-8 m-3">
+        <div class="">
+            <textarea name="f訂單備註" class="col-10 col-md-6 form-control border border-primary  border-2 rounded p-3" maxlength="50"></textarea>
         </div>
     </div>
     
-    <fieldset class="offset-md-10 col-md-2">
+    <fieldset class="offset-md-10 col-md-2 offset-2 col-2">
         <input type="submit" value="確認結帳" id="checkoutSubmit" class="tomatodangerbtn" />
     </fieldset>
  
@@ -231,6 +192,35 @@
                 accEmail.value = '';
             }
         });
+
+
+
+       //資料庫的售價 單價 及小計去小數 慧芬
+        var moneyPer = [];
+        var moneyAdd = [];
+          @foreach (var item in Model)
+        {
+            @:moneyPer.push("@Convert.ToDouble(@item.單價)");
+            @:moneyAdd.push("@Convert.ToDouble(@item.小計)");
+        }
+
+
+        var newmoneyPer = document.querySelectorAll('td.moneyPer');
+
+
+        for (let index in moneyPer)
+        {
+
+            newmoneyPer[index].innerHTML = moneyPer[index];
+
+        }
+        var newmoneyAdd = document.querySelectorAll('td.moneyAdd');
+        for (let index in moneyAdd) {
+
+            newmoneyAdd[index].innerHTML = moneyAdd[index];
+
+        }
+
     </script>
 }
 

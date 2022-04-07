@@ -7,85 +7,52 @@
     h1 {
         color: gainsboro;
     }
-
-    .bigtext {
-        font-family: jf-openhuninn;
-        font-size: 2.0rem;
-    }
 </style>
 
 <div class="container-fluid mt-1 p-5">
-    <h1>我是詳情</h1>@*(這是什麼? BY沛)*@
-    <h2>經銷商：換貨申請詳情</h2>
+    <h1>我是詳情</h1>
+    <h4>經銷商：換貨申請詳情</h4>
 
-    <div>
 
-        <hr />
+    <table class="table ordertable col-12 col-md-10" style="font-size: 1.0rem">
+        <tr>
+            <th>申請日期</th>
+            <th>售後服務申請單號</th>
+            <th>售後服務申請狀態</th>
+            <th>產品名稱</th>
+            <th>近視老花度數</th>
+            <th>散光度數</th>
+            <th>散光角度</th>
+            <th>換貨數量</th>
+            <th>換貨原因</th>
+            <th>換貨備註</th>
+            <th></th>
+        </tr>
 
-        <table class="table ordertable col-12 col-md-10">
+        @{
+
             <tr>
-                <th>申請日期</th>
-                <th>售後服務申請單號</th>
-                <th>售後服務申請狀態</th>
-                <th>產品名稱</th>
-                <th>近視老花度數</th>
-                <th>散光度數</th>
-                <th>散光角度</th>
-                <th>換貨數量</th>
-                <th>換貨原因</th>
-                <th>換貨備註</th>
-                <th></th>
+                <td>@Model.f申請日期</td>
+                <td>@Model.f售後服務申請對外Id</td>
+                <td>@Model.f換貨申請狀態</td>
+                <td>@Model.f產品名稱</td>
+                <td>@Model.f近視老花度數</td>
+                <td>@Model.f閃光度數</td>
+                <td>@Model.f閃光角度</td>
+                <td>@Model.f數量</td>
+                <td>@Model.f換貨原因</td>
+                <td>@Model.f換貨備註</td>
+                <td>
+                    @Html.ActionLink("取消此單", "CexchangeDelete", new { id = Model.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" })
+                </td>
             </tr>
 
 
-
-            @{
-
-                <tr>
-                    <td>
-                        @Model.f申請日期
-                    </td>
-                    <td>
-                        @Model.f售後服務申請對外Id
-                    </td>
-                    <td>
-                        @Model.f換貨申請狀態
-                    </td>
-                    <td>
-                        @Model.f產品名稱
-                    </td>
-                    <td>
-                        @Model.f近視老花度數
-                    </td>
-                    <td>
-                        @Model.f閃光度數
-                    </td>
-                    <td>
-                        @Model.f閃光角度
-                    </td>
-                    <td>
-                        @Model.f數量
-                    </td>
-                    <td>
-                        @Model.f換貨原因
-                    </td>
-                    <td>
-                        @Model.f換貨備註
-                    </td>
-                    <td>
-                        @Html.ActionLink("取消", "CexchangeDelete", new { id = Model.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" }) |
-                    </td>
-                </tr>
+        }
 
 
-            }
-
-
-        </table>
-    </div>
-
+    </table>
 </div>
-
 
 @section scripts{
     <script>
@@ -124,6 +91,8 @@
 
 }
 
+
+
 @*我的詳情
     <div class="container-fluid mt-1 p-5">
         <h2 class="mb-5">換貨詳情管理</h2>
@@ -152,6 +121,27 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>1234567890123456</td>
+                    <td>我是商品我的顏色我幾度</td>
+                    <td>12345</td>
+                    <td>12345656748元</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
                     <td>1234567890123456</td>
                     <td>我是商品我的顏色我幾度</td>
                     <td>12345</td>

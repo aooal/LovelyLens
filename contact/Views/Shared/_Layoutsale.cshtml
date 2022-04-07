@@ -136,11 +136,16 @@
 
 
             <div class="menu menutext3 col-md col-sm text-center" onclick="toggleMenu(3);">
-                <h6 class="m-3">售 後 服 務 登 記 </h6>
+                <a href="/COders/Cexchange" style="color:#fff">
+                    <h6 class="m-3">售 後 服 務 登 記</h6>
+                </a>
+                
+                
+                @*<h6 class="m-3">售 後 服 務 登 記</h6>
                 <ul id="memu-3" class="hide">
                     <li>@Html.ActionLink("所有換貨單", "Cexchange", "COders")</li>
                     <li>@Html.ActionLink("新增換貨單", "CexchangeCreate", "COders")</li>
-                </ul>
+                </ul>*@
             </div>
 
             <div class="menu menutext4 col-md col-sm text-center" onclick="toggleMenu(4);">
@@ -168,27 +173,28 @@
                         </svg>
                     </a>
                     <a href="/Home/Signout" class="mx-1">登出</a>
-                        <span>@Html.Action("Login", "Home") 你 好</span>
+                    <span>@Html.Action("Login", "Home") 你 好</span>
                 </div>
-            </div>
-
-            @*身體開始*@
-
-            <div class="container-fluid  body-content ">
-                @RenderBody()
-                <hr />
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - 隱形眼鏡B2B交易系統平台</p>
-                </footer>
-
             </div>
         </div>
     </div>
 
+    @*身體開始*@
+
+    <div class="container-fluid  body-content ">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 隱形眼鏡B2B交易系統平台</p>
+        </footer>
+
+    </div>
+
+
 
     @*<script src="@Url.Content("~/js/bootstrap.bundle.min.js")"></script>
         <script src="@Url.Content("~/js/popper.min.js")"></script>*@
-<script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>

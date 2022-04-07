@@ -11,9 +11,10 @@
 
     .bigtext {
         font-family: jf-openhuninn;
-        font-size: 2rem;
+        font-size: 2.0rem;
     }
 </style>
+
 <div class="container-fluid mt-1 p-5">
     <h2 class="mb-5">經銷商：歷史訂單詳情</h2>
     @{ var aItem = Model.FirstOrDefault(); }
@@ -24,28 +25,39 @@
         <div class="col-4 col-md-4  bigtext">
             訂單日期:@aItem.f訂購日期<br>
         </div>
-        <hr />
 
-    </div>  
-
+    </div>
+    <hr />
     <div class="row">
         <div class="col-6  col-md-6 family">
             訂單狀態:@aItem.f訂單狀態<br>
             付款狀態:@aItem.f付款狀態
         </div>
     </div>
+
 </div>
 
 
 <div class="container-fluid">
-    <table class="table ordertable col-12 col-md-12"  style="table-layout:fixed;word-break:break-all">
+    <table class="table ordertable col-12 col-md-12" style="table-layout:fixed;word-break:break-all">
         <tr>
-            <th class="col-md-2 col-2">商品編號</th>
-            <th class="col-md-2 col-2">商品名稱</th>
-            <th class="col-md-2 col">數量</th>
-            <th class="col-md-2 col">顏色</th>
-            <th class="col-md-2 col">小計</th>
-            <th class="col-md-2 col-3"> </th>
+            @*慧芬排版
+                <th class="col-md-2 col-2">商品編號</th>
+                <th class="col-md-2 col-2">商品名稱</th>
+                <th class="col-md-2 col">數量</th>
+                <th class="col-md-2 col">顏色</th>
+                <th class="col-md-2 col">小計</th>
+                <th class="col-md-2 col-3"> </th>*@
+
+            <th>商品編號</th>
+            <th>商品名稱</th>
+            <th>數量</th>
+            <th>顏色</th>
+            <th>近視老花度數</th>
+            <th>散光度數</th>
+            <th>散光角度</th>
+            <th>小計</th>
+            <th></th>
         </tr>
         @{
 
@@ -57,30 +69,51 @@
                 <input type="hidden" name="f閃光角度" value="@item.f閃光角度" />
                 <input type="hidden" name="f售價" value="@item.f售價" />
                 <tr>
-                    <td>@item.f對外產品識別ID</td>
-                    
-                    <td>@item.f產品名稱</td>
-                    
-                    <td>@item.f訂購數量</td>
-                    
-                    <td>@item.f產品顏色</td>
-                   
-                    <td>@Convert.ToDouble(item.f小計) 元</td>
-                    
                     <td>
-                        @Html.ActionLink("重購", "", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
-                        @Html.ActionLink("換貨", "Cexchangecreate", new { id = item.f對外訂單單號, pid = item.f對外產品識別ID }, new { @class = "tomatocartbtn" })
+                        @item.f對外產品識別ID
+                    </td>
+                    <td>
+                        @item.f產品名稱
+                    </td>
+                    <td>
+                        @item.f訂購數量
+                    </td>
+                    <td>
+                        @item.f產品顏色
+                    </td>
+                    <td>
+                        @item.f近視老花度數
+                    </td>
+                    <td>
+                        @item.f閃光度數
+                    </td>
+                    <td>
+                        @item.f閃光角度
+                    </td>
+                    <td>
+                        @Convert.ToDouble(item.f小計) 元
+                        @*@item.f小計 元*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = aItem.f對外訂單單號, pid = aItem.f對外產品識別ID }, new { @class = "tomatocartbtn" })
                     </td>
                 </tr>
             }
         }
     </table>
 
+
+
     <div class="row justify-content-end family" style="font-size:1.5rem">
         總價：@Convert.ToDouble(aItem.f訂單總金額) 元
+        @*總價：@aItem.f訂單總金額 元*@
     </div>
-    <div class="mb-5"style="font-family:jf-openhuninn; font-size:1.3rem">
+    <div class="mb-5" style="font-family:jf-openhuninn; font-size:1.3rem">
         備註：@aItem.f訂單備註
+    </div>
+    <div>
+        @Html.ActionLink("重新訂購", "", new { id = aItem.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+        @Html.ActionLink("取消訂單", "COderDetailDelete", new { id = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" })
     </div>
 </div>
 
@@ -183,9 +216,6 @@
                     }
 
                 });
-
-
-
 
 
                

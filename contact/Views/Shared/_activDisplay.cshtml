@@ -11,7 +11,7 @@
     @*<div class="container-fluid ">
         <div class="row">*@
 
-            <section id="lokiSlider" class="carousel slide carousel-fade vh-50 " data-bs-ride="carousel">
+            <section id="lokiSlider" class="carousel slide carousel-fade vh-50 w-100 col-12 col-md-12" data-bs-ride="carousel">
                 <div class="carousel-indicators">
 
                     @for (var i = 0; i <= 4; i++)
@@ -27,7 +27,7 @@
                     {
                         <div class="carousel-item">
                             <a href="~/Shopping/_theActivity/@item.f優惠活動ID"><img src="~/images/@item.f活動照片路徑" class="d-block w-100"></a>
-                            <div class="carousel-caption  d-md-block ">
+                            <div class="carousel-caption">
                                 <h5>@item.f活動名稱</h5>
                                 <p class="d-none d-md-block">@item.f活動詳情</p>
                             </div>

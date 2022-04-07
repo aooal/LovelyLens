@@ -27,7 +27,7 @@
          }
 
 
-       
+
         function che(e) {
             if (num == 0) {
 
@@ -39,155 +39,147 @@
             return true;
         }
 
+        //購物車清空 慧芬
         const money = document.getElementById("money").textContent;
 
        document.addEventListener('DOMContentLoaded', function () {
-            const empty = document.getElementById('empty');
+           const empty = document.getElementById('empty');
+           const goCheck = document.getElementById('goCheck');
+           const list = document.querySelector('.noshow');
             if (money =="0"){
-                empty.removeAttribute("hidden")
+                empty.removeAttribute("hidden");
+                goCheck.setAttribute("hidden", "true");
+                list.setAttribute("hidden", "true");
            };
        })
 
+       //資料庫的售價 單價 及小計去小數 慧芬
+        var moneyPer = [];
+        var moneyAdd = [];
+          @foreach (var item in Model)
+        {
+            @:moneyPer.push("@Convert.ToDouble(@item.單價)");
+            @:moneyAdd.push("@Convert.ToDouble(@item.小計)");
+        }
 
-    </script>
-}
-<div class="container">
+        
+        var newmoneyPer = document.querySelectorAll('td.moneyPer');
+       
 
-    <div class="checkout-nav">
-        <div class="step active">
-            <span class="badge"><span class="text">1</span></span>
-            <span>購物車</span>
-        </div>
-        <div class="step">
-            <span class="badge"><span class="text">2</span></span>
-            <span>填寫資料</span>
-        </div>
-        <div class="step">
-            <span class="badge"><span class="text">3</span></span>
-            <span>訂單確認</span>
-        </div>
-    </div>
-    <div class="cart-empty" id="empty" hidden>
-        <div class="panel-body">
-            <i class="fa fa-shopping-cart fa-5" aria-hidden="true"></i>
-            <h5>你的購物車是空的</h5>
-            <p>記得加入商品到你的購物車</p>
-            <a class="btn btn-success btn-large" href="/">繼續購物</a>
-        </div>
-    </div>
-
-
-
-    <table class="table mt-5 ">
-        <tr class="table-dark">
-            <th>
-
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.品牌名稱)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.產品名稱)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.產品顏色)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.近視度數)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.散光度數)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.散光角度)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.數量)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.單價)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.小計)
-            </th>
-            <th>
-                可購買數量
-
-            </th>
-            <th></th>
-        </tr>
-
-        @using (Html.BeginForm())
+        for (let index in moneyPer)
         {
 
-            decimal tempTotal = 0;
-            int countDel = 0;
-            foreach (var item in Model)
-            {
-                tempTotal += item.小計;
-                countDel++;
-                <tr>
-                    <td>
-                        <input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" />
+            newmoneyPer[index].innerHTML = moneyPer[index];
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.品牌名稱)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.產品名稱)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.產品顏色)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.近視度數)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.散光度數)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.散光角度)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.數量)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.單價)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.小計)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.可訂購數量)
+        }
+        var newmoneyAdd = document.querySelectorAll('td.moneyAdd');
+        for (let index in moneyAdd) {
 
-                    </td>
-                    <td>
-                        @Html.ActionLink("修改", "Edit", new { /* id=item.PrimaryKey */ })
-                        @Html.ActionLink("刪除", "Delete", new { id = countDel })
-                    </td>
-                </tr>
-            }
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>總價</td>
-                <td>
-                    <p id="money">@Convert.ToDouble(@tempTotal).ToString()</p>
-                </td>
-                <td><p>元</p></td>
-            </tr>
+            newmoneyAdd[index].innerHTML = moneyAdd[index];
 
         }
 
 
-    </table>
+    </script>
+}
+<div class="container vh-100">
+
+    <div class="row justify-content-center table-responsive-md">
+        <table class="table mt-5 col-12 col-md-12">
+            <tr class="table-dark">
+                <th class="col-1" style="display:none" ></th>
+
+                <th class="col-1">@Html.DisplayNameFor(model => model.品牌名稱)</th>
+                
+                <th class="col-1">@Html.DisplayNameFor(model => model.產品名稱)</th>
+
+                <th class="col-1">@Html.DisplayNameFor(model => model.產品顏色)</th>
+                
+                <th class="col-1">@Html.DisplayNameFor(model => model.近視度數)</th>
+                
+                <th class="col-1">@Html.DisplayNameFor(model => model.散光度數)</th>
+
+                <th class="col-1">@Html.DisplayNameFor(model => model.散光角度)</th>
+                
+                <th class="col-1">@Html.DisplayNameFor(model => model.數量)</th>
+                
+                <th class="col-1">@Html.DisplayNameFor(model => model.單價)</th>
+                
+                <th class="col-1">@Html.DisplayNameFor(model => model.小計)</th>
+                
+                <th class="col-1">可購買數量</th>
+                
+                <th class="col-1"></th>
+            </tr>
+
+            @using (Html.BeginForm())
+            {
+
+                decimal tempTotal = 0;
+                int countDel = 0;
+                foreach (var item in Model)
+                {
+                    tempTotal += item.小計;
+                    countDel++;
+                    <tr>
+                        <td style="display:none" ><input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" /></td>
+
+                        <td>@Html.DisplayFor(modelItem => item.品牌名稱)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.產品名稱)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.產品顏色)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.近視度數)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.散光度數)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.散光角度)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.數量)</td>
+
+                        <td class="moneyPer">@Html.DisplayFor(modelItem => item.單價)</td>
+
+                        <td class="moneyAdd">@Html.DisplayFor(modelItem => item.小計)</td>
+
+                        <td>@Html.DisplayFor(modelItem => item.可訂購數量)</td>
+
+                        <td>
+                            @Html.ActionLink("修改", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-outline-dark btn-sm" })
+                            @Html.ActionLink("刪除", "Delete", new { id = countDel }, new { @class = "btn btn-outline-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+        <tr>
+            <td style="display:none"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>總價</td>
+            <td><p id="money">@Convert.ToDouble(@tempTotal).ToString()</p></td>
+            <td>元</td>
+            <td></td>
+        </tr>
+
+            }
+
+
+        </table>
+    </div>
+
+    <div class="row text-center" id="empty" hidden>
+        <div class="col-12 col-md-12">
+            <i class="fa fa-shopping-cart fa-5" style="font-size:15rem;"></i>
+            <h5 class="mt-3">您的購物車是空的</h5>
+            <p>記得加入商品到您的購物車</p>
+            <a class="btn tomatobtn " href="/Shopping/List/">繼續購物</a>
+        </div>
+    </div>
+
 
     @*@using (Html.BeginForm())
         {
@@ -249,10 +241,10 @@
 
     @*@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })*@
     <div class="offset-md-10 col-md-2 col-12 mt-5 ">
-        <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)">結帳</a>
+        <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)" id="goCheck">結帳</a>
     </div>
     <div class="offset-md-10 col-md-2 col-12 mt-5 ">
-        @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
+        @Html.ActionLink("繼續購物", "List", new { }, new { @class = " tomatobtn noshow" })
     </div>
 
 

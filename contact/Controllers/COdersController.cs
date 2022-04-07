@@ -9,7 +9,7 @@
 //using System.Web.UI.WebControls;
 
 //namespace contact.Controllers
-//{   
+//{
 //    public class COdersController : Controller
 //    {
 //        DBEyeEntities2 db = new DBEyeEntities2();
@@ -65,7 +65,6 @@
 //                                          f訂單狀態 = p.f訂單狀態,
 //                                          f配送狀態 = p.f配送狀態,
 //                                          f訂單備註 = p.f訂單備註
-
 //                                      }).ToList();
 
 //                        return View(query1);
@@ -95,7 +94,7 @@
 //                                      join p in db.t訂單
 //                                      on o.f店家ID equals p.f店家ID
 //                                      orderby o.f店家ID
-//                                      where p.f訂購日期.Contains(txtKeyword)
+//                                      where o.f店家連絡電話.Contains(txtKeyword)
 //                                      select new MOrderRecord
 //                                      {
 //                                          f訂購日期 = p.f訂購日期,
@@ -103,7 +102,8 @@
 //                                          f店家名稱 = o.f店家名稱,
 //                                          f訂單總金額 = p.f訂單總金額,
 //                                          f訂單狀態 = p.f訂單狀態,
-//                                          f配送狀態 = p.f配送狀態
+//                                          f配送狀態 = p.f配送狀態,
+//                                          f訂單備註 = p.f訂單備註
 
 //                                      }).ToList();
 
@@ -153,6 +153,7 @@
 //                             f產品顏色 = q.f產品顏色,
 //                             f近視老花度數 = q.f近視老花度數,
 //                             f閃光角度 = q.f閃光角度,
+
 //                             f閃光度數 = q.f閃光度數,
 //                             f可換貨 = false
 //                         }).ToList();
@@ -255,10 +256,14 @@
 //                                 f對外訂單單號 = p.f對外訂單單號,
 //                                 f訂購日期 = p.f訂購日期,
 //                                 f店家名稱 = o.f店家名稱,
+//                                 //f訂購數量 = r.f訂購數量,
 //                                 f店家連絡電話 = o.f店家連絡電話,
 //                                 f地址 = o.f地址,
 //                                 f配送狀態 = p.f配送狀態,
 //                                 f電子信箱 = o.f電子信箱
+//                                 //f產品名稱 = q.f產品名稱,
+//                                 //f對外產品識別ID = q.f對外產品識別ID,
+//                                 //f可換貨 = false
 //                             }).ToList();
 //            foreach (var orderItem in orderList)
 //            {
@@ -352,28 +357,40 @@
 //        }  //OK
 //        public ActionResult MexchangeShipping(string id)
 //        {
-
+//            var order = (from o in db.t訂單
+//                         where id == o.f對外訂單單號
+//                         select o).FirstOrDefault();
 //            var exchange = (from o in db.t換貨
 //                            where id == o.f售後服務申請對外Id
 //                            select o).FirstOrDefault();
-
 //            if (exchange != null)
 //            {
-
-//                if (exchange.f換貨申請狀態 == "未出貨" && exchange.f換貨申請狀態 != "取消")
+//                var exchangeProducts = db.t換貨明細.Where(detail => detail.f換貨單號ID == exchange.f換貨單號ID).ToList();
+//                exchangeProducts.ForEach(exchangeProduct =>
 //                {
+//                    var product = db.t產品.Where(p => p.f產品ID == exchangeProduct.f產品ID).FirstOrDefault();
+//                    if (product != null)
+//                    {
+//                        product.f庫存數量 = (int)(product.f庫存數量 - exchangeProduct.f換貨數量);
+//                    }
+//                });
+
+//                if (exchange.f換貨申請狀態 == "未出貨")
+//                {
+
 //                    exchange.f換貨申請狀態 = "已出貨";
 //                }
 //                db.SaveChanges();
 //            }
-//            return RedirectToAction("Mshipping");
-//        }  //OK  庫存量
 
+
+//            return RedirectToAction("Mshipping");
+//        }  //OK
 
 //        [HttpGet]
 //        public ActionResult COders()
 //        {
-//            var accountLogin = Convert.ToInt32(User.Identity.Name);
+//            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
 //            var query = (from o in db.t訂單
 //                         where o.f店家ID == accountLogin
 //                         select o).ToList();
@@ -381,7 +398,7 @@
 //        }  //OK
 //        public ActionResult COders(string txtKeyword, string choose)
 //        {
-//            var accountLogin = Convert.ToInt32(User.Identity.Name);
+//            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
 //            if (string.IsNullOrEmpty(Request.Form["txtKeyword"]))
 //            {
 
@@ -415,7 +432,7 @@
 //        }  //OK
 //        public ActionResult COderDetail(string id)
 //        {
-//            var accountLogin = Convert.ToInt32(User.Identity.Name);
+//            var accountLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
 
 //            if (string.IsNullOrEmpty(id))
 //            {
@@ -474,7 +491,6 @@
 //        }  //OK
 
 
-
 //        public ActionResult Mexchange()
 //        {
 //            var query = (from o in db.t換貨
@@ -497,7 +513,6 @@
 //                             f地址 = r.f地址,
 //                             f換貨申請人 = o.f換貨申請人
 //                         }).ToList();
-
 //            return View(query);
 //        }  //OK
 //        [HttpPost]
@@ -520,14 +535,13 @@
 //                                 join p in db.t換貨
 //                                 on q.f店家ID equals p.f店家ID
 //                                 orderby o.f店家ID
-//                                 where q.f換貨申請人.Contains(txtKeyword)
+//                                 where o.f店家名稱.Contains(txtKeyword)
 //                                 select new CexchangeRecord
 //                                 {
 //                                     f申請日期 = q.f申請日期,
 //                                     f售後服務申請對外Id = q.f售後服務申請對外Id,
 //                                     f店家名稱 = o.f店家名稱,
-//                                     f換貨申請狀態 = q.f換貨申請狀態,
-//                                     f換貨申請人 = q.f換貨申請人
+//                                     f換貨申請狀態 = q.f換貨申請狀態
 
 //                                 }).ToList();
 
@@ -546,8 +560,7 @@
 //                                      f申請日期 = q.f申請日期,
 //                                      f售後服務申請對外Id = q.f售後服務申請對外Id,
 //                                      f店家名稱 = o.f店家名稱,
-//                                      f換貨申請狀態 = q.f換貨申請狀態,
-//                                      f換貨申請人 = q.f換貨申請人
+//                                      f換貨申請狀態 = q.f換貨申請狀態
 
 //                                  }).ToList();
 
@@ -567,7 +580,7 @@
 //                                      f售後服務申請對外Id = q.f售後服務申請對外Id,
 //                                      f店家名稱 = o.f店家名稱,
 //                                      f換貨申請狀態 = q.f換貨申請狀態,
-//                                      f換貨申請人 = q.f換貨申請人
+
 
 //                                  }).ToList();
 
@@ -584,76 +597,78 @@
 //                return RedirectToAction("Mexchange");
 //            }
 
-//            var query = (from o in db.t售後服務申請
-//                         join p in db.t換貨
-//                         on o.f售後服務申請對外Id equals p.f售後服務申請對外Id
-//                         join q in db.t換貨明細
-//                         on p.f售後服務申請對外Id equals q.f售後服務申請對外Id
-//                         join r in db.t產品
-//                         on q.f產品ID equals r.f產品ID
-//                         join s in db.t店家
-//                         on r.f產品ID equals s.f店家ID
-//                         where o.f售後服務申請對外Id == id
+//            var query = (from o in db.t換貨
+//                         join p in db.t換貨明細
+//                         on o.f換貨單號ID equals p.f換貨單號ID
+//                         join q in db.t售後服務申請
+//                         on o.f售後服務申請對外Id equals q.f售後服務申請對外Id
+
+//                         where p.f售後服務申請對外Id == id
 //                         select new CexchangeRecord
 //                         {
-
-//                             f申請日期 = p.f申請日期,
+//                             f申請日期 = o.f申請日期,
 //                             f售後服務申請對外Id = o.f售後服務申請對外Id,
-//                             f店家名稱 = s.f店家名稱,
-//                             f換貨申請狀態 = p.f換貨申請狀態,
-//                             f對外產品識別ID = r.f對外產品識別ID,
-//                             f產品名稱 = r.f產品名稱,
-//                             f換貨數量 = o.f數量,
-//                             f店家連絡電話 = s.f店家連絡電話,
-//                             f地址 = s.f地址,
+//                             f換貨申請狀態 = o.f換貨申請狀態,
+//                             f產品名稱 = q.f產品名稱,
+//                             f近視老花度數 = q.f近視老花度數,
+//                             f閃光度數 = q.f閃光度數,
+//                             f閃光角度 = q.f閃光角度,
+//                             f數量 = q.f數量,
 //                             f換貨原因 = o.f換貨原因,
+//                             f換貨申請人 = o.f換貨申請人,
+//                             //f店家連絡電話 = q.f店家連絡電話,
+//                             //f地址 = q.f地址,
 //                             f換貨備註 = o.f換貨備註,
-//                             f閃光度數 = r.f閃光度數,
-//                             f閃光角度 = r.f閃光角度,
-//                             f近視老花度數 = r.f近視老花度數,
-//                             f可換貨 = false
 
-//                         }).ToList();
-
-//            foreach (var item in query)
-//            {
-
-//                var checkOut = db.t產品.Where(
-//                    m => m.f產品名稱 == item.f產品名稱
-//                    && m.f近視老花度數 == item.f近視老花度數
-//                    && m.f閃光角度 == item.f閃光角度
-//                    && m.f閃光度數 == item.f閃光度數
-//                    );
+//                         }).FirstOrDefault();
 
 
-//                var a = checkOut.Count();
+//            //f對外產品識別ID = r.f對外產品識別ID,
+//            //f產品名稱 = r.f產品名稱,
+//            //f換貨數量 = o.f數量,
+//            //f店家連絡電話 = q.f店家連絡電話,
+//            //f地址 = q.f地址,
+//            //f換貨原因 = o.f換貨原因,
+//            //f換貨備註 = o.f換貨備註
 
-//                if (a == 0)
-//                {
-//                    item.f可換貨 = false;
-//                }
-//                else
-//                {
-//                    int? count = 0;
-//                    foreach (var checkOutResult in checkOut)
-//                    {
-//                        count += checkOutResult.f庫存數量;
 
-//                    }
-//                    if (count >= item.f數量)
-//                    {
-//                        item.f可換貨 = true;
-//                    }
-//                }
-//            }
+
+//            //foreach(var item in query)
+//            //{
+
+//            //    var checkOut = db.t產品.Where(
+//            //        m => m.f產品名稱 == item.f產品名稱
+//            //        && m.f近視老花度數 == item.f近視老花度數
+//            //        && m.f閃光角度 == item.f閃光角度
+//            //        && m.f閃光度數 == item.f閃光度數
+
+//            //        );
+
+//            //    var a = checkOut.Count();
+
+//            //    if (a == 0)
+//            //    {
+//            //        item.f可換貨 = false;
+//            //    }
+//            //    else
+//            //    {
+//            //        int count = 0;
+//            //        foreach (var checkOutResult in checkOut)
+//            //        {
+//            //            count += checkOutResult.f庫存數量;
+
+//            //        }
+//            //        if (count >= item.f換貨數量)
+//            //        {
+//            //            item.f可換貨 = true;
+//            //        }
+//            //    }
+//            //}
 
 
 //            return View(query);
 
 //        }//判斷庫存
-
-//        //MexchangeDelete取消
-//        //MexchangeUpate取消原因
 
 //        [HttpGet]
 //        public ActionResult Cexchange()
@@ -704,7 +719,7 @@
 //                    var query2 = (from o in db.t換貨
 //                                  join p in db.t店家
 //                                  on o.f店家ID equals p.f店家ID
-//                                  where o.f店家ID == accoutLogin && p.f店家ID == accoutLogin && o.f對外訂單單號.Contains(txtKeyword)
+//                                  where o.f店家ID == accoutLogin && p.f店家ID == accoutLogin && o.f售後服務申請對外Id.Contains(txtKeyword)
 
 //                                  select new CexchangeRecord
 //                                  {
@@ -741,14 +756,57 @@
 //                             f閃光角度 = q.f閃光角度,
 //                             f數量 = q.f數量,
 //                             f換貨原因 = o.f換貨原因,
-//                             f換貨備註 = o.f換貨備註
+//                             //f換貨備註 = o.f換貨備註
 //                         }).FirstOrDefault();
 
 //            return View(query);
-//        }//讀不到
+//        }//OK
 
+//        public ActionResult flashA(string colors, string pName, string pShort, string pFlash)
+//        {
+//            var pColors = db.t產品.Where(m => m.f產品名稱 == pName && m.f產品顏色 == colors && m.f近視老花度數 == pShort && m.f閃光度數 == pFlash).Select(n => new
+//            {
+//                n.f閃光角度
+//            }).Distinct().OrderBy(n => n.f閃光角度);
+//            return Json(pColors, JsonRequestBehavior.AllowGet);
+//        }
+//        public ActionResult flashP(string colors, string pName, string pShort)
+//        {
+//            var pColors = db.t產品.Where(m => m.f產品名稱 == pName && m.f產品顏色 == colors && m.f近視老花度數 == pShort).Select(n => new
+//            {
+//                n.f閃光度數
+//            }).Distinct().OrderBy(n => n.f閃光度數);
+//            return Json(pColors, JsonRequestBehavior.AllowGet);
+//        }
+//        public ActionResult shortP(string colors, string pName)
+//        {
+//            var pColors = db.t產品.Where(m => m.f產品名稱 == pName && m.f產品顏色 == colors).Select(n => new
+//            {
+//                n.f近視老花度數
+//            }).Distinct().OrderBy(n => n.f近視老花度數);
+//            return Json(pColors, JsonRequestBehavior.AllowGet);
+//        }
+
+//        public ActionResult Colors(string pName)
+//        {
+//            var pColors = db.t產品.Where(m => m.f產品名稱 == pName).Select(n => new
+//            {
+//                n.f產品顏色
+//            }).Distinct().OrderBy(n => n.f產品顏色);
+//            return Json(pColors, JsonRequestBehavior.AllowGet);
+//        }
+//        public ActionResult Product(string id)
+//        {
+//            var pprodduct = db.t產品.Select(n => new
+//            {
+
+//                n.f產品名稱
+//            }).Distinct().OrderBy(n => n.f產品名稱);
+
+//            return Json(pprodduct, JsonRequestBehavior.AllowGet);
+//        }
 //        [HttpGet]
-//        public ActionResult Cexchangecreate(string id, string pid) //pid產品對外ID 讀不到
+//        public ActionResult Cexchangecreate(string id, string pid) //OK 
 //        {
 
 //            if (string.IsNullOrEmpty(id))
@@ -792,15 +850,17 @@
 //                var brand = db.t產品.Find(productId).f品牌名稱;
 //                var colors = db.t產品.Find(productId).f產品顏色;
 //                var pName = db.t產品.Find(productId).f產品名稱;
-
+//                ViewBag.pName = pName;
+//                var pShortsighteds = db.t產品.Find(productId).f近視老花度數;
+//                var pflashs = db.t產品.Find(productId).f閃光度數;
 //                product.brand = brand;
 //                notFlash.brand = brand;
 
 
-//                var color = db.t產品.Where(m => m.f品牌名稱 == brand).GroupBy(c => c.f產品顏色).Select(s => s.Key);
-//                var flash = db.t產品.Where(m => m.f產品顏色 == colors && m.f品牌名稱 == brand).GroupBy(c => c.f閃光度數).Select(s => s.Key);
-//                var flashAstigmatism = db.t產品.Where(m => m.f產品顏色 == colors).GroupBy(c => c.f閃光角度).Select(s => s.Key);
-//                var Shortsighted = db.t產品.Where(m => m.f產品顏色 == colors && m.f品牌名稱 == brand).GroupBy(c => c.f近視老花度數).Select(s => s.Key);
+//                var color = db.t產品.Where(m => m.f產品名稱 == pName).GroupBy(c => c.f產品顏色).Select(s => s.Key);
+//                var Shortsighted = db.t產品.Where(m => m.f產品顏色 == colors && m.f產品名稱 == pName).GroupBy(c => c.f近視老花度數).Select(s => s.Key);
+//                var flash = db.t產品.Where(m => m.f產品顏色 == colors && m.f產品名稱 == pName && m.f近視老花度數 == pShortsighteds).GroupBy(c => c.f閃光度數).Select(s => s.Key);
+//                var flashAstigmatism = db.t產品.Where(m => m.f產品顏色 == colors && m.f產品名稱 == pName && m.f近視老花度數 == pShortsighteds && m.f閃光度數 == pflashs).GroupBy(c => c.f閃光角度).Select(s => s.Key);
 
 
 
@@ -836,25 +896,66 @@
 //        }
 
 //        [HttpPost]
-
-//        public ActionResult Cexchangecreate(string exchangeOutId, string id, string pid, int nums, MOderDetailRecord cproduct, string f換貨原因, string f換貨備註, decimal? price, string f產品名稱, string f申請日期, int f店家ID, string f售後服務申請對外Id) //要存經銷商cookie userid
+//        public ActionResult Cexchangecreate(string exchangeOutId, string id, string pid,
+//            string f產品顏色, string f近視老花度數, string f閃光角度, string f閃光度數,
+//            int nums, MOderDetailRecord cproduct, string f換貨原因, string f換貨備註, decimal? price, string f產品名稱, string f申請日期, int f店家ID, string f售後服務申請對外Id)
 //        {
+
 //            var accoutLogin = Convert.ToInt32(Request.Cookies["USERid"].Value);
 //            var detailInt = (from o in db.t訂單
 //                             where o.f對外訂單單號 == id
 //                             select o.f訂單單號ID).FirstOrDefault();
 
-//            var cId = db.t訂單.Where(cid => cid.f訂單單號ID == detailInt).Select(c => c.f店家ID).FirstOrDefault();
-//            var cName = db.t店家.Where(cname => cname.f店家ID == cId).Select(n => n.f店家名稱).FirstOrDefault();
-//            var cTel = db.t店家.Where(cname => cname.f店家ID == cId).Select(n => n.f店家連絡電話).FirstOrDefault();
 
 //            var dFid = (from o in db.t訂單明細
 //                        where o.f訂單單號ID == detailInt
 //                        select o.f訂單明細ID).FirstOrDefault();
 
+//            var customerId = (from o in db.t訂單
+//                              where o.f訂單單號ID == detailInt
+//                              select o.f店家ID).FirstOrDefault();
+
+//            var customerName = (from o in db.t店家
+//                                where o.f店家ID == customerId
+//                                select o.f店家名稱).FirstOrDefault();
+
+
+//            var customerTel = (from o in db.t店家
+//                               where o.f店家ID == customerId
+//                               select o.f店家連絡電話).FirstOrDefault();
+
+
 //            var productId = (from o in db.t產品
 //                             where o.f對外產品識別ID == pid
 //                             select o.f產品ID).FirstOrDefault();
+
+
+//            var exChangeId = (from o in db.t產品
+//                              where o.f產品名稱 == f產品名稱 && o.f產品顏色 == f產品顏色 && o.f近視老花度數 == f近視老花度數 && o.f閃光度數 == f閃光度數 && o.f閃光角度 == f閃光角度
+//                              select o.f產品ID).FirstOrDefault();
+
+//            var cName = (from o in db.t產品
+//                         where o.f產品ID == productId
+//                         select o.f店家名稱).FirstOrDefault();
+
+
+//            var cTel = (from o in db.t店家
+//                        where o.f店家名稱 == cName
+//                        select o.f店家連絡電話).FirstOrDefault();
+
+
+//            //var cId = (from o in db.t店家
+//            //           where o.f店家名稱 == cName
+//            //           select o.f店家ID).FirstOrDefault();
+
+
+//            var changedId = (from o in db.t換貨
+//                             where o.f售後服務申請對外Id == f售後服務申請對外Id
+//                             select o.f換貨單號ID).FirstOrDefault();
+
+//            var productIdPrice = (from o in db.t產品
+//                                  where o.f對外產品識別ID == pid
+//                                  select o.f售價).FirstOrDefault();
 //            var pName = (from o in db.t產品
 //                         where o.f產品ID == productId
 //                         select o.f產品名稱).FirstOrDefault();
@@ -870,16 +971,12 @@
 //            var pAstigmatism = (from o in db.t產品
 //                                where o.f產品ID == productId
 //                                select o.f閃光角度).FirstOrDefault();
-
-
-//            var exChangeId = (from o in db.t產品
-//                              where o.f產品名稱 == pName && o.f產品顏色 == pColor && o.f近視老花度數 == pShort && o.f閃光度數 == pFlash && o.f閃光角度 == pAstigmatism
-//                              select o.f產品ID).FirstOrDefault();
-
-
-//            var changedId = (from o in db.t換貨
-//                             where o.f售後服務申請對外Id == f售後服務申請對外Id
-//                             select o.f換貨單號ID).FirstOrDefault();
+//            var chId = (from o in db.t換貨明細
+//                        where o.f產品ID == productId
+//                        select o.f換貨單號ID).FirstOrDefault();
+//            var cNameId = (from o in db.t換貨
+//                           where o.f換貨單號ID == chId
+//                           select o.f店家ID).FirstOrDefault();
 
 //            t售後服務申請 after = new t售後服務申請();
 //            after.f售後服務申請對外Id = exchangeOutId;
@@ -897,7 +994,7 @@
 
 //            t換貨明細 newChangeDetail = new t換貨明細();
 //            newChangeDetail.f產品ID = exChangeId;
-//            newChangeDetail.f要換的產品ID = productId;
+//            newChangeDetail.f要換的產品ID = exChangeId;
 //            newChangeDetail.f換貨數量 = nums;
 //            newChangeDetail.f要換的數量 = nums;
 //            newChangeDetail.f換貨單價 = price;
@@ -913,10 +1010,10 @@
 //            exchanging.f申請日期 = f申請日期;
 //            exchanging.f換貨原因 = f換貨原因;
 //            exchanging.f換貨備註 = f換貨備註;
-//            exchanging.f換貨申請人 = cName;
-//            exchanging.f連絡電話 = cTel;
-//            exchanging.f店家ID = cId;
-//            exchanging.f店家ID = accoutLogin;//
+//            exchanging.f換貨申請人 = customerName;
+//            exchanging.f連絡電話 = customerTel;
+//            //exchanging.f店家ID = cId;
+//            exchanging.f店家ID = accoutLogin;
 //            exchanging.f對外訂單單號 = id;
 //            exchanging.f訂單明細ID = dFid;
 //            exchanging.f換貨申請狀態 = "未出貨";
@@ -929,10 +1026,6 @@
 
 //            return RedirectToAction("COderDetail");
 //        }
-
-
-
-
 
 //        public ActionResult CexchangeDelete(string id)
 //        {
@@ -951,10 +1044,6 @@
 //            return RedirectToAction("Cexchange");
 
 //        } //OK
-
-
-
-
 
 
 //    }

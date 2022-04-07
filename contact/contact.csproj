@@ -355,13 +355,6 @@
     <Content Include="Views\CManager\SupEdit.cshtml" />
     <Content Include="Views\Shared\_Layoutsale.cshtml" />
     <Content Include="Views\CManager\Index.cshtml" />
-    <Content Include="Views\COders\Cexchange.cshtml" />
-    <Content Include="Views\COders\CexchangeCreate.cshtml" />
-    <Content Include="Views\COders\CexchangeDetail.cshtml" />
-    <Content Include="Views\COders\Mexchange.cshtml" />
-    <Content Include="Views\COders\MexchangeDetail.cshtml" />
-    <Content Include="Views\COders\MexchangeSupplier.cshtml" />
-    <Content Include="Views\COders\MexchangeSupplierDetail.cshtml" />
     <Content Include="Views\CManager\customer.cshtml" />
     <Content Include="Views\CManager\CusEdit.cshtml" />
     <Content Include="Views\Shopping\List.cshtml" />
@@ -377,11 +370,6 @@
     <Content Include="Views\Shared\_theActivity.cshtml" />
     <Content Include="Views\CDiscount\ActivityDetail.cshtml" />
     <Content Include="Views\Shopping\CartView.cshtml" />
-    <Content Include="Views\COders\COderDetail.cshtml" />
-    <Content Include="Views\COders\COders.cshtml" />
-    <Content Include="Views\COders\MOderDetail.cshtml" />
-    <Content Include="Views\COders\MOders.cshtml" />
-    <Content Include="Views\COders\Mshipping.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -394,6 +382,20 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\CCustomer\AccUpdates.cshtml" />
+    <Content Include="Views\COders\Cexchange.cshtml" />
+    <Content Include="Views\COders\CexchangeCreate.cshtml" />
+    <Content Include="Views\COders\CexchangeDetail.cshtml" />
+    <Content Include="Views\COders\COderDetail.cshtml" />
+    <Content Include="Views\COders\COders.cshtml" />
+    <Content Include="Views\COders\Mexchange.cshtml" />
+    <Content Include="Views\COders\MexchangeDetail.cshtml" />
+    <Content Include="Views\COders\MOderDetail.cshtml" />
+    <Content Include="Views\COders\MOders.cshtml" />
+    <Content Include="Views\COders\MOderUpdate.cshtml" />
+    <Content Include="Views\COders\Mshipping.cshtml" />
+    <Content Include="Views\COders\MexchangeSupplier.cshtml" />
+    <Content Include="Views\COders\MexchangeSupplierCreate.cshtml" />
+    <Content Include="Views\COders\MexchangeSupplierDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,50 +1,136 @@
-﻿@model contact.ViewModels.CexchangeDetailRecord
+﻿@model IEnumerable<contact.ViewModels.CexchangeRecord>
 @{
-    ViewBag.Title = "Cexchange-換貨--[權限]盤商：換貨詳情管理";
+    ViewBag.Title = "Mexchange-換貨--經銷商換貨申請";
+
 }
+
 <style>
     h1 {
         color: gainsboro;
     }
 </style>
-<h4>[權限]盤商：換貨詳情管理</h4>
-<h1>換貨管理</h1>
-換貨單號:@Model.f對外訂單單號
-<div>
-    經銷商:@Model.f店家名稱
-    連絡電話:@Model.f店家連絡電話
-    聯絡地址:@Model.f地址
-</div>
+@{ var aItem = @Model.FirstOrDefault();}
 
-<div>
-    <hr />
-    <table>
+<div class="container-fluid mt-1 p-5">
+    <h1>@ViewBag.data</h1>
+    <h1>我是詳情</h1>
+    <h4>[權限]盤商：盤商換貨申請詳情</h4>
+
+
+    <table class="table ordertable col-12 col-md-12 " style="table-layout: fixed; word-break: break-all;font-size: 1.0rem">
+
         <tr>
-            <th>商品編號</th>
-            <th>商品名稱</th>
-            <th>數量</th>
+            <th>申請日期</th>
+            <th>售後服務申請單號</th>
+            <th>申請人</th>
+            <th>售後服務申請狀態</th>
+            <th>產品對外產品識別ID</th>
+            <th>產品名稱</th>
+            <th>近視度數</th>
+            <th>散光度數</th>
+            <th>散光角度</th>
+            <th>換貨數量</th>
+            <th>經銷商聯絡電話</th>
+            <th>經銷商地址</th>
+            <th>換貨原因</th>
+            <th>換貨備註</th>
+            <th></th>
         </tr>
-        <tr>
-            <td>@Model.f對外產品識別ID</td>
-            <td>@Model.f品牌名稱</td>
-            <td>@Model.f換貨數量</td>
-        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.f申請日期</td>
+                <td>@item.f售後服務申請對外Id</td>
+                <td>@item.f店家名稱</td>
+                <td>@item.f換貨申請狀態</td>
+                <td>@item.f對外產品識別ID</td>
+                <td>@item.f產品名稱</td>
+                <td>@item.f近視老花度數</td>
+                <td>@item.f閃光度數</td>
+                <td>@item.f閃光角度</td>
+                <td>@item.f換貨數量</td>
+                <td>@item.f店家連絡電話</td>
+                <td>@item.f地址</td>
+                <td>@item.f換貨原因</td>
+                <td>@item.f換貨備註</td>
+                <td>
+                    @if (item.f可換貨)
+                    {
+
+
+                    }
+                    else
+                    {
+                        @:庫存不足
+
+
+                    }
+                </td>
+
+            </tr>
+        }
+
+
     </table>
 </div>
-<p>
-    訂單總金額:@Model.f訂單總金額
-    換貨原因:@Model.f換貨原因
-    備註:@Model.f訂單備註
-    狀態:
-    @Html.ActionLink("前往出貨管理", "Mshipping", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("刪除申請", "Index", new { /* id = Model.PrimaryKey */ })
-</p>
 
 
 
+@{
+
+    if (Model.Where(m => m.f可換貨 == false).Count() > 0)
+    {
 
 
-@section styles{
+        @Html.ActionLink("取消此單", "", new { id = aItem.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" });@*方法?訂單被取消才會出現嗎?那存在必要?*@
+
+        @Html.ActionLink("輸入取消原因", "", new { id = aItem.f售後服務申請對外Id }, new { @class = "tomatocartbtn" });@*這個連到哪?*@
+
+    }
+    else
+    {
+        @Html.ActionLink("前往出貨管理", "", new { }, new { @class = "tomatocartbtn" }) ;
+    }
+}
+
+@section scripts{
+    <script>
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+            $('.ordertable tbody').find("tr").each(function () {
+                let bb = $(this).children('td:eq(3)').text();
+                console.log(bb);
+                if (bb == '未出貨') {
+                    $(this).children('td:eq(3)').css("color", "red");
+                }
+
+            });
+
+        });
+
+
+    </script>
+
+}
+
+<!--@section styles{
 
     <style>
     </style>
@@ -59,9 +145,9 @@
         </div>
         <div class="col-4">
             訂單日期：2021.02.25
-        </div>
-        <!-- 下面如果不包在<div class="row"></div> 就會變成滿版色塊 -->
-        <div class="row container-fluid col-10 m-3">
+        </div>-->
+<!-- 下面如果不包在<div class="row"></div> 就會變成滿版色塊 -->
+<!--<div class="row container-fluid col-10 m-3">
 
             <div class="border border-primary rounded ">
                 <p>經銷商：</p>
@@ -128,10 +214,4 @@
     <label>狀態：</label><p class="d-inline">未出貨</p>
 </div>
 
-<button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">刪除申請</button>
-
-
-@section scripts{
-    <script></script>
-
-}
+<button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">刪除申請</button>-->

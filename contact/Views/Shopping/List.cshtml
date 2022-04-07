@@ -150,10 +150,9 @@
         /* 輪播開始 */
         #lokiSlider img {
             object-fit: cover;
-            height: 50vh;
-            display: block;
+            height: 35vh;
+            /*display: block;*/
             width: 100%;
-            /*filter: grayscale(50%);*/
         }
 
         #lokiSlider .carousel-caption {
@@ -168,20 +167,22 @@
         }
 
         .vh-50 {
-            height: 50vh;
+            height: 35vh;
         }
 
-        /* 輪播end */
+  
 
 
-     
+
+
     </style>
+   
 
 }
 
 @section scripts{
     <script>
-       
+
 
 
 
@@ -349,8 +350,8 @@
 
 
         @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page = page }))*@
-      
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page, keyword = Request.QueryString["txtKeyword"] }))
+
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page, keyword = Request.QueryString["txtKeyword"] }))
 
 
 

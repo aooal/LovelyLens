@@ -9,14 +9,12 @@
         color: gainsboro;
     }
 </style>
-
-
 <div class="container-fluid mt-3 p-5">
     <div class="row">
         <div class="col-12 col-md-6">
-            <h2>經銷商:售後服務一覽</h2>
+            <h4>經銷商:售後服務一覽</h4>
 
-            <h4>售後服務申請</h4>
+            <h1>售後服務申請</h1>
         </div>
     </div>
 
@@ -37,15 +35,18 @@
                 <input type="submit" value="查詢" class=" tomatoclickbtn ">
             </div>
         </div>
-
+        @ViewBag.data
     }
-    <p>@ViewBag.data</p>
+
+
 
     <table class="table ordertable col-12 col-md-10">
         <tr>
+
             <th>申請日期</th>
             <th>售後服務申請單號</th>
             <th>售後服務申請狀態</th>
+            <th></th>
         </tr>
         @{
             foreach (var item in Model)
@@ -57,7 +58,7 @@
 
                     <td>@item.f換貨申請狀態</td>
                     <td>
-                        @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" }) |
+                        @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" })
                     </td>
                 </tr>
             }
@@ -67,164 +68,113 @@
     </table>
 </div>
 
+    @section scripts{
+        <script>
+            /*這裡是表單HOVER*/
+            $(function () {
+
+                $(".ordertable tr:odd").addClass("orderodd");
+                $(".ordertable tr:even").addClass("ordereven");
+
+                // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+                $(".ordertable tr").hover(
+                    function () {
+                        $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                    },
+                    function () {
+                        $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                    }
+                );
+
+                //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+                $('.ordertable tbody').find("tr").each(function () {
+                    let bb = $(this).children('td:eq(4)').text();
+                    console.log(bb);
+                    if (bb == '未出貨') {
+                        $(this).children('td:eq(4)').css("color", "red");
+                    }
+
+                });
 
 
-
-
-
-@*我的換貨排版
-
-    <div class="container-fluid mt-3 p-5">
-        <h2 class="mb-5">換貨紀錄一覽</h2>
-
-        <div class="row mb-5 justify-content-start align-items-center">
-            <div class="col-12 col-lg-2  mb-3">
-                <select class="form-select ">
-                    <option>訂單序號</option>
-                    <option>1</option>
-                    <option>1</option>
-                    <option>1</option>
-                </select>
-
-            </div>
-            <div class="col-12 col-lg-3  mb-3">
-                <input type="text" name="" class="form-control" value="" />
-            </div>
-            <div class="col-4 col-lg-1  mb-3 ">
-                <button type="button" class="btn btn-primary ">搜尋</button>
-            </div>
-        </div>
-    </div>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>日期</th>
-                <th>換貨單號</th>
-                <th>金額</th>
-                <th>狀態</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td>2022.02.25</td>
-                <td>75412369695</td>
-                <td>3200元</td>
-                <td class="text-danger">未出貨</td>
-                <td>
-                    <a href="" class="btn btn-outline-dark">查看詳情</a>
-                </td>
-
-            </tr>
-
-
-        </tbody>
-    </table>
-    <div class="col-sm-2">
-        <button type="button" class="btn btn-primary">新增紀錄</button>
-    </div>*@
-
-
-
-
-
-@section scripts{
-    <script>
-        /*這裡是表單HOVER*/
-        $(function () {
-
-            $(".ordertable tr:odd").addClass("orderodd");
-            $(".ordertable tr:even").addClass("ordereven");
-
-            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
-            $(".ordertable tr").hover(
-                function () {
-                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
-                },
-                function () {
-                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
-                }
-            );
-
-            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
-            $('.ordertable tbody').find("tr").each(function () {
-                let bb = $(this).children('td:eq(4)').text();
-                console.log(bb);
-                if (bb == '未出貨') {
-                    $(this).children('td:eq(4)').css("color", "red");
-                }
 
             });
 
 
 
-        });
+        </script>
 
-
-
-    </script>
-
-}
-
-
-
-@*----避免改壞程式碼的備份-----*@
-
-@*@model List<contact.ViewModels.CexchangeRecord>
-    @{
-        ViewBag.Title = "隱形眼鏡B2B交易系統平台";
-        Layout = "~/Views/Shared/_Layoutsale.cshtml";
     }
+    @*我的換貨排版
 
-    <style>
-        h1 {
-            color: gainsboro;
-        }
-    </style>
+        <div class="container-fluid mt-3 p-5">
+            <h2 class="mb-5">換貨紀錄一覽</h2>
 
-    <h4>經銷商:售後服務一覽</h4>
+            <div class="row mb-5 justify-content-start align-items-center">
+                <div class="col-12 col-lg-2  mb-3">
+                    <select class="form-select ">
+                        <option>訂單序號</option>
+                        <option>1</option>
+                        <option>1</option>
+                        <option>1</option>
+                    </select>
 
-    <h1>售後服務申請</h1>
-    @using (Html.BeginForm())
-    {
-        <p>
-            關鍵字搜尋
-            <select name="choose">
-                <option value="order">售後服務申請單號</option>
-                <option value="date">申請日期</option>
+                </div>
+                <div class="col-12 col-lg-3  mb-3">
+                    <input type="text" name="" class="form-control" value="" />
+                </div>
+                <div class="col-4 col-lg-1  mb-3 ">
+                    <button type="button" class="btn btn-primary ">搜尋</button>
+                </div>
+            </div>
+        </div>
 
-            </select>
-            <input type="text" name="txtKeyword">
-            <input type="submit" value="查詢">
-        </p>
-        @ViewBag.data
-    }
-    <table class="table ordertable ">
-        <tr>
-
-            <th>申請日期</th>
-            <th>售後服務申請單號</th>
-            <th>售後服務申請狀態</th>
-        </tr>
-        @{
-            foreach (var item in Model)
-            {
+        <table class="table table-hover">
+            <thead>
                 <tr>
-
-                    <td>@item.f申請日期</td>
-                    <td>@item.f售後服務申請對外Id</td>
-
-                    <td>@item.f換貨申請狀態</td>
-                    <td>
-                        @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }) |
-                    </td>
+                    <th>日期</th>
+                    <th>換貨單號</th>
+                    <th>金額</th>
+                    <th>狀態</th>
+                    <th></th>
                 </tr>
-            }
-        }
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>2022.02.25</td>
+                    <td>75412369695</td>
+                    <td>3200元</td>
+                    <td class="text-danger">未出貨</td>
+                    <td>
+                        <a href="" class="btn btn-outline-dark">查看詳情</a>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>2022.02.25</td>
+                    <td>75412369695</td>
+                    <td>3500元</td>
+                    <td class="text-danger">未出貨</td>
+                    <td>
+                        <a href="" class="btn btn-outline-dark">查看詳情</a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary">新增紀錄</button>
+        </div>*@
 
 
-    </table>*@
+
+
+
+
+
+
 
 
