@@ -32,15 +32,19 @@ namespace contact.Controllers
                 cookie.Expires = DateTime.Now.AddDays(30);
                 Response.Cookies.Add(cookie);
                 //表單驗證授權
-                FormsAuthentication.RedirectFromLoginPage(selectAccount.f店家ID.ToString(), true);
+                if (selectAccount.f往來狀態 != "黑名單")
+                {
+                    FormsAuthentication.RedirectFromLoginPage(selectAccount.f店家ID.ToString(), true);
+                }
+                else
+                {
+                    return Content("此帳號目前無法使用，\n 請洽詢負責人：\n 周小姐 0988 - 888 - 888");
+                }
+                
 
                 if (selectAccount.f身分別 == "管理者")
                 {
                     return RedirectToAction("../CManager/Index"); //重新修改至管理者首頁
-                }
-                else if (selectAccount.f往來狀態 == "黑名單")
-                {
-                    return Content("帳號目前無法使用，請洽詢業務負責人：\n周沛妤\n0988-888-888");
                 }
                 else
                 {

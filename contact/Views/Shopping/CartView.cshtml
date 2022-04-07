@@ -27,7 +27,7 @@
          }
 
 
-
+       
         function che(e) {
             if (num == 0) {
 
@@ -39,9 +39,45 @@
             return true;
         }
 
+        const money = document.getElementById("money").textContent;
+
+       document.addEventListener('DOMContentLoaded', function () {
+            const empty = document.getElementById('empty');
+            if (money =="0"){
+                empty.removeAttribute("hidden")
+           };
+       })
+
+
     </script>
 }
 <div class="container">
+
+    <div class="checkout-nav">
+        <div class="step active">
+            <span class="badge"><span class="text">1</span></span>
+            <span>購物車</span>
+        </div>
+        <div class="step">
+            <span class="badge"><span class="text">2</span></span>
+            <span>填寫資料</span>
+        </div>
+        <div class="step">
+            <span class="badge"><span class="text">3</span></span>
+            <span>訂單確認</span>
+        </div>
+    </div>
+    <div class="cart-empty" id="empty" hidden>
+        <div class="panel-body">
+            <i class="fa fa-shopping-cart fa-5" aria-hidden="true"></i>
+            <h5>你的購物車是空的</h5>
+            <p>記得加入商品到你的購物車</p>
+            <a class="btn btn-success btn-large" href="/">繼續購物</a>
+        </div>
+    </div>
+
+
+
     <table class="table mt-5 ">
         <tr class="table-dark">
             <th>
@@ -80,6 +116,7 @@
             </th>
             <th></th>
         </tr>
+
         @using (Html.BeginForm())
         {
 
@@ -127,7 +164,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("修改", "Edit", new { /* id=item.PrimaryKey */ })
-                        @Html.ActionLink("刪除", "Delete", new { id= countDel})
+                        @Html.ActionLink("刪除", "Delete", new { id = countDel })
                     </td>
                 </tr>
             }
@@ -142,7 +179,7 @@
                 <td></td>
                 <td>總價</td>
                 <td>
-                    <p>@Convert.ToDouble(@tempTotal).ToString()</p>
+                    <p id="money">@Convert.ToDouble(@tempTotal).ToString()</p>
                 </td>
                 <td><p>元</p></td>
             </tr>
@@ -211,12 +248,12 @@
         }*@
 
     @*@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })*@
-<div class="offset-md-10 col-md-2 col-12 mt-5 ">
-    <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)">結帳</a>
-</div>
-        <div class="offset-md-10 col-md-2 col-12 mt-5 ">
-            @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
-        </div>
-
-
+    <div class="offset-md-10 col-md-2 col-12 mt-5 ">
+        <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)">結帳</a>
     </div>
+    <div class="offset-md-10 col-md-2 col-12 mt-5 ">
+        @Html.ActionLink("返回商品列表", "List", new { }, new { @class = " tomatobtn" })
+    </div>
+
+
+</div>
