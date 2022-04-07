@@ -226,7 +226,7 @@
             let bb = $(this).children('#inven').text();
             console.log(bb);
             if (bb*0.8 < 1) {
-                $(this).children('#inven').text("庫存不足").css("color", "red");
+                $(this).children('#inven').text(bb+" (庫存不足)").css("color", "red");
             }
 
         });

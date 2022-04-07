@@ -156,15 +156,19 @@
             {
                 @Html.AntiForgeryToken()
 
-                <fieldset class=" float-lg-end col-md-6  tomatoborder">
-                    <legend class="family">照片上傳</legend>
+            <fieldset class=" float-lg-end col-md-6  tomatoborder">
+                <legend class="family">照片上傳</legend>
 
-                    <label for="inputFile" class="">選擇產品照片</label>
-                    <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
-                    <img src="" class="img-thumbnail w-75 " id="img1" />
+                @*<label for="inputFile" class="">選擇產品照片</label>
+                <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
+                <img src="" class="w-75 " id="img1" />*@
 
-
-                </fieldset>
+                <div class="col-md-6">
+                    <label for="inputFile" class="form-label">選擇產品照片</label>
+                    <input type="file" class="form-control btn-outline-secondary" name="photo" id="fileid" accept="image/*">
+                    <img src="" class="w-75 m-3 " id="img1" />
+                </div>
+            </fieldset>
 
                 <fieldset class="tomatoborder">
                     <legend class="family">新增產品資訊</legend>
