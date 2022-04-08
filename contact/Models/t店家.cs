@@ -11,7 +11,8 @@ namespace contact.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web;
+
     public partial class t店家
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -43,5 +44,7 @@ namespace contact.Models
         public virtual ICollection<t產品> t產品 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t換貨> t換貨 { get; set; }
+        public HttpPostedFileBase 藥商許可證 { get; set; }
+        public HttpPostedFileBase 營業登記許可證 { get; set; }
     }
 }

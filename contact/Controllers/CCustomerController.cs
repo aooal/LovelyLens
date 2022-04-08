@@ -79,30 +79,30 @@ namespace contact.Controllers
         public ActionResult AccUpdates(t店家 修改)
         {
             t店家 會員資料 = db.t店家.FirstOrDefault(m => m.f店家ID == 修改.f店家ID);
-            HttpPostedFileBase medicalLicenseUpdate = Request.Files["medicalLicenseUpdate"];
-            HttpPostedFileBase businessLicenseUpdate = Request.Files["businessLicenseUpdate"];
-            if (medicalLicenseUpdate != null)
+            if (修改.藥商許可證 != null)
             {
                 var MLFileName = Path.GetRandomFileName().Replace(".", "_") + ".jpg";
                 var MLPath = Path.Combine(Server.MapPath("~/images/iMedicalLicense"), MLFileName);
-                medicalLicenseUpdate.SaveAs(MLPath);
+                修改.藥商許可證.SaveAs(MLPath);
                 修改.f藥商許可證照片路徑 = MLFileName;
+                會員資料.f藥商許可證照片路徑 = 修改.f藥商許可證照片路徑;
             }
-            if (businessLicenseUpdate != null)
+
+            if (修改.營業登記許可證 != null)
             {
                 var BLFileName = Path.GetRandomFileName().Replace(".", "_") + ".jpg";
                 var BLPath = Path.Combine(Server.MapPath("~/images/iBusinessLicense"), BLFileName);
-                businessLicenseUpdate.SaveAs(BLPath);
+                修改.營業登記許可證.SaveAs(BLPath);
                 修改.f營業登記許可照片路徑 = BLFileName;
+                會員資料.f營業登記許可照片路徑 = 修改.f營業登記許可照片路徑;
             }
+
             會員資料.f密碼 = 修改.f密碼;
             會員資料.f店家名稱 = 修改.f店家名稱;
             會員資料.f店家負責人 = 修改.f店家負責人;
             會員資料.f店家連絡電話 = 修改.f店家連絡電話;
             會員資料.f地址 = 修改.f地址;
             會員資料.f銀行帳號 = 修改.f銀行帳號;
-            會員資料.f營業登記許可照片路徑 = 修改.f營業登記許可照片路徑;
-            會員資料.f藥商許可證照片路徑 = 修改.f藥商許可證照片路徑;
             會員資料.f備註 = 修改.f備註;
 
             db.SaveChanges();
