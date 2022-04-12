@@ -15,13 +15,7 @@ namespace contact.Models
 
     public partial class t產品
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public t產品()
-        {
-            this.t訂單明細 = new HashSet<t訂單明細>();
-            this.t換貨明細 = new HashSet<t換貨明細>();
-        }
-    
+        public HttpPostedFileBase photo { get; set; }
         public int f產品ID { get; set; }
         public string f製造批號 { get; set; }
         public Nullable<int> f店家ID { get; set; }
@@ -31,7 +25,7 @@ namespace contact.Models
         public string f近視老花度數 { get; set; }
         public string f閃光度數 { get; set; }
         public string f閃光角度 { get; set; }
-        public Nullable<int> f庫存數量 { get; set; }
+        public int f庫存數量 { get; set; }
         public string f數量單位 { get; set; }
         public Nullable<decimal> f成本價 { get; set; }
         public Nullable<decimal> f售價 { get; set; }
@@ -43,11 +37,5 @@ namespace contact.Models
         public string f產品顏色 { get; set; }
     
         public virtual t店家 t店家 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<t訂單明細> t訂單明細 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<t換貨明細> t換貨明細 { get; set; }
-        public HttpPostedFileBase photo { get; set; }
-
     }
 }

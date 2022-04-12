@@ -1,5 +1,6 @@
 ﻿@model contact.ViewModels.ExchangeProduct
 
+
 @{
     ViewBag.Title = "Cexchangecreate-售後服務申請";
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
@@ -23,79 +24,94 @@
 
 }
 
-<div class="row">
-    <div class="col-12 col-md-6">
-        <h1>售後服務申請</h1>
-    </div>
-</div>
-@using (Html.BeginForm())
-{
-<div class="form-group col-md-6  tomatoborder" onload="exchangeOutId()">
-    <p>換貨單號:</p><br />
+<div class="container">
 
-    <input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" />
-    <input type="hidden" name="price" value="@first.f售價" />
-    <input type="hidden" name="f產品名稱" value="@ViewBag.pName" />
-    <input type="hidden" name="f申請日期" value="@first.f申請日期" />
-    <input type="hidden" name="f店家ID" value="@first.f店家ID" />
-    <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
-    <input type="hidden" name="f售後服務申請對外Id" value="@first.f售後服務申請對外Id" />
+    <h2 class="mt-5">售後服務申請</h2>
 
-
-    <div class="col-md-offset-2 col-md-10">
-        <p>數量</p>
-        <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" />
-    </div>
-</div>
-<div class="form-group col-md-6  tomatoborder">
-
-    <span>顏色:</span>
-    <select id="pColors" name="f產品顏色" value="">
-        <option>顏色</option>
-        @foreach (var color in Model.allColors)
-        {
-            <option>@color</option>
-        }
-    </select>
-    <span>近視老花度數:</span>
-    <select id="pShort" name="f近視老花度數">
-        <option>近視老花度數</option>
-        @foreach (var Shortsighted in Model.allShortsighted)
-        {
-
-            <option>@Shortsighted</option>
-        }
-    </select>
-    @if (Model.isPositive == true)
+    @using (Html.BeginForm())
     {
-        <span>閃光度數:</span>
-        <select id="pFlash" name="f閃光度數" value="">
-            <option>閃光度數</option>
-            @foreach (var flash in Model.allflash)
-            {
+        <div class="form-group col-md-6  tomatoborder" onload="exchangeOutId()">
+            <fieldset class="col-12 col-md-4">
+                <p>售後服務申請單號:</p>
+                <input type="text" id="exchangeOutId" value="" name="exchangeOutId" onfocus="blur()" class="form-control col-12 col-md-6" />
+                <input type="hidden" name="price" value="@first.f售價" />
+                <input type="hidden" name="f產品名稱" value="@ViewBag.pName" />
+                <input type="hidden" name="f申請日期" value="@first.f申請日期" />
+                <input type="hidden" name="f店家ID" value="@first.f店家ID" />
+                <input type="hidden" name="f店家負責人" value="@first.f店家負責人" />
 
-                <option>@flash</option>
-            }
-        </select>
-        <span>閃光角度:</span>
-        <select id="pFlashA" name="f閃光角度" value="">
-            <option>閃光角度</option>
-            @foreach (var flashAstigmatism in Model.allflashAstigmatism)
-            {
+                <p>顏色:</p>
+                <select id="pColors" name="f產品顏色" value="" class="form-control col-12 col-md-6">
+                    <option>顏色</option>
+                    @foreach (var color in Model.allColors)
+                    {
+                        <option>@color</option>
+                    }
+                </select>
 
-                <option>@flashAstigmatism</option>
-            }
-        </select>
-    }
+                <div class="col-12 col-md-4">
+                    <p>數量</p>
+                    <input type="number" name="nums" min="1" value="1" oninput="if (value >@first.f訂購數量)value =@first.f訂購數量" class="form-control col-12 col-md-6" />
+                </div>
+
+            </fieldset>
+        </div>
+
+        <fieldset class="tomatoborder col-md-6  d-flex flex-md-row justify-content-around flex-wrap">
+
+            <div class="col-md-3 col-12">
+                <span>近視老花度數:</span>
+                <select id="pShort" name="f近視老花度數" class="form-control">
+                    <option>近視老花度數</option>
+                    @foreach (var Shortsighted in Model.allShortsighted)
+                    {
+
+                        <option>@Shortsighted</option>
+                    }
+                </select>
+            </div>
+            @*@if (Model.isPositive == true)
+                {*@
+
+            <div class="col-md-3 col-12">
+                <span>閃光度數:</span>
+                <select id="pFlash" name="f閃光度數" value="" class="form-control">
+                    <option>閃光度數</option>
+                    @foreach (var flash in Model.allflash)
+                    {
+
+                        <option>@flash</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3 col-12">
+                <span>閃光角度:</span>
+                <select id="pFlashA" name="f閃光角度" value="" class="form-control">
+                    <option>閃光角度</option>
+                    @foreach (var flashAstigmatism in Model.allflashAstigmatism)
+                    {
+
+                        <option>@flashAstigmatism</option>
+                    }
+                </select>
+            </div>
+
+        </fieldset>
+        @*}*@
+<fieldset class="form-group col-md-6  tomatoborder">
+
     <p>換貨原因:</p>
-    <input type="text" name="f換貨原因" />
+    <input type="text" name="f換貨原因" class="form-control col-12 col-md-6" />
     <p> 備註:</p>
-   <input type="text" name="f換貨備註" />
+    <textarea class="form-control" id="txtb" name="f換貨備註" rows="5" cols="40"></textarea>
+    @*<input type="text" name="f換貨備註" class="form-control col-12 col-md-6" />*@
     <input type="submit" value="送出申請" class="tomatoclickbtn mt-2">
+
+</fieldset>
+
+    }
 </div>
-
-}
-
 
 
 @{

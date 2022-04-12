@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+
+<title>隱形眼鏡B2B交易系統平台</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<link href="~/style/tomato.css" rel="stylesheet" />
+<script>
+
+function search() {
+var txtPwd;
+var txtEmail = document.getElementById('emailTXT');
+console.log(txtEmail.value);
+const xhr = new XMLHttpRequest();
+xhr.addEventListener("load", function () {
+txtPwd = xhr.response;
+Email.send({
+//SecureToken: "0ca6bc57-0633-4dfa-ab23-7b437ffe395b",
+Host: "smtp.gmail.com",
+Username: "lovelylens03@gmail.com",
+Password: "tgdcvikctzoaualq",
+To: txtEmail.value,
+From: "lovelylens03@gmail.com",
+Subject: "Lovelylens會員密碼",
+Body: "您的密碼為：" + txtPwd+"，請重新登入",
+}).then(
+message => alert(message)
+);
+console.log(txtPwd);
+})
+let param = `?account=${txtEmail.value}`;
+xhr.open("GET", "@Url.Content("~/Home/searchPWD")" + param)
+xhr.send();
+}
+
+</script>
+
+
+<div class="container vh-100">
+    <div class="row justify-content-center align-content-center">
+       
+
+        <div class="tomatoborder col-4 mt-5 ">
+            <h2>忘記密碼</h2>
+            <input type="text" id="emailTXT" class="form-control col-12 col-md-6" placeholder="請輸入註冊EMAIL帳號"/>
+            <input type="button" value="密碼查詢" id="searchPWD" onclick="search()" class="form-control mt-3 col-12 col-md-6">
+            <a class="btn btn-link" href="/Home/Index">返回登入頁面</a>
+        </div>
+    </div>
+</div>

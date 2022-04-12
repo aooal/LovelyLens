@@ -46,5 +46,7 @@ namespace contact.ViewModels
         public string f閃光角度 { get; set; }
         public Nullable<int> f庫存數量 { get; set; }
         public string f電子信箱 { get; set; }
+        public string f換貨申請人 { get; set; }
+
     }
 }

@@ -1,8 +1,6 @@
-﻿
-@model IEnumerable<contact.ViewModels.MOderDetailRecord>
+﻿@model IEnumerable<contact.ViewModels.CexchangeRecord>
 @{
-    ViewBag.Title = "MOderUpdate";
-    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+    ViewBag.Title = "MexchangeUpdate";
 }
 
 
@@ -10,7 +8,7 @@
 
 <table class="table ordertable col-12 col-md-12 " style="table-layout:fixed;word-break:break-all">
     <tr>
-        <th>對外訂單單號</th>
+        <th>售後服務申請單號</th>
     </tr>
 
 
@@ -18,7 +16,8 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.f對外訂單單號)
+                @Html.DisplayFor(modelItem => item.f售後服務申請對外Id)
+                
             </td>
 
         </tr>
@@ -29,8 +28,8 @@
 {
 
     <div>
-        <p>請輸入訂單取消原因：</p>
-        <textarea name="f訂單備註"></textarea>
+        <p>請輸入售後服務申請單取消原因：</p>
+        <textarea name="f換貨備註"></textarea>
         <input type="submit" value="送出" class="tomatoclickbtn">
     </div>
 

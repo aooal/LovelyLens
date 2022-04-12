@@ -12,18 +12,18 @@ namespace contact.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class t換貨明細
+    public partial class t售後服務申請
     {
-        public int f換貨明細ID { get; set; }
-        public Nullable<int> f換貨單號ID { get; set; }
-        public Nullable<int> f產品ID { get; set; }
-        public Nullable<int> f換貨數量 { get; set; }
+        public int f售後服務申請Id { get; set; }
+        public string f產品名稱 { get; set; }
+        public string f產品顏色 { get; set; }
+        public string f近視老花度數 { get; set; }
+        public string f閃光度數 { get; set; }
+        public string f閃光角度 { get; set; }
         public Nullable<decimal> f換貨單價 { get; set; }
-        public Nullable<int> f要換的產品ID { get; set; }
-        public Nullable<int> f要換的數量 { get; set; }
-        public Nullable<decimal> f要換的產品單價 { get; set; }
+        public string f換貨原因 { get; set; }
+        public string f換貨備註 { get; set; }
+        public Nullable<int> f數量 { get; set; }
         public string f售後服務申請對外Id { get; set; }
-    
-        public virtual t換貨 t換貨 { get; set; }
     }
 }

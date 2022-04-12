@@ -1,4 +1,4 @@
-﻿@model contact.ViewModels.CexchangeRecord
+﻿@model IEnumerable<contact.ViewModels.CexchangeRecord>
 @{
     ViewBag.Title = "Mexchange-換貨--經銷商換貨申請";
 
@@ -11,8 +11,8 @@
 </style>
 
 
-<h4>盤商換貨申請詳情</h4>
-
+<h1>售後服務申請單詳情</h1>
+@{ var aItem = Model.FirstOrDefault();}
 
 <table class="table ordertable col-12 col-md-10" style="font-size: 1.0rem">
     <tr>
@@ -20,34 +20,61 @@
         <th>售後服務申請單號</th>
         <th>申請人</th>
         <th>售後服務申請狀態</th>
-        @*<th>產品對外產品識別ID</th>*@
-        <th>產品名稱</th>
+        <th>商品名稱</th>
+        <th>商品編號</th>
         <th>換貨數量</th>
-        @*<th>經銷商聯絡電話</th>
-            <th>經銷商地址</th>*@
         <th>換貨原因</th>
         <th>換貨備註</th>
+        <th></th>
+
     </tr>
-    @{
-
+    @foreach (var item in Model)
+    {
         <tr>
-            <td>@Model.f申請日期</td>
-            <td>@Model.f售後服務申請對外Id</td>
-            <td>@Model.f換貨申請人</td>
-            <td>@Model.f換貨申請狀態</td>
-            @*<td>@Model.f對外產品識別ID</td>*@
-            <td>@Model.f產品名稱</td>
-            <td>@Model.f數量</td>
-            @*<td>@Model.f店家連絡電話</td>
-                <td>@Model.f地址</td>*@
-            <td>@Model.f換貨原因</td>
-            <td>@Model.f換貨備註</td>
 
+            <td>@item.f申請日期</td>
+            <td>@item.f售後服務申請對外Id</td>
+            <td>@item.f換貨申請人</td>
+            <td>@item.f換貨申請狀態</td>
+            <td>@item.f產品名稱</td>
+            <td>@item.f對外產品識別ID</td>
+            <td>@item.f數量</td>
+            <td>@item.f換貨原因</td>
+            <td>@item.f換貨備註</td>
+            <td>
+                @if (item.f可換貨)
+                {
+                }
+                else
+                {
+                    @:庫存不足
+                }
+            </td>
         </tr>
 
-
     }
+
+
+
 </table>
+<div class="row">
+    <div class="offset-md-10 col-md-3 offset-6 col-6">
+        @{
+            if (Model.Where(m => m.f可換貨 == false).Count() > 0)
+            {
+
+                @Html.ActionLink("取消此單", "MexchangeDelete", new { id = aItem.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" });@*訂單被取消才會出現嗎?那存在必要?*@
+
+                @Html.ActionLink("輸入取消原因", "MexchangeUpdate", new { id = aItem.f售後服務申請對外Id }, new { @class = "tomatocartbtn" });
+            }
+            else
+            {
+                @Html.ActionLink("取消此單", "MexchangeDelete", new { id = aItem.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" });
+                @Html.ActionLink("前往出貨管理", "Mshipping", new { }, new { @class = "tomatocartbtn" });
+            }
+        }
+    </div>
+</div>
 
 
 

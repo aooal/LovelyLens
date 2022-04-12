@@ -26,5 +26,7 @@ namespace contact.ViewModels
         public string f對外產品識別ID { get; set; }
         public bool f可換貨 { get; set; }
         public string f換貨申請人 { get; set; }
+        public string f產品顏色 { get; set; }
+        
     }
 }

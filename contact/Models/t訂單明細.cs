@@ -28,7 +28,6 @@ namespace contact.Models
         public Nullable<decimal> f折扣 { get; set; }
     
         public virtual t訂單 t訂單 { get; set; }
-        public virtual t產品 t產品 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t換貨> t換貨 { get; set; }
     }

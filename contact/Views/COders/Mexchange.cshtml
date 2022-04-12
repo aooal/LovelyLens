@@ -8,11 +8,14 @@
 @section styles{
 
     <style>
+        h1 {
+            color: gainsboro;
+        }
     </style>
 }
 
 <div class="container-fluid mt-3 p-5">
-    <h1>售後服務一覽</h1>
+    <h1>售後服務申請單歷史一覽</h1>
     
 
     @using (Html.BeginForm())
@@ -41,12 +44,9 @@
             <th>售後服務申請單號</th>
             <th>申請人</th>
             <th>售後服務申請狀態</th>
+            <th>售服申請單備註</th>
             <th></th>
-            @*<th>產品對外產品識別ID</th>
-                <th>產品名稱</th>
-                <th>換貨數量</th>
-                <th>經銷商聯絡電話</th>
-                <th>經銷商地址</th>*@
+
         </tr>
         @{
             foreach (var item in Model)
@@ -56,12 +56,7 @@
                     <td>@item.f售後服務申請對外Id</td>
                     <td>@item.f換貨申請人</td>
                     <td>@item.f換貨申請狀態</td>
-                    
-                    @*<td>@item.f對外產品識別ID</td>
-                        <td>@item.f產品名稱</td>
-                        <td>@item.f換貨數量</td>
-                        <td>@item.f店家連絡電話</td>
-                        <td>@item.f地址</td>*@
+                    <td>@item.f換貨備註</td>
 
                     <td>
                         @Html.ActionLink("查看詳情", "MexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" })

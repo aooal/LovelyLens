@@ -22,7 +22,8 @@ namespace contact.Models
             this.t產品 = new HashSet<t產品>();
             this.t換貨 = new HashSet<t換貨>();
         }
-    
+        public HttpPostedFileBase 藥商許可證 { get; set; }
+        public HttpPostedFileBase 營業登記許可證 { get; set; }
         public int f店家ID { get; set; }
         public string f店家名稱 { get; set; }
         public string f店家負責人 { get; set; }
@@ -44,7 +45,5 @@ namespace contact.Models
         public virtual ICollection<t產品> t產品 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t換貨> t換貨 { get; set; }
-        public HttpPostedFileBase 藥商許可證 { get; set; }
-        public HttpPostedFileBase 營業登記許可證 { get; set; }
     }
 }

@@ -4,48 +4,80 @@
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
 }
 
-    
+
 <style>
     h1 {
         color: gainsboro;
     }
 </style>
 
-
-<table class="table ordertable col-12 col-md-10" style="font-size: 1.0rem">
-    <tr>
-        <th>申請日期</th>
-        <th>售後服務申請單號</th>
-        <th>售後服務申請狀態</th>
-        <th>產品名稱</th>
-        <th>近視老花度數</th>
-        <th>散光度數</th>
-        <th>散光角度</th>
-        <th>換貨數量</th>
-        <th>換貨原因</th>
-        <th>換貨備註</th>
-    </tr>
-    @{
-        <tr>
-            <td>@Model.f申請日期</td>
-            <td>@Model.f售後服務申請對外Id</td>
-            <td>@Model.f換貨申請狀態</td>
-            <td>@Model.f產品名稱</td>
-            <td>@Model.f近視老花度數</td>
-            <td>@Model.f閃光度數</td>
-            <td>@Model.f閃光角度</td>
-            <td>@Model.f數量</td>
-            <td>@Model.f換貨原因</td>
-            <td>@Model.f換貨備註</td>
-           
-            <td>
-                @Html.ActionLink("取消", "CexchangeDelete", new { id = Model.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" }) |
-            </td>
-        </tr>
-    }
-</table>
+<div class="container-fluid vh-100">
 
 
+    <div class="row justify-content-center table-responsive-md">
+        <h2 class="mt-5">換貨詳情</h2>
+        <table class="table ordertable col-12 col-md- mt-5" style="table-layout:fixed;word-break:break-all;font-size: 0.9rem">
+            <tr>
+                <th class="col col-md-1">申請日期</th>
+                <th class="col col-md-1">售後服務申請單號</th>
+                <th class="col col-md-1">售後服務申請狀態</th>
+                <th class="col col-md-1">商品名稱</th>
+                <th class="col col-md-1">近視老花度數</th>
+                <th class="col col-md-1">散光度數</th>
+                <th class="col col-md-1">散光角度</th>
+                <th class="col col-md-1">換貨數量</th>
+                <th class="col col-md-1">換貨原因</th>
+                <th class="col col-md-1">換貨備註</th>
+                <th class="col-2 col-md-2"></th>
+            </tr>
+            @{
+                <tr>
+                    <td>@Model.f申請日期</td>
+                    <td>@Model.f售後服務申請對外Id</td>
+                    <td>@Model.f換貨申請狀態</td>
+                    <td>@Model.f產品名稱</td>
+                    <td>@Model.f近視老花度數</td>
+                    <td>@Model.f閃光度數</td>
+                    <td>@Model.f閃光角度</td>
+                    <td>@Model.f數量</td>
+                    <td>@Model.f換貨原因</td>
+                    <td>@Model.f換貨備註</td>
+                    <td>
+                        @Html.ActionLink("取消", "CexchangeDelete", new { id = Model.f售後服務申請對外Id }, new { @class = "tomatodangerbtn" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+
+
+        });
+    </script>
+
+}
 
 
 

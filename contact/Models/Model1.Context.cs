@@ -25,9 +25,11 @@ namespace contact.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<t店家> t店家 { get; set; }
         public virtual DbSet<t訂單> t訂單 { get; set; }
         public virtual DbSet<t訂單明細> t訂單明細 { get; set; }
+        public virtual DbSet<t售後服務申請> t售後服務申請 { get; set; }
         public virtual DbSet<t產品> t產品 { get; set; }
         public virtual DbSet<t換貨> t換貨 { get; set; }
         public virtual DbSet<t換貨明細> t換貨明細 { get; set; }

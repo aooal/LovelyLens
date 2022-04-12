@@ -5,15 +5,14 @@
 }
 
 <style>
-    h1 {
-        color: gainsboro;
-    }
+
 </style>
+
 <div class="container-fluid mt-3 p-5">
     <div class="row">
         <div class="col-12 col-md-6">
 
-            <h1>售後服務申請</h1>
+            <h2>售後服務申請一覽</h2>
         </div>
     </div>
 
@@ -38,70 +37,76 @@
     }
 
 
-
-    <table class="table ordertable col-12 col-md-10">
-        <tr>
-
-            <th>申請日期</th>
-            <th>售後服務申請單號</th>
-            <th>售後服務申請狀態</th>
-            <th></th>
-        </tr>
-        @{
-            foreach (var item in Model)
-            {
+    <div class="container-fluid vh-100">
+        <div class="row justify-content-center">
+            <table class="table ordertable col-12 col-md-12" style="table-layout:fixed;word-break:break-all;font-size: 0.9rem">
                 <tr>
 
-                    <td>@item.f申請日期</td>
-                    <td>@item.f售後服務申請對外Id</td>
-
-                    <td>@item.f換貨申請狀態</td>
-                    <td>
-                        @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" })
-                    </td>
+                    <th class="col col-md">申請日期</th>
+                    <th class="col col-md">售後服務申請單號</th>
+                    <th class="col col-md">售後服務申請狀態</th>
+                    <th class="col col-md">售服申請單備註</th>
+                    <th class="col-5 col-md-3"></th>
                 </tr>
-            }
-        }
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@item.f申請日期</td>
+                            <td>@item.f售後服務申請對外Id</td>
+
+                            <td>@item.f換貨申請狀態</td>
+                            <td>@item.f換貨備註</td>
+
+                            <td>
+                                @Html.ActionLink("查看詳情", "CexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" })
+                            </td>
+                        </tr>
+                    }
+                }
 
 
-    </table>
+            </table>
+        </div>
+    </div>
 </div>
 
-@section scripts{
-    <script>
-        /*這裡是表單HOVER*/
-        $(function () {
+        @section scripts{
+            <script>
+                /*這裡是表單HOVER*/
+                $(function () {
 
-            $(".ordertable tr:odd").addClass("orderodd");
-            $(".ordertable tr:even").addClass("ordereven");
+                    $(".ordertable tr:odd").addClass("orderodd");
+                    $(".ordertable tr:even").addClass("ordereven");
 
-            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
-            $(".ordertable tr").hover(
-                function () {
-                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
-                },
-                function () {
-                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
-                }
-            );
+                    // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+                    $(".ordertable tr").hover(
+                        function () {
+                            $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                        },
+                        function () {
+                            $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                        }
+                    );
 
-            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
-            $('.ordertable tbody').find("tr").each(function () {
-                let bb = $(this).children('td:eq(4)').text();
-                console.log(bb);
-                if (bb == '未出貨') {
-                    $(this).children('td:eq(4)').css("color", "red");
-                }
+                    //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+                    $('.ordertable tbody').find("tr").each(function () {
+                        let bb = $(this).children('td:eq(4)').text();
+                        console.log(bb);
+                        if (bb == '未出貨') {
+                            $(this).children('td:eq(4)').css("color", "red");
+                        }
 
-            });
-
-
-
-        });
+                    });
 
 
 
-    </script>
+                });
 
-}
+
+
+            </script>
+
+        }
 

@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBEyeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DBEyeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="t店家">
           <Key>
             <PropertyRef Name="f店家ID" />
@@ -56,6 +66,22 @@
           <Property Name="f單價" Type="money" />
           <Property Name="f折扣" Type="money" />
         </EntityType>
+        <EntityType Name="t售後服務申請">
+          <Key>
+            <PropertyRef Name="f售後服務申請Id" />
+          </Key>
+          <Property Name="f售後服務申請Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f產品名稱" Type="nvarchar" MaxLength="50" />
+          <Property Name="f產品顏色" Type="nvarchar" MaxLength="50" />
+          <Property Name="f近視老花度數" Type="nvarchar" MaxLength="50" />
+          <Property Name="f閃光度數" Type="nvarchar" MaxLength="50" />
+          <Property Name="f閃光角度" Type="nvarchar" MaxLength="50" />
+          <Property Name="f換貨單價" Type="money" />
+          <Property Name="f換貨原因" Type="nvarchar" MaxLength="50" />
+          <Property Name="f換貨備註" Type="nvarchar" MaxLength="50" />
+          <Property Name="f數量" Type="int" />
+          <Property Name="f售後服務申請對外Id" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="t產品">
           <Key>
             <PropertyRef Name="f產品ID" />
@@ -66,10 +92,10 @@
           <Property Name="f店家名稱" Type="nvarchar" MaxLength="50" />
           <Property Name="f品牌名稱" Type="nvarchar" MaxLength="50" />
           <Property Name="f產品名稱" Type="nvarchar" MaxLength="50" />
-          <Property Name="f近視老花度數" Type="nvarchar" MaxLength="50" />
-          <Property Name="f閃光度數" Type="nvarchar" MaxLength="50" />
-          <Property Name="f閃光角度" Type="nvarchar" MaxLength="50" />
-          <Property Name="f庫存數量" Type="int" />
+          <Property Name="f近視老花度數" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f閃光度數" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f閃光角度" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f庫存數量" Type="int" Nullable="false" />
           <Property Name="f數量單位" Type="nchar" MaxLength="10" />
           <Property Name="f成本價" Type="money" />
           <Property Name="f售價" Type="money" />
@@ -93,6 +119,8 @@
           <Property Name="f換貨申請狀態" Type="nvarchar" MaxLength="50" />
           <Property Name="f對外訂單單號" Type="nvarchar" MaxLength="50" />
           <Property Name="f訂單明細ID" Type="int" />
+          <Property Name="f換貨備註" Type="nvarchar" MaxLength="50" />
+          <Property Name="f售後服務申請對外Id" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="t換貨明細">
           <Key>
@@ -106,6 +134,7 @@
           <Property Name="f要換的產品ID" Type="int" />
           <Property Name="f要換的數量" Type="int" />
           <Property Name="f要換的產品單價" Type="money" />
+          <Property Name="f售後服務申請對外Id" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="t優惠活動">
           <Key>
@@ -145,18 +174,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_t訂單明細_t產品">
-          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
-          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t產品">
-              <PropertyRef Name="f產品ID" />
-            </Principal>
-            <Dependent Role="t訂單明細">
-              <PropertyRef Name="f產品ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_t產品_t店家">
           <End Role="t店家" Type="Self.t店家" Multiplicity="0..1" />
           <End Role="t產品" Type="Self.t產品" Multiplicity="*" />
@@ -193,18 +210,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_t換貨明細_t產品">
-          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
-          <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t產品">
-              <PropertyRef Name="f產品ID" />
-            </Principal>
-            <Dependent Role="t換貨明細">
-              <PropertyRef Name="f產品ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_t換貨明細_t換貨">
           <End Role="t換貨" Type="Self.t換貨" Multiplicity="0..1" />
           <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
@@ -218,9 +223,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBEyeModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t店家" EntityType="Self.t店家" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t訂單" EntityType="Self.t訂單" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t訂單明細" EntityType="Self.t訂單明細" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t售後服務申請" EntityType="Self.t售後服務申請" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t產品" EntityType="Self.t產品" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t換貨" EntityType="Self.t換貨" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t換貨明細" EntityType="Self.t換貨明細" Schema="dbo" store:Type="Tables" />
@@ -231,10 +238,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_t訂單明細_t訂單" Association="Self.FK_t訂單明細_t訂單">
             <End Role="t訂單" EntitySet="t訂單" />
-            <End Role="t訂單明細" EntitySet="t訂單明細" />
-          </AssociationSet>
-          <AssociationSet Name="FK_t訂單明細_t產品" Association="Self.FK_t訂單明細_t產品">
-            <End Role="t產品" EntitySet="t產品" />
             <End Role="t訂單明細" EntitySet="t訂單明細" />
           </AssociationSet>
           <AssociationSet Name="FK_t產品_t店家" Association="Self.FK_t產品_t店家">
@@ -249,10 +252,6 @@
             <End Role="t訂單明細" EntitySet="t訂單明細" />
             <End Role="t換貨" EntitySet="t換貨" />
           </AssociationSet>
-          <AssociationSet Name="FK_t換貨明細_t產品" Association="Self.FK_t換貨明細_t產品">
-            <End Role="t產品" EntitySet="t產品" />
-            <End Role="t換貨明細" EntitySet="t換貨明細" />
-          </AssociationSet>
           <AssociationSet Name="FK_t換貨明細_t換貨" Association="Self.FK_t換貨明細_t換貨">
             <End Role="t換貨" EntitySet="t換貨" />
             <End Role="t換貨明細" EntitySet="t換貨明細" />
@@ -263,6 +262,16 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBEyeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="t店家">
           <Key>
             <PropertyRef Name="f店家ID" />
@@ -319,8 +328,23 @@
           <Property Name="f單價" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="f折扣" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="t訂單" Relationship="Self.FK_t訂單明細_t訂單" FromRole="t訂單明細" ToRole="t訂單" />
-          <NavigationProperty Name="t產品" Relationship="Self.FK_t訂單明細_t產品" FromRole="t訂單明細" ToRole="t產品" />
           <NavigationProperty Name="t換貨" Relationship="Self.FK_t換貨_t訂單明細" FromRole="t訂單明細" ToRole="t換貨" />
+        </EntityType>
+        <EntityType Name="t售後服務申請">
+          <Key>
+            <PropertyRef Name="f售後服務申請Id" />
+          </Key>
+          <Property Name="f售後服務申請Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f產品名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f產品顏色" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f近視老花度數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f閃光度數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f閃光角度" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f換貨單價" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="f換貨原因" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f換貨備註" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f數量" Type="Int32" />
+          <Property Name="f售後服務申請對外Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="t產品">
           <Key>
@@ -332,10 +356,10 @@
           <Property Name="f店家名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f品牌名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f產品名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="f近視老花度數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="f閃光度數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="f閃光角度" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="f庫存數量" Type="Int32" />
+          <Property Name="f近視老花度數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f閃光度數" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f閃光角度" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f庫存數量" Type="Int32" Nullable="false" />
           <Property Name="f數量單位" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="f成本價" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="f售價" Type="Decimal" Precision="19" Scale="4" />
@@ -346,8 +370,6 @@
           <Property Name="f對外產品識別ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f產品顏色" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="t店家" Relationship="Self.FK_t產品_t店家" FromRole="t產品" ToRole="t店家" />
-          <NavigationProperty Name="t訂單明細" Relationship="Self.FK_t訂單明細_t產品" FromRole="t產品" ToRole="t訂單明細" />
-          <NavigationProperty Name="t換貨明細" Relationship="Self.FK_t換貨明細_t產品" FromRole="t產品" ToRole="t換貨明細" />
         </EntityType>
         <EntityType Name="t換貨">
           <Key>
@@ -362,6 +384,8 @@
           <Property Name="f換貨申請狀態" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f對外訂單單號" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="f訂單明細ID" Type="Int32" />
+          <Property Name="f換貨備註" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="f售後服務申請對外Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="t店家" Relationship="Self.FK_t換貨_t店家" FromRole="t換貨" ToRole="t店家" />
           <NavigationProperty Name="t訂單明細" Relationship="Self.FK_t換貨_t訂單明細" FromRole="t換貨" ToRole="t訂單明細" />
           <NavigationProperty Name="t換貨明細" Relationship="Self.FK_t換貨明細_t換貨" FromRole="t換貨" ToRole="t換貨明細" />
@@ -378,7 +402,7 @@
           <Property Name="f要換的產品ID" Type="Int32" />
           <Property Name="f要換的數量" Type="Int32" />
           <Property Name="f要換的產品單價" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="t產品" Relationship="Self.FK_t換貨明細_t產品" FromRole="t換貨明細" ToRole="t產品" />
+          <Property Name="f售後服務申請對外Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="t換貨" Relationship="Self.FK_t換貨明細_t換貨" FromRole="t換貨明細" ToRole="t換貨" />
         </EntityType>
         <EntityType Name="t優惠活動">
@@ -443,18 +467,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_t訂單明細_t產品">
-          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
-          <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t產品">
-              <PropertyRef Name="f產品ID" />
-            </Principal>
-            <Dependent Role="t訂單明細">
-              <PropertyRef Name="f產品ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_t換貨_t訂單明細">
           <End Role="t訂單明細" Type="Self.t訂單明細" Multiplicity="0..1" />
           <End Role="t換貨" Type="Self.t換貨" Multiplicity="*" />
@@ -464,18 +476,6 @@
             </Principal>
             <Dependent Role="t換貨">
               <PropertyRef Name="f訂單明細ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_t換貨明細_t產品">
-          <End Role="t產品" Type="Self.t產品" Multiplicity="0..1" />
-          <End Role="t換貨明細" Type="Self.t換貨明細" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t產品">
-              <PropertyRef Name="f產品ID" />
-            </Principal>
-            <Dependent Role="t換貨明細">
-              <PropertyRef Name="f產品ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -492,9 +492,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBEyeEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="t店家" EntityType="Self.t店家" />
           <EntitySet Name="t訂單" EntityType="Self.t訂單" />
           <EntitySet Name="t訂單明細" EntityType="Self.t訂單明細" />
+          <EntitySet Name="t售後服務申請" EntityType="Self.t售後服務申請" />
           <EntitySet Name="t產品" EntityType="Self.t產品" />
           <EntitySet Name="t換貨" EntityType="Self.t換貨" />
           <EntitySet Name="t換貨明細" EntityType="Self.t換貨明細" />
@@ -515,17 +517,9 @@
             <End Role="t訂單" EntitySet="t訂單" />
             <End Role="t訂單明細" EntitySet="t訂單明細" />
           </AssociationSet>
-          <AssociationSet Name="FK_t訂單明細_t產品" Association="Self.FK_t訂單明細_t產品">
-            <End Role="t產品" EntitySet="t產品" />
-            <End Role="t訂單明細" EntitySet="t訂單明細" />
-          </AssociationSet>
           <AssociationSet Name="FK_t換貨_t訂單明細" Association="Self.FK_t換貨_t訂單明細">
             <End Role="t訂單明細" EntitySet="t訂單明細" />
             <End Role="t換貨" EntitySet="t換貨" />
-          </AssociationSet>
-          <AssociationSet Name="FK_t換貨明細_t產品" Association="Self.FK_t換貨明細_t產品">
-            <End Role="t產品" EntitySet="t產品" />
-            <End Role="t換貨明細" EntitySet="t換貨明細" />
           </AssociationSet>
           <AssociationSet Name="FK_t換貨明細_t換貨" Association="Self.FK_t換貨明細_t換貨">
             <End Role="t換貨" EntitySet="t換貨" />
@@ -538,6 +532,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBEyeModelStoreContainer" CdmEntityContainer="DBEyeEntities2">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBEyeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="t店家">
             <EntityTypeMapping TypeName="DBEyeModel.t店家">
               <MappingFragment StoreEntitySet="t店家">
@@ -592,6 +597,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="t售後服務申請">
+            <EntityTypeMapping TypeName="DBEyeModel.t售後服務申請">
+              <MappingFragment StoreEntitySet="t售後服務申請">
+                <ScalarProperty Name="f售後服務申請Id" ColumnName="f售後服務申請Id" />
+                <ScalarProperty Name="f產品名稱" ColumnName="f產品名稱" />
+                <ScalarProperty Name="f產品顏色" ColumnName="f產品顏色" />
+                <ScalarProperty Name="f近視老花度數" ColumnName="f近視老花度數" />
+                <ScalarProperty Name="f閃光度數" ColumnName="f閃光度數" />
+                <ScalarProperty Name="f閃光角度" ColumnName="f閃光角度" />
+                <ScalarProperty Name="f換貨單價" ColumnName="f換貨單價" />
+                <ScalarProperty Name="f換貨原因" ColumnName="f換貨原因" />
+                <ScalarProperty Name="f換貨備註" ColumnName="f換貨備註" />
+                <ScalarProperty Name="f數量" ColumnName="f數量" />
+                <ScalarProperty Name="f售後服務申請對外Id" ColumnName="f售後服務申請對外Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="t產品">
             <EntityTypeMapping TypeName="DBEyeModel.t產品">
               <MappingFragment StoreEntitySet="t產品">
@@ -629,6 +651,8 @@
                 <ScalarProperty Name="f換貨申請狀態" ColumnName="f換貨申請狀態" />
                 <ScalarProperty Name="f對外訂單單號" ColumnName="f對外訂單單號" />
                 <ScalarProperty Name="f訂單明細ID" ColumnName="f訂單明細ID" />
+                <ScalarProperty Name="f換貨備註" ColumnName="f換貨備註" />
+                <ScalarProperty Name="f售後服務申請對外Id" ColumnName="f售後服務申請對外Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -643,6 +667,7 @@
                 <ScalarProperty Name="f要換的產品ID" ColumnName="f要換的產品ID" />
                 <ScalarProperty Name="f要換的數量" ColumnName="f要換的數量" />
                 <ScalarProperty Name="f要換的產品單價" ColumnName="f要換的產品單價" />
+                <ScalarProperty Name="f售後服務申請對外Id" ColumnName="f售後服務申請對外Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

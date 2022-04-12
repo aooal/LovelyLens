@@ -7,9 +7,6 @@
 <script type="text/javascript" src="../../src/jquery.qrcode.js"></script>
 <script type="text/javascript" src="../../src/qrcode.js"></script>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
-
-
-
 @section styles{
 
     <style>
@@ -31,221 +28,309 @@
 </style>
 
 
-
-
-
-<div id="qrtry" class="qrtry01">
+<div id="qrtry">
 
 </div>
+<div class="mt-5">
+    <h3>訂單出貨</h3>
+</div>
+<table class="table ordertable col-12 col-md-10" style="table-layout:fixed;word-break:break-all;font-size: 0.9rem">
+    <tr>
+        <th>
+            訂購日期
+        </th>
+        <th>
+            訂單單號  @*移出TABLE*@
+        </th>
 
-<div class="container-fluid mt-1 p-5">
-    <h2 class="mb-5">出貨管理</h2>
+        <th>
+            店家名稱
+        </th>
 
-    <div>
-        <h3>訂單出貨</h3>
-    </div>
+        <th>
+            訂單狀態
+        </th>
 
-    <table class="table ordertable col-12 col-md-10" style="table-layout:fixed;word-break:break-all;font-size: 0.9rem">
+        <th>
+            商品名稱
+        </th>
+        <th>
+            訂購數量
+        </th>
+
+        <th>
+            商品編號
+        </th>
+        <th>
+            店家電話
+        </th>
+        <th>
+            地址
+        </th>
+        <th>EMAIL</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model.query)
+    {
         <tr>
-            <th>
-                訂購日期
-            </th>
-            <th>
-                對外訂單單號  @*移出TABLE*@
-            </th>
+            <td>
 
-            <th>
-                店家名稱
-            </th>
+                @Html.DisplayFor(modelItem => item.f訂購日期)
 
-            <th>
-                訂單狀態
-            </th>
+            </td>
+            <td id="lblno">
+                @Html.DisplayFor(modelItem => item.f對外訂單單號, new { @id = "id" })
+            </td>
 
-            <th>
-                產品名稱
-            </th>
-            <th>
-                訂購數量
-            </th>
+            <td id="lblbuyer">
+                @Html.DisplayFor(modelItem => item.f店家名稱, new { @id = "lblbuyer" })
+            </td>
 
-            <th>
-                商品編號
-            </th>
-            <th>
-                店家連絡電話
-            </th>
-            <th>
-                地址
-            </th>
-            <th>EMAIL</th>
-            <th></th>
-            <th></th>
-            <th></th>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f配送狀態)
+            </td>
+
+            <td id="lblproduct">
+                @Html.DisplayFor(modelItem => item.f產品名稱, new { @id = "lblproduct" })
+            </td>
+            <td id="lblcount">
+                @Html.DisplayFor(modelItem => item.f訂購數量, new { @id = "lblcount" })
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外產品識別ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家連絡電話)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f地址)
+            </td>
+            <td id="lblemail">
+                @Html.DisplayFor(modelItem => item.f電子信箱, new { @id = "lblemail" })
+            </td>
+            <td>
+                <input type="button" value="產生QR" onclick="qr01('@Html.DisplayFor(modelItem => item.f對外訂單單號)','@Html.DisplayFor(modelItem => item.f店家名稱)','@Html.DisplayFor(modelItem => item.f產品名稱)','@Html.DisplayFor(modelItem => item.f訂購數量)')" class="tomatocartbtn" />
+            </td>
+            <td>
+                <form method="post">
+                    <input type="button" value="寄通知信" onclick="sendemail('@Html.DisplayFor(modelItem => item.f電子信箱)')" class="tomatocartbtn" />
+                </form>
+            </td>
+            <td>
+                @Html.ActionLink("出貨", "MOderDetailShipping", new { id = item.f對外訂單單號 }, new { @class = "tomatocartbtn btnfix" })
+            </td>
+
         </tr>
+        var lblno = @Html.DisplayFor(modelItem => item.f對外訂單單號);
+        var lblbuyer = @Html.DisplayFor(modelItem => item.f店家名稱);
+        var lblproduct = @Html.DisplayFor(modelItem => item.f產品名稱);
+        var lblcount = @Html.DisplayFor(modelItem => item.f訂購數量);
+        var all = @Model.query;
+        var lblemail = @Html.DisplayFor(modelItem => item.f電子信箱);
+
+    }
+</table>
 
 
-        @foreach (var item in Model.query)
-        {
-            <tr>
-                <td>
-
-                    @Html.DisplayFor(modelItem => item.f訂購日期)
-
-                </td>
-                <td id="lblno">
-                    @Html.DisplayFor(modelItem => item.f對外訂單單號, new { @id = "lblno" })
-                </td>
-
-                <td id="lblbuyer">
-                    @Html.DisplayFor(modelItem => item.f店家名稱, new { @id = "lblbuyer" })
-                </td>
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.f配送狀態)
-                </td>
-
-                <td id="lblproduct">
-                    @Html.DisplayFor(modelItem => item.f產品名稱, new { @id = "lblproduct" })
-                </td>
-                <td id="lblcount">
-                    @Html.DisplayFor(modelItem => item.f訂購數量, new { @id = "lblcount" })
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.f對外產品識別ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f店家連絡電話)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f地址)
-                </td>
-                <td id="lblemail">
-                    @Html.DisplayFor(modelItem => item.f電子信箱, new { @id = "lblemail" })
-                </td>
-                <td>
-                    <input type="button" value="產生QR" onclick="qr01()" class="tomatocartbtn" />
-                </td>
-                <td>
-                    <form method="post">
-                        <input type="button" value="寄通知信" onclick="sendemail()" class="tomatocartbtn" />
-                    </form>
-                </td>
-                <td>
-                    @Html.ActionLink("出貨", "MOderDetailShipping", new { id = item.f對外訂單單號 }, new { @class = "tomatocartbtn btnfix" })@*這個按鈕特別小^^*@
-                </td>
-
-            </tr>
-
-        }
-
-    </table>
-
-
-    <div class="mt-5">
-        <h3>換貨單出貨</h3>
-    </div>
-    <table class="table ordertable col-12 col-md-10" style="table-layout:fixed;word-break:break-all;font-size: 0.9rem">
-        <tr>
-            <th>
-                訂購日期
-            </th>
-            <th>
-                售後服務申請對外Id
-            </th>
-
-            <th>
-                店家名稱
-            </th>
-
-            <th>
-                售服訂單狀態
-            </th>
-
-            <th>
-                產品名稱
-            </th>
-            <th>
-                換貨數量
-            </th>
-
-            <th>
-                商品編號
-            </th>
-            <th>
-                店家連絡電話
-            </th>
-            <th>
-                地址
-
-            </th>
-            <th>EMAIL</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model.exchangeToShipping)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f申請日期)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f售後服務申請對外Id)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.f店家名稱, new { @id = "lblbuyer01" })
-                </td>
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.f換貨申請狀態)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.f產品名稱, new { @id = "lblproduct01" })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f換貨數量, new { @id = "lblcount01" })
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.f對外產品識別ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f店家連絡電話)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.f地址)
-                </td>
-                <td id="lblemail01">
-                    @Html.DisplayFor(modelItem => item.f電子信箱, new { @id = "lblemail01" })
-                </td>
-                <td>
-                    <input type="button" value="產生QR" onclick="qr02()" class="tomatocartbtn" />
-                </td>
-                <td>
-                    <form method="post">
-                        <input type="button" value="寄通知信" onclick="sendemail01()" class="tomatocartbtn" />
-                    </form>
-                </td>
-
-                <td>
-
-                    @Html.ActionLink("出貨", "MexchangeShipping", new { id = item.f售後服務申請對外Id }, new { @class = "tomatocartbtn btnfix" })@*這個按鈕特別小^^*@
-
-                </td>
-            </tr>
-
-        }
-
-    </table>
-
+<div class="mt-5">
+    <h3>售服申請單出貨</h3>
 </div>
 
+<table class="table ordertable col-12 col-md-10" style="table-layout:fixed;word-break:break-all;font-size: 0.9rem">
+    <tr>
+        <th>
+            申請日期
+        </th>
+        <th>
+            售後服務申請單
+        </th>
+
+        <th>
+            申請人
+        </th>
+
+        <th>
+            售服狀態
+        </th>
+
+        <th>
+            商品名稱
+        </th>
+        <th>
+            換貨數量
+        </th>
+
+        <th>
+            商品編號
+        </th>
+        <th>
+            店家電話
+        </th>
+        <th>
+            地址
+        </th>
+        <th>EMAIL</th>
+        <th></th>
+        <th></th>
+        <th></th>
+
+    </tr>
+    @foreach (var item in Model.exchangeToShipping)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.f申請日期)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f售後服務申請對外Id)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家名稱, new { @id = "lblbuyer01" })
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f換貨申請狀態)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f產品名稱, new { @id = "lblproduct01" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f換貨數量, new { @id = "lblcount01" })
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外產品識別ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f店家連絡電話)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.f地址)
+            </td>
+            <td id="lblemail01">
+                @Html.DisplayFor(modelItem => item.f電子信箱, new { @id = "lblemail01" })
+            </td>
+            <td>
+                <input type="button" value="產生QR" onclick="qr02('@Html.DisplayFor(modelItem => item.f售後服務申請對外Id)','@Html.DisplayFor(modelItem => item.f店家名稱)','@Html.DisplayFor(modelItem => item.f產品名稱)','@Html.DisplayFor(modelItem => item.f換貨數量)')" class="tomatocartbtn" />
+            </td>
+            <td>
+                <form method="post">
+                    <input type="button" value="寄通知信" onclick="sendemail01()" class="tomatocartbtn" />
+                </form>
+            </td>
+
+            <td>
+
+                @Html.ActionLink("出貨", "MexchangeShipping", new { id = item.f售後服務申請對外Id }, new { @class = "tomatocartbtn btnfix" }) 
+
+            </td>
+        </tr>
+        var lnlno01 = @Html.DisplayFor(modelItem => item.f售後服務申請對外Id);
+        var lblbuyer01 = @Html.DisplayFor(modelItem => item.f店家名稱);
+        var lblproduct01 = @Html.DisplayFor(modelItem => item.f產品名稱);
+        var lblcount01 = @Html.DisplayFor(modelItem => item.f換貨數量);
+        var all01 = @Model.exchangeToShipping;
+    }
+
+</table>
+<script>
+    var qrcode;
+    function qr01(lblno, lblbuyer, lblproduct, lblcount) {
+        document.getElementById('qrtry').innerHTML = "";
+        var title = "訂單單號：";
+        var title2 = "經銷商名稱：";
+        var title3 = "購買產品：";
+        var title4 = "數量：";
+        console.log(lblno, lblbuyer, lblproduct, lblcount)
+        qrcode = jQuery('#qrtry').qrcode({
+            text: toUtf8(title) + toUtf8(lblno.valueOf()) + toUtf8(title2) + toUtf8(lblbuyer.valueOf()) + toUtf8(title3) + toUtf8(lblproduct.valueOf()) + toUtf8(title4) + toUtf8(lblcount.valueOf())
+        });
+    }
+    function qr02(lblno01, lblbuyer01, lblproduct01, lblcount01) {
+        document.getElementById('qrtry').innerHTML = "";
+        var title02 = "經銷商名稱：";
+        var title03 = "購買產品：";
+        var title04 = "數量：";
+        console.log(lblno01, lblbuyer01, lblproduct01, lblcount01)
+        jQuery('#qrtry').qrcode({
+            text: toUtf8(title02) + toUtf8(lblbuyer01.valueOf()) + toUtf8(title03) + toUtf8(lblproduct01.valueOf()) + toUtf8(title04) + toUtf8(lblcount01.valueOf())
+
+        });
+    }
+
+    function toUtf8(str) {
+        var out, i, len, c;
+        out = "";
+        len = str.length;
+        for (i = 0; i < len; i++) {
+            c = str.charCodeAt(i);
+            if ((c >= 0x0001) && (c <= 0x007F)) {
+                out += str.charAt(i);
+            } else if (c > 0x07FF) {
+                out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+            } else {
+                out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+            }
+        }
+        return out;
+    }
+    function clear() {
+        qrcode.clear();
+    }
+</script>
+<script>
+
+    function sendemail(lblemail) {
+        //lblemail = document.getElementById('lblemail').innerText;
+        console.log(lblemail);
+        Email.send({
+            //SecureToken: "0ca6bc57-0633-4dfa-ab23-7b437ffe395b",
+            Host: "smtp.gmail.com",
+            Username: "lovelylens03@gmail.com",
+            Password: "tgdcvikctzoaualq",
+            To: lblemail,
+            From: "lovelylens03@gmail.com",
+            Subject: "出貨通知",
+            Body: "通知您，您訂購的商品已備貨完成並出貨。",
+        }).then(
+            message => alert(message)
+        );
+    }
+
+</script>
+<script>
+    var lblemail01;
+
+    function sendemail01() {
+        lblemail01 = document.getElementById('lblemail01').innerText;
+        Email.send({
+            //SecureToken: "0ca6bc57-0633-4dfa-ab23-7b437ffe395b",
+            Host: "smtp.gmail.com",
+            Username: "lovelylens03@gmail.com",
+            Password: "tgdcvikctzoaualq",
+            To: lblemail01,
+            From: "lovelylens03@gmail.com",
+            Subject: "出貨通知",
+            Body: "通知您，您訂購的商品已備貨完成並出貨。",
+        }).then(
+            message => alert(message)
+        );
+        console.log(lblemail);
+    }
+
+</script>
 @section scripts{
     <script>
         /*這裡是表單HOVER*/
@@ -273,112 +358,6 @@
                 }
 
             });
-
-
-
         });
     </script>
-
 }
-<script>
-    var lblno;
-    var lblbuyer;
-    var lblproduct;
-    var lblcount;
-
-    var lblbuyer01;
-    var lblproduct01;
-    var lblcount01;
-
-    function qr01() {
-        document.getElementById('qrtry').innerHTML = "";
-        lblno = document.getElementById('lblno').innerHTML;
-        lblbuyer = document.getElementById('lblbuyer').innerHTML;
-        lblproduct = document.getElementById('lblproduct').innerHTML;
-        lblcount = document.getElementById('lblcount').innerHTML;
-        var title = "訂單單號：";
-        var title2 = "經銷商名稱：";
-        var title3 = "購買產品：";
-        var title4 = "數量：";
-        jQuery('#qrtry').qrcode({
-            text: toUtf8(title) + toUtf8(lblno.valueOf()) + toUtf8(title2) + toUtf8(lblbuyer.valueOf()) + toUtf8(title3) + toUtf8(lblproduct.valueOf()) + toUtf8(title4) + toUtf8(lblcount.valueOf())
-
-        });
-    }
-    function qr02() {
-        document.getElementById('qrtry').innerHTML = "";
-
-        lblbuyer = document.getElementById('lblbuyer01').innerHTML;
-        lblproduct = document.getElementById('lblproduct01').innerHTML;
-        lblcount = document.getElementById('lblcount01').innerHTML;
-        var title02 = "經銷商名稱：";
-        var title03 = "購買產品：";
-        var title04 = "數量：";
-        jQuery('#qrtry').qrcode({
-            text: toUtf8(title02) + toUtf8(lblbuyer01.valueOf()) + toUtf8(title03) + toUtf8(lblproduct01.valueOf()) + toUtf8(title04) + toUtf8(lblcount01.valueOf())
-
-        });
-    }
-
-    function toUtf8(str) {
-        var out, i, len, c;
-        out = "";
-        len = str.length;
-        for (i = 0; i < len; i++) {
-            c = str.charCodeAt(i);
-            if ((c >= 0x0001) && (c <= 0x007F)) {
-                out += str.charAt(i);
-            } else if (c > 0x07FF) {
-                out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
-                out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
-                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-            } else {
-                out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
-                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-            }
-        }
-        return out;
-    }
-</script>
-<script>
-    var lblemail;
-
-    function sendemail() {
-        lblemail = document.getElementById('lblemail').innerText;
-        Email.send({
-            //SecureToken: "0ca6bc57-0633-4dfa-ab23-7b437ffe395b",
-            Host: "smtp.gmail.com",
-            Username: "lovelylens03@gmail.com",
-            Password: "tgdcvikctzoaualq",
-            To: lblemail,
-            From: "lovelylens03@gmail.com",
-            Subject: "出貨通知",
-            Body: "通知您，您訂購的商品已備貨完成並出貨。",
-        }).then(
-            message => alert(message)
-        );
-        console.log(lblemail);
-    }
-
-</script>
-<script>
-    var lblemail01;
-
-    function sendemail01() {
-        lblemail01 = document.getElementById('lblemail01').innerText;
-        Email.send({
-            //SecureToken: "0ca6bc57-0633-4dfa-ab23-7b437ffe395b",
-            Host: "smtp.gmail.com",
-            Username: "lovelylens03@gmail.com",
-            Password: "tgdcvikctzoaualq",
-            To: lblemail01,
-            From: "lovelylens03@gmail.com",
-            Subject: "出貨通知",
-            Body: "通知您，您訂購的商品已備貨完成並出貨。",
-        }).then(
-            message => alert(message)
-        );
-        console.log(lblemail);
-    }
-
-</script>

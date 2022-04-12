@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e5485eb8fc984b298fc25a44aa092fea" Name="Diagram1">
-        <EntityTypeShape EntityType="DBEyeModel.t店家" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+      <Diagram DiagramId="db904eeb5e644df6b9d3d9e32c4e82f3" Name="Diagram1">
+        <EntityTypeShape EntityType="DBEyeModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEyeModel.t店家" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEyeModel.t訂單" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEyeModel.t訂單明細" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEyeModel.t訂單明細" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEyeModel.t售後服務申請" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEyeModel.t產品" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEyeModel.t換貨" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEyeModel.t換貨明細" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEyeModel.t優惠活動" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEyeModel.t換貨" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEyeModel.t換貨明細" Width="1.5" PointX="9.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEyeModel.t優惠活動" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="DBEyeModel.FK_t訂單_t店家" ManuallyRouted="false" />
         <AssociationConnector Association="DBEyeModel.FK_t產品_t店家" ManuallyRouted="false" />
         <AssociationConnector Association="DBEyeModel.FK_t換貨_t店家" ManuallyRouted="false" />
         <AssociationConnector Association="DBEyeModel.FK_t訂單明細_t訂單" ManuallyRouted="false" />
-        <AssociationConnector Association="DBEyeModel.FK_t訂單明細_t產品" ManuallyRouted="false" />
         <AssociationConnector Association="DBEyeModel.FK_t換貨_t訂單明細" ManuallyRouted="false" />
-        <AssociationConnector Association="DBEyeModel.FK_t換貨明細_t產品" ManuallyRouted="false" />
         <AssociationConnector Association="DBEyeModel.FK_t換貨明細_t換貨" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

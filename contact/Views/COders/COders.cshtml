@@ -1,21 +1,50 @@
 ﻿@model IEnumerable<contact.Models.t訂單>
 
 @{
-    ViewBag.Title = "COderDetail-經銷商：歷史訂單一覽";
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台";
     Layout = "~/Views/Shared/_Layoutsale.cshtml";
 
 }
 
 <style>
-    h1 {
-        color: gainsboro;
+    .tomatotable {
+        font-size: 1.4rem;
+        color: #666;
     }
+
+    tr {
+        border-bottom: 2px solid pink;
+    }
+
+    th {
+        font-size: 1.5rem;
+        color: #666666;
+    }
+    /*表單CSS*/
+    .tomatotable th, .tomatotable td {
+        text-align: center;
+    }
+
+    .odd {
+        background-color: rgb(238 182 182 / 0.31);
+    }
+
+    .even {
+        background-color: #F8F8F8;
+    }
+
+    .enter {
+        background-color: #d6b6c3;
+        transition-property: background-color color;
+        transition-duration: 1s;
+    }
+    /*表單CSS end*/
 </style>
 
 
 
-<div class="container-fluid mt-3 p-5">
-    <h2>經銷商：歷史訂單一覽</h2>
+<div class="container-fluid mt-3 p-5 vh-100">
+    <h2>歷史訂單一覽</h2>
 
     @using (Html.BeginForm())
     {
@@ -37,87 +66,70 @@
         </div>
 
     }
-    <p>@ViewBag.data</p>
 
-    <table class="table ordertable col-12 col-md-10 ">
-        <tr>
-
-            <th>下單日期</th>
-            <th>訂單單號</th>
-            <th>訂單總價</th>
-            <th>配送狀態</th>
-            <th>訂單狀態</th>
-
-            <th>
-                訂單備註
-            <th>
-            <th></th>
-        </tr>
-        <tbody>
-
-            @foreach (var item in Model)
-            {
-
+    @*<p>@ViewBag.data</p>*@
+    <div class="row justify-content-center table-responsive-md">
+        <table class="table tomatotable col-12 col-md-12 " style="table-layout:fixed;word-break:break-all">
             <tr>
-                <td>@item.f訂購日期</td>
-                <td>@item.f對外訂單單號</td>
-                <td>@item.f訂單總金額 元</td>
 
-                <td>@item.f配送狀態</td>
-
-                <td>@item.f訂單狀態</td>
-                <td>@item.f訂單備註</td>
-
-                <td>
-                    @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
-                @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "tomatocartbtn" })
-            </td>
+                <th class="col-md-2 col">下單日期</th>
+                <th class="col-md-2 col">訂單單號</th>
+                <th class="col-md-2 col">訂單總價</th>
+                <th class="col-md-2 col">配送狀態</th>
+                <th class="col-md-2 col">訂單狀態</th>
+                <th class="col-md-2 col-4"></th>
             </tr>
-            }
-        </tbody>
+            <tbody>
 
-    </table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.f訂購日期</td>
+                        <td>@item.f對外訂單單號</td>
+                        <td>@Convert.ToDouble(@item.f訂單總金額)元</td>
+                        <td>@item.f配送狀態</td>
+                        <td>@item.f訂單狀態</td>
+                        <td>
+                            @Html.ActionLink("詳情", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatobtn"})
+                            @Html.ActionLink("重新訂購", "reOrder", new { id = item.f訂單單號ID }, new { @class = "tomatodangerbtn", onclick = "return (confirm('成功導回購物車'))" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+
 </div>
 
 
 
+    @section scripts{
+        <script>
+            /*這裡是表單HOVER*/
+            $(function () {
 
+                $(".tomatotable tr:odd").addClass("odd");
+                $(".tomatotable tr:even").addClass("even");
 
-@section scripts{
-    <script>
-        /*這裡是表單HOVER*/
-        $(function () {
-
-            $(".ordertable tr:odd").addClass("orderodd");
-            $(".ordertable tr:even").addClass("ordereven");
-
-            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
-            $(".ordertable tr").hover(
-                function () {
-                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
-                },
-                function () {
-                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
-                }
-            );
-
-            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
-            $('.ordertable tbody').find("tr").each(function () {
-                let bb = $(this).children('td:eq(3)').text();
-                console.log(bb);
-                if (bb == '未出貨') {
-                    $(this).children('td:eq(3)').css("color", "red");
-                }
+                // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+                $(".tomatotable tr").hover(
+                    function () {
+                        $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
+                    },
+                    function () {
+                        $(this).removeClass("enter"); // 觸發 mouseleave 事件 移除 css
+                    }
+                );
 
             });
+        /*這裡是表單HOVER end*/
 
 
 
-        });
-
-
-    </script>
+        </script>
 
 
 
-}
+    }

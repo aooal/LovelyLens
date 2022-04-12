@@ -40,7 +40,7 @@ namespace contact.Controllers
                 {
                     return Content("此帳號目前無法使用，\n 請洽詢負責人：\n 周小姐 0988 - 888 - 888");
                 }
-                
+
 
                 if (selectAccount.f身分別 == "管理者")
                 {
@@ -73,10 +73,13 @@ namespace contact.Controllers
 
         public ActionResult Login()
         {
-            var accountLogin = Convert.ToInt32(User.Identity.Name);
-            var accountName = db.t店家.FirstOrDefault(m => m.f店家ID == accountLogin).f店家名稱;
             if (User.Identity != null)
+            {
+                var accountLogin = Convert.ToInt32(User.Identity.Name);
+                var accountName = db.t店家.FirstOrDefault(m => m.f店家ID == accountLogin).f店家名稱;
                 return Content(accountName);
+            }
+
             return Content("使用者");
         }
         public ActionResult Register()
@@ -127,7 +130,7 @@ namespace contact.Controllers
             }
             return View(註冊);
         }
-       
+
         public ActionResult FAQ()
         {
             return View();
@@ -136,6 +139,15 @@ namespace contact.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
+        }
+        public ActionResult ForgetPWD()
+        {
+            return View();
+        }
+        public ActionResult searchPWD(string account)
+        {
+            var pwd = from o in db.t店家 where o.f電子信箱 == account select o.f密碼;
+            return Content(pwd.FirstOrDefault().ToString());
         }
     }
 }

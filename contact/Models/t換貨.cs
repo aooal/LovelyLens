@@ -29,6 +29,8 @@ namespace contact.Models
         public string f換貨申請狀態 { get; set; }
         public string f對外訂單單號 { get; set; }
         public Nullable<int> f訂單明細ID { get; set; }
+        public string f換貨備註 { get; set; }
+        public string f售後服務申請對外Id { get; set; }
     
         public virtual t店家 t店家 { get; set; }
         public virtual t訂單明細 t訂單明細 { get; set; }

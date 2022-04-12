@@ -32,32 +32,26 @@
         <div class="col-6  col-md-6 family">
             訂單狀態:@aItem.f訂單狀態<br>
             付款狀態:@aItem.f付款狀態
+
         </div>
     </div>
 
 </div>
 
 
-<div class="container-fluid">
-    <table class="table ordertable col-12 col-md-12" style="table-layout:fixed;word-break:break-all">
-        <tr>
-            @*慧芬排版
-                <th class="col-md-2 col-2">商品編號</th>
-                <th class="col-md-2 col-2">商品名稱</th>
-                <th class="col-md-2 col">數量</th>
-                <th class="col-md-2 col">顏色</th>
-                <th class="col-md-2 col">小計</th>
-                <th class="col-md-2 col-3"> </th>*@
+<div class="container-fluid vh-100">
 
-            <th>商品編號</th>
-            <th>商品名稱</th>
-            <th>數量</th>
-            <th>顏色</th>
-            <th>近視老花度數</th>
-            <th>散光度數</th>
-            <th>散光角度</th>
-            <th>小計</th>
-            <th></th>
+    <table class="table tomatotable col-12 col-md-12" style="table-layout:fixed;word-break:break-all">
+        <tr>
+            <th  class="col-md col">商品編號</th>
+            <th  class="col-md col">商品名稱</th>
+            <th  class="col-md col">數量</th>
+            <th  class="col-md col">顏色</th>
+            <th  class="col-md-2 col">近視老花度數</th>
+            <th  class="col-md col">散光度數</th>
+            <th  class="col-md col">散光角度</th>
+            <th  class="col-md col">小計</th>
+            <th class="col-md-2 col-4"></th>
         </tr>
         @{
 
@@ -92,10 +86,19 @@
                     </td>
                     <td>
                         @Convert.ToDouble(item.f小計) 元
-                        
+
                     </td>
-                    <td>
-                        @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = aItem.f對外訂單單號, pid = aItem.f對外產品識別ID }, new { @class = "tomatocartbtn" })
+                    <td >
+                        @{
+                            if (aItem.f訂單狀態.ToString() != "未完成")
+                            {
+                                @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = aItem.f對外訂單單號, pid = aItem.f對外產品識別ID }, new { @class = "tomatocartbtn" }) }
+                            else
+                            {
+
+                            }
+                        }
+
                     </td>
                 </tr>
             }
@@ -112,57 +115,34 @@
         備註：@aItem.f訂單備註
     </div>
     <div>
-        @Html.ActionLink("重新訂購", "", new { id = aItem.f對外訂單單號 }, new { @class = "tomatoaddbtn" })
+
         @Html.ActionLink("取消訂單", "COderDetailDelete", new { id = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" })
     </div>
 </div>
 
 
 
+@section scripts{
+    <script>
+        /*這裡是表單HOVER*/
+        $(function () {
 
+            $(".tomatotable tr:odd").addClass("odd");
+            $(".tomatotable tr:even").addClass("even");
 
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".tomatotable tr").hover(
+                function () {
+                    $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("enter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
 
+        });
+        /*這裡是表單HOVER end*/
 
+    </script>
 
-
-
-    @section scripts{
-        <script>
-
-            /*這裡是表單HOVER*/
-            $(function () {
-
-                $(".ordertable tr:odd").addClass("orderodd");
-                $(".ordertable tr:even").addClass("ordereven");
-
-                // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
-                $(".ordertable tr").hover(
-                    function () {
-                        $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
-                    },
-                    function () {
-                        $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
-                    }
-                );
-
-                //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
-                $('.ordertable tbody').find("tr").each(function () {
-                    let bb = $(this).children('td:eq(3)').text();
-                    console.log(bb);
-                    if (bb == '未出貨') {
-                        $(this).children('td:eq(3)').css("color", "red");
-                    }
-
-                });
-
-
-               
-
-            });
-        </script>
-
-    }
-
-
-
-    @*@Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |*@
+}

@@ -52,7 +52,7 @@
             <th>商品名稱</th>
             <th>顏色</th>
             <th>數量</th>
-            <th>產品對外ID</th>
+            <th>商品編號</th>
             <th>近視老花度數</th>
             <th>散光度數</th>
             <th>散光角度</th>
@@ -132,7 +132,7 @@
             if (Model.Where(m => m.f可換貨 == false).Count() > 0)
             {
 
-                @Html.ActionLink("取消此單", "MOderDetailDelete", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" });@*訂單被取消才會出現嗎?那存在必要?*@
+                @Html.ActionLink("取消此單", "MOderDetailDelete", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" });
 
                 @Html.ActionLink("輸入取消原因", "MOderUpdate", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatocartbtn" });
             }

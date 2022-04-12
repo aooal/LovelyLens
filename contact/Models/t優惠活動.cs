@@ -15,6 +15,7 @@ namespace contact.Models
 
     public partial class t優惠活動
     {
+        public HttpPostedFileBase photo { get; set; }
         public int f優惠活動ID { get; set; }
         public string f活動名稱 { get; set; }
         public string f活動詳情 { get; set; }
@@ -24,6 +25,5 @@ namespace contact.Models
         public string f活動結束日 { get; set; }
         public string f活動對象 { get; set; }
         public string f活動照片路徑 { get; set; }
-        public HttpPostedFileBase photo { get; set; }
     }
 }
