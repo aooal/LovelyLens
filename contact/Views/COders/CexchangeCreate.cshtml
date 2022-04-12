@@ -70,8 +70,8 @@
                     }
                 </select>
             </div>
-            @*@if (Model.isPositive == true)
-                {*@
+            @if (Model.isPositive == true)
+                {
 
             <div class="col-md-3 col-12">
                 <span>閃光度數:</span>
@@ -96,19 +96,19 @@
                     }
                 </select>
             </div>
+            }
+        </fieldset>
+
+        <fieldset class="form-group col-md-6  tomatoborder">
+
+            <p>換貨原因:</p>
+            <input type="text" name="f換貨原因" class="form-control col-12 col-md-6" />
+            <p> 備註:</p>
+            <textarea class="form-control" id="txtb" name="f換貨備註" rows="5" cols="40"></textarea>
+            @*<input type="text" name="f換貨備註" class="form-control col-12 col-md-6" />*@
+            <input type="submit" value="送出申請" class="tomatoclickbtn mt-2">
 
         </fieldset>
-        @*}*@
-<fieldset class="form-group col-md-6  tomatoborder">
-
-    <p>換貨原因:</p>
-    <input type="text" name="f換貨原因" class="form-control col-12 col-md-6" />
-    <p> 備註:</p>
-    <textarea class="form-control" id="txtb" name="f換貨備註" rows="5" cols="40"></textarea>
-    @*<input type="text" name="f換貨備註" class="form-control col-12 col-md-6" />*@
-    <input type="submit" value="送出申請" class="tomatoclickbtn mt-2">
-
-</fieldset>
 
     }
 </div>
@@ -130,16 +130,21 @@
             .then(response => response.json())
             .then(response => changeShort(response));
     });
-    function changeShort(datas) {
-        pShort.innerHTML = '<option>近視老花度數</option>';
-        pFlash.innerHTML = '<option>閃光度數</option>';
-        pFlashA.innerHTML = '<option>閃光角度</option>';
-        let docFrag = document.createDocumentFragment();
-        for (let i = 0; i < datas.length; i++) {
-            let opt = document.createElement('option');
-            opt.textContent = datas[i].f近視老花度數;
-            opt.value = datas[i].f近視老花度數;
-            docFrag.appendChild(opt);
+        function changeShort(datas) {
+            pShort.innerHTML = '<option>近視老花度數</option>';
+
+            if (pFlash) {
+                pFlash.innerHTML = '<option>閃光度數</option>';
+            }
+            if (pFlashA) {
+                pFlashA.innerHTML = '<option>閃光角度</option>';
+            }
+            let docFrag = document.createDocumentFragment();
+            for (let i = 0; i < datas.length; i++) {
+                let opt = document.createElement('option');
+                opt.textContent = datas[i].f近視老花度數;
+                opt.value = datas[i].f近視老花度數;
+                docFrag.appendChild(opt);
 
         }
         pShort.appendChild(docFrag);
@@ -153,9 +158,12 @@
         }
 
         function changeFlash(datas) {
-
-            pFlash.innerHTML = '<option>閃光度數</option>';
-            pFlashA.innerHTML = '<option>閃光角度</option>';
+            if (pFlash) {
+                pFlash.innerHTML = '<option>閃光度數</option>';
+            }
+            if (pFlashA) {
+                pFlashA.innerHTML = '<option>閃光角度</option>';
+            }
             let docFrag = document.createDocumentFragment();
             for (let i = 0; i < datas.length; i++) {
                 let opt = document.createElement('option');
@@ -175,14 +183,16 @@
 
         }
         function changeFlashA(datas) {
-        pFlashA.innerHTML = '<option>閃光角度</option>';
-        let docFrag = document.createDocumentFragment();
-        for (let i = 0; i < datas.length; i++) {
-            let opt = document.createElement('option');
-            opt.textContent = datas[i].f閃光角度;
-            opt.value = datas[i].f閃光角度;
-            docFrag.appendChild(opt);
-        }
+            if (pFlashA) {
+                pFlashA.innerHTML = '<option>閃光角度</option>';
+            }
+            let docFrag = document.createDocumentFragment();
+            for (let i = 0; i < datas.length; i++) {
+                let opt = document.createElement('option');
+                opt.textContent = datas[i].f閃光角度;
+                opt.value = datas[i].f閃光角度;
+                docFrag.appendChild(opt);
+            }
             pFlashA.appendChild(docFrag);
 
 

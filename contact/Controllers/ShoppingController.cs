@@ -93,8 +93,59 @@ namespace contact.Controllers
             //return PartialView("_pPhoto", thePhoto);
         }
 
+
+        public ActionResult getShort(string productName, string productColor)
+        {
+            DBEyeEntities2 db = new DBEyeEntities2();
+            var result = db.t產品.Where(m => m.f產品名稱 == productName && m.f產品顏色 == productColor)
+                .Select(m => m.f近視老花度數)
+                .Distinct();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getAstDegree(string productName, string productColor, string shortDegree)
+        {
+            DBEyeEntities2 db = new DBEyeEntities2();
+            var result = db.t產品.Where(m => m.f產品名稱 == productName && m.f產品顏色 == productColor && m.f近視老花度數 == shortDegree)
+                .Select(m => m.f閃光度數)
+                .Distinct().ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getAstAngle(string productName, string productColor, string shortDegree, string astDegree)
+        {
+            DBEyeEntities2 db = new DBEyeEntities2();
+            var result = db.t產品.Where(m => m.f產品名稱 == productName && m.f產品顏色 == productColor && m.f近視老花度數 == shortDegree && m.f閃光度數 == astDegree)
+                .Select(m => m.f閃光角度)
+                .Distinct();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         public ActionResult Detail(int? id)
         {
+            if (id != null)
+            {
+                DBEyeEntities2 db = new DBEyeEntities2();
+                t產品 prod = db.t產品.Find(id);
+
+                if (prod != null)
+                {
+                    var colorResult = db.t產品.Where(m => m.f產品名稱 == prod.f產品名稱).Select(m => m.f產品顏色).Distinct();
+                    ShoppingViewModel vModel = new ShoppingViewModel
+                    {
+                        product = prod,
+                        colorList = colorResult.ToList()
+                    };
+                    return View(vModel);
+                }
+            }
+            return RedirectToAction("Detail");
+            /*
             if (id != null)
             {
                 DBEyeEntities2 db = new DBEyeEntities2();
@@ -109,30 +160,33 @@ namespace contact.Controllers
                 }
             }
             return RedirectToAction("Detail");
+            */
         }
 
         [HttpPost]
         public ActionResult Detail(CAddToCartViewModel viewModel)
         {
             DBEyeEntities2 db = new DBEyeEntities2();
-            if (viewModel.f閃光度數 == "散光度數")
+            if (viewModel.f閃光度數 == null)
             {
                 viewModel.f閃光度數 = "0";
             }
-            if (viewModel.f閃光角度 == "散光角度")
+            if (viewModel.f閃光角度 == null)
             {
                 viewModel.f閃光角度 = "0";
             }
 
-            var product = from p in db.t產品
-                          where (
-                           p.f品牌名稱 == viewModel.f品牌名稱 &
-                           p.f產品名稱 == viewModel.f產品名稱 &
-                           p.f產品顏色 == viewModel.f產品顏色 &
-                           p.f近視老花度數 == viewModel.f近視老花度數 &
-                           p.f閃光度數 == viewModel.f閃光度數 &
-                           p.f閃光角度 == viewModel.f閃光角度)
-                          select p;
+            //var product = from p in db.t產品
+            //              where (
+            //               p.f品牌名稱 == viewModel.f品牌名稱 &
+            //               p.f產品名稱 == viewModel.f產品名稱 &
+            //               p.f產品顏色 == viewModel.f產品顏色 &
+            //               p.f近視老花度數 == viewModel.f近視老花度數 &
+            //               p.f閃光度數 == viewModel.f閃光度數 &
+            //               p.f閃光角度 == viewModel.f閃光角度)
+            //              select p;
+            var product = db.t產品.Where(p => p.f品牌名稱.Contains(viewModel.f品牌名稱) && p.f產品名稱.Contains(viewModel.f產品名稱) && p.f產品顏色.Contains(viewModel.f產品顏色)
+            && p.f近視老花度數.Contains(viewModel.f近視老花度數) && p.f閃光度數.Contains(viewModel.f閃光度數) && p.f閃光角度.Contains(viewModel.f閃光角度));
             var prod = product.FirstOrDefault();
             if (prod != null)
             {

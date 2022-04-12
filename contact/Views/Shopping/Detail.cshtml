@@ -1,4 +1,4 @@
-﻿@model IEnumerable<contact.Models.t產品>
+﻿@model contact.ViewModels.ShoppingViewModel
 @{
     ViewBag.Title = "pDetail";
 }
@@ -12,7 +12,6 @@
     <style>
         body {
             background-color: #fd929249;
-          
         }
 
 
@@ -168,6 +167,7 @@
             word-break: break-all;
             word-wrap: break-word;
         }
+
         li.smallPic {
             list-style: none;
         }
@@ -175,12 +175,9 @@
 
         .mytext1 {
             background-color: rgb(255 255 255 / 0.5);
-         
             backdrop-filter: blur(10px);
             border-radius: 5px;
-          
-           padding:10px ;
-
+            padding: 10px;
         }
     </style>
 
@@ -196,10 +193,10 @@
         function pCount() {
             var total = document.getElementById('total');
             var pCount = document.getElementById('pCount');
-            if (@((int?)Model.FirstOrDefault().f售價) * pCount.value > 0) {
-                total.innerHTML = "NT $ " + @((int?)Model.FirstOrDefault().f售價) * pCount.value;
+            if (@((int?)Model.product.f售價) * pCount.value > 0) {
+                total.innerHTML = "NT $ " + @((int?)Model.product.f售價) * pCount.value;
             } else {
-                total.innerHTML = "NT $ " + @Model.FirstOrDefault().f售價;
+                total.innerHTML = "NT $ " + @Model.product.f售價;
             }
 
         }
@@ -210,6 +207,10 @@
         var asttext = document.getElementById('astText');
         var angtext = document.getElementById('angText');
 
+        var productName = '@Model.product.f產品名稱';
+        var rEye = document.getElementById('rEye');
+
+
         function onlyUnique(value, index, self) {
             return self.indexOf(value) === index;
         }
@@ -218,19 +219,15 @@
         var astArray = [];
         var angArray = [];
         var discripArray = [];
-        @foreach(var item in Model)
+
+        // -------------------------------------------以下
+        @foreach (string color in Model.colorList)
         {
-
-
-            @:colorArray.push("@item.f產品顏色");
-            @:myArray.push((@item.f近視老花度數).toFixed(2));
-            @:astArray.push("@item.f閃光度數");
-            @:angArray.push("@item.f閃光角度");
-            @:discripArray.push("@item.f產品描述");
-
-
+            @:colorArray.push('@color');
         }
-        if (@Model.FirstOrDefault().f閃光度數 != "0"){
+        // -------------------------------------------以上
+
+        if (@Model.product.f閃光度數 != "0"){
             ast.style.display = 'block';
             ang.style.display = 'block';
             astText.style.display = 'block';
@@ -260,6 +257,7 @@
             discripArray[index] = `${num++}. ` + item + "<br/>";
         });
 
+
         PDiscrip.innerHTML = discripArray.join('');
 
         var pColor = document.getElementById('pColor');
@@ -268,31 +266,47 @@
             var MyColor = new Option(colorArray[i], colorArray[i]);
             pColor.options.add(MyColor);
         }
-        var ast = document.getElementById('ast');
-        for (var i = 0; i < astArray.length; i++) {
 
-            var Myast = new Option(astArray[i], astArray[i]);
-            ast.options.add(Myast);
-        }
-        var ang = document.getElementById('ang');
-        for (var i = 0; i < angArray.length; i++) {
+        // -------------------------------------------以下
+        pColor.addEventListener('change', () => {
+            let para = `?productName=${productName}&productColor=${pColor.value}`;
+            fetch('@Url.Content("~/Shopping/getShort")' + para, { method: 'GET' })
+                .then(response => response.json())
+                .then(shortDegreeList => generateShort(shortDegreeList));
+        });
 
-            var Myang = new Option(angArray[i], angArray[i]);
-            ang.options.add(Myang);
-        }
-
-        var rEye = document.getElementById('rEye');
-        for (var i = 0; i < myArray.length; i++) {
-
-            var MyItem = new Option(myArray[i], myArray[i]);
-            rEye.options.add(MyItem);
-        }
-        function Myselect() {
-            var myValue = rEye.options[rEye.selectedIndex].value;
-            console.log(myValue);
+        function generateShort(datas) {
+            rEye.innerHTML = '<option value="">近視度數</option>';
+            ast.innerHTML = '<option value="">散光度數</option>';
+            ang.innerHTML = '<option value="">散光角度</option>';
+            datas.forEach(shortDegree => rEye.options.add(new Option(shortDegree, shortDegree)));
         }
 
+        rEye.addEventListener('change', () => {
+            let para = `?productName=${productName}&productColor=${pColor.value}&shortDegree=${rEye.value}`;
+            fetch('@Url.Content("~/Shopping/getAstDegree")' + para, { method: 'GET' })
+                .then(response => response.json())
+                .then(astDegreeList => generateAstDegree(astDegreeList));
+        });
 
+        function generateAstDegree(datas) {
+            ast.innerHTML = '<option value="">散光度數</option>';
+            ang.innerHTML = '<option value="">散光角度</option>';
+            datas.forEach(astDegree => ast.options.add(new Option(astDegree, astDegree)));
+        }
+        //        public ActionResult getAstAngle(string productName, string productColor, string shortDegree, string astDegree)
+        ast.addEventListener('change', () => {
+            let para = `?productName=${productName}&productColor=${pColor.value}&shortDegree=${rEye.value}&astDegree=${ast.value}`;
+            fetch('@Url.Content("~/Shopping/getAstAngle")' + para, { method: 'GET' })
+                .then(response => response.json())
+                .then(astAngleList => generateAstAngle(astAngleList));
+        })
+
+        function generateAstAngle(datas) {
+            ang.innerHTML = '<option value="">散光度數</option>';
+            datas.forEach(astAngle => ang.options.add(new Option(astAngle, astAngle)));
+        }
+        // -------------------------------------------以上
 
         //tomato 圖片切換
         window.onload = function () {
@@ -306,7 +320,7 @@
                 myPicUlul.classList.add("mytext");
                 smallPic.forEach(function (item, index) {
                     item.addEventListener('click', change)
-                   
+
 
                     function change(e) {
 
@@ -339,14 +353,14 @@
 
 
 
-          
+
 
 
         const submitEvent = document.getElementById('submit');
         submitEvent.addEventListener('click', function () {
             document.getElementById('Count').value = document.getElementById('pCount').value;
         })
-       
+
 
 
 
@@ -356,7 +370,7 @@
 }
 <div class="container">
 
-   
+
     <div class="row justify-content-center mt-5">
 
 
@@ -371,20 +385,20 @@
         </div>
 
         <div class="col-12 col-md-4 mytext1">
-            <h2 class="">@Model.FirstOrDefault().f品牌名稱</h2>
+            <h2 class="">@Model.product.f品牌名稱</h2>
 
-            <h4>@Model.FirstOrDefault().f產品名稱</h4>
+            <h4>@Model.product.f產品名稱</h4>
 
             <small id="PDiscrip" class="wordwrap"> </small>
-            <h6 id="total">NT $ @((int?)Model.FirstOrDefault().f售價) 元</h6>
+            <h6 id="total">NT $ @((int?)Model.product.f售價) 元</h6>
             <div class="col-12 col-md-3">
                 <small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />
                 @*<small class="text-muted">數量</small><input type="number" id="pCount" onchange="pCount()" min="1" oninput="if(value>100)value=100" value="1" class="form-control" />*@
             </div>
 
             <form action="Detail" method="POST" class="">
-                <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
-                <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+                <input type="hidden" name="f品牌名稱" value="@Model.product.f品牌名稱" />
+                <input type="hidden" name="f產品名稱" value="@Model.product.f產品名稱" />
                 <input type="hidden" id="Count" name="數量" />
                 <div class="col-12 col-md-3">
                     <small class="text-muted">顏色</small>
@@ -392,18 +406,18 @@
                         <option>顏色</option>
                     </select>
                     <small class="text-muted">近視度數</small>
-                    <select id="rEye" name="f近視老花度數" onchange="Myselect()" class="form-control ">
+                    <select id="rEye" name="f近視老花度數" class="form-control ">
                         <option>近視度數</option>
                     </select>
 
                     <small class="text-muted" id="astText" style="display:none">散光度數</small>
-                    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none" class="form-control">
+                    <select id="ast" name="f閃光度數" style="display:none" class="form-control">
                         <option>散光度數</option>
                     </select>
                     <div>
 
                         <small class="text-muted" id="angText" style="display:none">散光角度</small>
-                        <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none" class="form-control">
+                        <select id="ang" name="f閃光角度" style="display:none" class="form-control">
                             <option>散光角度</option>
                         </select>
                     </div>
@@ -412,7 +426,7 @@
                 </div>
                 <p id="inven" onload="inven()"></p>
                 <div class="float-end">
-                    <input type="submit" value="加入購物車" id="submit" class="btn tomatocartbtn" onclick="return (confirm('已加入購物車'))" />
+                    <input type="submit" value="加入購物車" id="submit" class="btn tomatocartbtn"  onclick="return (confirm('已加入購物車'))" />
                 </div>
             </form>
 
@@ -429,22 +443,22 @@
 </div>
 
 @*<form action="Detail" method="POST" class="p-5 mt-5 loginform">
-    <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
-    <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
-    <input type="hidden" id="Count" name="數量" />
+        <input type="hidden" name="f品牌名稱" value="@Model.FirstOrDefault().f品牌名稱" />
+        <input type="hidden" name="f產品名稱" value="@Model.FirstOrDefault().f產品名稱" />
+        <input type="hidden" id="Count" name="數量" />
 
-    <select id="pColor" name="f產品顏色">
-        <option>請選擇產品顏色</option>
-    </select>
-    <select id="rEye" name="f近視老花度數" onchange="Myselect()">
-        <option>請選擇近視度數</option>
-    </select>
-    <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none">
-        <option>請選擇散光度數</option>
-    </select>
-    <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none">
-        <option>請選擇散光角度</option>
-    </select>
-    <p id="inven" onload="inven()"></p>
-    <input type="submit" value="加入購物車" />
-</form>*@
+        <select id="pColor" name="f產品顏色">
+            <option>請選擇產品顏色</option>
+        </select>
+        <select id="rEye" name="f近視老花度數" onchange="Myselect()">
+            <option>請選擇近視度數</option>
+        </select>
+        <select id="ast" name="f閃光度數" onchange="Myast()" style="display:none">
+            <option>請選擇散光度數</option>
+        </select>
+        <select id="ang" name="f閃光角度" onchange="Myang()" style="display:none">
+            <option>請選擇散光角度</option>
+        </select>
+        <p id="inven" onload="inven()"></p>
+        <input type="submit" value="加入購物車" />
+    </form>*@

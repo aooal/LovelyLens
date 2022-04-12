@@ -346,6 +346,7 @@
     <Compile Include="ViewModels\MOderDetailRecord .cs" />
     <Compile Include="ViewModels\MOrderRecord.cs" />
     <Compile Include="ViewModels\ShippingViewModels.cs" />
+    <Compile Include="ViewModels\ShoppingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

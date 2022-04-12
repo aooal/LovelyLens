@@ -62,9 +62,9 @@
             @:moneyAdd.push("@Convert.ToDouble(@item.小計)");
         }
 
-        
+
         var newmoneyPer = document.querySelectorAll('td.moneyPer');
-       
+
 
         for (let index in moneyPer)
         {
@@ -80,6 +80,15 @@
         }
 
 
+        function sumprice(domId) {
+            var sum = document.getElementById('sumt'+domId);
+            var count = document.getElementById('count'+domId);
+            var myprice = document.getElementById('myprice'+domId);
+            sum.value = count.value * myprice.value;
+
+        }
+
+
     </script>
 }
 <div class="container vh-100">
@@ -87,28 +96,28 @@
     <div class="row justify-content-center table-responsive-md">
         <table class="table table-striped mt-5 col-12 col-md-12">
             <tr class="table-dark">
-                <th class="col-1" style="display:none" ></th>
+                <th class="col-1" style="display:none"></th>
 
                 <th class="col-1">@Html.DisplayNameFor(model => model.品牌名稱)</th>
-                
+
                 <th class="col-1">@Html.DisplayNameFor(model => model.產品名稱)</th>
 
                 <th class="col-1">@Html.DisplayNameFor(model => model.產品顏色)</th>
-                
+
                 <th class="col-1">@Html.DisplayNameFor(model => model.近視度數)</th>
-                
+
                 <th class="col-1">@Html.DisplayNameFor(model => model.散光度數)</th>
 
                 <th class="col-1">@Html.DisplayNameFor(model => model.散光角度)</th>
-                
+
                 <th class="col-1">@Html.DisplayNameFor(model => model.數量)</th>
-                
+
                 <th class="col-1">@Html.DisplayNameFor(model => model.單價)</th>
-                
+
                 <th class="col-1">@Html.DisplayNameFor(model => model.小計)</th>
-                
+
                 <th class="col-1">可購買數量</th>
-                
+
                 <th class="col-1"></th>
             </tr>
 
@@ -121,8 +130,9 @@
                 {
                     tempTotal += item.小計;
                     countDel++;
+                    string countId = "count" + countDel, myPriceId = "myprice" + countDel, sumId = "sumt" + countDel;
                     <tr>
-                        <td style="display:none" ><input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" /></td>
+                        <td style="display:none"><input type="hidden" name="txtFid" value="@Model.FirstOrDefault().Product.f產品ID" /></td>
 
                         <td>@Html.DisplayFor(modelItem => item.品牌名稱)</td>
 
@@ -136,11 +146,12 @@
 
                         <td>@Html.DisplayFor(modelItem => item.散光角度)</td>
 
-                        <td>@Html.DisplayFor(modelItem => item.數量)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.數量)</td>*@
+                        <td><input type="number" value="@Html.DisplayFor(modelItem => item.數量)" min="0" max="@((int)item.Product.f庫存數量*0.8)" id="@countId" onchange="sumprice(@countDel)" onfocus="blur()" /></td>
 
-                        <td class="moneyPer">@Html.DisplayFor(modelItem => item.單價)</td>
+                        <td><input type="text" value="@Html.DisplayFor(modelItem => item.單價)" onfocus="blur()" id="@myPriceId" /></td>
 
-                        <td class="moneyAdd">@Html.DisplayFor(modelItem => item.小計)</td>
+                        <td><input type="text" value="@Html.DisplayFor(modelItem => item.小計)" onfocus="this.blur()" id="@sumId" /></td>
 
                         <td>@Html.DisplayFor(modelItem => item.可訂購數量)</td>
 
@@ -149,20 +160,20 @@
                         </td>
                     </tr>
                 }
-        <tr>
-            <td style="display:none"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>總價</td>
-            <td><p id="money">@Convert.ToDouble(@tempTotal).ToString()</p></td>
-            <td>元</td>
-            <td></td>
-        </tr>
+                <tr>
+                    <td style="display:none"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>總價</td>
+                    <td><p id="money">@Convert.ToDouble(@tempTotal).ToString()</p></td>
+                    <td>元</td>
+                    <td></td>
+                </tr>
 
             }
 
@@ -180,69 +191,10 @@
     </div>
 
 
-    @*@using (Html.BeginForm())
-        {
-            <p>訂購資訊</p>
-            <p>
-                <input type="checkbox" id="sameWithAccount" value="與會員資料相同" onclick="autoFillIn()" />
-                <label for="cbox1">與會員資料相同</label>
-            </p>
-
-            <div>
-                <p>
-                    訂購人：
-                    <input type="text" name="f訂購人" class="" placeholder="請輸入訂購人姓名" id="f訂購人" />
-                </p>
-                <p>
-                    連絡電話：
-                    <input type="text" name="f連絡電話" class="" placeholder="請輸入連絡電話" id="f連絡電話" />
-                </p>
-                <p>
-                    寄送地址：
-                    <input type="text" name="f寄送地址" class="" placeholder="請輸入寄送地址" id="f寄送地址" />
-                </p>
-                <p>
-                    電子信箱：
-                    <input type="text" name="f訂購人信箱" class="" placeholder="請輸入電子信箱" id="f訂購人信箱" />
-                </p>
-
-            </div>
-            <div>
-                <p>
-                    訂單需求：
-                    <select id="orderDemand" name="f訂單需求">
-                        <option selected disabled>請選擇訂單需求</option>
-                        <option>客需</option>
-                        <option>庫存</option>
-                        <option>其他</option>
-                    </select>
-                </p>
-                <p>
-                    訂單備註：
-                    <textarea name="f訂單備註"></textarea>
-                </p>
-                <p>
-                    訂單總金額：
-                <p name="f訂單總金額"></p>
-                </p>
-                <p>
-                    付款方式：
-                    <select id="payment" name="f付款方式">
-                        <option selected disabled>請選擇付款方式</option>
-                        <option>銀行轉帳</option>
-                        <option>線上刷卡</option>
-                        <option>現金支付</option>
-                    </select>
-                </p>
-            </div>
-
-        }*@
-
-    @*@Html.ActionLink("結帳", "../CCustomer/CheckOut", new { /* id=item.PrimaryKey */ })*@
     <div class="offset-md-10 col-md-2 col-12 mt-5 ">
         <a href="/CCustomer/CheckOut" class="btn tomatodangerbtn" onclick="che(this)" id="goCheck">前往結帳</a><a class="btn tomatobtn noshow" href="/Shopping/List">繼續購物</a>
     </div>
-  
+
 
 
 </div>
