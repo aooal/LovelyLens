@@ -1,0 +1,36 @@
+﻿@model IEnumerable<contact.ViewModels.CexchangeRecord>
+@{
+    ViewBag.Title = "MexchangeUpdate";
+}
+
+
+
+
+<table class="table ordertable col-12 col-md-12 " style="table-layout:fixed;word-break:break-all">
+    <tr>
+        <th>售後服務申請單號</th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.f售後服務申請對外Id)
+                
+            </td>
+
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm())
+{
+
+    <div>
+        <p>請輸入售後服務申請單取消原因：</p>
+        <textarea name="f換貨備註"></textarea>
+        <input type="submit" value="送出" class="tomatoclickbtn">
+    </div>
+
+}

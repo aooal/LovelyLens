@@ -15,6 +15,7 @@ namespace contact.Models
 
     public partial class t產品
     {
+        public HttpPostedFileBase photo { get; set; }
         public int f產品ID { get; set; }
         public string f製造批號 { get; set; }
         public Nullable<int> f店家ID { get; set; }
@@ -24,7 +25,7 @@ namespace contact.Models
         public string f近視老花度數 { get; set; }
         public string f閃光度數 { get; set; }
         public string f閃光角度 { get; set; }
-        public Nullable<int> f庫存數量 { get; set; }
+        public int f庫存數量 { get; set; }
         public string f數量單位 { get; set; }
         public Nullable<decimal> f成本價 { get; set; }
         public Nullable<decimal> f售價 { get; set; }
@@ -33,6 +34,8 @@ namespace contact.Models
         public string f產品圖片路徑 { get; set; }
         public string f產品描述 { get; set; }
         public string f對外產品識別ID { get; set; }
-        public HttpPostedFileBase photo { get; set; }
+        public string f產品顏色 { get; set; }
+    
+        public virtual t店家 t店家 { get; set; }
     }
 }

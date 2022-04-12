@@ -1,75 +1,375 @@
-﻿@model IEnumerable<contact.Models.t產品>
+﻿@*@model IEnumerable<contact.Models.t產品>*@
+@model IPagedList<contact.Models.t產品>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "List";
 }
-@using (Html.BeginForm())
-{
-    <script>
-        var strr = "";
+
+@{
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@section styles{
+
+    <style>
+        body {
+            background-color: #fd929249;
+        }
+
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            /* border:  solid #838383 5px; */
+            border-radius: 1rem;
+        }
+
+        .cardtomato {
+            border: 0px;
+        }
+        /* 讓card裡照片滿版 */
+        .tomato-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-bottom-left-radius: 1rem !important;
+            border-top-left-radius: 1rem !important;
+        }
+
+        /* 錢 */
+        .momey::after {
+            content: ' 元';
+        }
+
+        /* 錢 */
+        .momey::before {
+            content: '優惠價: ';
+        }
+
+        /* 照片降明度 */
+        .card img:hover {
+            filter: brightness(.5);
+        }
 
 
 
-    </script>
-    <span>關鍵字搜尋</span>
-    <input type="text" name="txtKeyword" />
-    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+        /* 刪除按鈕 */
+        .tomatodangerbtn {
+            border-radius: 35px;
+            font-family: jf-openhuninn;
+            color: #f0b0aa;
+            font-size: 18px;
+            background: #e8546f;
+            padding: 5px 10px 5px 10px;
+            border: dotted #e6e6e6 2px;
+            text-decoration: none;
+        }
+
+            .tomatodangerbtn:hover {
+                background: #a12747;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 搜尋 方型BTN */
+        .tomatoclickbtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #ff8a8a;
+            padding: 5px 10px 5px 10px;
+            border: double #ffffff 4px;
+            text-decoration: none;
+        }
+
+            .tomatoclickbtn:hover {
+                background: #eb6767;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+        /* 詳情按鈕     */
+        .tomatobtn {
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #d6b6c3;
+            padding: 5px 10px 5px 10px;
+            border: dotted #fafafa 2px;
+            text-decoration: none;
+        }
+
+            .tomatobtn:hover {
+                background: #d6b6c3;
+                background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        /* 加入購物車 */
+        .tomatocartbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #eba68d;
+            padding: 5px 10px 5px 10px;
+            border: dotted #ffffff 2px;
+            text-decoration: none;
+        }
+
+            .tomatocartbtn:hover {
+                background: #cc8b74;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        .gotoCheck {
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            z-index: 9999;
+        }
+
+
+        /* 輪播開始 */
+        #lokiSlider img {
+            object-fit: cover;
+            height: 35vh;
+            /*display: block;*/
+            width: 100%;
+        }
+
+        #lokiSlider .carousel-caption {
+            text-shadow: #333 0.3rem 0.3rem 0.5rem;
+        }
+
+        #lokiSlider .carousel-indicators > button {
+            border-radius: 50%;
+            height: 15px;
+            width: 15px;
+            border: 10px solid transparent;
+        }
+
+        .vh-50 {
+            height: 35vh;
+        }
+
+  
+
+
+
+
+    </style>
+   
 
 }
-<h2>LovelyLens</h2>
 
-<p>
-    @Html.ActionLink("結帳", "CheckOut")
-</p>
-<table class="table" style="text-align:center">
-    <tr>
-
-        <th>
-
-        </th>
-        <th>
-
-        </th>
-        <th>
-
-        </th>
-        <th>
-            金額
-        </th>
+@section scripts{
+    <script>
 
 
 
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
+        //輪播用 慧芬
+        $(function () {
+            $('.carousel-indicators:first-child').addClass('active');
+            $('.carousel-item:first-child').addClass('active');
+
+        });
+
+        //資料庫的價格去小數 慧芬
+        var money = [];
+          @foreach (var item in Model)
+        {
+            @:money.push("@Convert.ToInt32(@item.f售價)");
+        }
+
+        console.log(money);
+        var newmoney = document.querySelectorAll('h6.momey');
+
+        for (let index in money)
+        {
+            console.log(money[index]);
+
+            newmoney[index].innerHTML = money[index];
+
+        }
+
+        //翔暐的
+
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        var brandArray = [];
+        @foreach (var item in Model)
+        {
+            @:brandArray.push("@item.f品牌名稱");
+        }
+        brandArray = brandArray.filter(onlyUnique);
+        brandArray.sort();
+        console.log(brandArray);
+        var brandSer = document.getElementById('brandSer');
+        for (var i = 0; i < brandArray.length; i++) {
+
+            var Mybrand = new Option(brandArray[i], brandArray[i]);
+            brandSer.options.add(Mybrand);
+        }
+        function mybrand() {
+            var txt = document.getElementById('txtKeyword');
+            var myValue = brandSer.options[brandSer.selectedIndex].value;
+            txt.value = myValue
+
+
+        }
+        function backto() {
+            var txt = document.getElementById('txtKeyword');
+            txt.value = "";
+        }
+
+        //分頁 慧芬
+        var skipToNext = document.querySelector('.PagedList-skipToPrevious a');
+        skipToNext.textContent = "上一頁";
+        var skipToNext = document.querySelector('.PagedList-skipToNext a');
+        skipToNext.textContent = "下一頁";
+
+    </script>
+
+}
+
+
+@Html.Action("_activDisplay", "Shopping", new { count = 5 })
+
+
+
+<div class="container-fluid mt-5">
+    <!-- 這裡是搜尋BAR -->
+
+
+
+    @using (Html.BeginForm())
     {
-        <tr>
+        <div class="row my-5 justify-content-start align-items-baseline text-center">
 
-            <td>
+            <div class="col-12 col-md-2  mb-3 d-none ">
+                <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入關鍵字搜尋" id="txtKeyword" hidden />
+            </div>
 
-                <img src="~/images/@item.f產品圖片路徑" width="180" height="180" style="object-fit:cover" />
+            <div class="col-3  col-md-1  mb-3 ">依品牌查詢</div>
+            <div class="col-12 col-md-2  mb-3 ">
+                <select id="brandSer" onchange="mybrand()" name="txtBrand" class="form-select" aria-label="Default select example">
+                    <option value=""></option>
+                </select>
 
-            </td>
-            <td>
-                <h4>@Html.DisplayFor(modelItem => item.f品牌名稱)</h4>
-
-            </td>
-            <td>
-                <h4>@Html.DisplayFor(modelItem => item.f產品名稱)</h4>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.f售價)
-            </td>
+            </div>
 
 
 
-            <td>
-                @Html.ActionLink("商品詳情", "Detail", new { id = item.f產品ID }) |
-                @Html.ActionLink("加入購物車", "Cart", new { id = item.f產品ID })
-            </td>
-        </tr>
+            <div class="col-4 col-md-1  mb-3 ">
+
+                <input type="submit" value="查詢" class="tomatoclickbtn " />
+
+            </div>
+            <div class="col-4 col-md-1  mb-3 ">
+                <input type="submit" value="回產品一覽" class="tomatoclickbtn " onclick="backto()" />
+            </div>
+        </div>
+
     }
 
-</table>
 
+</div>
+
+
+
+
+<!-- 這裡是搜尋BARend -->
+<!-- 水平線 -->
+<hr class="tomatolower mx-auto col-12 col-xl-10 ">
+
+
+
+<div class="gotoCheck">
+    @*@Html.ActionLink("去結帳", "../CCustomer/CheckOut", new { }, new { @class = "btn btn-dark" })*@
+    @Html.ActionLink("去結帳", "CartView", "Shopping", new { @class = "btn btn-dark" })
+</div>
+
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center align-items-stretch">
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-12 col-md-6">
+                <div class="card cardtomato mb-5 ">
+                    <div class="row g-0 justify-content-center align-items-stretch">
+                        <div class="col-md-4 ">
+                            <a href="/Shopping/Detail/@item.f產品ID"><img src="~/images/@item.f產品圖片路徑" class="w-100 tomato-img" alt="產品圖"></a>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.f品牌名稱)</h5>
+
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
+                                <br />
+                                <p class="card-text"><small class="text-muted">最新上架</small></p>
+                                <br />
+                                <br />
+                                <h6 class="card-text momey">@Html.DisplayFor(modelItem => item.f售價)</h6>
+
+
+
+                                <div class="float-end mb-2">
+                                    <a href="/Shopping/Detail/@item.f產品ID" class="btn tomatobtn" id="@item.f產品ID">商品詳情</a>
+                                    @*<a href="/Shopping/Cart/@item.f產品ID" class="btn tomatocartbtn">加入購物車 <i class="bi bi-basket2-fill"></i></a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+        @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page = page }))*@
+
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("List", "Shopping", new { page, keyword = Request.QueryString["txtKeyword"] }))
+
+
+
+    </div>
+</div>
+
+
+
+@*<img src="~/images/@item.f產品圖片路徑" width="180" height="180" style="object-fit:cover" />
+
+    <h4>@Html.DisplayFor(modelItem => item.f品牌名稱)</h4>
+
+    <h4>@Html.DisplayFor(modelItem => item.f產品名稱)</h4>
+
+    @Html.DisplayFor(modelItem => item.f售價)
+
+
+
+
+    @Html.ActionLink("商品詳情", "Detail", new { id = item.f產品ID })
+    @Html.ActionLink("加入購物車", "Cart", new { id = item.f產品ID })*@

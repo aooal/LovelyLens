@@ -1,0 +1,47 @@
+﻿@*@model contact.Models.t優惠活動*@
+
+@model IEnumerable<contact.Models.t優惠活動>
+
+
+
+
+<!-- 輪播開始  -->
+
+@{
+    @*<div class="container-fluid ">
+        <div class="row">*@
+
+            <section id="lokiSlider" class="carousel slide carousel-fade vh-50 w-100 col-12 col-md-12" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+
+                    @for (var i = 0; i <= 4; i++)
+                    {
+
+
+                        <button type="button" data-bs-target="#lokiSlider" data-bs-slide-to="@i" class="active"></button>
+
+                    }
+                </div>
+                <div class="carousel-inner">
+                    @foreach (var item in Model)
+                    {
+                        <div class="carousel-item">
+                            <a href="~/Shopping/_theActivity/@item.f優惠活動ID"><img src="~/images/@item.f活動照片路徑" class="d-block w-100"></a>
+                            <div class="carousel-caption">
+                                <h5>@item.f活動名稱</h5>
+                                <p class="d-none d-md-block">@item.f活動詳情</p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#lokiSlider" data-bs-slide="prev">
+                    <i class="fas fa-angle-double-left fa-2x"></i>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#lokiSlider" data-bs-slide="next">
+                    <i class="fas fa-angle-double-right fa-2x"></i>
+                </button>
+            </section>
+        @*</div>
+    </div>*@
+}

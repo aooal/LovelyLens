@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace contact.Controllers
 {
+    [Authorize(Users ="1")]
     public class CManagerController : Controller
     {
         // GET: CManager

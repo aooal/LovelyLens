@@ -1,0 +1,482 @@
+﻿@model contact.Models.t產品
+
+@{
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台";
+
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+
+@section styles{
+    <style>
+
+
+        .tomatoborder {
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            border-bottom: 2px solid #ca9c8f;
+            border-top: 2px solid #ca9c8f;
+            padding: 16px;
+            margin: 0 32px 32px 32px;
+        }
+
+        .tomatotittle {
+            font-size: calc(1.275rem + .3vw);
+        }
+    </style>
+
+
+}
+
+
+
+@section scripts{
+    <script>
+        const theFile = document.querySelector('#fileid');
+        const theImg = document.querySelector('#img1')
+
+        theFile.addEventListener("change", function () {
+            //預覽圖片 FileReader .png、.jpeg..
+            //regular expression
+
+            const file = theFile.files[0]
+            //todo 判斷檔案是不是圖，可以用regular expression
+
+            const reader = new FileReader();
+            reader.addEventListener("load", function () {
+                theImg.src = this.result;
+            })
+            reader.readAsDataURL(file);
+        })
+
+        //function selAll() {
+        //    var chk1 = document.getElementsByName('chkAst');
+        //    var theDiv2 = document.getElementById('txt2');
+        //    var value = new Array();
+        //    for (var i = 0; i < chk1.length; i++) {
+
+        //            value.push(chk1[i].value);
+        //            chk1[i].checked = true;
+
+        //    }
+        //    theDiv2.value = value;
+
+        //}
+        //function dselAll() {
+        //    var chk1 = document.getElementsByName('chkAst');
+        //    var theDiv2 = document.getElementById('txt2');
+        //    var value = new Array();
+        //    for (var i = 0; i < chk1.length; i++) {
+        //        if (chk1[i].type == 'checkbox')
+        //            value.length = 0;
+        //            chk1[i].checked = false;
+        //    }
+        //    theDiv2.value = value;
+        //}
+
+        //$('#checkbox1').change(function () {
+        //    var theDiv2 = document.getElementById('txt2');
+        //    theDiv2.value = "-0.75";
+        //})
+
+        window.onload = function pId() {
+            var txtId = document.getElementById('txtID');
+            var pid = new Date();
+            var pid2 = pid.getTime();
+            txtId.value = "p" + pid2.toString();
+        }
+
+
+        function addOption(list, text, value) {
+            var myvalue = document.getElementById('theValue');
+            var index = list.options.length;
+            myvalue.value = text;
+            list.options[index] = new Option(text, value);
+            list.options[index].value = myvalue.value
+            list.selectedIndex = index;
+        }
+        function addOption2(list, text, value) {
+            var myvalue2 = document.getElementById('theValue2');
+            var index = list.options.length;
+            myvalue2.value = text;
+            list.options[index] = new Option(text, value);
+            list.selectedIndex = index;
+            list.options[index].value = myvalue2.value;
+        }
+        function addOption3(list, text, value) {
+            var myvalue3 = document.getElementById('theValue3');
+            var index = list.options.length;
+            myvalue3.value = text;
+            list.options[index] = new Option(text, value);
+            list.selectedIndex = index;
+            list.options[index].value = myvalue3.value;
+            myvalue3.value = text;
+        }
+        var myopiaValue;
+        function myopiaChange() {
+            var myopia = document.getElementById('myopia');
+            var opia = document.getElementById('opia')
+            myopiaValue = myopia.options[myopia.selectedIndex].value;
+            opia.innerHTML = "近視度數 : " + myopiaValue;
+            var theDiv = document.getElementById('txt');
+            theDiv.value = myopiaValue;
+
+        }
+        var myastValue;
+        function astChange() {
+            var ast = document.getElementById('ast');
+            var astDis = document.getElementById('astDis')
+            myastValue = ast.options[ast.selectedIndex].value;
+            astDis.innerHTML = "散光度數 : " + myastValue;
+            var theDiv2 = document.getElementById('txt2');
+            theDiv2.value = myastValue;
+
+        }
+        var myangValue;
+        function angChange() {
+            var ang = document.getElementById('ang');
+            var angDis = document.getElementById('angDis')
+            myangValue = ang.options[ang.selectedIndex].value;
+            angDis.innerHTML = "散光角度 : " + myangValue;
+            var theDiv3 = document.getElementById('txt3');
+            theDiv3.value = myangValue;
+        }
+        window.onload = function () {
+            var opia = document.getElementById('opia');
+            var txt = document.getElementById('txt');
+            var astDis = document.getElementById('astDis');
+            var txt2 = document.getElementById('txt2');
+            var angDis = document.getElementById('angDis');
+            var txt3 = document.getElementById('txt3');
+            opia.innerHTML = "近視度數 : " + txt.value;
+            astDis.innerHTML = "閃光度數 : " + txt2.value;
+            angDis.innerHTML = "閃光角度 : " + txt3.value;
+        }
+
+    </script>
+}
+
+<div class="container my-5">
+    <div class="row">
+
+        <h2>快速新增商品</h2>
+        <hr />
+
+        <div class="col-12 col-md-12">
+
+
+            @using (Html.BeginForm("MProductCRUD", "CProducts", FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+
+            {
+                @Html.AntiForgeryToken()
+
+            <fieldset class=" float-lg-end col-md-6  tomatoborder">
+                <legend class="family">照片上傳</legend>
+
+                @*<label for="inputFile" class="">選擇產品照片</label>
+                <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
+                <img src="" class="img-thumbnail w-75 " id="img1" />*@
+
+                <div class="col-md-6">
+                    <label for="inputFile" class="form-label">選擇產品照片</label>
+                    <input type="file" class="form-control btn-outline-secondary" name="photo" id="fileid" accept="image/*">
+                    <img src="" class="w-75 m-3 " id="img1" />
+                </div>
+
+
+            </fieldset>
+
+                <fieldset class="tomatoborder">
+                    <legend class="family">新增產品資訊</legend>
+                    <div class="form-horizontal fieldsettt" onload="pId()">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div class="form-group">
+                            產品編號
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f對外產品識別ID, new { htmlAttributes = new { @class = "form-control", @onfocus = "this.blur();", @id = "txtID" } })
+                                @Html.ValidationMessageFor(model => model.f對外產品識別ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            品牌名稱
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f品牌名稱, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "19" } })
+                                @Html.ValidationMessageFor(model => model.f品牌名稱, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            產品名稱
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f產品名稱, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "25" } })
+                                @Html.ValidationMessageFor(model => model.f產品名稱, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            產品顏色
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f產品顏色, new { htmlAttributes = new { @class = "form-control", required = "required", @maxlength = "25" } })
+                                @Html.ValidationMessageFor(model => model.f產品顏色, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            製造日期
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f製造期限, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.f製造期限, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            有效期限
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f有限期限, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.f有限期限, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            製造批號
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.f製造批號, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.f製造批號, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        庫存數量
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.f庫存數量, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f庫存數量, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        成本價
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.f成本價, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f成本價, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+                        販售數量 / 盒
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.f數量單位, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f數量單位, "", new { @class = "text-danger" })
+                        </div>
+
+                        販售金額
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.f售價, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.f售價, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </fieldset>
+
+
+
+
+
+                <fieldset class="tomatoborder d-flex flex-md-row justify-content-around flex-wrap">
+                    <legend class="family">新增規格</legend>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            近視度數
+                            <div>
+                                <select name="myopia" onchange="myopiaChange()" id="myopia" size="1" class="form-control col-md-6">
+                                    <option>請選擇近視度數</option>
+                                    <option name="0">-0.00</option>
+                                    <option name="100">-1.00</option>
+                                    <option name="125">-1.25</option>
+                                    <option name="150">-1.50</option>
+                                    <option name="175">-1.75</option>
+                                    <option name="200">-2.00</option>
+                                    <option name="225">-2.25</option>
+                                    <option name="250">-2.50</option>
+                                    <option name="275">-2.75</option>
+                                    <option name="300">-3.00</option>
+                                    <option name="325">-3.25</option>
+                                    <option name="350">-3.50</option>
+                                    <option name="375">-3.75</option>
+                                    <option name="400">-4.00</option>
+                                    <option name="425">-4.25</option>
+                                    <option name="450">-4.50</option>
+                                    <option name="475">-4.75</option>
+                                    <option name="500">-5.00</option>
+                                    <option name="525">-5.25</option>
+                                    <option name="550">-5.50</option>
+                                    <option name="575">-5.75</option>
+                                    <option name="600">-6.00</option>
+                                    <option name="650">-6.50</option>
+                                    <option name="700">-7.00</option>
+                                    <option name="750">-7.50</option>
+                                    <option name="800">-8.00</option>
+                                    <option name="850">-8.50</option>
+                                    <option name="900">-9.00</option>
+                                    <option name="950">-9.50</option>
+                                    <option name="1000">-10.00</option>
+                                    <option name="1050">-10.50</option>
+                                    <option name="1100">-11.00</option>
+                                    <option name="1150">-11.50</option>
+                                    <option name="1200">-12.00</option>
+                                    <option name="Other">其它</option>
+                                </select>
+                                <p>
+                                    新增規格:
+                                    <input id=theText value="" class="form-control col-md-6">
+                                    <input id=theValue value="" hidden>
+                                    <input type="button" value="新增" onclick="addOption(myopia, theText.value, theValue.value)" class="btn btn-block">
+                                </p>
+                            </div>
+
+                        </div>
+                        <p id="opia">近視度數 : </p>
+                        <div class="col-md-4" id="div1" hidden>
+                            @*<input type="text" id="txt" />*@
+                            @Html.EditorFor(model => model.f近視老花度數, new { htmlAttributes = new { @class = "form-control", @id = "txt" } })
+                            @*@Html.ValidationMessageFor(model => model.f近視老花度數, "", new { @class = "text-danger" })*@
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            閃光度數
+                            <div>
+                                @*<form name="form1" id="form1">
+                <input type="checkbox" name="chkAst" id="checkbox1" value="-0.75">-0.75
+                <input type="checkbox" name="chkAst" id="checkbox2" value="-1.25">-1.25
+                <input type="checkbox" name="chkAst" id="checkbox3" value="-1.75">-1.75
+                <input type="checkbox" name="chkAst" id="checkbox4" value="-2.25">-2.25
+                <button onclick="javascript:return doOutput()">確認</button>
+                <input type="button" onclick="selAll()" value="全選" />
+                <input type="button" onclick="dselAll()" value="取消選取" />
+            </form>*@
+                                <select name="ast" onchange="astChange()" id="ast" class="form-control">
+                                    <option>請選擇散光度數</option>
+                                    <option>-0.75</option>
+                                    <option>-1.25</option>
+                                    <option>-1.75</option>
+                                    <option>-2.25</option>
+                                    <option>-2.50</option>
+                                    <option>其它</option>
+                                </select>
+                                <p>
+                                    新增規格:
+                                    <input id=theText2 value="" class="form-control">
+                                    <input id=theValue2 value="" hidden class="form-control">
+                                    <input type="button" value="新增" onclick="addOption2(ast, theText2.value, theValue2.value)" class="btn btn-block">
+                                </p>
+                            </div>
+                            <p id="astDis">散光度數 : </p>
+                            <div class="col-md-6" hidden>
+                                @Html.EditorFor(model => model.f閃光度數, new { htmlAttributes = new { @class = "form-control", @id = "txt2" } })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            閃光角度
+                            <div>
+                                <select name="ang" onchange="angChange()" id="ang" class="form-control">
+                                    <option>請選擇散光角度</option>
+                                    <option>10°</option>
+                                    <option>20°</option>
+                                    <option>60°</option>
+                                    <option>90°</option>
+                                    <option>120°</option>
+                                    <option>160°</option>
+                                    <option>170°</option>
+                                    <option>180°</option>
+                                    <option>其它</option>
+                                </select>
+                                <p>
+                                    新增規格:
+                                    <input id=theText3 value="0°" class="form-control">
+                                    <input id=theValue3 value="" hidden>
+                                    <input type="button" value="新增" onclick="addOption3(ang, theText3.value, theValue3.value)" class="btn btn-block">
+                                </p>
+                            </div>
+                            <p id="angDis">散光角度 : </p>
+                            <div class="col-md-3" hidden>
+                                @Html.EditorFor(model => model.f閃光角度, new { htmlAttributes = new { @class = "form-control", @id = "txt3" } })
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p class="family tomatotittle">產品描述</p>
+                            <textarea class="form-control" id="txtb" name="f產品描述" rows="5" cols="40" placeholder="請輸入產品敘述,字數最多100字" maxlength="100"></textarea>
+                            @*@Html.TextAreaFor(model => model.f產品描述, new { htmlAttributes = new { @class = "text-area", @id = "txtb", @cols = "400" } })*@
+                            @Html.ValidationMessageFor(model => model.f產品描述, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-12 col-md-4 mt-5 float-end">
+                                <input type="submit" value="新增" class="btn btn-lg w-100 bg-secondary text-light" />
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+
+
+
+            }
+
+            <div class="mt-5">
+                @*@Html.ActionLink("返回商品管理列表", "MProducts")*@
+                <a href="/CProducts/MProducts" class="btn-link"><i class="bi bi-arrow-return-left"></i>返回商品管理列表</a>
+            </div>
+
+
+
+
+        </div>
+
+
+        @*<div class="col-12 col-md-4">
+
+                <form method="post" action="CProducts/MProductCRUD" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="inputFile" class="mb-5 h4">選擇產品照片</label>
+
+                        <input type="file" class="form-control-file" name="photo" id="fileid" accept="image/*">
+                        <img src="" class="img-thumbnail w-100 " id="img1" />
+                    </div>
+                </form>
+            </div>*@
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

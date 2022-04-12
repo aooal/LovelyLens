@@ -1,13 +1,16 @@
 ﻿@*翔暐*@
 
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<contact.Models.t產品>
 
-@model IEnumerable<contact.Models.t產品>
+@*@model IEnumerable<contact.Models.t產品>*@
 
 @{
-    ViewBag.Title = "MProducts";
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台";
 }
 
-
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 @section styles{
     <style>
 
@@ -49,32 +52,28 @@
 
         /* 錢 */
         .momey::before {
-            content: '價格: ';
+            content: '售價: ';
         }
+
+
+        /* 成本錢 */
+        .costMoney::after {
+            content: ' 元';
+        }
+
+        /* 成本錢 */
+        .costMoney::before {
+            content: '成本: ';
+        }
+
+
+
+
 
         /* 照片降明度 */
         .card img:hover {
             filter: brightness(.5);
         }
-
-        /* 輪播開始 */
-        #lokiSlider img {
-            object-fit: cover;
-            filter: grayscale(50%);
-        }
-
-        #lokiSlider .carousel-caption {
-            text-shadow: #333 0.3rem 0.3rem 0.5rem;
-        }
-
-        #lokiSlider .carousel-indicators > button {
-            border-radius: 50%;
-            height: 15px;
-            width: 15px;
-            border: 10px solid transparent;
-        }
-
-        /* 輪播end */
 
 
 
@@ -155,27 +154,6 @@
                 text-decoration: none;
                 color: #ffffff;
             }
-
-
-
-        /* 分頁 */
-        .pagination .page-item {
-            margin: 0 3px;
-        }
-
-            /* 分頁 */
-            .pagination .page-item .page-link {
-                background-color: #fcbfc1;
-                border: 0;
-                border-radius: 20px;
-                color: rgb(255, 255, 255);
-                font-size: 10px;
-            }
-
-                /* 分頁 */
-                .pagination .page-item .page-link:hover {
-                    background-color: #ee7d7d;
-                }
     </style>
 
 
@@ -189,15 +167,84 @@
 
         function strchange() {
             var mypick = document.getElementById('mpick');
-            var pickValue = mypick.selectedIndex;
+            var pickValue = mypick[mypick.selectedIndex].value;
+            var txt = document.getElementById('txt');
             console.log(pickValue);
+            if (pickValue == "庫存不足商品") {
+                txt.value = "庫存不足商品";
+            } else {
+                txt.value = "";
+            }
+
 
 
         }
+        function backto() {
+            var txt = document.getElementById('txtKeyword');
+            txt.value = "";
+        }
 
-        //function keyWorld() {
 
-        //}
+          //資料庫的售價去小數 慧芬
+        var money = [];
+          @foreach (var item in Model)
+        {
+            @:money.push("@Convert.ToInt32(@item.f售價)");
+        }
+
+        console.log(money);
+        var newmoney = document.querySelectorAll('p.momey');
+
+        for (let index in money)
+        {
+
+            newmoney[index].innerHTML = money[index];
+
+        }
+
+
+         //資料庫的成本價 有可能成本不是整數慧芬
+              var costmoney = [];
+          @foreach (var item in Model)
+        {
+            @:costmoney.push("@Convert.ToDouble(@item.f成本價)");
+        }
+
+        /*console.log(costmoney);*/
+        var newmoney = document.querySelectorAll('p.costMoney');
+
+        for (let index in costmoney)
+        {
+           /* console.log(costmoney[index]);*/
+
+            newmoney[index].innerHTML = costmoney[index];
+
+        }
+
+        //找到0 庫存不足慧芬
+        $('.card-body').find(".card-text").each(function () {
+            let bb = $(this).children('#inven').text();
+            console.log(bb);
+            if (bb*0.8 < 1) {
+                $(this).children('#inven').text(bb+" (庫存不足)").css("color", "red");
+            }
+
+        });
+
+
+
+
+        @*var page = '@ViewBag.page';
+        console.log('page count')
+        console.log(page);*@
+
+        var skipToNext = document.querySelector('.PagedList-skipToPrevious a');
+        skipToNext.textContent = "上一頁";
+        var skipToNext = document.querySelector('.PagedList-skipToNext a');
+        skipToNext.textContent = "下一頁";
+
+
+
     </script>
 
 }
@@ -210,44 +257,53 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 col-md-6">
-            <h1>商品管理</h1>
+            <h2>商品管理</h2>
 
         </div>
+
         <div class="col-12 col-md-6">
             <a href="/CProducts/MProductCRUD" class="btn tomatoaddbtn float-end my-5"><i class="bi bi-file-earmark-plus"></i>新 增 商 品</a>
         </div>
     </div>
 
-    <div class="row my-5 justify-content-start align-items-center">
-        <div class="col-12 col-lg-2  mb-3">
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5 justify-content-start align-items-lg-stretch">
+            <div class="col-12 col-lg-2  mb-3">
 
-            <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
-                <option>選擇搜尋關鍵字</option>
-                <option value="商品名稱" name="商品名稱">商品名稱</option>
-                <option value="商品編號" name="商品編號">商品編號</option>
-                <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
-            </select>
+                <select id="mpick" onchange="strchange()" name="mpick" class="form-select">
+                    <option>選擇搜關鍵字分類</option>
+                    <option value="商品名稱" name="商品名稱">商品名稱</option>
+                    <option value="商品編號" name="商品編號">商品編號</option>
+                    <option value="品牌名稱" name="品牌名稱">品牌名稱</option>
+                    <option value="庫存不足商品" name="庫存不足商品">庫存不足商品</option>
+                </select>
 
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword" class="form-control" value="" id="txt" placeholder="請輸入關鍵字" />
+            </div>
+            <div class="col-4 col-lg-1  mb-3 ">
+                <input type="submit" value="查詢" id="keyWorld" class="tomatoclickbtn" />
+            </div>
+            <div class="col-4 col-md-1  mb-3 ">
+                <input type="submit" value="回產品一覽" class="tomatoclickbtn " onclick="backto()" />
+            </div>
         </div>
-        <div class="col-12 col-lg-2  mb-3">
-            <input type="text" name="" class="form-control" value="" />
-        </div>
-        <div class="col-4 col-lg-1  mb-3 ">
-            <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="btn tomatoclickbtn" />
-        </div>
-    </div>
+    }
+</div>
 
-
-
-    <div class="row align-items-stretch">
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-stretch">
         @foreach (var item in Model)
         {
 
-            <div class="col-12 col-md-6" id="@item.f產品ID">
+            @*<div class="col-12 col-md-6" id="@item.f產品ID">*@
+            <div class="col-12 col-md-6">
                 <div class="card cardtomato mb-5 mx-2 h-80">
                     <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/images/@item.f產品圖片路徑" class="img-fluid   tomato-img" alt="產品圖">
+                        <div class="col-md-4 h-80">
+                            <img src="~/images/@item.f產品圖片路徑" class="w-100  tomato-img" alt="產品圖">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -257,12 +313,20 @@
                                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.f產品名稱)</h5>
                                 <p class="card-text">
                                     <small class="text-muted"> @Html.DisplayFor(modelItem => item.f對外產品識別ID)</small>
+                                    <small class="text-muted">庫存數量 :</small><small id="inven" onload="inven()"> @Html.DisplayFor(modelItem => item.f庫存數量)</small>
+
                                 </p>
-                                <p class="card-text momey">(成本)@Html.DisplayFor(modelItem => item.f成本價)</p>
+                                <p>
+                                    度數 : @Html.DisplayFor(modelItem => item.f近視老花度數) |
+                                    散光度數 : @Html.DisplayFor(modelItem => item.f閃光度數) |
+                                    散光角度 : @Html.DisplayFor(modelItem => item.f閃光角度)
+                                </p>
+                                <p class="card-text costMoney">(成本)@Html.DisplayFor(modelItem => item.f成本價)</p>
                                 <p class="card-text momey">(售價)@Html.DisplayFor(modelItem => item.f售價)</p>
 
                                 <div class="float-end mb-3">
-                                    <a href="/CProducts/Edit/@item.f產品ID" class="btn tomatobtn" id="@item.f產品ID">詳細資訊</a>
+                                    <a href="/CProducts/CopyCreate/@item.f產品ID" class="btn tomatoaddbtn" id="@item.f產品ID">快速新增商品</a>
+                                    <a href="/CProducts/Edit/@item.f產品ID" class="btn tomatobtn">詳細資訊</a>
                                     <a href="/CProducts/Delete/@item.f產品ID" class="btn tomatodangerbtn" onclick="return confirm('是否確定刪除?')"><i class="bi bi-trash"> </i>刪除</a>
                                 </div>
                             </div>
@@ -274,28 +338,17 @@
         }
 
 
-        <!-- 分頁 要用foreach-->
-        <ul class="pagination justify-content-center mt-3">
-            <li class="page-item">
-                <a class="page-link" href="#">上一頁</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">下一頁</a>
-            </li>
-        </ul>
-        <!-- 分頁end 要用foreach-->
+        <script>
+        var page = '@ViewBag.page';
+        console.log('page count')
+        console.log(page);
+        </script>
 
 
 
+
+        @*@Html.PagedListPager(Model,page =>Url.Action("MProduct",new { page}))*@
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("MProducts", "CProducts", new { page, keyword = Request.QueryString["txtKeyword"] }))
 
 
     </div>

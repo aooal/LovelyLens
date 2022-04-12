@@ -1,0 +1,135 @@
+﻿@model IEnumerable<contact.Models.t產品>
+
+@{
+    ViewBag.Title = "MexchangeSupplierCreate";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
+
+<h2>MexchangeSupplierCreate</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.f製造批號)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f店家名稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f品牌名稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f產品名稱)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f近視老花度數)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f閃光度數)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f閃光角度)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f庫存數量)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f數量單位)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f成本價)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f售價)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f製造期限)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f有限期限)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f產品圖片路徑)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f產品描述)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f對外產品識別ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.f產品顏色)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t店家.f店家名稱)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.f製造批號)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f店家名稱)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f品牌名稱)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f產品名稱)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f近視老花度數)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f閃光度數)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f閃光角度)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f庫存數量)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f數量單位)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f成本價)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f售價)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f製造期限)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f有限期限)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f產品圖片路徑)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f產品描述)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f對外產品識別ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.f產品顏色)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.t店家.f店家名稱)
+        </td>
+        <td>
+            @Html.ActionLink("申請換貨", "MexchangingSupplierCreate", new { id=item.f產品ID }) |
+           
+        </td>
+    </tr>
+}
+
+</table>

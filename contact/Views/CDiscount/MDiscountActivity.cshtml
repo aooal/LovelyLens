@@ -1,0 +1,111 @@
+﻿@model IEnumerable<contact.Models.t優惠活動>
+
+@{
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台";
+}
+
+
+@section styles{
+    <style>
+
+        /* 新增按鈕 */
+        .tomatoaddbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #debd85;
+            padding: 5px 10px 5px 10px;
+            border: dotted #ffffff 2px;
+            text-decoration: none;
+        }
+
+            .tomatoaddbtn:hover {
+                background: #ba9458;
+                text-decoration: none;
+                color: #ffffff;
+            }
+    </style>
+
+
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2>活動一覽</h2>
+        </div>
+        <div class="col-12 col-md-6">
+            <a href="/CDiscount/ActivityCreate" class="btn tomatoaddbtn float-end my-5"><i class="bi bi-plus"></i>新增活動</a>
+        </div>
+    </div>
+
+    @*@Html.ActionLink("新增活動", "ActivityCreate")*@
+
+
+    <div class="row align-items-stretch">
+
+        @using (Html.BeginForm())
+        {
+            <div class="row my-5 justify-content-start align-items-baseline text-center">
+                @*<span>關鍵字搜尋</span>*@
+                <div class="col-12 col-md-2  mb-3 ">
+                    <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入活動關鍵字" />
+                </div>
+                <div class="col-4 col-md-1  mb-3 ">
+                    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="tomatoclickbtn " />
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+
+    <div class="row justify-content-center align-content-center">
+        <table class="table border-light text-center justify-content-center align-content-center">
+            <tr>
+                <th></th>
+                <th class="family h3">
+                    活動名稱
+                </th>
+                <th>
+
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td class="col-4 col-md-4 ">
+                        <div>
+                            <img src="~/images/@item.f活動照片路徑" class="w-100   tomato-img">
+                        </div>
+                    </td>
+                    <td class="col-4 col-md-4 ">
+                        <div>
+                            @*@Html.DisplayFor(modelItem => item.f活動名稱)*@
+                            <h4>@item.f活動名稱</h4>
+                        </div>
+                    </td>
+
+                    <td class="col-4 col-md-12  mb-1 d-md-flex flex-wrap">
+                        <div class="col-md-4 col-sm-12  my-3">
+                            @Html.ActionLink("詳情", "ActivityDetail", new { id = item.f優惠活動ID }, new { @class = " tomatobtn" })
+                        </div>
+                        <div class="col-md-4 col-sm-12 my-3">
+                            @Html.ActionLink("修改", "ActivityEdit", new { id = item.f優惠活動ID }, new { @class = " tomatocartbtn" })
+                        </div>
+                        <div class="col-md-4  col-sm-12 my-3">
+                            @Html.ActionLink("刪除", "ActivityDelete", new { id = item.f優惠活動ID }, new { onclick = "return confirm('是否確定刪除?')", @class = " tomatodangerbtn" })
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

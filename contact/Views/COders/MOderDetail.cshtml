@@ -1,4 +1,4 @@
-﻿@model contact.ViewModels.MOderDetailRecord
+﻿@model IEnumerable<contact.ViewModels.MOderDetailRecord>
 
 @{
     ViewBag.Title = "MOderDetail-歷史訂單一覽[權限:盤商]";
@@ -7,175 +7,182 @@
     h1 {
         color: gainsboro;
     }
+
+    .bigtext {
+        font-family: jf-openhuninn;
+        font-size: 2.0rem;
+    }
 </style>
 
-<h1>訂單管理</h1>
-
-訂單日期:@Model.f訂購日期
-訂單單號:@Model.f對外訂單單號
-付款狀態:@Model.f付款狀態
-訂單狀態:@Model.f訂單狀態
-訂單需求:@Model.f訂單需求
-<div>
-    經銷商名稱:@Model.f店家名稱
-    連絡電話:@Model.f店家連絡電話
-    聯絡地址:@Model.f地址
-</div>
-<table class="table">
-    <tr>
-        <th>商品編號</th>
-        <th>商品</th>
-        <th>數量</th>
-        <th>小計</th>
-
-    </tr>
-
-    <tr>
-        <td>
-            @Model.f對外訂單單號
-        </td>
-        <td>
-            @Model.f產品名稱
-        </td>
-        <td>
-            @Model.f訂購數量
-        </td>
-        <td>
-            @Model.f小計
-        </td>
-    </tr>
-
-</table>
-
-總價:@Model.f訂單總金額
-備註:@Model.f訂單備註
-@Html.ActionLink("修改", "", new { id = Model.f對外產品識別ID })
-<form>
-    <label>商品名稱:</label>
-    <input type="text" />
-    <label>單價:</label>
-    <input type="text" />
-    <label>數量:</label>
-    <input type="number" />
-    <input type="submit" value="確認修改" />
-</form>
-@Html.ActionLink("前往出貨管理", "Mshipping", new { })
-@Html.ActionLink("刪除此訂單", "MOderDetailDelete", new { id = Model.f對外訂單單號 })
-
-
-
-@*版型從這裡開始*@
-
-<!--
 
 <div class="container-fluid mt-1 p-5">
-    <h2 class="mb-5">訂單詳情</h2>
+    <h2 class="mb-5">訂單詳情管理</h2>
 
+    @{ var aItem = Model.FirstOrDefault();}
 
-    <div class="row justify-content-between">
-        <div class="col-4">
-            訂單單號：123456798
+    <div class="col-12 col-md-12 d-flex flex-wrap justify-content-between " style="word-break:break-all">
+        <div class="col-7 col-md-7 bigtext">
+            訂單單號:@aItem.f對外訂單單號<br>
         </div>
-        <div class="col-4">
-            訂單日期：2021.02.25
-        </div>-->
-        <!-- 下面如果不包在<div class="row"></div> 就會變成滿版色塊 -->
-        <!--<div class="row align-items-center">
-
-            <div class="col-4 ">
-
-                <label>
-                    訂單狀態：未出貨
-                </label><br>
-                <label>
-                    付款狀態：信用卡已付款
-                </label><br>
-                <label>訂單需求：客需/補庫存</label>
-
-
-            </div>
-
-            <div class="col-4 ">
-
-                <div class=" pl-3 border border-primary rounded ">
-
-                    <label>經銷商：***</label></br>
-                    <label>電話：</label><p class="d-inline">09123456789</p></br>
-                    <label>地址：</label><p class="d-inline">台南市巴拉巴拉拉拉拉拉拉拉</p>
-                </div>
-            </div>
-
-
-            <div class="col-4">
-
-            </div>
+        <div class="col-5 col-md-5  bigtext">
+            訂單日期:@aItem.f訂購日期<br>
         </div>
+        <hr />
+    </div>
+    <hr />
+    <div class="col-4 family m-5">
+        付款狀態:@aItem.f付款狀態<br />
+        出貨狀態:@aItem.f配送狀態<br />
+        訂單需求:@aItem.f訂單需求
+    </div>
+    <div class=" row col-4 family m-5 pl-3 border border-warning rounded ">
+        經銷商名稱:@aItem.f店家名稱<br />
+        連絡電話:@aItem.f店家連絡電話<br />
+        聯絡地址:@aItem.f地址
+    </div>
+
+
+</div>
+
+
+<div class="container-fluid">
+    <table class="table ordertable col-12 col-md-10" style="table-layout:fixed;word-break:break-all">
+        <tr>
+
+            <th>商品名稱</th>
+            <th>顏色</th>
+            <th>數量</th>
+            <th>商品編號</th>
+            <th>近視老花度數</th>
+            <th>散光度數</th>
+            <th>散光角度</th>
+            <th>小計</th>
+            <th></th>
+        </tr>
+        @{
+            foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>
+                        @item.f產品名稱
+                    </td>
+                    <td>
+                        @item.f產品顏色
+                    </td>
+                    <td>
+                        @item.f訂購數量
+                    </td>
+
+                    <td>@item.f對外產品識別ID</td>
+                    <td>@item.f近視老花度數</td>
+                    <td>@item.f閃光度數</td>
+                    <td>@item.f閃光角度</td>
+                    <td>
+                        @Convert.ToDouble(@item.f小計) 元
+                    </td>
+
+                    <td>
+                        @if (item.f可換貨)
+                        {
+                        }
+                        else
+                        {
+                            @:庫存不足
+                        }
+
+                    </td>
+                </tr>
+
+
+
+            }
+
+
+
+            @*if (Model.Where(m => m.f可換貨 == false).Count() > 0)
+            {
+
+                @Html.ActionLink("取消此單", "MOderDetailDelete", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" });
+                @Html.ActionLink("輸入取消原因", "MOderUpdate", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatocartbtn" });
+            }
+            else
+            {
+                @Html.ActionLink("取消此單", "MOderDetailDelete", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" });
+                @Html.ActionLink("前往出貨管理", "Mshipping", new { }, new { @class = "tomatocartbtn" });
+            }*@
+        }
+    </table>
+</div>
+
+
+<div class="row justify-content-end family" style="font-size:1.5rem">
+
+    總價:@Convert.ToDouble(@aItem.f訂單總金額) 元
+</div>
+<div class="mb-5" style="font-family:jf-openhuninn; font-size:1.3rem">
+    訂單備註:@aItem.f訂單備註
+</div>
+
+
+<div class="row">
+    <div class="offset-md-10 col-md-3 offset-6 col-6">
+        @{
+            if (Model.Where(m => m.f可換貨 == false).Count() > 0)
+            {
+
+                @Html.ActionLink("取消此單", "MOderDetailDelete", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" });
+
+                @Html.ActionLink("輸入取消原因", "MOderUpdate", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatocartbtn" });
+            }
+            else
+            {
+                @Html.ActionLink("取消此單", "MOderDetailDelete", new { dId = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" });
+                @Html.ActionLink("前往出貨管理", "Mshipping", new { }, new { @class = "tomatocartbtn" });
+            }
+        }
     </div>
 </div>
 
 
 
-<div class="container-fluid mt-3 p-5">
-    <table class="table  table-hover">
-        <thead>
-            <tr>
-                <th scope="col">序號</th>
-                <th scope="col">商品編號</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">數量</th>
-                <th scope="col">小計</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>1234567890123456</td>
-                <td>我是商品我的顏色我幾度</td>
-                <td>12345</td>
-                <td>12345656748元</td>
-            </tr>
-
-            <tr>
-                <th scope="row" colspan="3"></th>
-                <td class="bg-info text-light text-center">訂單總額</td>
-                <td>12345656748元</td>
-            </tr>
-        </tbody>
-
-    </table>
-
-    <button type="button" class="btn btn-outline-dark btn-sm float-right mt-3">再買一次</button>
-</div>
-
 @section scripts{
-    <script></script>
+    <script>
 
-}-->
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".ordertable tr:odd").addClass("orderodd");
+            $(".ordertable tr:even").addClass("ordereven");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".ordertable tr").hover(
+                function () {
+                    $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+            //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+            $('.ordertable tbody').find("tr").each(function () {
+                let bb = $(this).children('td:eq(3)').text();
+                console.log(bb);
+                if (bb == '未出貨') {
+                    $(this).children('td:eq(3)').css("color", "red");
+                }
+
+            });
 
 
 
 
+        });
+    </script>
+
+}
 
 
 

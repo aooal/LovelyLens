@@ -14,11 +14,21 @@ namespace contact.Models
     
     public partial class t訂單明細
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public t訂單明細()
+        {
+            this.t換貨 = new HashSet<t換貨>();
+        }
+    
         public int f訂單明細ID { get; set; }
         public Nullable<int> f訂單單號ID { get; set; }
         public Nullable<int> f產品ID { get; set; }
         public Nullable<int> f訂購數量 { get; set; }
         public Nullable<decimal> f單價 { get; set; }
         public Nullable<decimal> f折扣 { get; set; }
+    
+        public virtual t訂單 t訂單 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<t換貨> t換貨 { get; set; }
     }
 }

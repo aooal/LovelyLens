@@ -1,47 +1,148 @@
-﻿@model contact.ViewModels.MOderDetailRecord
+﻿@model IEnumerable<contact.ViewModels.MOderDetailRecord>
 @{
     ViewBag.Title = "COderDetail-經銷商：歷史訂單詳情";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
 }
 
 <style>
     h1 {
         color: gainsboro;
     }
+
+    .bigtext {
+        font-family: jf-openhuninn;
+        font-size: 2.0rem;
+    }
 </style>
 
-<h1>經銷商：歷史訂單詳情</h1>
+<div class="container-fluid mt-1 p-5">
+    <h2 class="mb-5">經銷商：歷史訂單詳情</h2>
+    @{ var aItem = Model.FirstOrDefault(); }
+    <div class="col-12 col-md-12 d-flex flex-wrap justify-content-between " style="word-break:break-all">
+        <div class="col-7 col-md-7 bigtext">
+            訂單單號:@aItem.f對外訂單單號<br>
+        </div>
+        <div class="col-4 col-md-4  bigtext">
+            訂單日期:@aItem.f訂購日期<br>
+        </div>
 
-訂單日期:@Model.f訂購日期
-訂單單號:@Model.f對外訂單單號
-訂單狀態:@Model.f訂單狀態
-付款狀態:@Model.f付款狀態
-<table class="table">
-    <tr>
-        <th>商品編號</th>
-        <th>商品名稱</th>
-        <th>數量</th>
-        <th>小計</th>
-        <th></th>
-    </tr>
-    <tr>
-        <td>
-            @Model.f對外產品識別ID
-        </td>
-        <td>
-            @Model.f產品名稱
-        </td>
-        <td>
-            @Model.f訂購數量
-        </td>
-        <td>
-            @Model.f小計
-        </td>
-        <td>
-            @Html.ActionLink("重新訂購", "", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("出貨管理", "Mshipping", new { id = Model.f對外訂單單號 }) |
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-6  col-md-6 family">
+            訂單狀態:@aItem.f訂單狀態<br>
+            付款狀態:@aItem.f付款狀態
 
-        </td>
-    </tr>
-</table>
-總價:@Model.f訂單總金額
-備註:@Model.f訂單備註
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container-fluid vh-100">
+
+    <table class="table tomatotable col-12 col-md-12" style="table-layout:fixed;word-break:break-all">
+        <tr>
+            <th  class="col-md col">商品編號</th>
+            <th  class="col-md col">商品名稱</th>
+            <th  class="col-md col">數量</th>
+            <th  class="col-md col">顏色</th>
+            <th  class="col-md-2 col">近視老花度數</th>
+            <th  class="col-md col">散光度數</th>
+            <th  class="col-md col">散光角度</th>
+            <th  class="col-md col">小計</th>
+            <th class="col-md-2 col-4"></th>
+        </tr>
+        @{
+
+            foreach (var item in Model)
+            {
+                <input type="hidden" name="f品牌名稱" value="@item.f品牌名稱" />
+                <input type="hidden" name="f近視老花度數" value="@item.f近視老花度數" />
+                <input type="hidden" name="f閃光度數" value="@item.f閃光度數" />
+                <input type="hidden" name="f閃光角度" value="@item.f閃光角度" />
+                <input type="hidden" name="f售價" value="@item.f售價" />
+                <tr>
+                    <td>
+                        @item.f對外產品識別ID
+                    </td>
+                    <td>
+                        @item.f產品名稱
+                    </td>
+                    <td>
+                        @item.f訂購數量
+                    </td>
+                    <td>
+                        @item.f產品顏色
+                    </td>
+                    <td>
+                        @item.f近視老花度數
+                    </td>
+                    <td>
+                        @item.f閃光度數
+                    </td>
+                    <td>
+                        @item.f閃光角度
+                    </td>
+                    <td>
+                        @Convert.ToDouble(item.f小計) 元
+
+                    </td>
+                    <td >
+                        @{
+                            if (aItem.f訂單狀態.ToString() != "未完成")
+                            {
+                                @Html.ActionLink("換貨申請", "Cexchangecreate", new { id = aItem.f對外訂單單號, pid = aItem.f對外產品識別ID }, new { @class = "tomatocartbtn" }) }
+                            else
+                            {
+
+                            }
+                        }
+
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+
+
+    <div class="row justify-content-end family" style="font-size:1.5rem">
+        總價：@Convert.ToDouble(aItem.f訂單總金額) 元
+        @*總價：@aItem.f訂單總金額 元*@
+    </div>
+    <div class="mb-5" style="font-family:jf-openhuninn; font-size:1.3rem">
+        備註：@aItem.f訂單備註
+    </div>
+    <div>
+
+        @Html.ActionLink("取消訂單", "COderDetailDelete", new { id = aItem.f對外訂單單號 }, new { @class = "tomatodangerbtn" })
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        /*這裡是表單HOVER*/
+        $(function () {
+
+            $(".tomatotable tr:odd").addClass("odd");
+            $(".tomatotable tr:even").addClass("even");
+
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".tomatotable tr").hover(
+                function () {
+                    $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("enter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
+
+        });
+        /*這裡是表單HOVER end*/
+
+    </script>
+
+}

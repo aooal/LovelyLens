@@ -1,0 +1,37 @@
+﻿
+@model IEnumerable<contact.ViewModels.MOderDetailRecord>
+@{
+    ViewBag.Title = "MOderUpdate";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+}
+
+
+
+
+<table class="table ordertable col-12 col-md-12 " style="table-layout:fixed;word-break:break-all">
+    <tr>
+        <th>對外訂單單號</th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.f對外訂單單號)
+            </td>
+
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm())
+{
+
+    <div>
+        <p>請輸入訂單取消原因：</p>
+        <textarea name="f訂單備註"></textarea>
+        <input type="submit" value="送出" class="tomatoclickbtn">
+    </div>
+
+}

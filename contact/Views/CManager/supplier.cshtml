@@ -1,60 +1,284 @@
 ﻿@model IEnumerable<contact.Models.t店家>
 
 @{
-    ViewBag.Title = "supplier";
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台";
 }
 
-<h2>供應商紀錄與維護</h2>
-@using (Html.BeginForm())
-{
+@section styles{
+
+    <style>
+        .tomatotable {
+            font-size: 1.4rem;
+            color: #666;
+        }
+
+        tr {
+            border-bottom: 2px solid pink;
+        }
+
+        th {
+            font-size: 1.5rem;
+            color: #666666;
+        }
+        /*td{padding: 20px;} */
+
+
+        /*表單CSS*/
+        .tomatotable th, .tomatotable td {
+            text-align: center;
+        }
+
+        .odd {
+            background-color: rgb(238 182 182 / 0.31);
+        }
+
+        .even {
+            background-color: #F8F8F8;
+        }
+
+        .enter {
+            background-color: #d6b6c3;
+            transition-property: background-color color;
+            transition-duration: 1s;
+        }
+        /*表單CSS end*/
+
+
+        /* 搜尋 方型BTN */
+        .tomatoclickbtn {
+            -webkit-box-shadow: 0px 1px 3px #666666;
+            -moz-box-shadow: 0px 1px 3px #666666;
+            box-shadow: 0px 1px 3px #666666;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #ff8a8a;
+            padding: 5px 10px 5px 10px;
+            border: double #ffffff 4px;
+            text-decoration: none;
+        }
+
+            .tomatoclickbtn:hover {
+                background: #eb6767;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+
+
+
+        /* 詳情按鈕     */
+        .tomatobtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #d6b6c3;
+            padding: 5px 10px 5px 10px;
+            border: dotted #fafafa 2px;
+            text-decoration: none;
+        }
+
+            .tomatobtn:hover {
+                background: #d6b6c3;
+                background-image: -webkit-linear-gradient(top, #d6b6c3, #f0a3c6);
+                background-image: -moz-linear-gradient(top, #d6b6c3, #f0a3c6);
+                background-image: linear-gradient(to bottom, #d6b6c3, #f0a3c6);
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        /* 刪除按鈕 */
+        .tomatodangerbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #f0b0aa;
+            font-size: 18px;
+            background: #e8546f;
+            padding: 5px 10px 5px 10px;
+            border: dotted #e6e6e6 2px;
+            text-decoration: none;
+        }
+
+            .tomatodangerbtn:hover {
+                background: #a12747;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+        /* 新增按鈕 */
+        .tomatoaddbtn {
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            background: #debd85;
+            padding: 5px 10px 5px 10px;
+            border: dotted #ffffff 2px;
+            text-decoration: none;
+        }
+
+            .tomatoaddbtn:hover {
+                background: #ba9458;
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+
+
+        /* .btn:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgb(255 87 87 / 0.5);
+        }*/
+    </style>
+
+}
+
+
+
+@section scripts{
     <script>
         var strr = "";
 
-        
 
-    </script>
-    <span>經銷商名稱</span>
-    <input type="text" name="txtKeyword" />
-    <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+        /*這裡是表單HOVER*/
+        $(function () {
 
-}
-<p>
-    @Html.ActionLink("新增供應商", "SupCreate")
-</p>
-<table class="table">
-    <tr>
-        <th style="text-align:center">
-            供應商名稱
-            @*@Html.DisplayNameFor(model => model.f店家名稱)*@
-        </th>
+            $(".tomatotable tr:odd").addClass("odd");
+            $(".tomatotable tr:even").addClass("even");
 
-        <th></th>
-    </tr>
+            // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+            $(".tomatotable tr").hover(
+                function () {
+                    $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
+                },
+                function () {
+                    $(this).removeClass("enter"); // 觸發 mouseleave 事件 移除 css
+                }
+            );
 
-    @{
-        
-        foreach (var item in Model)
-        {
-            
-            <tr>
-
-               
-                <td hidden>
-                    @Html.DisplayFor(modelItem => item.f身分別)
-                </td>
-
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.f店家名稱)
-                </td>
-                
-
-                <td>
-                    @Html.ActionLink("詳細資訊", "SupEdit", new { id = item.f店家ID }) |
-                    @Html.ActionLink("刪除", "SupDelete", "CManager", new { id = item.f店家ID }, new { onclick = "return confirm('是否確定刪除?')" }))
-                </td>
-            </tr>
+        });
+        /*這裡是表單HOVER end*/
+        function backto() {
+            var txt = document.getElementById('txtKeyword');
+            txt.value = "";
         }
+    </script>
+}
+
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2>供應商管理</h2>
+
+        </div>
+        <div class="col-12 col-md-6">
+            <a href="/CManager/SupCreate" class="btn tomatoaddbtn float-end my-5">
+                <i class="bi bi-plus"></i>新增供應商
+            </a>
+        </div>
+
+    </div>
+
+
+    @*@Html.ActionLink("新增供應商", "SupCreate")*@
+
+
+    @*<div class="col-12 col-md-6">
+
+            @using (Html.BeginForm())
+            {
+                <span>經銷商名稱</span>
+                <input type="text" name="txtKeyword" />
+                <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" />
+
+            }
+        </div>*@
+
+
+
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5 justify-content-start align-items-baseline text-center">
+
+            @*<div class="col-12 col-md-1  mb-3 bg-info">
+                    <span class="family " style="font-size:1.2rem;">供應商</span>
+                </div>*@
+
+            <div class="col-12 col-md-2  mb-3 ">
+                <input type="text" name="txtKeyword" class="form-control" placeholder="請輸入供應商名稱" />
+            </div>
+
+            <div class="col-4 col-md-1  mb-3 ">
+
+                <input type="submit" value="查詢" onclick="keyWorld()" id="keyWorld" class="tomatoclickbtn " />
+            </div>
+            <div class="col-4 col-md-1  mb-3 ">
+                <input type="submit" value="返回" class="tomatoclickbtn " onclick="backto()" />
+            </div>
+        </div>
+
     }
 
 
-</table>
+
+
+
+
+
+    <div class="row justify-content-center">
+
+        <table class="col-12 col-md-10 table tomatotable ">
+            <tr>
+                <th style="text-align:center">
+                    供應商名稱
+                    @*@Html.DisplayNameFor(model => model.f店家名稱)*@
+                </th>
+
+                <th></th>
+            </tr>
+
+            @{
+
+                foreach (var item in Model)
+                {
+
+                    <tr>
+
+
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.f身分別)
+                        </td>
+
+                        <td style="text-align: center">
+                            @Html.DisplayFor(modelItem => item.f店家名稱)
+                        </td>
+
+
+                        <td>
+                            @*@Html.ActionLink("詳細資訊", "SupEdit", new { id = item.f店家ID }) |*@
+                            @*@Html.ActionLink("刪除", "SupDelete", "CManager", new { id = item.f店家ID }, new { onclick = "return confirm('是否確定刪除?')" }))*@
+                            <a href="/CManager/SupEdit/@item.f店家ID" class="btn tomatobtn me-3" id="@item.f店家ID">詳細資訊</a>
+                            <a href="/CManager/SupDelete/@item.f店家ID" onclick="return confirm('是否確定刪除?')" class=" btn tomatodangerbtn"><i class="bi bi-trash"></i>刪除</a>
+
+                        </td>
+                    </tr>
+                }
+            }
+
+
+        </table>
+
+
+    </div>
+</div>

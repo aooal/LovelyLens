@@ -1,79 +1,135 @@
 ﻿@model IEnumerable<contact.Models.t訂單>
-@*@model IEnumerable<contact.ViewModels.MOderDetailRecord>*@
 
 @{
-    ViewBag.Title = "COderDetail-經銷商：歷史訂單一覽";
+    ViewBag.Title = "隱形眼鏡B2B交易系統平台";
+    Layout = "~/Views/Shared/_Layoutsale.cshtml";
+
 }
 
 <style>
-    h1 {
-        color: gainsboro;
+    .tomatotable {
+        font-size: 1.4rem;
+        color: #666;
     }
+
+    tr {
+        border-bottom: 2px solid pink;
+    }
+
+    th {
+        font-size: 1.5rem;
+        color: #666666;
+    }
+    /*表單CSS*/
+    .tomatotable th, .tomatotable td {
+        text-align: center;
+    }
+
+    .odd {
+        background-color: rgb(238 182 182 / 0.31);
+    }
+
+    .even {
+        background-color: #F8F8F8;
+    }
+
+    .enter {
+        background-color: #d6b6c3;
+        transition-property: background-color color;
+        transition-duration: 1s;
+    }
+    /*表單CSS end*/
 </style>
 
-<h1>經銷商：歷史訂單一覽</h1>
-
-@using (Html.BeginForm())
-{
-    <p>
-        關鍵字搜尋
-        <select name="choose">
-            <option value="customer">店家名稱</option>
-            <option value="order">訂單單號</option>
-            <option value="tel">電話</option>
-        </select>
-
-        <input type="text" name="txtKeyword">
-        <input type="submit" value="查詢">
-    </p>
-}
-<p>@ViewBag.data</p>
-
-<table class="table">
-    <tr>
-        <th>
-            下單日期
-        </th>
-        <th>
-            訂單單號
-        </th>
-
-        <th>
-            訂單總價
-        </th>
 
 
-        <th>
-            配送狀態
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid mt-3 p-5 vh-100">
+    <h2>歷史訂單一覽</h2>
 
-    @foreach (var item in Model)
+    @using (Html.BeginForm())
     {
+        <div class="row my-5">
+            <div class="col-12 col-lg-2 mb-3">
 
-        <tr>
-            <td>
-                @item.f訂購日期
-            </td>
-            <td>
-                @item.f對外訂單單號
-            </td>
-            <td>
-                @item.f訂單總金額
-            </td>
+                <select name="choose" class="form-select ">
+                    <option value="order" name="order">訂單單號</option>
+                    <option>訂購日期</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword" class="form-control">
+            </div>
+            <div class="col-12 col-lg-1  mb-3">
+                <input type="submit" value="查詢" class=" tomatoclickbtn ">
+            </div>
 
+        </div>
 
-            <td>
-                @item.f配送狀態
-            </td>
-
-            <td>
-                @Html.ActionLink("詳細資料", "COderDetail", new { id = item.f對外訂單單號 })
-                @Html.ActionLink("重新訂購", "Details", new { /* id=item.PrimaryKey */ }) |
-
-            </td>
-        </tr>
     }
 
-</table>
+    @*<p>@ViewBag.data</p>*@
+    <div class="row justify-content-center table-responsive-md">
+        <table class="table tomatotable col-12 col-md-12 " style="table-layout:fixed;word-break:break-all">
+            <tr>
+
+                <th class="col-md-2 col">下單日期</th>
+                <th class="col-md-2 col">訂單單號</th>
+                <th class="col-md-2 col">訂單總價</th>
+                <th class="col-md-2 col">配送狀態</th>
+                <th class="col-md-2 col">訂單狀態</th>
+                <th class="col-md-2 col-4"></th>
+            </tr>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.f訂購日期</td>
+                        <td>@item.f對外訂單單號</td>
+                        <td>@Convert.ToDouble(@item.f訂單總金額)元</td>
+                        <td>@item.f配送狀態</td>
+                        <td>@item.f訂單狀態</td>
+                        <td>
+                            @Html.ActionLink("詳情", "COderDetail", new { id = item.f對外訂單單號 }, new { @class = "tomatobtn"})
+                            @Html.ActionLink("重新訂購", "reOrder", new { id = item.f訂單單號ID }, new { @class = "tomatodangerbtn", onclick = "return (confirm('成功導回購物車'))" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+
+</div>
+
+
+
+    @section scripts{
+        <script>
+            /*這裡是表單HOVER*/
+            $(function () {
+
+                $(".tomatotable tr:odd").addClass("odd");
+                $(".tomatotable tr:even").addClass("even");
+
+                // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+                $(".tomatotable tr").hover(
+                    function () {
+                        $(this).addClass("enter"); // 觸發 mouseenter 事件 新增 css
+                    },
+                    function () {
+                        $(this).removeClass("enter"); // 觸發 mouseleave 事件 移除 css
+                    }
+                );
+
+            });
+        /*這裡是表單HOVER end*/
+
+
+
+        </script>
+
+
+
+    }

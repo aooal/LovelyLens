@@ -1,54 +1,108 @@
 ﻿@*宣告整個頁面必須帶入model這個類型*@
 @model List<contact.ViewModels.CexchangeRecord>
 @{
-    ViewBag.Title = "Cexchange-換貨--經銷商換貨申請";
+    ViewBag.Title = "Mexchange-盤商換貨管理";
 }
 
-<style>
-    h1 {
-        color: gainsboro;
-    }
-</style>
 
+@section styles{
 
-<h1>換貨管理</h1>
-<h4>[權限]盤商：經銷商換貨申請</h4>
-@using (Html.BeginForm())
-{
-    <p>
-        關鍵字搜尋
-        <select name="choose">
-            <option value="customer">店家名稱</option>
-            <option value="order">訂單單號</option>
-            @*<option>訂單日期</option>*@
-            <option value="tel">電話</option>
-        </select>
-        <input type="text" name="txtKeyword">
-        <input type="submit" value="查詢">
-    </p>
-    @ViewBag.data
-}
-<table class="table">
-    <tr>
-        <th>申請日期</th>
-        <th>換貨單號</th>
-        <th>經銷商名稱</th>
-        <th>狀態</th>
-    </tr>
-    @{
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.f申請日期</td>
-                <td>@item.f對外訂單單號</td>
-                <td>@item.f店家名稱</td>
-                <td>@item.f換貨申請狀態</td>
-                <td>
-                    @Html.ActionLink("查看詳情", "MexchangeDetail", new { id = item.f對外訂單單號 }) |
-                </td>
-            </tr>
+    <style>
+        h1 {
+            color: gainsboro;
         }
+    </style>
+}
+
+<div class="container-fluid mt-3 p-5">
+    <h1>售後服務申請單歷史一覽</h1>
+    
+
+    @using (Html.BeginForm())
+    {
+        <div class="row my-5">
+            <div class="col-12 col-lg-2 mb-3">
+                <select name="choose" class="form-select ">
+                    <option value="customer">店家名稱</option>
+                    <option value="order">售後服務申請對外單號</option>
+                    <option value="date">訂單日期</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2  mb-3">
+                <input type="text" name="txtKeyword" class="form-control">
+            </div>
+            <div class="col-12 col-lg-1  mb-3">
+                <input type="submit" value="查詢" class=" tomatoclickbtn">
+            </div>
+        </div>
+        @ViewBag.data
     }
 
+    <table class="table ordertable col-12 col-md-10">
+        <tr>
+            <th>申請日期</th>
+            <th>售後服務申請單號</th>
+            <th>申請人</th>
+            <th>售後服務申請狀態</th>
+            <th>售服申請單備註</th>
+            <th></th>
 
-</table>
+        </tr>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.f申請日期</td>
+                    <td>@item.f售後服務申請對外Id</td>
+                    <td>@item.f換貨申請人</td>
+                    <td>@item.f換貨申請狀態</td>
+                    <td>@item.f換貨備註</td>
+
+                    <td>
+                        @Html.ActionLink("查看詳情", "MexchangeDetail", new { id = item.f售後服務申請對外Id }, new { @class = "tomatoaddbtn" })
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+
+</div>
+
+        @section scripts{
+            <script>
+                /*這裡是表單HOVER*/
+                $(function () {
+
+                    $(".ordertable tr:odd").addClass("orderodd");
+                    $(".ordertable tr:even").addClass("ordereven");
+
+                    // 為 class 等於 tomato 的 table元件 的 每一個 row  附加 mouseenter 和 mouseout 事件
+                    $(".ordertable tr").hover(
+                        function () {
+                            $(this).addClass("orderenter"); // 觸發 mouseenter 事件 新增 css
+                        },
+                        function () {
+                            $(this).removeClass("orderenter"); // 觸發 mouseleave 事件 移除 css
+                        }
+                    );
+
+                    //找到未出貨變色https://blog.csdn.net/qq_42469759/article/details/109183193
+                    $('.ordertable tbody').find("tr").each(function () {
+                        let bb = $(this).children('td:eq(4)').text();
+                        console.log(bb);
+                        if (bb == '未出貨') {
+                            $(this).children('td:eq(4)').css("color", "red");
+                        }
+
+                    });
+
+
+
+                });
+
+            </script>
+
+        }
+
+     
