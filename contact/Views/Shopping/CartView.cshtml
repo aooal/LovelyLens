@@ -83,8 +83,17 @@
         function sumprice(domId) {
             var sum = document.getElementById('sumt'+domId);
             var count = document.getElementById('count'+domId);
-            var myprice = document.getElementById('myprice'+domId);
+            var myprice = document.getElementById('myprice' + domId);
             sum.value = count.value * myprice.value;
+            let total = 0;
+            document.querySelectorAll('.sumId').forEach(el => total += parseInt(el.value))
+
+
+            var money = document.getElementById('money')
+
+
+
+            money.innerHTML = total;
 
         }
 
@@ -151,7 +160,7 @@
 
                         <td><input type="text" value="@Html.DisplayFor(modelItem => item.單價)" onfocus="blur()" id="@myPriceId" /></td>
 
-                        <td><input type="text" value="@Html.DisplayFor(modelItem => item.小計)" onfocus="this.blur()" id="@sumId" /></td>
+                        <td><input type="text" value="@Html.DisplayFor(modelItem => item.小計)" onfocus="this.blur()" id="@sumId" class="sumId" /></td>
 
                         <td>@Html.DisplayFor(modelItem => item.可訂購數量)</td>
 
@@ -189,6 +198,7 @@
             <a class="btn tomatobtn " href="/Shopping/List/">繼續購物</a>
         </div>
     </div>
+
 
 
     <div class="offset-md-10 col-md-2 col-12 mt-5 ">
